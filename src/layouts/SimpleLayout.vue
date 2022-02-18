@@ -7,15 +7,17 @@
 <script>
 export default {
   mounted() {
-    const recaptchaScript = document.createElement('script')
+    const script = document.createElement('script')
 
-    recaptchaScript.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
-    document.head.appendChild(recaptchaScript)
+    script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
+    document.head.appendChild(script)
 
-    window.BX24.init(() => {
-      const initDate = window.BX24.getAuth()
+    script.addEventListener('load', () => {
+      window.BX24.init(() => {
+        const initDate = window.BX24.getAuth()
 
-      console.log('initDate: ', initDate)
+        console.log('initDate: ', initDate)
+      })
     })
   }
 }
