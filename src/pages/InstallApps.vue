@@ -63,11 +63,6 @@ export default {
     ],
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
-  mounted() {
-    window.BX24.init(() => {
-      console.log('Инициализация завершена!', window.BX24.isAdmin())
-    })
-  },
   methods: {
     installApp(app) {
       try {
