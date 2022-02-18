@@ -65,12 +65,17 @@ export default {
   }),
   methods: {
     installApp(app) {
-      window.BX24.callMethod('placement.bind', {
-        PLACEMENT: app.placement,
-        HANDLER: `https://bitrix-external-app.medeqstars.com${app.handler}`,
-        TITLE: app.buttonLabel,
-        DESCRIPTION: app.description
-      })
+      try {
+        window.BX24.callMethod('placement.bind', {
+          PLACEMENT: app.placement,
+          HANDLER: `https://bitrix-external-app.medeqstars.com${app.handler}`,
+          TITLE: app.buttonLabel,
+          DESCRIPTION: app.description
+        })
+      }
+      catch (e) {
+        console.log(e)
+      }
     },
     deleteApp(app) {
       console.log(app)
