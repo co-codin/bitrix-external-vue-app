@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Создание подзадач закупщиком" />
     <p>Добавьте подзадачи и заполните обязательные поля.</p>
-    <v-form>
+    <v-form @submit.prevent="createTasks">
       <v-expansion-panels multiple>
         <v-expansion-panel v-for="(task, index) in tasks" :key="index">
           <v-expansion-panel-header class="title">
@@ -87,6 +87,9 @@ export default {
     },
     getTaskTypeLabel(type) {
       return this.taskTypes.find((task) => task.value === type)?.text
+    },
+    createTasks() {
+      alert('Не так быстро...')
     }
   }
 }
