@@ -199,6 +199,9 @@
 
 <script>
 export default {
-  layout: 'simple'
+  layout: 'simple',
+  mounted() {
+    console.log(this.$route.query)
+  }
 }
 </script>
