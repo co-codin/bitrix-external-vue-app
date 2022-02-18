@@ -12,13 +12,9 @@ export default {
     script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
     document.head.appendChild(script)
 
-    script.addEventListener('load', () => {
-      window.BX24.init(() => {
-        const initDate = window.BX24.getAuth()
-
-        console.log('initDate: ', initDate)
-      })
-    })
+    // script.addEventListener('load', () => {
+    //   window.BX24?.init()
+    // })
   }
 }
 </script>

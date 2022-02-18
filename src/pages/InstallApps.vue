@@ -59,6 +59,16 @@ export default {
     ],
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
+  created() {
+    window.BX24.callMethod('user.get', { ID: 126 }, (res) => {
+      if (res.data()) {
+        const user = res.data()?.[0]
+
+        if (user)
+          alert('Пользователя №' + user?.ID + ' зовут ' + user?.NAME)
+      }
+    })
+  },
   methods: {
     installApp(app) {
       console.log(app)
