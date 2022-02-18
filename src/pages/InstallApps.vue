@@ -65,7 +65,6 @@ export default {
   }),
   methods: {
     installApp(app) {
-      console.log(window.BX24?.placement?.info())
       try {
         window.BX24.callMethod('placement.bind', {
           PLACEMENT: app.placement,

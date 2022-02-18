@@ -128,6 +128,7 @@ export default {
     tasks: []
   }),
   mounted() {
+    console.log(window.BX24?.placement?.info())
     console.log(this.$route.query)
   },
   methods: {
