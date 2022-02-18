@@ -1,6 +1,9 @@
 <template>
   <div>
     <page-header h1="Создание подзадач закупщиком" :show-home-link="false" />
+    <v-alert dense outlined type="info">
+      Перед созданием подзадач, загрузите документы к базовой задаче во вкладке "Документы"
+    </v-alert>
     <v-form @submit.prevent="createTasks">
       <v-expansion-panels multiple>
         <v-expansion-panel v-for="(task, index) in tasks" :key="index">
