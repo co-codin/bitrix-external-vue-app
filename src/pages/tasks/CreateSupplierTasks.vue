@@ -128,13 +128,14 @@ export default {
     tasks: []
   }),
   mounted() {
-    console.log(window.BX24)
-    console.log(window.BX24?.placement)
-    console.log(window.BX24?.placement?.info())
     console.log(this.$route.query)
   },
   methods: {
     addTask() {
+
+      console.log(window.BX24)
+      console.log(window.BX24?.placement)
+      console.log(window.BX24?.placement?.info())
       this.tasks.push({
         type: null, // тип задачи
         bill: null, // счет
