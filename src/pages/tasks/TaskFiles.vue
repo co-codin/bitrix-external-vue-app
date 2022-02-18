@@ -12,6 +12,12 @@
 
 <script>
 export default {
+  data: () => ({
+    files: [],
+    headers: [
+
+    ]
+  })
 }
 </script>
 

@@ -1,21 +1,67 @@
 <template>
   <div>
-    <page-header h1="Создание подзадач закупщиком" />
+    <page-header h1="Создание подзадач закупщиком"/>
     <p>Добавьте подзадачи и заполните обязательные поля.</p>
     <v-form @submit.prevent="createTasks">
-      <v-expansion-panels multiple>
+      <v-expansion-panels multiple :value="[0]">
         <v-expansion-panel v-for="(task, index) in tasks" :key="index">
           <v-expansion-panel-header class="title">
-            {{ task.type ? getTaskTypeLabel(task.type) : '(выберите тип)' }}
+            {{ task.type ? task.type.text : '(выберите тип)' }}
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-select
               v-model="task.type"
+              label="Тип задачи"
               dense
+              return-object
               :items="taskTypes"
               placeholder="Выберите тип задачи"
             />
-            <v-divider class="my-2" />
+            <v-select
+              v-if="isAvailableField(task.type, 'bill')"
+              v-model="task.bill"
+              label="Счет"
+              dense
+              :items="files"
+              placeholder="Выберите счет"
+            />
+            <v-select
+              v-if="isAvailableField(task.type, 'transfer_document')"
+              v-model="task.transfer_document"
+              label="УПД"
+              dense
+              :items="files"
+              placeholder="Выберите УПД"
+            />
+            <v-textarea
+              v-if="isAvailableField(task.type, 'manager_contacts')"
+              v-model="task.manager_contacts"
+              label="Контактный менеджер"
+              placeholder="Введите контакты менеджера"
+              rows="5"
+            />
+            <v-textarea
+              v-if="isAvailableField(task.type, 'logistics_contacts')"
+              v-model="task.logistics_contacts"
+              label="Контакты логиста + адрес склада"
+              placeholder="Введите контакты логиста + адрес склада"
+              rows="5"
+            />
+            <v-textarea
+              v-if="isAvailableField(task.type, 'equipment')"
+              v-model="task.equipment"
+              label="Комплектация"
+              placeholder="Введите комплектацию оборудования"
+              rows="5"
+            />
+            <v-textarea
+              v-if="isAvailableField(task.type, 'serial_number')"
+              v-model="task.serial_number"
+              label="Серийный номер"
+              placeholder="Введите серийный номер"
+              rows="3"
+            />
+            <v-divider class="my-2"/>
             <div class="text-center">
               <v-btn small color="red" dark @click="deleteTask(index)">Удалить</v-btn>
             </div>
@@ -30,7 +76,7 @@
         </v-expansion-panel>
       </v-expansion-panels>
       <template v-if="tasks.length">
-        <v-divider class="my-3" />
+        <v-divider class="my-3"/>
         <div class="text-right">
           <v-btn type="submit" color="green" dark large>
             Создать подзадачи ({{ tasks.length }})
@@ -51,27 +97,44 @@ export default {
   data: () => ({
     taskTypes: [
       { header: 'Отгрузка' },
-      { text: 'Отгрузка от поставщика', value: 1 },
-      { text: 'Отгрузка с нашего склада', value: 2 },
-      { text: 'Отгрузка без отписки от поставщика', value: 3 },
-      { text: 'Отгрузка без отписки с нашего склада', value: 4 },
-      { text: 'Самовывоз', value: 5 },
-      { text: 'Получение груза у поставщика', value: 6 },
-      { text: 'Частичная отгрузка от поставщика', value: 7 },
-      { text: 'Частичная отгрузка с нашего склада', value: 8 },
-      { text: 'Финальная отгрузка', value: 9 },
+      { text: 'Отгрузка от поставщика', value: 1, fields: ['bill', 'transfer_document', 'manager_contacts', 'logistics_contacts'] },
+      { text: 'Отгрузка с нашего склада', value: 2, fields: ['bill', 'transfer_document'] },
+      { text: 'Отгрузка без отписки от поставщика', value: 3, fields: ['bill', 'transfer_document', 'manager_contacts', 'logistics_contacts'] },
+      { text: 'Отгрузка без отписки с нашего склада', value: 4, fields: ['bill', 'transfer_document'] },
+      { text: 'Самовывоз', value: 5, fields: ['bill', 'transfer_document'] },
+      { text: 'Получение груза у поставщика', value: 6, fields: ['bill', 'manager_contacts', 'logistics_contacts'] },
+      { text: 'Частичная отгрузка от поставщика', value: 7, fields: ['bill', 'transfer_document', 'manager_contacts', 'logistics_contacts'] },
+      { text: 'Частичная отгрузка с нашего склада', value: 8, fields: ['bill', 'transfer_document'] },
+      { text: 'Финальная отгрузка', value: 9, fields: ['bill', 'transfer_document', 'manager_contacts', 'logistics_contacts'] },
       { header: 'Документооборот' },
-      { text: 'Документооборот с поставщиком' },
+      { text: 'Документооборот с поставщиком', value: 16, fields: ['bill', 'transfer_document', 'manager_contacts'] },
       { header: 'Отписка' },
-      { text: 'Отписка', value: 10 },
-      { text: 'Частичная отписка', value: 11 },
-      { text: 'Финальная отписка', value: 12 },
-      { text: 'Отписка без перехода права собственности', value: 13 },
+      { text: 'Отписка', value: 10, fields: ['bill', 'transfer_document', 'equipment'] },
+      { text: 'Частичная отписка', value: 11, fields: ['bill', 'transfer_document', 'equipment'] },
+      { text: 'Финальная отписка', value: 12, fields: ['bill', 'transfer_document', 'equipment'] },
+      { text: 'Отписка без перехода права собственности', value: 13, fields: ['bill', 'transfer_document', 'equipment'] },
       { header: 'Ввод в эксплуатацию' },
-      { text: 'Установка оборудования при помощи сторонних компаний', value: 14 },
-      { text: 'Установка оборудования за наш счет', value: 15 }
+      { text: 'Установка оборудования при помощи сторонних компаний', value: 14, fields: ['equipment', 'serial_number', 'bill', 'transfer_document', 'company_contacts'] },
+      { text: 'Установка оборудования за наш счет', value: 15, fields: ['equipment', 'serial_number'] }
     ],
-    tasks: []
+    files: [
+      { text: 'Счет № 2112/2', value: 1 },
+      { text: 'УПД № 2112/2', value: 2 },
+      { text: 'Договор № 2112/2', value: 3 },
+      { text: 'Счет № 1313/2', value: 4 }
+    ],
+    tasks: [
+      {
+        type: null, // тип задачи
+        bill: null, // счет
+        transfer_document: null, // упд
+        manager_contacts: null, // контактный менеджер
+        logistics_contacts: null, // контакты логиста
+        company_contacts: null, // контакты компании
+        equipment: null, // оборудование / комплектация
+        serial_number: null // серийный номер
+      }
+    ]
   }),
   mounted() {
     console.log(this.$route.query)
@@ -79,17 +142,24 @@ export default {
   methods: {
     addTask() {
       this.tasks.push({
-        type: null
+        type: null, // тип задачи
+        bill: null, // счет
+        transfer_document: null, // упд
+        manager_contacts: null, // контактный менеджер
+        company_contacts: null, // контакты компании
+        logistics_contacts: null, // контакты логиста
+        equipment: null, // оборудование / комплектация
+        serial_number: null // серийный номер
       })
     },
     deleteTask(index) {
       this.tasks.splice(index, 1)
     },
-    getTaskTypeLabel(type) {
-      return this.taskTypes.find((task) => task.value === type)?.text
-    },
     createTasks() {
       alert('Не так быстро...')
+    },
+    isAvailableField(type, field) {
+      return (type?.fields ?? []).includes(field)
     }
   }
 }
