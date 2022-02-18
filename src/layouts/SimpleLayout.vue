@@ -12,8 +12,8 @@ export default {
     recaptchaScript.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
     document.head.appendChild(recaptchaScript)
 
-    BX24.init(() => {
-      const initDate = BX24.getAuth()
+    window.BX24.init(() => {
+      const initDate = window.BX24.getAuth()
 
       console.log('initDate: ', initDate)
     })
