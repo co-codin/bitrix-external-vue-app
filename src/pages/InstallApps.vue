@@ -63,21 +63,11 @@ export default {
     ],
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
-  created() {
-    window.BX24.callMethod('user.get', { ID: 126 }, (res) => {
-      if (res.data()) {
-        const user = res.data()?.[0]
-
-        if (user)
-          alert('Пользователя №' + user?.ID + ' зовут ' + user?.NAME)
-      }
-    })
-  },
   methods: {
     installApp(app) {
       window.BX24.callMethod('placement.bind', {
         PLACEMENT: app.placement,
-        HANDLER: app.handler,
+        HANDLER: `https://bitrix-external-app.medeqstars.com/${app.handler}`,
         TITLE: app.buttonLabel,
         DESCRIPTION: app.description
       })
