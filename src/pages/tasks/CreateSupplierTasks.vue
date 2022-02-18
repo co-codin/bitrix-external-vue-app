@@ -3,7 +3,7 @@
     <page-header h1="Создание подзадач закупщиком"/>
     <p>Добавьте подзадачи и заполните обязательные поля.</p>
     <v-form @submit.prevent="createTasks">
-      <v-expansion-panels multiple :value="[0]">
+      <v-expansion-panels multiple>
         <v-expansion-panel v-for="(task, index) in tasks" :key="index">
           <v-expansion-panel-header class="title">
             {{ task.type ? task.type.text : '(выберите тип)' }}
@@ -125,9 +125,6 @@ export default {
     ],
     tasks: []
   }),
-  mounted() {
-    console.log(this.$route.query)
-  },
   methods: {
     addTask() {
       this.tasks.push({
