@@ -127,6 +127,9 @@ export default {
     ],
     tasks: []
   }),
+  mounted() {
+    console.log(this.$route.params)
+  },
   methods: {
     addTask() {
       this.tasks.push({
