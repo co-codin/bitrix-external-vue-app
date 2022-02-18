@@ -14,7 +14,7 @@
       <v-card-title>Настройки</v-card-title>
       <v-card-subtitle>Перейдите в раздел для настройки приложений</v-card-subtitle>
       <v-card-text>
-        <v-btn dark @click="openSettingsPage">
+        <v-btn dark :to="{name: 'settings'}">
           Настройки
         </v-btn>
       </v-card-text>
@@ -28,11 +28,6 @@ import PageHeader from '../components/PageHeader'
 export default {
   components: {
     PageHeader
-  },
-  methods: {
-    openSettingsPage() {
-      alert('not now')
-    }
   }
 }
 </script>

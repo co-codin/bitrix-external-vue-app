@@ -13,6 +13,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  },{
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/SettingsPage.vue'),
+    meta: {
+      layout: 'simple'
+    }
   }, {
     path: '/tasks/create-supplier-tasks',
     name: 'tasks.create-supplier-tasks',
