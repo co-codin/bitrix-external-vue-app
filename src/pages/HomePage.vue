@@ -1,0 +1,38 @@
+<template>
+  <div>
+    <page-header h1="MEDEQ Bitrix24 Application" :show-home-link="false" />
+    <v-card class="mb-3" light>
+      <v-card-title>Установка</v-card-title>
+      <v-card-subtitle>Перейдите в раздел для установки приложений</v-card-subtitle>
+      <v-card-text>
+        <v-btn dark :to="{name: 'install-apps'}">
+          Установка приложений
+        </v-btn>
+      </v-card-text>
+    </v-card>
+    <v-card class="mt-3" light>
+      <v-card-title>Настройки</v-card-title>
+      <v-card-subtitle>Перейдите в раздел для настройки приложений</v-card-subtitle>
+      <v-card-text>
+        <v-btn dark @click="openSettingsPage">
+          Настройки
+        </v-btn>
+      </v-card-text>
+    </v-card>
+  </div>
+</template>
+
+<script>
+import PageHeader from '../components/PageHeader'
+
+export default {
+  components: {
+    PageHeader
+  },
+  methods: {
+    openSettingsPage() {
+      alert('not now')
+    }
+  }
+}
+</script>

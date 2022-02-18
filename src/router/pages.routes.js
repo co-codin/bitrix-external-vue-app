@@ -1,5 +1,12 @@
 export default [
   {
+    path: '/',
+    name: 'home',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/HomePage.vue'),
+    meta: {
+      layout: 'simple'
+    }
+  },{
     path: '/install-apps',
     name: 'install-apps',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/InstallApps.vue'),

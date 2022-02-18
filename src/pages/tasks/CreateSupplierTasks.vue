@@ -1,7 +1,6 @@
 <template>
   <div>
-    <page-header h1="Создание подзадач закупщиком"/>
-    <p>Добавьте подзадачи и заполните обязательные поля.</p>
+    <page-header h1="Создание подзадач закупщиком" :show-home-link="false" />
     <v-form @submit.prevent="createTasks">
       <v-expansion-panels multiple>
         <v-expansion-panel v-for="(task, index) in tasks" :key="index">

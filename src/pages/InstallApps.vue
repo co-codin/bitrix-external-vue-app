@@ -1,10 +1,7 @@
 <template>
   <div>
-    <page-header h1="Установка приложений" />
-    <p>
-      На этой странице вы можете установить или удалить MEDEQ приложения из вашего Битрикс.
-    </p>
-    <v-expansion-panels class="mt-2">
+    <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" />
+    <v-expansion-panels>
       <v-expansion-panel v-for="(app, index) in apps" :key="index">
         <v-expansion-panel-header class="title">
           {{ app.name }}
@@ -59,7 +56,8 @@ export default {
         placement: 'task.tabs',
         installed: true
       }
-    ]
+    ],
+    breadcrumbs: [{ text: 'Установка приложений' }]
   }),
   methods: {
     installApp(app) {
