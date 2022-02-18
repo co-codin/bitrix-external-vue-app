@@ -9,7 +9,10 @@ export default [
   }, {
     path: '/tasks/create-supplier-tasks',
     name: 'tasks.create-supplier-tasks',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/CreateSupplierTasks.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/CreateSupplierTasks.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',

@@ -61,12 +61,6 @@ export default {
       }
     ]
   }),
-  mounted() {
-    const recaptchaScript = document.createElement('script')
-
-    recaptchaScript.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
-    document.head.appendChild(recaptchaScript)
-  },
   methods: {
     installApp(app) {
       console.log(app)
