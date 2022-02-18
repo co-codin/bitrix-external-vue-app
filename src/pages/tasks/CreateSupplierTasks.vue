@@ -123,18 +123,7 @@ export default {
       { text: 'Договор № 2112/2', value: 3 },
       { text: 'Счет № 1313/2', value: 4 }
     ],
-    tasks: [
-      {
-        type: null, // тип задачи
-        bill: null, // счет
-        transfer_document: null, // упд
-        manager_contacts: null, // контактный менеджер
-        logistics_contacts: null, // контакты логиста
-        company_contacts: null, // контакты компании
-        equipment: null, // оборудование / комплектация
-        serial_number: null // серийный номер
-      }
-    ]
+    tasks: []
   }),
   mounted() {
     console.log(this.$route.query)
