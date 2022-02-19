@@ -5,7 +5,6 @@
         <v-btn
           color="primary"
           dark
-          outlined
           small
           v-bind="attrs"
           class="mb-2"
@@ -73,7 +72,6 @@
               <v-btn color="primary">Загрузить выбранные файлы (2)</v-btn>
             </div>
           </div>
-
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -84,11 +82,11 @@
 
     <v-card>
       <v-data-table
+        v-if="files.length"
         item-key="id"
         :headers="headers"
         :items="files"
         :loading="isLoading"
-        :server-items-length="total"
         loading-text="Идет загрузка..."
         hide-default-footer
       >
@@ -96,45 +94,61 @@
           <div class="font-weight-bold text-no-wrap"># {{ item.id }}</div>
         </template>
 
-        <template #item.created_at="{ item }">
-          <div>{{ item.asDate('created_at').fromNow() }}</div>
+        <template #item.name="{ item }">
+          <div class="font-weight-bold text-no-wrap">
+            <a href="#">{{ item.name }}</a>
+          </div>
         </template>
 
-        <template #item.action="{ item }">
+        <template #item.action>
           <div class="table-actions">
-            <v-btn
-              :title="`Товары производителя ${item.name}`"
-              icon
-              class="mr-1"
-              :to="{ name: 'products.index', query: { filter: `brand_id[]=${item.id}` } }"
-            >
-              <collection-icon /> <span style="margin-left: 3px">{{ item.products_count }}</span>
+            <v-btn icon>
+              <eye-icon />
             </v-btn>
-            <v-btn icon target="_blank" link :href="`${$config.app.siteUrl}/brands/${item.slug}`">
-              <external-link-icon />
+            <v-btn icon>
+              <download-icon />
             </v-btn>
-            <v-btn icon :to="{ name: 'brands.update', params: { id: item.id } }">
-              <pencil-alt-icon />
-            </v-btn>
-            <v-btn icon @click.prevent="deleteBrand(item)">
+            <v-btn icon>
               <trash-icon />
             </v-btn>
           </div>
         </template>
       </v-data-table>
+
+      <v-alert
+        v-else
+        text
+        color="info"
+      >
+        <h3 class="headline">Пока ничего не загружено</h3>
+        <div>
+          Загрузите документы к задаче, нажав на кнопку "Добавить документы".
+        </div>
+      </v-alert>
+
     </v-card>
   </div>
 </template>
 
 <script>
 import UploadIcon from '@/components/heroicons/UploadIcon'
+import TrashIcon from '@/components/heroicons/TrashIcon'
+import EyeIcon from '@/components/heroicons/EyeIcon'
+import DownloadIcon from '@/components/heroicons/DownloadIcon'
 
 export default {
   components: {
-    UploadIcon
+    UploadIcon,
+    TrashIcon,
+    EyeIcon,
+    DownloadIcon
   },
   data: () => ({
-    files: [],
+    files: [
+      { id: 1, name: 'Счет № 2919394', type: 1 },
+      { id: 2, name: 'УПД № 21313 от Medcompany', type: 3 },
+      { id: 3, name: 'Договор поставка № 10203013/1', type: 2 }
+    ],
     headers: [
       { text: 'ID', align: 'left', value: 'id', sortable: false },
       { text: 'Название', align: 'left', value: 'name', sortable: false },
@@ -149,7 +163,7 @@ export default {
     },
     documentTypeLabels: [
       { text: 'Счет', value: 1 },
-      { text: 'Документ', value: 2 },
+      { text: 'Договор', value: 2 },
       { text: 'УПД', value: 3 }
     ]
   }),
