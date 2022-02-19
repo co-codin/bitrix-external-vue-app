@@ -31,7 +31,7 @@
 
           <div class="mb-7">
             <v-expansion-panels class="mb-2">
-              <v-expansion-panel>
+              <v-expansion-panel style="border: 1px solid red !important">
                 <v-expansion-panel-header class="title">
                   (без названия)
                 </v-expansion-panel-header>
@@ -48,6 +48,8 @@
                         <v-text-field
                           label="Название"
                           dense
+                          :error="true"
+                          error-messages="Необходимо заполнить поле"
                         />
                         <v-select
                           label="Тип"
@@ -69,7 +71,9 @@
               </v-expansion-panel>
             </v-expansion-panels>
             <div class="text-right">
-              <v-btn color="primary">Загрузить выбранные файлы (2)</v-btn>
+              <v-btn color="primary" @click="loadingFiles = true" :loading="loadingFiles" :disabled="loadingFiles">
+                Загрузить выбранные файлы (2)
+              </v-btn>
             </div>
           </div>
         </v-card-text>
@@ -165,7 +169,8 @@ export default {
       { text: 'Счет', value: 1 },
       { text: 'Договор', value: 2 },
       { text: 'УПД', value: 3 }
-    ]
+    ],
+    loadingFiles: false
   }),
   methods: {
     // uploadFile() {
