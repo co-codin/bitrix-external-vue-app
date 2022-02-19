@@ -5,7 +5,7 @@
         Скоро здесь появится возможность загружать документы
       </v-alert>
       <input ref="uploader" type="file">
-      <v-btn @click="upload">Загрузить выбранный файл</v-btn>
+      <v-btn @click="uploadFile">Загрузить выбранный файл</v-btn>
     </v-card>
   </div>
 </template>
