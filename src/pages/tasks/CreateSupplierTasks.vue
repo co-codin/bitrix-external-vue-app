@@ -128,7 +128,6 @@ export default {
     tasks: []
   }),
   mounted() {
-    alert(1)
   },
   methods: {
     addTask() {
