@@ -1,12 +1,8 @@
 <template>
   <div>
-    <table>
-      <tr>
-        <td>sa a assasdasdasd</td>
-        <td>sa a assasdasdasd</td>
-        <td>sa a assasdasdasd</td>
-      </tr>
-    </table>
+    <v-alert outlined dense type="info">
+      Скоро здесь появится возможность загружать документы
+    </v-alert>
   </div>
 </template>
 

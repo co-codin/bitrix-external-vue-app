@@ -27,6 +27,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/tasks/documents',
+    name: 'tasks.documents',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/TaskDocuments.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',

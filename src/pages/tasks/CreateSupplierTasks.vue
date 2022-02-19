@@ -128,9 +128,7 @@ export default {
     tasks: []
   }),
   mounted() {
-    window.BX24.init(() => {
-      console.log('Инициализация завершена!', window.BX24.isAdmin())
-    })
+    alert(1)
   },
   methods: {
     addTask() {
