@@ -146,3 +146,21 @@
 textarea {
   width: 100%;
 }
+
+.table-actions {
+  white-space: nowrap;
+  > .v-btn {
+    width: 24px;
+    height: 24px;
+    margin-left: 3px;
+    margin-right: 3px;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.width-full {
+  width: 100%;
+}
