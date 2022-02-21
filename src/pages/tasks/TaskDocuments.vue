@@ -175,14 +175,11 @@ export default {
       const info = window.BX24.placement.info()
       const taskID = info.options.taskId
 
-      console.log(taskID)
-
       window.BX24.callMethod(
         'task.item.getdata',
         [taskID],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
-          console.info(this.files)
         }
       )
     })
