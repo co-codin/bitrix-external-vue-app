@@ -148,6 +148,7 @@ export default {
     DownloadIcon
   },
   data: () => ({
+    task: null,
     files: [
       { id: 1, name: 'Счет № 2919394', type: 1 },
       { id: 2, name: 'УПД № 21313 от Medcompany', type: 3 },
@@ -173,8 +174,20 @@ export default {
     loadingFiles: false
   }),
   mounted() {
-    window.addEventListener('load', (event) => {
-      console.log(window.BX24.placement.info())
+    window.addEventListener('load', () => {
+      const info = window.BX24.placement.info()
+      const taskID = info.options.taskId
+
+      console.log(taskID)
+
+      window.BX24.callMethod(
+        'task.item.getdata',
+        [taskID],
+        (result) => {
+          console.info(result.data())
+          console.log(result)
+        }
+      )
     })
   },
   methods: {
