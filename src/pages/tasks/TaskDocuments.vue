@@ -148,15 +148,12 @@ export default {
     DownloadIcon
   },
   data: () => ({
-    task: null,
     files: [
-      { id: 1, name: 'Счет № 2919394', type: 1 },
-      { id: 2, name: 'УПД № 21313 от Medcompany', type: 3 },
-      { id: 3, name: 'Договор поставка № 10203013/1', type: 2 }
+
     ],
     headers: [
-      { text: 'ID', align: 'left', value: 'id', sortable: false },
-      { text: 'Название', align: 'left', value: 'name', sortable: false },
+      { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
+      { text: 'Название', align: 'left', value: 'NAME', sortable: false },
       { text: '', sortable: false, align: 'right', value: 'action' }
     ],
     isLoading: false,
@@ -184,8 +181,8 @@ export default {
         'task.item.getdata',
         [taskID],
         (result) => {
-          console.info(result.data())
-          console.log(result)
+          this.files = result.data().UF_TASK_WEBDAV_FILES
+          console.info(this.files)
         }
       )
     })
