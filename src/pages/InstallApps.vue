@@ -59,6 +59,14 @@ export default {
         placement: 'TASK_LIST_CONTEXT_MENU',
         handler: '/tasks/create-supplier-tasks',
         installed: false
+      },
+      {
+        name: 'Создание базовой задачи на закупщика',
+        buttonLabel: 'Создать задачу на закупщика',
+        description: 'Создание базовой задачи',
+        placement: 'TASK_LIST_CONTEXT_MENU',
+        handler: '/tasks/create-base-supplier-task',
+        installed: false
       }
     ],
     breadcrumbs: [{ text: 'Установка приложений' }]

@@ -34,6 +34,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/tasks/create-base-supplier-task',
+    name: 'tasks.create-base-supplier-task',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/CreateBaseSupplierTask.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',

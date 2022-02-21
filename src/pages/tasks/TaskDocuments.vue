@@ -1,5 +1,8 @@
 <template>
   <div>
+
+    <v-btn @click="showData">данные поступившие</v-btn>
+
     <v-dialog v-model="dialog" scrollable width="1000px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -172,7 +175,14 @@ export default {
     ],
     loadingFiles: false
   }),
+  mounted() {
+    window.BX24.placement.info();
+  },
   methods: {
+    showData() {
+      console.log(window.BX24.placement.info());
+    },
+
     // uploadFile() {
     //   window.BX24.callMethod('disk.storage.uploadfile', {
     //     id: 688,
