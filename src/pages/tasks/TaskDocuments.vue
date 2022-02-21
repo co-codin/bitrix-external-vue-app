@@ -173,9 +173,11 @@ export default {
     loadingFiles: false
   }),
   mounted() {
-    this.$nextTick(() => {
-      console.log(window.BX24)
-    })
+    document.onreadystatechange = () => {
+      if (document.readyState === "complete") {
+        console.log(window.BX24)
+      }
+    }
   },
   methods: {
     // uploadFile() {
