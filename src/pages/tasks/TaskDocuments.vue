@@ -24,14 +24,17 @@
             <v-card class="dropzone text-center pa-1">
               <div class="px-3 py-8">
                 <upload-icon width="50" height="50" />
-                <div class="mt-2">Нажмите, чтобы выбрать файлы или просто перетащите их сюда</div>
+                <label class="mt-2">
+                  Нажмите, чтобы выбрать файлы или просто перетащите их сюда
+                  <input id="file" type="file" @change="handleFileUpload( $event )" />
+                </label>
               </div>
             </v-card>
           </div>
 
           <div class="mb-7">
-            <v-expansion-panels class="mb-2">
-              <v-expansion-panel style="border: 1px solid red !important">
+            <v-expansion-panels v-if="form.files.length" class="mb-2">
+              <v-expansion-panel v-for="(file, index) in form.files" :key="index" style="border: 1px solid red !important">
                 <v-expansion-panel-header class="title">
                   (без названия)
                 </v-expansion-panel-header>
@@ -48,7 +51,6 @@
                         <v-text-field
                           label="Название"
                           dense
-                          :error="true"
                           error-messages="Необходимо заполнить поле"
                         />
                         <v-select
@@ -185,6 +187,11 @@ export default {
     })
   },
   methods: {
+    handleFileUpload(event) {
+      this.form.files.push(event.target.files[0])
+
+      console.log(this.files)
+    }
     // uploadFile() {
     //   window.BX24.callMethod('disk.storage.uploadfile', {
     //     id: 688,
