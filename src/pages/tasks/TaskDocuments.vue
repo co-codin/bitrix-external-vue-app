@@ -1,8 +1,5 @@
 <template>
   <div>
-
-    <v-btn @click="showData">данные поступившие</v-btn>
-
     <v-dialog v-model="dialog" scrollable width="1000px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -74,7 +71,7 @@
               </v-expansion-panel>
             </v-expansion-panels>
             <div class="text-right">
-              <v-btn color="primary" @click="loadingFiles = true" :loading="loadingFiles" :disabled="loadingFiles">
+              <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="loadingFiles = true">
                 Загрузить выбранные файлы (2)
               </v-btn>
             </div>
@@ -176,13 +173,8 @@ export default {
     loadingFiles: false
   }),
   mounted() {
-    window.BX24.placement.info();
   },
   methods: {
-    showData() {
-      console.log(window.BX24.placement.info());
-    },
-
     // uploadFile() {
     //   window.BX24.callMethod('disk.storage.uploadfile', {
     //     id: 688,
