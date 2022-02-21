@@ -174,7 +174,7 @@ export default {
   }),
   mounted() {
     window.addEventListener('load', (event) => {
-      console.log(window.BX24)
+      console.log(window.BX24.placement.info())
     })
   },
   methods: {
