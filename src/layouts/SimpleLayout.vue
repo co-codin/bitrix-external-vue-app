@@ -6,11 +6,11 @@
 
 <script>
 export default {
-  mounted() {
-    const script = document.createElement('script')
+  async created() {
+    const script = await document.createElement('script')
 
-    script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
-    document.head.appendChild(script)
+    await script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
+    await document.head.appendChild(script)
 
     // script.addEventListener('load', () => {
     //   window.BX24?.init()
