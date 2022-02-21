@@ -172,10 +172,10 @@ export default {
     ],
     loadingFiles: false
   }),
-  async mounted() {
-    const data = await window.BX24
-
-    console.log(data)
+  mounted() {
+    this.$nextTick(() => {
+      console.log(window.BX24)
+    })
   },
   methods: {
     // uploadFile() {
