@@ -173,6 +173,7 @@ export default {
     loadingFiles: false
   }),
   mounted() {
+    console.log(window.BX24.placement.info())
   },
   methods: {
     // uploadFile() {
