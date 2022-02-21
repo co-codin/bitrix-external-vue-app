@@ -173,7 +173,9 @@ export default {
     loadingFiles: false
   }),
   mounted() {
-    console.log(window.BX24)
+    if (window.BX24) {
+      console.log(window.BX24)
+    }
   },
   methods: {
     // uploadFile() {
