@@ -172,8 +172,10 @@ export default {
     ],
     loadingFiles: false
   }),
-  mounted() {
-    console.log(window?.BX24)
+  async mounted() {
+    const data = await window.BX24
+
+    console.log(data)
   },
   methods: {
     // uploadFile() {
