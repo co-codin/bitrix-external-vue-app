@@ -173,11 +173,9 @@ export default {
     loadingFiles: false
   }),
   mounted() {
-    document.onreadystatechange = () => {
-      if (document.readyState === "complete") {
-        console.log(window.BX24)
-      }
-    }
+    window.addEventListener('load', (event) => {
+      console.log(window.BX24)
+    })
   },
   methods: {
     // uploadFile() {
