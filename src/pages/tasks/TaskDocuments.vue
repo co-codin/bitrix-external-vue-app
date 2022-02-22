@@ -222,18 +222,16 @@ export default {
             },
             (res) => {
               if (res.data()) {
-                console.log(res.data())
-
-                // try {
-                //   window.BX24.callMethod('tasks.task.files.attach', {
-                //     taskId: this.taskId,
-                //     fileId: fileId
-                //   }, function (res) {
-                //     this.dialog = false
-                //   })
-                // } catch (e) {
-                //   console.log(e)
-                // }
+                try {
+                  window.BX24.callMethod('tasks.task.files.attach', {
+                    taskId: this.taskId,
+                    fileId: res.data().ID
+                  }, function () {
+                    this.dialog = false
+                  })
+                } catch (e) {
+                  console.log(e)
+                }
               }
             })
           } catch (e) {
