@@ -223,8 +223,7 @@ export default {
           }
         })
       }
-
-      this.loadingFiles = true
+      this.loadingFiles = false
 
     }
   }
