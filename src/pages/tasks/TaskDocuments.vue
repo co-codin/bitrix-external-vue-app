@@ -200,7 +200,7 @@ export default {
         comment: ''
       })
     },
-    async uploadFiles() {
+    uploadFiles() {
       this.loadingFiles = true
 
       for (const file of this.form.files) {
@@ -217,6 +217,10 @@ export default {
                 TYPE: file.type,
                 COMMENT: file.comment
               }
+            }).then(({ result }) => {
+              const fileID = result.ID
+
+              console.log(fileID)
             })
           } catch (e) {
             console.log(e)
