@@ -152,6 +152,7 @@ export default {
     DownloadIcon
   },
   data: () => ({
+    taskId: null,
     files: [
 
     ],
@@ -177,11 +178,12 @@ export default {
   mounted() {
     window.addEventListener('load', () => {
       const info = window.BX24.placement.info()
-      const taskID = info.options.taskId
+
+      this.taskId = info.options.taskId
 
       window.BX24.callMethod(
         'task.item.getdata',
-        [taskID],
+        [this.taskId],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
         }
@@ -219,7 +221,15 @@ export default {
               },
               function (res) {
                 if (res.data()) {
-                  console.log(res.data())
+                  const fileId = res.data().objectId
+
+                  window.BX24.callMethod('tasks.task.files.attach', {
+                    taskId: this.taskId,
+                    fileId,
+                    function (res) {
+                      this.dialog = false
+                    }
+                  })
                 }
               }
             })
