@@ -210,7 +210,7 @@ export default {
           fileContent = content
           try {
             window.BX24.callMethod('disk.storage.uploadfile', {
-              id: 688,
+              id: process.env.STORAGE_ID,
               fileContent: fileContent,
               data: {
                 NAME: file.name,
