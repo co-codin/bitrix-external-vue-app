@@ -225,12 +225,12 @@ export default {
                 const fileId = res.data().objectId
 
                 try {
+                  console.log(this.taskId)
                   window.BX24.callMethod('tasks.task.files.attach', {
                     taskId: this.taskId,
-                    fileId,
-                    function (res) {
-                      this.dialog = false
-                    }
+                    fileId: fileId
+                  }, function (res) {
+                    this.dialog = false
                   })
                 } catch (e) {
                   console.log(e)
