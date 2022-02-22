@@ -75,7 +75,7 @@
               </v-expansion-panel>
             </v-expansion-panels>
             <div class="text-right">
-              <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="loadingFiles = true;">
+              <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="uploadFiles">
                 Загрузить выбранные файлы ({{ form.files.length }})
               </v-btn>
             </div>
@@ -190,7 +190,7 @@ export default {
   },
   methods: {
     removeFile(index) {
-      // this.form.files.splice(index, 1)
+      this.form.files.splice(index, 1)
     },
     handleFileUpload(event) {
       this.form.files.push({
@@ -199,18 +199,22 @@ export default {
         type: 1,
         comment: ''
       })
+    },
+    uploadFiles() {
+      this.loadingFiles = true
+      this.form.files.forEach((file) => {
+        window.BX24.callMethod('disk.storage.uploadfile', {
+          id: 688,
+          fileContent: file.file,
+          data: {
+            NAME: file.name,
+            TYPE: file.type,
+            COMMENT: file.comment
+          }
+        })
+      })
 
-      console.log(this.form.files)
     }
-    // uploadFile() {
-    //   window.BX24.callMethod('disk.storage.uploadfile', {
-    //     id: 688,
-    //     fileContent: this.$refs.uploader,
-    //     data: {
-    //       NAME: '2102102.jpg'
-    //     }
-    //   })
-    // }
   }
 }
 </script>
