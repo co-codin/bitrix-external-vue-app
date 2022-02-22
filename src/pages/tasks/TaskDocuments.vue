@@ -226,6 +226,7 @@ export default {
 
                 try {
                   console.log(this.taskId)
+                  console.log(fileId)
                   window.BX24.callMethod('tasks.task.files.attach', {
                     taskId: this.taskId,
                     fileId: fileId
