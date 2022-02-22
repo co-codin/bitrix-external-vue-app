@@ -204,21 +204,24 @@ export default {
       this.loadingFiles = true
 
       for (const file of this.form.files) {
-        const fileContent = await file.file.text()
+        let fileContent
 
-        try {
-          window.BX24.callMethod('disk.storage.uploadfile', {
-            id: 688,
-            fileContent: fileContent,
-            data: {
-              NAME: file.name,
-              TYPE: file.type,
-              COMMENT: file.comment
-            }
-          })
-        } catch (e) {
-          console.log(e)
-        }
+        file.file.text().then((content) => {
+          fileContent = content
+          try {
+            window.BX24.callMethod('disk.storage.uploadfile', {
+              id: 688,
+              fileContent: fileContent,
+              data: {
+                NAME: file.name,
+                TYPE: file.type,
+                COMMENT: file.comment
+              }
+            })
+          } catch (e) {
+            console.log(e)
+          }
+        })
       }
 
     }
