@@ -13,6 +13,7 @@
           Добавить документы
         </v-btn>
       </template>
+
       <v-card>
         <v-card-title>
           <span class="headline">
@@ -34,53 +35,59 @@
 
           <div class="mb-7">
             <v-expansion-panels v-if="form.files.length" class="mb-2">
-              <v-expansion-panel v-for="(file, index) in form.files" :key="index" style="border: 1px solid red !important">
-                <v-expansion-panel-header class="title">
-                  {{ file.file.name }}
-                </v-expansion-panel-header>
-                <v-expansion-panel-content>
-                  <v-row>
-                    <v-col cols="12" sm="5" md="4" lg="2">
-                      <!--                      <v-img-->
-                      <!--                        max-width="100%"-->
-                      <!--                        src="https://picsum.photos/id/11/500/300"-->
-                      <!--                      />-->
-                    </v-col>
-                    <v-col cols="12" sm="7" md="8" lg="10">
-                      <div>
-                        <v-text-field
-                          v-model="form.files[index].name"
-                          label="Название"
-                          dense
-                        />
-                        <v-select
-                          v-model="form.files[index].type"
-                          label="Тип"
-                          :items="documentTypeLabels"
-                          dense
-                        />
-                        <v-text-field
-                          v-model="form.files[index].comment"
-                          label="Заметка"
-                          dense
-                        />
-                      </div>
-                    </v-col>
-                  </v-row>
-                  <v-divider class="my-2"/>
-                  <div class="text-center">
-                    <v-btn small color="red" dark @click="removeFile(index)">Удалить</v-btn>
-                  </div>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
+              <v-form style="width: 100%;" @submit.prevent="uploadFiles">
+                <v-expansion-panel v-for="(file, index) in form.files" :key="index" style="border: 1px solid red !important">
+                  <v-expansion-panel-header class="title">
+                    {{ file.file.name }}
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <v-row>
+                      <v-col cols="12" sm="5" md="4" lg="2">
+                        <!--                      <v-img-->
+                        <!--                        max-width="100%"-->
+                        <!--                        src="https://picsum.photos/id/11/500/300"-->
+                        <!--                      />-->
+                      </v-col>
+                      <v-col cols="12" sm="7" md="8" lg="10">
+                        <div>
+                          <v-text-field
+                            v-model="form.files[index].name"
+                            label="Название"
+                            dense
+                            :rules="nameRules"
+                          />
+                          <v-select
+                            v-model="form.files[index].type"
+                            label="Тип"
+                            :items="documentTypeLabels"
+                            dense
+                            :rules="typeRules"
+                          />
+                          <v-text-field
+                            v-model="form.files[index].comment"
+                            label="Заметка"
+                            dense
+                          />
+                        </div>
+                      </v-col>
+                    </v-row>
+                    <v-divider class="my-2"/>
+                    <div class="text-center">
+                      <v-btn small color="red" dark @click="removeFile(index)">Удалить</v-btn>
+                    </div>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-form>
+
             </v-expansion-panels>
             <div class="text-right">
-              <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="uploadFiles">
+              <v-btn type="submit" color="primary" :loading="loadingFiles" :disabled="loadingFiles">
                 Загрузить выбранные файлы ({{ form.files.length }})
               </v-btn>
             </div>
           </div>
         </v-card-text>
+
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="red darken-1" text @click="dialog = false">Отмена</v-btn>
@@ -173,7 +180,13 @@ export default {
       { text: 'Договор', value: 2 },
       { text: 'УПД', value: 3 }
     ],
-    loadingFiles: false
+    loadingFiles: false,
+    nameRules: [
+      (v) => !!v || 'Название обязательно'
+    ],
+    typeRules: [
+      (v) => !!v || 'Тип обязательно'
+    ]
   }),
   mounted() {
     window.addEventListener('load', () => {
@@ -220,7 +233,6 @@ export default {
             }
           },
           (res) => {
-            console.log(res)
             if (res.data()) {
 
               window.BX24.callMethod('tasks.task.files.attach', {
