@@ -23,13 +23,30 @@
         <v-card-text>
           <div class="mb-2">
             <v-card class="dropzone text-center pa-1">
-              <div class="px-3 py-8">
-                <upload-icon width="50" height="50" />
-                <label class="mt-2">
-                  Нажмите, чтобы выбрать файлы или просто перетащите их сюда
-                  <input id="file" type="file" @change="handleFileUpload( $event )" />
-                </label>
-              </div>
+              <vue-dropzone
+                id="dropzone"
+                ref="dropzone"
+                class="px-3 py-8"
+                :use-custom-slot="true"
+                :options="dropzoneOptions"
+                @vdropzone-file-added="handleFileUpload"
+              >
+                <div class="dropzone-custom-content">
+                  <upload-icon width="50" height="50" />
+                  <label class="mt-2">
+                    Нажмите, чтобы выбрать файлы или просто перетащите их сюда
+                  </label>
+                </div>
+              </vue-dropzone>
+
+              <!--              <div class="px-3 py-8">-->
+              <!--                <upload-icon width="50" height="50" />-->
+              <!--                <label class="mt-2">-->
+              <!--                  Нажмите, чтобы выбрать файлы или просто перетащите их сюда-->
+              <!--                  &lt;!&ndash;                  <input id="file" type="file" @change="handleFileUpload( $event )" />&ndash;&gt;-->
+
+              <!--                </label>-->
+              <!--              </div>-->
             </v-card>
           </div>
 
@@ -150,19 +167,26 @@ import UploadIcon from '@/components/heroicons/UploadIcon'
 import TrashIcon from '@/components/heroicons/TrashIcon'
 import EyeIcon from '@/components/heroicons/EyeIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
   components: {
     UploadIcon,
     TrashIcon,
     EyeIcon,
-    DownloadIcon
+    DownloadIcon,
+    vueDropzone: vue2Dropzone
   },
   data: () => ({
     taskId: null,
-    files: [
-
-    ],
+    files: [],
+    dropzoneOptions: {
+      url: 'http://localhost',
+      thumbnailWidth: 150,
+      maxFilesize: 0.5,
+      headers: { 'My-Awesome-Header': 'header value' }
+    },
     headers: [
       { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
       { text: 'Название', align: 'left', value: 'NAME', sortable: false },
@@ -207,13 +231,14 @@ export default {
     removeFile(index) {
       this.form.files.splice(index, 1)
     },
-    handleFileUpload(event) {
+    handleFileUpload(file) {
       this.form.files.push({
-        file: event.target.files[0],
+        file: file,
         name: '',
         type: 1,
         comment: ''
       })
+      this.$refs.dropzone.removeFile(file)
     },
     uploadFiles() {
       this.loadingFiles = true
