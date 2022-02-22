@@ -220,22 +220,22 @@ export default {
                 COMMENT: file.comment
               }
             },
-            function (res) {
+            (res) => {
               if (res.data()) {
-                const fileId = res.data().objectId
+                console.log(window.BX24.placement.info())
+                console.log(res.data().options.taskId)
+                const fileId = res.data()
 
-                try {
-                  console.log(this.taskId)
-                  console.log(fileId)
-                  window.BX24.callMethod('tasks.task.files.attach', {
-                    taskId: this.taskId,
-                    fileId: fileId
-                  }, function (res) {
-                    this.dialog = false
-                  })
-                } catch (e) {
-                  console.log(e)
-                }
+                // try {
+                //   window.BX24.callMethod('tasks.task.files.attach', {
+                //     taskId: this.taskId,
+                //     fileId: fileId
+                //   }, function (res) {
+                //     this.dialog = false
+                //   })
+                // } catch (e) {
+                //   console.log(e)
+                // }
               }
             })
           } catch (e) {
