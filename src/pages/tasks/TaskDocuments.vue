@@ -216,11 +216,12 @@ export default {
                 NAME: file.name,
                 TYPE: file.type,
                 COMMENT: file.comment
+              },
+              function (res) {
+                if (res.data()) {
+                  console.log(res.data())
+                }
               }
-            }).then((data) => {
-              const fileID = data.result.ID.objectId
-
-              console.log(data)
             })
           } catch (e) {
             console.log(e)
