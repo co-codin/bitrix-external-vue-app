@@ -222,9 +222,7 @@ export default {
             },
             (res) => {
               if (res.data()) {
-                console.log(window.BX24.placement.info())
-                console.log(res.data().options.taskId)
-                const fileId = res.data()
+                console.log(res.data())
 
                 // try {
                 //   window.BX24.callMethod('tasks.task.files.attach', {
