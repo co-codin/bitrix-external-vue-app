@@ -203,23 +203,23 @@ export default {
     async uploadFiles() {
       this.loadingFiles = true
 
-      this.form.files.forEach((file) => {
+      for (const file of this.form.files) {
+        const fileContent = await file.file.text()
+
         try {
-          const data = window.BX24.callMethod('disk.storage.uploadfile', {
+          window.BX24.callMethod('disk.storage.uploadfile', {
             id: 688,
-            fileContent: file.file,
+            fileContent: fileContent,
             data: {
               NAME: file.name,
               TYPE: file.type,
               COMMENT: file.comment
             }
           })
-
-          console.log(data)
         } catch (e) {
           console.log(e)
         }
-      })
+      }
 
     }
   }
