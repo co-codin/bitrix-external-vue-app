@@ -210,33 +210,28 @@ export default {
 
         file.file.text().then((content) => {
           fileContent = content
-          try {
-            window.BX24.callMethod('disk.storage.uploadfile', {
-              id: process.env.VUE_APP_STORAGE_ID,
-              fileContent: fileContent,
-              data: {
-                NAME: file.name,
-                TYPE: file.type,
-                COMMENT: file.comment
-              }
-            },
-            (res) => {
-              if (res.data()) {
-                try {
-                  window.BX24.callMethod('tasks.task.files.attach', {
-                    taskId: this.taskId,
-                    fileId: res.data().ID
-                  }, function () {
-                    this.dialog = false
-                  })
-                } catch (e) {
-                  console.log(e)
-                }
-              }
-            })
-          } catch (e) {
-            console.log(e)
-          }
+          window.BX24.callMethod('disk.storage.uploadfile', {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: fileContent,
+            data: {
+              NAME: file.name,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          },
+          (res) => {
+            console.log(res)
+            if (res.data()) {
+
+              window.BX24.callMethod('tasks.task.files.attach', {
+                taskId: this.taskId,
+                fileId: res.data().ID
+              }, function () {
+                this.dialog = false
+              })
+            }
+          })
+
         })
       }
       this.loadingFiles = false
