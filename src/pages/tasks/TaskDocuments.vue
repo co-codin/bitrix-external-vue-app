@@ -36,29 +36,31 @@
             <v-expansion-panels v-if="form.files.length" class="mb-2">
               <v-expansion-panel v-for="(file, index) in form.files" :key="index" style="border: 1px solid red !important">
                 <v-expansion-panel-header class="title">
-                  (без названия)
+                  {{ file.file.name }}
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <v-row>
                     <v-col cols="12" sm="5" md="4" lg="2">
-                      <v-img
-                        max-width="100%"
-                        src="https://picsum.photos/id/11/500/300"
-                      />
+                      <!--                      <v-img-->
+                      <!--                        max-width="100%"-->
+                      <!--                        src="https://picsum.photos/id/11/500/300"-->
+                      <!--                      />-->
                     </v-col>
                     <v-col cols="12" sm="7" md="8" lg="10">
                       <div>
                         <v-text-field
+                          v-model="form.files[index].name"
                           label="Название"
                           dense
-                          error-messages="Необходимо заполнить поле"
                         />
                         <v-select
+                          v-model="form.files[index].type"
                           label="Тип"
                           :items="documentTypeLabels"
                           dense
                         />
                         <v-text-field
+                          v-model="form.files[index].comment"
                           label="Заметка"
                           dense
                         />
@@ -67,14 +69,14 @@
                   </v-row>
                   <v-divider class="my-2"/>
                   <div class="text-center">
-                    <v-btn small color="red" dark>Удалить</v-btn>
+                    <v-btn small color="red" dark @click="removeFile(index)">Удалить</v-btn>
                   </div>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
             <div class="text-right">
-              <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="loadingFiles = true">
-                Загрузить выбранные файлы (2)
+              <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="loadingFiles = true;">
+                Загрузить выбранные файлы ({{ form.files.length }})
               </v-btn>
             </div>
           </div>
@@ -187,10 +189,18 @@ export default {
     })
   },
   methods: {
+    removeFile(index) {
+      // this.form.files.splice(index, 1)
+    },
     handleFileUpload(event) {
-      this.form.files.push(event.target.files[0])
+      this.form.files.push({
+        file: event.target.files[0],
+        name: '',
+        type: 1,
+        comment: ''
+      })
 
-      console.log(this.files)
+      console.log(this.form.files)
     }
     // uploadFile() {
     //   window.BX24.callMethod('disk.storage.uploadfile', {
