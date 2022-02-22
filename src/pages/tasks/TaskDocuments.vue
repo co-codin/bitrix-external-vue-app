@@ -224,6 +224,8 @@ export default {
         })
       }
 
+      this.loadingFiles = true
+
     }
   }
 }
