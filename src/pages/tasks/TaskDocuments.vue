@@ -249,9 +249,8 @@ export default {
           },
           (res) => {
             if (res.data()) {
-
               window.BX24.callMethod('tasks.task.files.attach', {
-                taskId: this.taskId,
+                taskId: window.BX24.placement.info().options.taskId,
                 fileId: res.data().ID
               }, () => {
 
@@ -261,9 +260,8 @@ export default {
 
         })
       }
-      // this.loadingFiles = false
-      // this.dialog = false
-      this.$forceUpdate()
+      this.loadingFiles = false
+      this.dialog = false
 
     }
   }
