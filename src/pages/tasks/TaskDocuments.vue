@@ -218,7 +218,7 @@ export default {
                 COMMENT: file.comment
               }
             }).then(({ result }) => {
-              const fileID = result.ID
+              const fileID = result.ID.objectId
 
               console.log(fileID)
             })
