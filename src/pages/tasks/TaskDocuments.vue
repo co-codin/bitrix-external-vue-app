@@ -262,6 +262,7 @@ export default {
       }
       this.loadingFiles = false
       this.dialog = false
+      this.$forceUpdate()
 
     }
   }
