@@ -200,18 +200,23 @@ export default {
         comment: ''
       })
     },
-    uploadFiles() {
+    async uploadFiles() {
       this.loadingFiles = true
+
       this.form.files.forEach((file) => {
-        window.BX24.callMethod('disk.storage.uploadfile', {
-          id: 688,
-          fileContent: file.file,
-          data: {
-            NAME: file.name,
-            TYPE: file.type,
-            COMMENT: file.comment
-          }
-        })
+        try {
+          window.BX24.callMethod('disk.storage.uploadfile', {
+            id: 688,
+            fileContent: file.file,
+            data: {
+              NAME: file.name,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          })
+        } catch (e) {
+          console.log(e)
+        }
       })
 
     }
