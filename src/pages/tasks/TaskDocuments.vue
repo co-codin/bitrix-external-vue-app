@@ -205,7 +205,7 @@ export default {
 
       this.form.files.forEach((file) => {
         try {
-          window.BX24.callMethod('disk.storage.uploadfile', {
+          const data = window.BX24.callMethod('disk.storage.uploadfile', {
             id: 688,
             fileContent: file.file,
             data: {
@@ -214,6 +214,8 @@ export default {
               COMMENT: file.comment
             }
           })
+
+          console.log(data)
         } catch (e) {
           console.log(e)
         }
