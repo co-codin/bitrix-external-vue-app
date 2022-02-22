@@ -224,13 +224,17 @@ export default {
               if (res.data()) {
                 const fileId = res.data().objectId
 
-                window.BX24.callMethod('tasks.task.files.attach', {
-                  taskId: this.taskId,
-                  fileId,
-                  function (res) {
-                    this.dialog = false
-                  }
-                })
+                try {
+                  window.BX24.callMethod('tasks.task.files.attach', {
+                    taskId: this.taskId,
+                    fileId,
+                    function (res) {
+                      this.dialog = false
+                    }
+                  })
+                } catch (e) {
+                  console.log(e)
+                }
               }
             })
           } catch (e) {
