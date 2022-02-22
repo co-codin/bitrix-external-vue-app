@@ -253,8 +253,8 @@ export default {
               window.BX24.callMethod('tasks.task.files.attach', {
                 taskId: this.taskId,
                 fileId: res.data().ID
-              }, function () {
-                this.dialog = false
+              }, () => {
+
               })
             }
           })
@@ -262,6 +262,7 @@ export default {
         })
       }
       this.loadingFiles = false
+      this.dialog = false
 
     }
   }
