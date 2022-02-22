@@ -218,19 +218,19 @@ export default {
                 NAME: file.name,
                 TYPE: file.type,
                 COMMENT: file.comment
-              },
-              function (res) {
-                if (res.data()) {
-                  const fileId = res.data().objectId
+              }
+            },
+            function (res) {
+              if (res.data()) {
+                const fileId = res.data().objectId
 
-                  window.BX24.callMethod('tasks.task.files.attach', {
-                    taskId: this.taskId,
-                    fileId,
-                    function (res) {
-                      this.dialog = false
-                    }
-                  })
-                }
+                window.BX24.callMethod('tasks.task.files.attach', {
+                  taskId: this.taskId,
+                  fileId,
+                  function (res) {
+                    this.dialog = false
+                  }
+                })
               }
             })
           } catch (e) {
