@@ -217,10 +217,10 @@ export default {
                 TYPE: file.type,
                 COMMENT: file.comment
               }
-            }).then(({ result }) => {
-              const fileID = result.ID.objectId
+            }).then((data) => {
+              const fileID = data.result.ID.objectId
 
-              console.log(fileID)
+              console.log(data)
             })
           } catch (e) {
             console.log(e)
