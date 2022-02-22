@@ -38,15 +38,6 @@
                   </label>
                 </div>
               </vue-dropzone>
-
-              <!--              <div class="px-3 py-8">-->
-              <!--                <upload-icon width="50" height="50" />-->
-              <!--                <label class="mt-2">-->
-              <!--                  Нажмите, чтобы выбрать файлы или просто перетащите их сюда-->
-              <!--                  &lt;!&ndash;                  <input id="file" type="file" @change="handleFileUpload( $event )" />&ndash;&gt;-->
-
-              <!--                </label>-->
-              <!--              </div>-->
             </v-card>
           </div>
 
@@ -94,14 +85,14 @@
                     </div>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
+                <div class="text-right">
+                  <v-btn type="submit" color="primary" :loading="loadingFiles" :disabled="loadingFiles">
+                    Загрузить выбранные файлы ({{ form.files.length }})
+                  </v-btn>
+                </div>
               </v-form>
 
             </v-expansion-panels>
-            <div class="text-right">
-              <v-btn type="submit" color="primary" :loading="loadingFiles" :disabled="loadingFiles">
-                Загрузить выбранные файлы ({{ form.files.length }})
-              </v-btn>
-            </div>
           </div>
         </v-card-text>
 
@@ -184,8 +175,7 @@ export default {
     dropzoneOptions: {
       url: 'http://localhost',
       thumbnailWidth: 150,
-      maxFilesize: 0.5,
-      headers: { 'My-Awesome-Header': 'header value' }
+      maxFilesize: 0.5
     },
     headers: [
       { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
