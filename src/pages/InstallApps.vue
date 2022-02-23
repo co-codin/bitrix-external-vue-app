@@ -71,6 +71,11 @@ export default {
     ],
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
+  mounted() {
+    window.addEventListener('load',  () => {
+      this.getPlacementLists()
+    })
+  },
   methods: {
     installApp(app) {
       try {
@@ -84,6 +89,9 @@ export default {
       catch (e) {
         console.log(e)
       }
+    },
+    getPlacementLists() {
+      window.BX24.callMethod('placement.list')
     },
     deleteApp(app) {
       console.log(app)
