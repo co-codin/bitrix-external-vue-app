@@ -251,28 +251,29 @@ export default {
       this.form.files.forEach((file) => {
         let fileContent
 
-        setTimeout(file.file.text().then((content) => {
-          fileContent = content
-          window.BX24.callMethod('disk.storage.uploadfile', {
-            id: process.env.VUE_APP_STORAGE_ID,
-            fileContent: fileContent,
-            data: {
-              NAME: file.name,
-              TYPE: file.type,
-              COMMENT: file.comment
-            }
-          },
-          (res) => {
-            if (res.data()) {
-              window.BX24.callMethod('tasks.task.files.attach', {
-                taskId: window.BX24.placement.info()?.options?.taskId,
-                fileId: res.data().ID
-              }, () => {
+        setTimeout(() => {
+          file.file.text().then((content) => {
+            fileContent = content
+            window.BX24.callMethod('disk.storage.uploadfile', {
+              id: process.env.VUE_APP_STORAGE_ID,
+              fileContent: fileContent,
+              data: {
+                NAME: file.name,
+                TYPE: file.type,
+                COMMENT: file.comment
+              }
+            },
+            (res) => {
+              if (res.data()) {
+                window.BX24.callMethod('tasks.task.files.attach', {
+                  taskId: window.BX24.placement.info()?.options?.taskId,
+                  fileId: res.data().ID
+                }, () => {
 
-              })
-            }
-          })
-        }), 1000)
+                })
+              }
+            })
+          })}, 1000)
       })
 
       this.loadingFiles = false
