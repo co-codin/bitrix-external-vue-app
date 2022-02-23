@@ -131,7 +131,7 @@
             <v-btn icon>
               <download-icon />
             </v-btn>
-            <v-btn icon >
+            <v-btn icon @click.prevent="deleteFile(item.FILE_ID)">
               <trash-icon />
             </v-btn>
           </div>
