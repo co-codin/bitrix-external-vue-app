@@ -237,7 +237,12 @@ export default {
       window.BX24.callMethod('disk.file.delete', {
         id: item.FILE_ID
       }, () => {
-        this.getTaskFiles()
+        window.BX24.callMethod('task.item.deletefile', {
+          TASK_ID: window.BX24.placement.info()?.options?.taskId,
+          ATTACHMENT_ID: item.ATTACHMENT_ID
+        }, () => {
+          this.getTaskFiles()
+        })
       })
     },
     uploadFiles() {
@@ -260,7 +265,7 @@ export default {
           (res) => {
             if (res.data()) {
               window.BX24.callMethod('tasks.task.files.attach', {
-                taskId: window.BX24.placement.info().options.taskId,
+                taskId: window.BX24.placement.info()?.options?.taskId,
                 fileId: res.data().ID
               }, () => {
 
