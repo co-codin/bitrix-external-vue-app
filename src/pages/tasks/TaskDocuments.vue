@@ -126,10 +126,10 @@
         <template #item.action="{item}">
           <div class="table-actions">
             <v-btn icon>
-              <eye-icon />
+              <eye-icon @click.prevent="fileAction(item, 'preview')" />
             </v-btn>
             <v-btn icon>
-              <download-icon />
+              <download-icon @click.prevent="fileAction(item)" />
             </v-btn>
             <v-btn icon @click.prevent="deleteFile(item)">
               <trash-icon />
@@ -210,14 +210,11 @@ export default {
     getTaskFiles() {
       const { taskId } = window.BX24.placement?.info()?.options
 
-      console.log(taskId)
-
       window.BX24.callMethod(
         'task.item.getdata',
         [taskId],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
-          console.log(this.files)
         }
       )
     },
@@ -232,6 +229,19 @@ export default {
         comment: ''
       })
       this.$refs.dropzone.removeFile(file)
+    },
+    fileAction(item, action = 'download') {
+      window.BX24.callMethod('disk.file.get', {
+        id: item.FILE_ID
+      }, (res) => {
+        if (res.data()) {
+          if (action === 'download') {
+            window.open(res.data().DOWNLOAD_URL, '_blank')
+          } else {
+            window.open(res.data().DETAIL_URL, '_blank')
+          }
+        }
+      })
     },
     deleteFile(item) {
       window.BX24.callMethod('disk.file.delete', {
@@ -277,7 +287,6 @@ export default {
       })
       this.loadingFiles = false
       this.dialog = false
-
     }
   }
 }
