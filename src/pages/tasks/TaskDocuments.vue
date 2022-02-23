@@ -244,10 +244,10 @@ export default {
     uploadFiles() {
       this.loadingFiles = true
 
-      for (const file of this.form.files) {
+      this.form.files.forEach((file) => {
         let fileContent
 
-        file.file.text().then((content) => {
+        setTimeout(file.file.text().then((content) => {
           fileContent = content
           window.BX24.callMethod('disk.storage.uploadfile', {
             id: process.env.VUE_APP_STORAGE_ID,
@@ -268,9 +268,9 @@ export default {
               })
             }
           })
-
-        })
-      }
+        }), 1000)
+      })
+      
       this.loadingFiles = false
       this.dialog = false
       this.getTaskFiles()
