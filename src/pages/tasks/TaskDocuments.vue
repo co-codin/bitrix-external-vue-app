@@ -269,16 +269,14 @@ export default {
                   taskId: window.BX24.placement.info()?.options?.taskId,
                   fileId: res.data().ID
                 }, () => {
-
+                  this.getTaskFiles()
                 })
               }
             })
           })}, 1000)
       })
-
       this.loadingFiles = false
       this.dialog = false
-      this.getTaskFiles()
 
     }
   }
