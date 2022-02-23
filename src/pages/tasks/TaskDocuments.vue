@@ -124,7 +124,6 @@
         </template>
 
         <template #item.action="{item}">
-          {{ item }}
           <div class="table-actions">
             <v-btn icon>
               <eye-icon />
@@ -132,7 +131,7 @@
             <v-btn icon>
               <download-icon />
             </v-btn>
-            <v-btn icon @click.prevent="deleteFile(item.FILE_ID)">
+            <v-btn icon @click.prevent="deleteFile(item)">
               <trash-icon />
             </v-btn>
           </div>
@@ -233,11 +232,12 @@ export default {
       this.$refs.dropzone.removeFile(file)
     },
     deleteFile(fileId) {
-      window.BX24.callMethod('disk.file.delete', {
-        id: fileId
-      }, () => {
-        this.getTaskFiles()
-      })
+      console.log(fileId)
+      // window.BX24.callMethod('disk.file.delete', {
+      //   id: fileId
+      // }, () => {
+      //   this.getTaskFiles()
+      // })
     },
     uploadFiles() {
       this.loadingFiles = true
