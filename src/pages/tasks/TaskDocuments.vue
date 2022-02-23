@@ -125,11 +125,11 @@
 
         <template #item.action="{item}">
           <div class="table-actions">
-            <v-btn icon>
-              <eye-icon @click.prevent="fileAction(item, 'preview')" />
+            <v-btn icon @click.prevent="fileAction(item, 'preview')">
+              <eye-icon />
             </v-btn>
-            <v-btn icon>
-              <download-icon @click.prevent="fileAction(item)" />
+            <v-btn icon @click.prevent="fileAction(item)">
+              <download-icon />
             </v-btn>
             <v-btn icon @click.prevent="deleteFile(item)">
               <trash-icon />
@@ -235,6 +235,7 @@ export default {
         id: item.FILE_ID
       }, (res) => {
         if (res.data()) {
+          console.log(res.data())
           if (action === 'download') {
             window.open(res.data().DOWNLOAD_URL, '_blank')
           } else {
