@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  async created() {
+  async mounted() {
     const script = await document.createElement('script')
 
     await script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
