@@ -202,13 +202,15 @@ export default {
     ]
   }),
   mounted() {
-    window.addEventListener('load',  () => {
-      this.getTaskFiles()
+    window.addEventListener('load',  async () => {
+      await this.getTaskFiles()
     })
   },
   methods: {
-    getTaskFiles() {
-      const { taskId } = window.BX24.placement.info().options
+    async getTaskFiles() {
+      const { taskId } = await new Promise(window.BX24.placement.info().options)
+
+      console.log(taskId)
 
       window.BX24.callMethod(
         'task.item.getdata',
