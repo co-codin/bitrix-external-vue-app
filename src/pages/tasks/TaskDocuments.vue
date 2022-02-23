@@ -202,9 +202,12 @@ export default {
     ]
   }),
   mounted() {
-    window.addEventListener('load',  () => {
+    window.onload = function () {
       this.getTaskFiles()
-    })
+    }
+    // window.addEventListener('load',  () => {
+    //   this.getTaskFiles()
+    // })
   },
   methods: {
     getTaskFiles() {
