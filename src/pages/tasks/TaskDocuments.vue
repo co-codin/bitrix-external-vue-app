@@ -51,10 +51,9 @@
                   <v-expansion-panel-content>
                     <v-row>
                       <v-col cols="12" sm="5" md="4" lg="2">
-                        <!--                      <v-img-->
-                        <!--                        max-width="100%"-->
-                        <!--                        src="https://picsum.photos/id/11/500/300"-->
-                        <!--                      />-->
+                        <file-preview-icon :extension="form.files[index].extension">
+                          {{ form.files[index].name }}.{{ form.files[index].extension }}
+                        </file-preview-icon>
                       </v-col>
                       <v-col cols="12" sm="7" md="8" lg="10">
                         <div>
@@ -85,7 +84,7 @@
                     </div>
                   </v-expansion-panel-content>
                 </v-expansion-panel>
-                <div class="text-right">
+                <div class="text-right mt-2">
                   <v-btn type="submit" color="primary" :loading="loadingFiles" :disabled="loadingFiles">
                     Загрузить выбранные файлы ({{ form.files.length }})
                   </v-btn>
@@ -160,6 +159,7 @@ import EyeIcon from '@/components/heroicons/EyeIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+import FilePreviewIcon from '../../components/FilePreviewIcon'
 
 export default {
   components: {
@@ -167,7 +167,8 @@ export default {
     TrashIcon,
     EyeIcon,
     DownloadIcon,
-    vueDropzone: vue2Dropzone
+    vueDropzone: vue2Dropzone,
+    FilePreviewIcon
   },
   data: () => ({
     files: [],
@@ -224,9 +225,10 @@ export default {
     handleFileUpload(file) {
       this.form.files.push({
         file: file,
-        name: '',
+        name: file.name.replace(/\.[^/.]+$/, ''),
         type: 1,
-        comment: ''
+        comment: '',
+        extension: file.name.split('.').pop()
       })
       this.$refs.dropzone.removeFile(file)
     },
