@@ -170,7 +170,6 @@ export default {
     vueDropzone: vue2Dropzone
   },
   data: () => ({
-    taskId: null,
     files: [],
     dropzoneOptions: {
       url: 'http://localhost',
@@ -204,20 +203,21 @@ export default {
   }),
   mounted() {
     window.addEventListener('load', () => {
-      const info = window.BX24.placement.info()
-
-      this.taskId = info.options.taskId
+      this.getTaskFiles()
+    })
+  },
+  methods: {
+    getTaskFiles() {
+      const { taskId } = window.BX24.placement.info().options
 
       window.BX24.callMethod(
         'task.item.getdata',
-        [this.taskId],
+        [taskId],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
         }
       )
-    })
-  },
-  methods: {
+    },
     removeFile(index) {
       this.form.files.splice(index, 1)
     },
@@ -262,7 +262,7 @@ export default {
       }
       this.loadingFiles = false
       this.dialog = false
-      this.$forceUpdate()
+      this.getTaskFiles()
 
     }
   }
