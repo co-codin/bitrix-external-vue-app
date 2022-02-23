@@ -124,6 +124,7 @@
         </template>
 
         <template #item.action="{item}">
+          {{ item }}
           <div class="table-actions">
             <v-btn icon>
               <eye-icon />
