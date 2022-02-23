@@ -123,7 +123,7 @@
           </div>
         </template>
 
-        <template #item.action>
+        <template #item.action="{item}">
           <div class="table-actions">
             <v-btn icon>
               <eye-icon />
@@ -132,7 +132,6 @@
               <download-icon />
             </v-btn>
             <v-btn icon @click.prevent="deleteFile(item.FILE_ID)">
-              {{ item }}
               <trash-icon />
             </v-btn>
           </div>
