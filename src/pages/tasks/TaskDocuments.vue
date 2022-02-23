@@ -131,7 +131,7 @@
             <v-btn icon>
               <download-icon />
             </v-btn>
-            <v-btn icon>
+            <v-btn icon >
               <trash-icon />
             </v-btn>
           </div>
@@ -215,6 +215,7 @@ export default {
         [taskId],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
+          console.log(this.files)
         }
       )
     },
@@ -229,6 +230,13 @@ export default {
         comment: ''
       })
       this.$refs.dropzone.removeFile(file)
+    },
+    deleteFile(fileId) {
+      window.BX24.callMethod('disk.file.delete', {
+        id: fileId
+      }, () => {
+        this.getTaskFiles()
+      })
     },
     uploadFiles() {
       this.loadingFiles = true
