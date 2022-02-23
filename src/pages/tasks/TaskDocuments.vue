@@ -233,13 +233,12 @@ export default {
       })
       this.$refs.dropzone.removeFile(file)
     },
-    deleteFile(fileId) {
-      console.log(fileId)
-      // window.BX24.callMethod('disk.file.delete', {
-      //   id: fileId
-      // }, () => {
-      //   this.getTaskFiles()
-      // })
+    deleteFile(item) {
+      window.BX24.callMethod('disk.file.delete', {
+        id: item.FILE_ID
+      }, () => {
+        this.getTaskFiles()
+      })
     },
     uploadFiles() {
       this.loadingFiles = true
@@ -270,7 +269,7 @@ export default {
           })
         }), 1000)
       })
-      
+
       this.loadingFiles = false
       this.dialog = false
       this.getTaskFiles()
