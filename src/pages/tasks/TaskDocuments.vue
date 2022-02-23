@@ -202,13 +202,13 @@ export default {
     ]
   }),
   mounted() {
-    window.addEventListener('load',  async () => {
-      await this.getTaskFiles()
+    window.addEventListener('load',  () => {
+      this.getTaskFiles()
     })
   },
   methods: {
-    async getTaskFiles() {
-      const { taskId } = await new Promise(window.BX24.placement.info().options)
+    getTaskFiles() {
+      const { taskId } = window.BX24.placement?.info()?.options
 
       console.log(taskId)
 
