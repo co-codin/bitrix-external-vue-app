@@ -69,8 +69,9 @@ export default {
           HANDLER: this.getHandlerFullPath(app.handler),
           TITLE: app.buttonLabel,
           DESCRIPTION: app.description
+        }, () => {
+          this.loadInstalledApps()
         })
-        this.loadInstalledApps()
       }
       catch (e) {
         console.log(e)
@@ -93,8 +94,9 @@ export default {
         BX24.callMethod('placement.unbind', {
           PLACEMENT: app.placement,
           HANDLER: this.getHandlerFullPath(app.handler)
+        }, () => {
+          this.loadInstalledApps()
         })
-        this.loadInstalledApps()
       }
       catch (e) {
         console.log(e)
