@@ -89,7 +89,16 @@ export default {
       })
     },
     deleteApp(app) {
-      console.log(app)
+      try {
+        BX24.callMethod('placement.unbind', {
+          PLACEMENT: app.placement,
+          HANDLER: this.getHandlerFullPath(app.handler)
+        })
+        this.loadInstalledApps()
+      }
+      catch (e) {
+        console.log(e)
+      }
     },
     isInstalled(app) {
       return !! this.installedApps.find((installedApp) => {
