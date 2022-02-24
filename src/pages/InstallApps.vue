@@ -56,7 +56,7 @@ export default {
   }),
   computed: {
     apps() {
-      return this.$config.apps.forEach((app) => ({
+      return this.$config.apps.map((app) => ({
         ...app,
         installed: this.isInstalled(app)
       }))
