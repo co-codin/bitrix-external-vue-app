@@ -1,7 +1,14 @@
 <template>
   <div>
     <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" />
-    <v-expansion-panels>
+    <div v-if="loading">
+      <v-card :loading="loading">
+        <v-card-text class="text-caption">
+          Идет загрузка приложений...
+        </v-card-text>
+      </v-card>
+    </div>
+    <v-expansion-panels v-else>
       <v-expansion-panel v-for="(app, index) in $config.apps" :key="index">
         <v-expansion-panel-header class="title">
           {{ app.name }}
@@ -43,10 +50,11 @@ export default {
     PageHeader
   },
   data: () => ({
-    breadcrumbs: [{ text: 'Установка приложений' }]
+    breadcrumbs: [{ text: 'Установка приложений' }],
+    loading: true
   }),
   mounted() {
-    BX24.init(() => this.loadInstalledApps())
+    BX24.init(this.loadInstalledApps)
   },
   methods: {
     installApp(app) {
@@ -63,8 +71,15 @@ export default {
       }
     },
     loadInstalledApps() {
-      BX24.callMethod('placement.get', {}, (data) => {
-        console.log(data.data)
+      BX24.callMethod('placement.get', {}, (response) => {
+        if (response.data()) {
+          console.log(response.data())
+          this.loading = false
+
+          return
+        }
+
+        alert('Произошла ошибка при загрузке приложений')
       })
     },
     deleteApp(app) {
