@@ -47,7 +47,9 @@ export default {
     task: null
   }),
   mounted() {
-    BX24.init(this.loadTask)
+    window.addEventListener('load', () => {
+      BX24.init(this.loadTask)
+    })
   },
   methods: {
     loadTask() {
