@@ -17,7 +17,7 @@ export default [
     name: 'Создание базовой задачи на закупщика',
     buttonLabel: 'Создать задачу на закупщика',
     description: 'Создание базовой задачи',
-    placement: 'TASK_LIST_CONTEXT_MENU',
+    placement: 'CRM_DEAL_LIST_MENU',
     handler: '/tasks/create-base-supplier-task'
   },
   {
