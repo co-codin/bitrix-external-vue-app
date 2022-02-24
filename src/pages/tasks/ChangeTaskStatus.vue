@@ -53,9 +53,7 @@ export default {
   },
   methods: {
     loadTask() {
-      const { taskId } = BX24.placement.info().options
-
-      console.log(taskId)
+      console.log(BX24.placement.info().options)
     },
     changeTaskStatus() {
       BX24.callMethod(

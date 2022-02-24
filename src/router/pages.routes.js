@@ -48,6 +48,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/users/profile-qr-code',
+    name: 'users.profile-qr-code',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/users/UserProfileQRCode.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',

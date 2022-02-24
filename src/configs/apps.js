@@ -26,5 +26,12 @@ export default [
     description: 'Изменение статуса задачи',
     placement: 'TASK_LIST_CONTEXT_MENU',
     handler: '/tasks/change-task-status'
+  },
+  {
+    name: 'Получение QR кода пользователя',
+    buttonLabel: 'Получить QR код',
+    description: 'Получение QR кода пользователя',
+    placement: 'USER_PROFILE_TOOLBAR',
+    handler: '/users/profile-qr-code'
   }
 ]
