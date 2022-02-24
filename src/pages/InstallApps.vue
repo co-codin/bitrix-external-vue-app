@@ -12,7 +12,7 @@
       <v-expansion-panel v-for="(app, index) in $config.apps" :key="index">
         <v-expansion-panel-header class="title">
           {{ app.name }}
-          <span v-if="app.installed" class="text-sm-caption green--text ml-2">
+          <span v-if="isInstalled(app)" class="text-sm-caption green--text ml-2">
             Установлено
           </span>
         </v-expansion-panel-header>
@@ -22,7 +22,7 @@
           </p>
           <div>
             <v-btn
-              v-if="!app.installed"
+              v-if="!isInstalled(app)"
               small
               color="green"
               dark
@@ -51,7 +51,8 @@ export default {
   },
   data: () => ({
     breadcrumbs: [{ text: 'Установка приложений' }],
-    loading: true
+    loading: true,
+    installedApps: []
   }),
   mounted() {
     BX24.init(this.loadInstalledApps)
@@ -61,7 +62,7 @@ export default {
       try {
         window.BX24.callMethod('placement.bind', {
           PLACEMENT: app.placement,
-          HANDLER: `https://bitrix-external-app.medeqstars.com${app.handler}`,
+          HANDLER: this.getHandlerFullPath(app.handler),
           TITLE: app.buttonLabel,
           DESCRIPTION: app.description
         })
@@ -73,7 +74,7 @@ export default {
     loadInstalledApps() {
       BX24.callMethod('placement.get', {}, (response) => {
         if (response.data()) {
-          console.log(response.data())
+          this.installedApps = response.data()
           this.loading = false
 
           return
@@ -84,6 +85,15 @@ export default {
     },
     deleteApp(app) {
       console.log(app)
+    },
+    isInstalled(app) {
+      return !! this.installedApps.find((installedApp) => {
+        return installedApp.handler === this.getHandlerFullPath(app)
+          && installedApp.placement === app.placement
+      })
+    },
+    getHandlerFullPath(handler) {
+      return `https://bitrix-external-app.medeqstars.com${handler}`
     }
   }
 }
