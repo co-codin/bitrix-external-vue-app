@@ -2,11 +2,11 @@
   <div>
     <page-header h1="MEDEQ Bitrix24 Application" :show-home-link="false" />
     <v-card class="mb-3" light>
-      <v-card-title>Установка</v-card-title>
+      <v-card-title>Приложения</v-card-title>
       <v-card-subtitle>Перейдите в раздел для установки приложений</v-card-subtitle>
       <v-card-text>
         <v-btn dark :to="{name: 'install-apps'}">
-          Установка приложений
+          Приложения
         </v-btn>
       </v-card-text>
     </v-card>
