@@ -67,6 +67,14 @@ export default {
         placement: 'TASK_LIST_CONTEXT_MENU',
         handler: '/tasks/create-base-supplier-task',
         installed: false
+      },
+      {
+        name: 'Изменение статуса задачи',
+        buttonLabel: 'Изменить статус',
+        description: 'Изменение статуса задачи',
+        placement: 'TASK_LIST_CONTEXT_MENU',
+        handler: '/tasks/change-task-status',
+        installed: false
       }
     ],
     breadcrumbs: [{ text: 'Установка приложений' }]

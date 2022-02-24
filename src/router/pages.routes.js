@@ -41,6 +41,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/tasks/change-task-status',
+    name: 'tasks.change-task-status',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/ChangeTaskStatus.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',
