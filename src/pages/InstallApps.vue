@@ -109,7 +109,7 @@ export default {
       })
     },
     getHandlerFullPath(handler) {
-      return `https://bitrix-external-app.medeqstars.com${handler}`
+      return `${process.env.VUE_APP_APP_URL}${handler}`
     }
   }
 }
