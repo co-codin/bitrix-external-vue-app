@@ -203,6 +203,7 @@ export default {
     ]
   }),
   mounted() {
+    console.log(this.loaded)
     window.addEventListener('load',  () => {
       this.getTaskFiles()
     })
