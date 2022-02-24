@@ -16,7 +16,7 @@ export default {
     await document.head.appendChild(script)
 
     script.addEventListener('load', () => {
-      this.loaded = true
+      BX.init(() => this.loaded = true);
     })
   }
 }
