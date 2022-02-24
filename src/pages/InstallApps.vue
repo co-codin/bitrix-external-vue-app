@@ -64,7 +64,7 @@ export default {
     },
     loadInstalledApps() {
       BX24.callMethod('placement.get', {}, (data) => {
-        console.log(data)
+        console.log(data.data)
       })
     },
     deleteApp(app) {
