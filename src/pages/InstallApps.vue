@@ -46,14 +46,7 @@ export default {
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
   mounted() {
-    BX24.init(() => {
-      console.log('Инициализация завершена!', BX24.isAdmin())
-    })
-
-    // window.addEventListener('load', this.loadInstalledApps)
-  },
-  beforeDestroy() {
-    window.removeEventListener('load', this.loadInstalledApps)
+    BX24.init(this.loadInstalledApps)
   },
   methods: {
     installApp(app) {
@@ -70,8 +63,7 @@ export default {
       }
     },
     loadInstalledApps() {
-      alert(1)
-      window.BX24.callMethod('placement.get', {}, (data) => {
+      BX24.callMethod('placement.get', (data) => {
         console.log(data)
       })
     },
