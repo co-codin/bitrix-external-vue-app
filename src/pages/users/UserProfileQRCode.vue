@@ -18,12 +18,8 @@ export default {
   },
   methods: {
     openDialog() {
-      BX24.selectCRM({
-        entityType: ['lead', 'contact', 'company', 'deal', 'quote'],
-        multiple: true,
-        value: { lead:[1348,2,35], contact:[2], company:[4,3], deal:[1,2], quote:[1] }
-      }, function(data) {
-        console.log(data)
+      BX24.selectUsers(() => {
+        console.log(1)
       })
     }
   }
