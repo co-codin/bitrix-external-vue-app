@@ -1,13 +1,7 @@
 <template>
   <div>
     <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" />
-    <div v-if="loading">
-      <v-card :loading="loading">
-        <v-card-text class="text-caption">
-          Идет загрузка приложений...
-        </v-card-text>
-      </v-card>
-    </div>
+    <page-loader v-if="loading" message="Идет загрузка приложений" />
     <v-expansion-panels v-else>
       <v-expansion-panel v-for="(app, index) in apps" :key="index">
         <v-expansion-panel-header class="title">
@@ -44,10 +38,12 @@
 
 <script>
 import PageHeader from '../components/PageHeader'
+import PageLoader from '../components/PageLoader'
 
 export default {
   components: {
-    PageHeader
+    PageHeader,
+    PageLoader
   },
   data: () => ({
     breadcrumbs: [{ text: 'Установка приложений' }],
