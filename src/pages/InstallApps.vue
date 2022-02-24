@@ -66,7 +66,8 @@ export default {
       }
     },
     loadInstalledApps() {
-      window.BX24.callMethod('placement.get', (data) => {
+      alert(1)
+      window.BX24.callMethod('placement.get', {}, (data) => {
         console.log(data)
       })
     },
