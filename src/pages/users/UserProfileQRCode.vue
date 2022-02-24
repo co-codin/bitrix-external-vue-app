@@ -10,6 +10,7 @@ export default {
     const options = BX24.placement?.info()?.options
 
     console.log(options)
+    console.log(this.$route.query)
   }
 }
 </script>
