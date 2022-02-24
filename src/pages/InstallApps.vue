@@ -46,7 +46,7 @@ export default {
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
   mounted() {
-    BX24.init(this.loadInstalledApps)
+    BX24.init(() => this.loadInstalledApps())
   },
   methods: {
     installApp(app) {
