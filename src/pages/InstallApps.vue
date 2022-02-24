@@ -54,7 +54,7 @@ export default {
     apps() {
       return this.$config.apps.map((app) => ({
         ...app,
-        installed: this.isInstalled(app)
+        isInstalled: this.isInstalled(app)
       }))
     }
   },
