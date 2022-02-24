@@ -7,6 +7,7 @@ import locales from './locales'
 import analytics from './analytics'
 import currencies from './currencies'
 import navigation from './navigation'
+import apps from './apps'
 
 export default {
   // product display information
@@ -40,5 +41,7 @@ export default {
   currencies,
 
   // navigation configs
-  navigation
+  navigation,
+
+  apps
 }

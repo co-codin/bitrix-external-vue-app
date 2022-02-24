@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" />
     <v-expansion-panels>
-      <v-expansion-panel v-for="(app, index) in apps" :key="index">
+      <v-expansion-panel v-for="(app, index) in $config.apps" :key="index">
         <v-expansion-panel-header class="title">
           {{ app.name }}
           <span v-if="app.installed" class="text-sm-caption green--text ml-2">
@@ -43,46 +43,13 @@ export default {
     PageHeader
   },
   data: () => ({
-    apps: [
-      {
-        name: 'Вкладка "Документы" в задачах',
-        buttonLabel: 'Документы',
-        description: 'Загрузка документов к задачам',
-        placement: 'TASK_VIEW_TAB',
-        handler: '/tasks/documents',
-        installed: false
-      },
-      {
-        name: 'Создание подзадач закупщиком',
-        buttonLabel: 'Постпродажный процесс',
-        description: 'Создание подзадач закупщиком к базовой задаче',
-        placement: 'TASK_LIST_CONTEXT_MENU',
-        handler: '/tasks/create-supplier-tasks',
-        installed: false
-      },
-      {
-        name: 'Создание базовой задачи на закупщика',
-        buttonLabel: 'Создать задачу на закупщика',
-        description: 'Создание базовой задачи',
-        placement: 'TASK_LIST_CONTEXT_MENU',
-        handler: '/tasks/create-base-supplier-task',
-        installed: false
-      },
-      {
-        name: 'Изменение статуса задачи',
-        buttonLabel: 'Изменить статус',
-        description: 'Изменение статуса задачи',
-        placement: 'TASK_LIST_CONTEXT_MENU',
-        handler: '/tasks/change-task-status',
-        installed: false
-      }
-    ],
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
   mounted() {
-    window.addEventListener('load',  () => {
-      this.getPlacementLists()
-    })
+    window.addEventListener('load', this.loadInstalledApps)
+  },
+  beforeDestroy() {
+    window.removeEventListener('load', this.loadInstalledApps)
   },
   methods: {
     installApp(app) {
@@ -98,8 +65,10 @@ export default {
         console.log(e)
       }
     },
-    getPlacementLists() {
-      window.BX24.callMethod('placement.list')
+    loadInstalledApps() {
+      window.BX24.callMethod('placement.get', (data) => {
+        console.log(data)
+      })
     },
     deleteApp(app) {
       console.log(app)
