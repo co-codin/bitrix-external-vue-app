@@ -88,7 +88,7 @@ export default {
     },
     isInstalled(app) {
       return !! this.installedApps.find((installedApp) => {
-        return installedApp.handler === this.getHandlerFullPath(app)
+        return installedApp.handler === this.getHandlerFullPath(app.handler)
           && installedApp.placement === app.placement
       })
     },
