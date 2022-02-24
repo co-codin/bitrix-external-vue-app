@@ -63,7 +63,7 @@ export default {
       }
     },
     loadInstalledApps() {
-      BX24.callMethod('placement.get', (data) => {
+      BX24.callMethod('placement.get', {}, (data) => {
         console.log(data)
       })
     },
