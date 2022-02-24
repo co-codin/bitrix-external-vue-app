@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Изменение статуса задачи" :show-home-link="false"/>
     <page-loader v-if="loading"/>
-    <template>
+    <template v-else>
       <v-form @submit.prevent="changeTaskStatus">
         <v-card>
           <v-card-text>
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     loadTask() {
-      const { taskId } = windowBX24.placement.info().options
+      const { taskId } = BX24.placement.info().options
 
       console.log(taskId)
     },
