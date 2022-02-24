@@ -46,7 +46,11 @@ export default {
     breadcrumbs: [{ text: 'Установка приложений' }]
   }),
   mounted() {
-    window.addEventListener('load', this.loadInstalledApps)
+    BX24.init(() => {
+      console.log('Инициализация завершена!', BX24.isAdmin())
+    })
+
+    // window.addEventListener('load', this.loadInstalledApps)
   },
   beforeDestroy() {
     window.removeEventListener('load', this.loadInstalledApps)
