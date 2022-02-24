@@ -47,7 +47,7 @@ export default {
     task: null
   }),
   mounted() {
-    BX24.init(this.loadTask)
+    this.loadTask()
   },
   methods: {
     loadTask() {
