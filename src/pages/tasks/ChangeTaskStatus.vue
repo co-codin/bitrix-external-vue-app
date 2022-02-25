@@ -72,7 +72,7 @@ export default {
       try {
         BX24.callMethod(
           'tasks.task.update',
-          { taskId: this.task.id, fields: { UF_TASK_STATUS: this.form.status } },
+          { taskId: this.task.id, fields: { UF_TASK_STATUS: this.form.status?.text ?? this.form.status } },
           () => {
             BX24.closeApplication()
           }
