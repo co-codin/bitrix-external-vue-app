@@ -1,6 +1,5 @@
 <template>
   <div>
-    <page-header h1="Генератор QR кода для пользователя" :show-home-link="false" />
     <page-loader v-if="loading" />
     <v-alert v-else-if="error" type="error" text>
       Произошла ошибка при загрузке Битрикс 24
