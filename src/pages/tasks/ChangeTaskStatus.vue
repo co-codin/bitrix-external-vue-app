@@ -55,7 +55,10 @@ export default {
       const taskId = options?.ID ?? options.TASK_ID // bitrix из списка задач отдает ID, а через карточку задачи TASK_ID
 
       BX24.callMethod('tasks.task.get', { ID: taskId }, (response) => {
+        console.log(response.data)
         console.log(response.data())
+        console.log(response)
+        console.log(response.answer)
       })
     },
     changeTaskStatus() {
