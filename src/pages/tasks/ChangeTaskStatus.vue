@@ -8,7 +8,7 @@
         <v-card>
           <v-card-text>
             <v-form>
-              <v-select
+              <v-combobox
                 v-model="form.status"
                 label="Статус задачи"
                 :items="taskStatusLabels"
@@ -61,8 +61,7 @@ export default {
         this.loading = false
         if (response.data()) {
           this.task = response.data().task
-          console.log(this.task)
-          // this.form.status = this.task.uf_task_status
+          this.form.status = this.task.ufTaskStatus
 
           return
         }
@@ -70,13 +69,19 @@ export default {
       })
     },
     changeTaskStatus() {
-      BX24.callMethod(
-        'tasks.task.update',
-        { taskId: this.task.id, fields: { UF_TASK_STATUS: this.form.status } },
-        () => {
-          BX24.closeApplication()
-        }
-      )
+      try {
+        BX24.callMethod(
+          'tasks.task.update',
+          { taskId: this.task.id, fields: { UF_TASK_STATUS: this.form.status } },
+          () => {
+            BX24.closeApplication()
+          }
+        )
+      }
+      catch (e) {
+        console.log('error')
+        console.log(e)
+      }
     }
   }
 }
