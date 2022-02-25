@@ -9,6 +9,7 @@
           <v-card-text>
             <v-form>
               <v-select
+                v-model="form.status"
                 label="Статус задачи"
                 :items="taskStatusLabels"
                 placeholder="Выберите статус задачи"
@@ -56,10 +57,12 @@ export default {
       const { options } = BX24.placement.info()
       const taskId = options?.ID ?? options?.TASK_ID // bitrix из списка задач отдает ID, а через карточку задачи TASK_ID
 
-      BX24.callMethod('tasks.task.get', { taskId, select: ['uf_task_status'] }, (response) => {
+      BX24.callMethod('tasks.task.get', { taskId, select: ['UF_TASK_STATUS'] }, (response) => {
         this.loading = false
         if (response.data()) {
           this.task = response.data().task
+          console.log(this.task);
+          // this.form.status = this.task.uf_task_status
 
           return
         }
