@@ -33,8 +33,6 @@ export default {
       }
       catch (e) {
         this.error = e
-      }
-      finally {
         this.loaded = true
       }
     })

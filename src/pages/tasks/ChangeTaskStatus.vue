@@ -51,6 +51,8 @@ export default {
   },
   methods: {
     loadTask() {
+      console.log(BX24.placement)
+      
       const { options } = BX24.placement.info()
       const taskId = options?.ID ?? options?.TASK_ID // bitrix из списка задач отдает ID, а через карточку задачи TASK_ID
 
