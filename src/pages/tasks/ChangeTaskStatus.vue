@@ -61,7 +61,7 @@ export default {
         this.loading = false
         if (response.data()) {
           this.task = response.data().task
-          console.log(this.task);
+          console.log(this.task)
           // this.form.status = this.task.uf_task_status
 
           return
