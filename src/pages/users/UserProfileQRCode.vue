@@ -5,10 +5,10 @@
       Произошла ошибка при загрузке Битрикс 24
     </v-alert>
     <template v-else>
-      <v-row>
-        <v-col md="6">
+      <v-row no-gutters>
+        <v-col cols="12" sm="6">
           <v-card>
-            <v-card-text>
+            <v-card-text class="pt-3">
               <v-form @submit.prevent="generateQRCode">
                 <v-text-field
                   v-model="form.last_name"
@@ -59,7 +59,8 @@
             </v-btn>
           </div>
         </v-col>
-        <v-col md="6">
+        <v-col cols="12" sm="6" class="pl-sm-2">
+          <v-divider class="d-sm-none d-block mt-3 mb-3" />
           <v-card
             max-width="300"
           >
