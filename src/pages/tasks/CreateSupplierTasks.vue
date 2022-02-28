@@ -141,7 +141,9 @@ export default {
         {
           filter: {
             PARENT_ID: taskId
-          }
+          },
+          select: ['ID','TITLE'],
+          order: { ID:'asc' }
         },
         (result) => {
           console.log(result.data())
