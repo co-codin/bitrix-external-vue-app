@@ -119,41 +119,26 @@ export default {
       { text: 'Установка оборудования при помощи сторонних компаний', value: 14, fields: ['equipment', 'serial_number', 'bill', 'transfer_document', 'company_contacts'] },
       { text: 'Установка оборудования за наш счет', value: 15, fields: ['equipment', 'serial_number'] }
     ],
-    files: [
-      { text: 'Счет № 2112/2', value: 1 },
-      { text: 'УПД № 2112/2', value: 2 },
-      { text: 'Договор № 2112/2', value: 3 },
-      { text: 'Счет № 1313/2', value: 4 }
-    ],
+    files: [],
     tasks: []
   }),
   mounted() {
-    const { options } = BX24.placement.info()
-
-    console.log(options)
-
-    // this.getSubTasks()
+    this.getTaskFiles()
   },
   methods: {
-    getSubTasks() {
-      // const { taskId } = window.BX24.placement?.info()?.options
-      setTimeout(() => {
-        console.log(window.BX24.placement)
-      }, 3000)
+    getTaskFiles() {
+      const { options } = BX24.placement.info()
 
-      // window.BX24.callMethod(
-      //   'task.task.list',
-      //   {
-      //     filter: {
-      //       PARENT_ID: taskId
-      //     },
-      //     select: ['ID','TITLE'],
-      //     order: { ID:'asc' }
-      //   },
-      //   (result) => {
-      //     console.log(result.data())
-      //   }
-      // )
+      const taskId = options?.ID ?? options?.TASK_ID
+
+      BX24.callMethod(
+        'task.item.getdata',
+        [taskId],
+        (result) => {
+          this.files = result.data().UF_TASK_WEBDAV_FILES
+          console.log(this.files)
+        }
+      )
     },
     addTask() {
       this.tasks.push({
