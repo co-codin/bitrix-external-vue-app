@@ -44,7 +44,7 @@
           <div class="mb-7">
             <v-expansion-panels v-if="form.files.length" class="mb-2">
               <v-form style="width: 100%;" @submit.prevent="uploadFiles">
-                <v-expansion-panel v-for="(file, index) in form.files" :key="index" style="border: 1px solid red !important">
+                <v-expansion-panel v-for="(file, index) in form.files" :key="index">
                   <v-expansion-panel-header class="title">
                     {{ file.file.name }}
                   </v-expansion-panel-header>
