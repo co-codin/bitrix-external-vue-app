@@ -62,6 +62,7 @@
                             label="Название"
                             dense
                             :rules="nameRules"
+                            required
                           />
                           <v-select
                             v-model="form.files[index].type"
@@ -69,6 +70,7 @@
                             :items="documentTypeLabels"
                             dense
                             :rules="typeRules"
+                            required
                           />
                           <v-text-field
                             v-model="form.files[index].comment"
@@ -180,7 +182,6 @@ export default {
     headers: [
       { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
       { text: 'Название', align: 'left', value: 'NAME', sortable: false },
-      { text: 'Тип', align: 'left', value: 'NAME', sortable: false },
       { text: '', sortable: false, align: 'right', value: 'action' }
     ],
     isLoading: false,
@@ -219,7 +220,6 @@ export default {
           this.files = result.data().UF_TASK_WEBDAV_FILES
         }
       )
-      console.log(this.files)
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -272,11 +272,9 @@ export default {
               id: process.env.VUE_APP_STORAGE_ID,
               fileContent: fileContent,
               data: {
-                NAME: file.name,
-                DESCRIPTION: {
-                  TYPE: file.type,
-                  COMMENT: file.comment
-                }
+                NAME: file.name + '.' + file.extension,
+                TYPE: file.type,
+                COMMENT: file.comment
               }
             },
             (res) => {
