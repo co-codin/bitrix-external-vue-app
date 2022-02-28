@@ -16,11 +16,13 @@
 import { mapState } from 'vuex'
 import config from './configs'
 import simpleLayout from './layouts/SimpleLayout'
+import simpleDevLayout from './layouts/SimpleDevLayout'
 import errorLayout from './layouts/ErrorLayout'
 
 export default {
   components: {
     simpleLayout,
+    simpleDevLayout,
     errorLayout
   },
   computed: {
@@ -29,7 +31,11 @@ export default {
       return this.$route.name !== null
     },
     currentLayout: function() {
-      const layout = this.$route.meta.layout || 'default'
+      let layout = this.$route.meta.layout || 'default'
+
+      if (layout === 'simple' && process.env.NODE_ENV === 'development') {
+        layout = 'simpleDev'
+      }
 
       return layout + 'Layout'
     }
