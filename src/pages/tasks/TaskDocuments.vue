@@ -211,9 +211,7 @@ export default {
     getTaskFiles() {
       const { options } = BX24.placement.info()
 
-      const taskId = options?.ID ?? options?.TASK_ID
-
-      console.log(taskId)
+      const taskId = options?.ID ?? options?.taskId
 
       BX24.callMethod(
         'task.item.getdata',
@@ -253,8 +251,12 @@ export default {
       BX24.callMethod('disk.file.delete', {
         id: item.FILE_ID
       }, () => {
+        const { options } = BX24.placement.info()
+
+        const taskId = options?.ID ?? options?.taskId
+
         BX24.callMethod('task.item.deletefile', {
-          TASK_ID: BX24.placement.info()?.options?.taskId,
+          TASK_ID: taskId,
           ATTACHMENT_ID: item.ATTACHMENT_ID
         }, () => {
           this.getTaskFiles()
@@ -281,8 +283,12 @@ export default {
             },
             (res) => {
               if (res.data()) {
+                const { options } = BX24.placement.info()
+
+                const taskId = options?.ID ?? options?.taskId
+
                 BX24.callMethod('tasks.task.files.attach', {
-                  taskId: BX24.placement.info()?.options?.taskId,
+                  taskId: taskId,
                   fileId: res.data().ID
                 }, () => {
                   this.getTaskFiles()
