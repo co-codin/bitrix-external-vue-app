@@ -135,8 +135,9 @@ export default {
   methods: {
     getSubTasks() {
       // const { taskId } = window.BX24.placement?.info()?.options
-
-      console.log(window.BX24.placement)
+      setTimeout(() => {
+        console.log(window.BX24.placement)
+      }, 1000)
 
       // window.BX24.callMethod(
       //   'task.task.list',
