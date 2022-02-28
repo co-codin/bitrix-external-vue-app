@@ -128,9 +128,11 @@ export default {
     tasks: []
   }),
   mounted() {
-    window.addEventListener('load',  () => {
-      this.getSubTasks()
-    })
+    const { options } = BX24.placement.info()
+
+    console.log(options)
+
+    // this.getSubTasks()
   },
   methods: {
     getSubTasks() {
