@@ -220,7 +220,7 @@
               rows="4"
             />
             <v-card>
-              <v-card-title>Контактное лицо для установки оборудования</v-card-title>
+              <v-card-title>Контактное лицо для отправки документов</v-card-title>
               <v-card-text>
                 <v-text-field
                   v-model="form.documents.name"
