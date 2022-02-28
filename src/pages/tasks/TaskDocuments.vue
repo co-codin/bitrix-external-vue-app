@@ -205,15 +205,16 @@ export default {
     ]
   }),
   mounted() {
-    window.addEventListener('load',  () => {
-      this.getTaskFiles()
-    })
+    this.getTaskFiles()
   },
   methods: {
     getTaskFiles() {
-      const { taskId } = window.BX24.placement?.info()?.options
+      const { options } = BX24.placement.info()
 
-      window.BX24.callMethod(
+      console.log(options)
+      const taskId = options?.ID ?? options?.TASK_ID
+
+      BX24.callMethod(
         'task.item.getdata',
         [taskId],
         (result) => {
@@ -235,7 +236,7 @@ export default {
       this.$refs.dropzone.removeFile(file)
     },
     fileAction(item, action = 'download') {
-      window.BX24.callMethod('disk.file.get', {
+      BX24.callMethod('disk.file.get', {
         id: item.FILE_ID
       }, (res) => {
         if (res.data()) {
@@ -248,11 +249,11 @@ export default {
       })
     },
     deleteFile(item) {
-      window.BX24.callMethod('disk.file.delete', {
+      BX24.callMethod('disk.file.delete', {
         id: item.FILE_ID
       }, () => {
-        window.BX24.callMethod('task.item.deletefile', {
-          TASK_ID: window.BX24.placement.info()?.options?.taskId,
+        BX24.callMethod('task.item.deletefile', {
+          TASK_ID: BX24.placement.info()?.options?.taskId,
           ATTACHMENT_ID: item.ATTACHMENT_ID
         }, () => {
           this.getTaskFiles()
@@ -268,7 +269,7 @@ export default {
         setTimeout(() => {
           file.file.text().then((content) => {
             fileContent = content
-            window.BX24.callMethod('disk.storage.uploadfile', {
+            BX24.callMethod('disk.storage.uploadfile', {
               id: process.env.VUE_APP_STORAGE_ID,
               fileContent: fileContent,
               data: {
@@ -279,8 +280,8 @@ export default {
             },
             (res) => {
               if (res.data()) {
-                window.BX24.callMethod('tasks.task.files.attach', {
-                  taskId: window.BX24.placement.info()?.options?.taskId,
+                BX24.callMethod('tasks.task.files.attach', {
+                  taskId: BX24.placement.info()?.options?.taskId,
                   fileId: res.data().ID
                 }, () => {
                   this.getTaskFiles()
