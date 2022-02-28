@@ -211,8 +211,9 @@ export default {
     getTaskFiles() {
       const { options } = BX24.placement.info()
 
-      console.log(options)
       const taskId = options?.ID ?? options?.TASK_ID
+
+      console.log(taskId)
 
       BX24.callMethod(
         'task.item.getdata',
