@@ -65,7 +65,7 @@
                           />
                           <v-select
                             v-model="form.files[index].type"
-                            label="Тип"
+                            label="Выберите тип документа"
                             :items="documentTypeLabels"
                             dense
                             :rules="typeRules"
@@ -203,7 +203,6 @@ export default {
     ]
   }),
   mounted() {
-    console.log(this.loaded)
     window.addEventListener('load',  () => {
       this.getTaskFiles()
     })
@@ -227,7 +226,7 @@ export default {
       this.form.files.push({
         file: file,
         name: file.name.replace(/\.[^/.]+$/, ''),
-        type: 1,
+        type: null,
         comment: '',
         extension: file.name.split('.').pop()
       })
