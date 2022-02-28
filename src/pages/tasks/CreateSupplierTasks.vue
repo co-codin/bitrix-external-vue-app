@@ -128,6 +128,9 @@ export default {
     tasks: []
   }),
   mounted() {
+    window.addEventListener('load',  () => {
+      this.getSubTasks()
+    })
   },
   methods: {
     getSubTasks() {
