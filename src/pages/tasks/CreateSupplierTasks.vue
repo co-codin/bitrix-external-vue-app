@@ -136,19 +136,21 @@ export default {
     getSubTasks() {
       const { taskId } = window.BX24.placement?.info()?.options
 
-      window.BX24.callMethod(
-        'task.task.list',
-        {
-          filter: {
-            PARENT_ID: taskId
-          },
-          select: ['ID','TITLE'],
-          order: { ID:'asc' }
-        },
-        (result) => {
-          console.log(result.data())
-        }
-      )
+      console.log(taskId)
+
+      // window.BX24.callMethod(
+      //   'task.task.list',
+      //   {
+      //     filter: {
+      //       PARENT_ID: taskId
+      //     },
+      //     select: ['ID','TITLE'],
+      //     order: { ID:'asc' }
+      //   },
+      //   (result) => {
+      //     console.log(result.data())
+      //   }
+      // )
     },
     addTask() {
       this.tasks.push({
