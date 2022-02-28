@@ -1,22 +1,21 @@
 <template>
   <div class="pa-2">
-    <!--    <page-loader-->
-    <!--      v-if="!loaded"-->
-    <!--    />-->
-    <!--    <v-alert v-else-if="error" type="error" text>-->
-    <!--      Произошла ошибка при загрузке Битрикс 24-->
-    <!--    </v-alert>-->
-    <!--    <slot v-else></slot>-->
-    <slot></slot>
+    <page-loader
+      v-if="!loaded"
+    />
+    <v-alert v-else-if="error" type="error" text>
+      Произошла ошибка при загрузке Битрикс 24
+    </v-alert>
+    <slot v-else></slot>
   </div>
 </template>
 
 <script>
-// import PageLoader from '../components/PageLoader'
+import PageLoader from '../components/PageLoader'
 
 export default {
   components: {
-    // PageLoader
+    PageLoader
   },
   data: () => ({
     loaded: false,
@@ -28,18 +27,15 @@ export default {
     await script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
     await document.head.appendChild(script)
 
-    // script.addEventListener('load', () => {
-    //   try {
-    //     BX24.init(() => this.loaded = true)
-    //   }
-    //   catch (e) {
-    //     console.log(e)
-    //     this.error = e
-    //   }
-    //   finally {
-    //     this.loaded = true
-    //   }
-    // })
+    script.addEventListener('load', () => {
+      try {
+        BX24.init(() => this.loaded = true)
+      }
+      catch (e) {
+        this.error = e
+        this.loaded = true
+      }
+    })
   }
 }
 </script>
