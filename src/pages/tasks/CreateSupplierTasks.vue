@@ -130,6 +130,21 @@ export default {
   mounted() {
   },
   methods: {
+    getSubTasks() {
+      const { taskId } = window.BX24.placement?.info()?.options
+
+      window.BX24.callMethod(
+        'task.task.list',
+        {
+          filter: {
+            PARENT_ID: taskId
+          }
+        },
+        (result) => {
+          console.log(result.data())
+        }
+      )
+    },
     addTask() {
       this.tasks.push({
         type: null, // тип задачи
