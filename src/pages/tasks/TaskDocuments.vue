@@ -180,6 +180,7 @@ export default {
     headers: [
       { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
       { text: 'Название', align: 'left', value: 'NAME', sortable: false },
+      { text: 'Тип', align: 'left', value: 'NAME', sortable: false },
       { text: '', sortable: false, align: 'right', value: 'action' }
     ],
     isLoading: false,
@@ -218,6 +219,7 @@ export default {
           this.files = result.data().UF_TASK_WEBDAV_FILES
         }
       )
+      console.log(this.files)
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -237,7 +239,6 @@ export default {
         id: item.FILE_ID
       }, (res) => {
         if (res.data()) {
-          console.log(res.data())
           if (action === 'download') {
             window.open(res.data().DOWNLOAD_URL, '_blank')
           } else {
@@ -272,8 +273,10 @@ export default {
               fileContent: fileContent,
               data: {
                 NAME: file.name,
-                TYPE: file.type,
-                COMMENT: file.comment
+                DESCRIPTION: {
+                  TYPE: file.type,
+                  COMMENT: file.comment
+                }
               }
             },
             (res) => {
