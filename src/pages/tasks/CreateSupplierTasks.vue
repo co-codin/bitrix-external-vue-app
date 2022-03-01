@@ -181,32 +181,32 @@ export default {
         }
 
         if (task.manager_contacts) {
-
+          description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
         }
 
         if (task.company_contacts) {
-
+          description += 'Контактный компании: ' + task.company_contacts + '\n'
         }
 
         if (task.logistics_contacts) {
-
+          description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
         }
 
         if (task.equipment) {
-
+          description += 'Оборудование / комплектация: ' + task.equipment + '\n'
         }
 
         if (task.serial_number) {
-
+          description += 'Серийный номер: ' + task.serial_number + '\n'
         }
 
-        // BX24.callMethod('task.item.add', [{
-        //   PARENT_ID: taskId,
-        //   TITLE: `Подзадача #${index}`,
-        //   DESCRIPTION: ''
-        // }], (res) => {
-        //
-        // })
+        BX24.callMethod('task.item.add', [{
+          PARENT_ID: taskId,
+          TITLE: `Подзадача #${index}`,
+          DESCRIPTION: description
+        }], (res) => {
+
+        })
       })
     },
     isAvailableField(type, field) {
