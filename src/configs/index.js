@@ -8,6 +8,7 @@ import analytics from './analytics'
 import currencies from './currencies'
 import navigation from './navigation'
 import apps from './apps'
+import responsible_ids from './bitrix'
 
 export default {
   // product display information
@@ -42,6 +43,9 @@ export default {
 
   // navigation configs
   navigation,
+
+  // bitrix configs
+  responsible_ids,
 
   apps
 }

@@ -135,8 +135,8 @@ export default {
         'task.item.getdata',
         [taskId],
         (result) => {
+          console.log(result.data())
           this.files = result.data().UF_TASK_WEBDAV_FILES
-          console.log(this.files)
           this.files = this.files.map((file) => {
             return {
               text: file.NAME,
