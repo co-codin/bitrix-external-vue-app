@@ -200,6 +200,9 @@ export default {
           description += 'Серийный номер: ' + task.serial_number + '\n'
         }
 
+        console.log(description)
+        console.log(taskId)
+
         BX24.callMethod('task.item.add', [{
           PARENT_ID: taskId,
           TITLE: `Подзадача #${index}`,
