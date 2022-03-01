@@ -167,10 +167,11 @@ export default {
       const taskId = options?.ID ?? options?.TASK_ID
 
       this.tasks.forEach((task, index) => {
+        const taskName = this.taskTypes.find(type => type.value === task.type.value).text
         let description = ''
 
         if (task.type) {
-          description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
+          description += 'Тип задачи: ' + taskName + '\n'
         }
 
         if (task.bill) {
@@ -203,7 +204,7 @@ export default {
 
         BX24.callMethod('task.item.add', [{
           PARENT_ID: taskId,
-          TITLE: `Подзадача #${index}`,
+          TITLE: taskName,
           RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
           DESCRIPTION: description
         }], (res) => {
@@ -225,7 +226,7 @@ export default {
               }, () => {
               })
             }
-            
+
             this.tasks.splice(index, 1)
 
           }
