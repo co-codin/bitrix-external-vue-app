@@ -163,12 +163,12 @@ export default {
     createTasks() {
       const { options } = BX24.placement.info()
 
+      console.log(options)
+
       const taskId = options?.ID ?? options?.TASK_ID
 
       this.tasks.forEach((task, index) => {
         let description = ''
-
-        console.log(this.taskTypes.find(type => type.value === task.type.value))
 
         if (task.type) {
           description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
@@ -202,15 +202,12 @@ export default {
           description += 'Серийный номер: ' + task.serial_number + '\n'
         }
 
-        console.log(description)
-        console.log(taskId)
-
         BX24.callMethod('task.item.add', [{
           PARENT_ID: taskId,
           TITLE: `Подзадача #${index}`,
           DESCRIPTION: description
         }], (res) => {
-          console.log(res.data())
+          console.log(res)
         })
       })
     },
