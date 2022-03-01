@@ -225,6 +225,8 @@ export default {
               }, () => {
               })
             }
+            
+            this.tasks.splice(index, 1)
 
           }
         })
