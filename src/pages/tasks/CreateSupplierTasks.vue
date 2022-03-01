@@ -168,14 +168,10 @@ export default {
       this.tasks.forEach((task, index) => {
         let description = ''
 
-        console.log(
-          task.type,
-          task
-          // this.taskTypes.find(type => type.value === task.type)
-        )
+        console.log(this.taskTypes.find(type => type.value === task.type.value))
 
         if (task.type) {
-          description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type).text + '\n'
+          description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
         }
 
         if (task.bill) {
