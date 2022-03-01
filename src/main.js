@@ -20,6 +20,7 @@ import './plugins/animate'
 import './plugins/clipboard'
 import './plugins/moment'
 import './plugins/confirm'
+import './plugins/snackbar'
 
 // FILTERS
 import './filters/capitalize'

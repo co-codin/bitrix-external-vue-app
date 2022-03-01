@@ -247,7 +247,11 @@ export default {
         }
       })
     },
-    deleteFile(item) {
+    async deleteFile(item) {
+      if (!await this.$confirm('Вы действительно хотите удалить файл?')) {
+        return
+      }
+
       BX24.callMethod('disk.file.delete', {
         id: item.FILE_ID
       }, () => {
@@ -259,6 +263,7 @@ export default {
           TASK_ID: taskId,
           ATTACHMENT_ID: item.ATTACHMENT_ID
         }, () => {
+          this.$snackbar('Файл успешно удален')
           this.getTaskFiles()
         })
       })
