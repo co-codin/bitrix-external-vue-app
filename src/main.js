@@ -19,6 +19,7 @@ import './plugins/echarts'
 import './plugins/animate'
 import './plugins/clipboard'
 import './plugins/moment'
+import './plugins/confirm'
 
 // FILTERS
 import './filters/capitalize'
