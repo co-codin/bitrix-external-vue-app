@@ -164,8 +164,6 @@ export default {
     createTasks() {
       const { options } = BX24.placement.info()
 
-      console.log(options)
-
       const taskId = options?.ID ?? options?.TASK_ID
 
       this.tasks.forEach((task, index) => {
@@ -210,7 +208,24 @@ export default {
           DESCRIPTION: description
         }], (res) => {
           if (res.data()) {
-            console.log(res.data())
+            const currentTaskId = res.data()
+
+            if (task.bill) {
+              BX24.callMethod('tasks.task.files.attach', {
+                taskId: currentTaskId,
+                fileId: task.bill
+              }, () => {
+              })
+            }
+
+            if (task.transfer_document) {
+              BX24.callMethod('tasks.task.files.attach', {
+                taskId: currentTaskId,
+                fileId: task.transfer_document
+              }, () => {
+              })
+            }
+
           }
         })
       })

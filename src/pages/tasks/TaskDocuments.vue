@@ -245,7 +245,6 @@ export default {
         id: item.FILE_ID
       }, (res) => {
         if (res.data()) {
-          console.log(res.data())
           if (action === 'download') {
             window.open(res.data().DOWNLOAD_URL, '_blank')
           } else {
