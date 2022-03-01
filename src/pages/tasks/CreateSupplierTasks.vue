@@ -142,7 +142,6 @@ export default {
               value: file.FILE_ID
             }
           })
-          console.log(this.files)
         }
       )
     },
@@ -162,7 +161,30 @@ export default {
       this.tasks.splice(index, 1)
     },
     createTasks() {
-      alert('Не так быстро...')
+      const { options } = BX24.placement.info()
+
+      const taskId = options?.ID ?? options?.TASK_ID
+
+      this.tasks.forEach((task, index) => {
+        let description = ''
+
+        if (task.type) {
+          description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type).text + '\n'
+        }
+
+        if (task.bill) {
+          description += 'Счет: в приложении'
+        }
+        // if (task.bill) {}
+
+        // BX24.callMethod('task.item.add', [{
+        //   PARENT_ID: taskId,
+        //   TITLE: `Подзадача #${index}`,
+        //   DESCRIPTION: ''
+        // }], (res) => {
+        //
+        // })
+      })
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)
