@@ -91,6 +91,7 @@
 
 <script>
 import PageHeader from '../../components/PageHeader'
+import config from '../../configs'
 
 export default {
   components: {
@@ -135,7 +136,6 @@ export default {
         'task.item.getdata',
         [taskId],
         (result) => {
-          console.log(result.data())
           this.files = result.data().UF_TASK_WEBDAV_FILES
           this.files = this.files.map((file) => {
             return {
@@ -168,57 +168,52 @@ export default {
 
       const taskId = options?.ID ?? options?.TASK_ID
 
-      BX24.callMethod(
-        'task.item.getdata',
-        [taskId],
-        (result) => {
-          console.info(result.data())
-        }
-      )
+      this.tasks.forEach((task, index) => {
+        let description = ''
 
-      // this.tasks.forEach((task, index) => {
-      //   let description = ''
-      //
-      //   if (task.type) {
-      //     description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
-      //   }
-      //
-      //   if (task.bill) {
-      //     description += 'Счет: в приложении' + '\n'
-      //   }
-      //
-      //   if (task.transfer_document) {
-      //     description += 'УПД: в приложении' + '\n'
-      //   }
-      //
-      //   if (task.manager_contacts) {
-      //     description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
-      //   }
-      //
-      //   if (task.company_contacts) {
-      //     description += 'Контактный компании: ' + task.company_contacts + '\n'
-      //   }
-      //
-      //   if (task.logistics_contacts) {
-      //     description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
-      //   }
-      //
-      //   if (task.equipment) {
-      //     description += 'Оборудование / комплектация: ' + task.equipment + '\n'
-      //   }
-      //
-      //   if (task.serial_number) {
-      //     description += 'Серийный номер: ' + task.serial_number + '\n'
-      //   }
-      //
-      //   BX24.callMethod('task.item.add', [{
-      //     PARENT_ID: taskId,
-      //     TITLE: `Подзадача #${index}`,
-      //     DESCRIPTION: description
-      //   }], (res) => {
-      //     console.log(res)
-      //   })
-      // })
+        if (task.type) {
+          description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
+        }
+
+        if (task.bill) {
+          description += 'Счет: в приложении' + '\n'
+        }
+
+        if (task.transfer_document) {
+          description += 'УПД: в приложении' + '\n'
+        }
+
+        if (task.manager_contacts) {
+          description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
+        }
+
+        if (task.company_contacts) {
+          description += 'Контактный компании: ' + task.company_contacts + '\n'
+        }
+
+        if (task.logistics_contacts) {
+          description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
+        }
+
+        if (task.equipment) {
+          description += 'Оборудование / комплектация: ' + task.equipment + '\n'
+        }
+
+        if (task.serial_number) {
+          description += 'Серийный номер: ' + task.serial_number + '\n'
+        }
+
+        BX24.callMethod('task.item.add', [{
+          PARENT_ID: taskId,
+          TITLE: `Подзадача #${index}`,
+          RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
+          DESCRIPTION: description
+        }], (res) => {
+          if (res.data()) {
+            console.log(res.data())
+          }
+        })
+      })
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)
