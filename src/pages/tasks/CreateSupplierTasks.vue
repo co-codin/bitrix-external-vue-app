@@ -173,9 +173,32 @@ export default {
         }
 
         if (task.bill) {
-          description += 'Счет: в приложении'
+          description += 'Счет: в приложении' + '\n'
         }
-        // if (task.bill) {}
+
+        if (task.transfer_document) {
+          description += 'УПД: в приложении' + '\n'
+        }
+
+        if (task.manager_contacts) {
+
+        }
+
+        if (task.company_contacts) {
+
+        }
+
+        if (task.logistics_contacts) {
+
+        }
+
+        if (task.equipment) {
+
+        }
+
+        if (task.serial_number) {
+
+        }
 
         // BX24.callMethod('task.item.add', [{
         //   PARENT_ID: taskId,
