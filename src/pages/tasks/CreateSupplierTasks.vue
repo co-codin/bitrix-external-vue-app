@@ -167,49 +167,57 @@ export default {
 
       const taskId = options?.ID ?? options?.TASK_ID
 
-      this.tasks.forEach((task, index) => {
-        let description = ''
-
-        if (task.type) {
-          description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
+      BX24.callMethod(
+        'task.item.getdata',
+        [taskId],
+        (result) => {
+          console.info(result.data())
         }
+      )
 
-        if (task.bill) {
-          description += 'Счет: в приложении' + '\n'
-        }
-
-        if (task.transfer_document) {
-          description += 'УПД: в приложении' + '\n'
-        }
-
-        if (task.manager_contacts) {
-          description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
-        }
-
-        if (task.company_contacts) {
-          description += 'Контактный компании: ' + task.company_contacts + '\n'
-        }
-
-        if (task.logistics_contacts) {
-          description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
-        }
-
-        if (task.equipment) {
-          description += 'Оборудование / комплектация: ' + task.equipment + '\n'
-        }
-
-        if (task.serial_number) {
-          description += 'Серийный номер: ' + task.serial_number + '\n'
-        }
-
-        BX24.callMethod('task.item.add', [{
-          PARENT_ID: taskId,
-          TITLE: `Подзадача #${index}`,
-          DESCRIPTION: description
-        }], (res) => {
-          console.log(res)
-        })
-      })
+      // this.tasks.forEach((task, index) => {
+      //   let description = ''
+      //
+      //   if (task.type) {
+      //     description += 'Тип задачи: ' + this.taskTypes.find(type => type.value === task.type.value).text + '\n'
+      //   }
+      //
+      //   if (task.bill) {
+      //     description += 'Счет: в приложении' + '\n'
+      //   }
+      //
+      //   if (task.transfer_document) {
+      //     description += 'УПД: в приложении' + '\n'
+      //   }
+      //
+      //   if (task.manager_contacts) {
+      //     description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
+      //   }
+      //
+      //   if (task.company_contacts) {
+      //     description += 'Контактный компании: ' + task.company_contacts + '\n'
+      //   }
+      //
+      //   if (task.logistics_contacts) {
+      //     description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
+      //   }
+      //
+      //   if (task.equipment) {
+      //     description += 'Оборудование / комплектация: ' + task.equipment + '\n'
+      //   }
+      //
+      //   if (task.serial_number) {
+      //     description += 'Серийный номер: ' + task.serial_number + '\n'
+      //   }
+      //
+      //   BX24.callMethod('task.item.add', [{
+      //     PARENT_ID: taskId,
+      //     TITLE: `Подзадача #${index}`,
+      //     DESCRIPTION: description
+      //   }], (res) => {
+      //     console.log(res)
+      //   })
+      // })
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)
