@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" scrollable width="1000px">
+    <v-dialog v-model="dialog" scrollable max-width="1000px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           color="primary"
@@ -33,9 +33,9 @@
               >
                 <div class="dropzone-custom-content">
                   <upload-icon width="50" height="50" />
-                  <label class="mt-2">
+                  <div class="mt-2">
                     Нажмите, чтобы выбрать файлы или просто перетащите их сюда
-                  </label>
+                  </div>
                 </div>
               </vue-dropzone>
             </v-card>
@@ -103,7 +103,6 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
     <v-card>
       <v-data-table
         v-if="files.length"
@@ -311,9 +310,9 @@ export default {
 
 <style scoped>
   .dropzone > div {
-    cursor: pointer;
-    border-bottom: 1px solid transparent;
-    transition: 0.5s;
-    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B2B1B1FF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    /*cursor: pointer;*/
+    /*border-bottom: 1px solid transparent;*/
+    /*transition: 0.5s;*/
+    /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B2B1B1FF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");*/
   }
 </style>
