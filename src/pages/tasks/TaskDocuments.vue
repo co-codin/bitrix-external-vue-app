@@ -43,7 +43,12 @@
 
           <div class="mb-7">
             <v-expansion-panels v-if="form.files.length" class="mb-2">
-              <v-form style="width: 100%;" @submit.prevent="uploadFiles">
+              <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation
+                style="width: 100%;"
+              >
                 <v-expansion-panel v-for="(file, index) in form.files" :key="index">
                   <v-expansion-panel-header class="title">
                     {{ file.file.name }}
@@ -87,7 +92,7 @@
                   </v-expansion-panel-content>
                 </v-expansion-panel>
                 <div class="text-right mt-2">
-                  <v-btn type="submit" color="primary" :loading="loadingFiles" :disabled="loadingFiles">
+                  <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="uploadFiles">
                     Загрузить выбранные файлы ({{ form.files.length }})
                   </v-btn>
                 </div>
@@ -172,6 +177,7 @@ export default {
     FilePreviewIcon
   },
   data: () => ({
+    valid: true,
     files: [],
     dropzoneOptions: {
       url: 'http://localhost',
@@ -274,42 +280,47 @@ export default {
       this.form.files = []
     },
     uploadFiles() {
-      this.loadingFiles = true
+      this.$refs.form.validate()
 
-      this.form.files.forEach((file, index) => {
-        let fileContent
+      if (this.valid) {
+        this.loadingFiles = true
 
-        setTimeout(() => {
-          file.file.text().then((content) => {
-            fileContent = content
-            BX24.callMethod('disk.storage.uploadfile', {
-              id: process.env.VUE_APP_STORAGE_ID,
-              fileContent: fileContent,
-              data: {
-                NAME: file.name + '.' + file.extension,
-                TYPE: file.type,
-                COMMENT: file.comment
-              }
-            },
-            (res) => {
-              if (res.data()) {
-                const { options } = BX24.placement.info()
+        this.form.files.forEach((file, index) => {
+          let fileContent
 
-                const taskId = options?.ID ?? options?.taskId
+          setTimeout(() => {
+            file.file.text().then((content) => {
+              fileContent = content
+              BX24.callMethod('disk.storage.uploadfile', {
+                id: process.env.VUE_APP_STORAGE_ID,
+                fileContent: fileContent,
+                data: {
+                  NAME: file.name + '.' + file.extension,
+                  TYPE: file.type,
+                  COMMENT: file.comment
+                }
+              },
+              (res) => {
+                if (res.data()) {
+                  const { options } = BX24.placement.info()
 
-                BX24.callMethod('tasks.task.files.attach', {
-                  taskId: taskId,
-                  fileId: res.data().ID
-                }, () => {
-                  this.getTaskFiles()
-                  this.dialog = false
-                  this.form.files.splice(index, 1)
-                })
-              }
-            })
-          })}, 1000)
-        this.loadingFiles = false
-      })
+                  const taskId = options?.ID ?? options?.taskId
+
+                  BX24.callMethod('tasks.task.files.attach', {
+                    taskId: taskId,
+                    fileId: res.data().ID
+                  }, () => {
+                    this.getTaskFiles()
+                    this.dialog = false
+                    this.form.files.splice(index, 1)
+                  })
+                }
+              })
+            })}, 1000)
+          this.loadingFiles = false
+        })
+      }
+
     }
   }
 }
