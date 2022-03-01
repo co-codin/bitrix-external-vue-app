@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="Создание задачи на закупщика" :show-home-link="false"/>
+    <page-header h1="Запуск постпродажного процесса" :show-home-link="false"/>
     <v-form>
       <v-expansion-panels v-model="panels" multiple>
         <v-expansion-panel>

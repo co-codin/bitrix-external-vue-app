@@ -14,9 +14,9 @@ export default [
     handler: '/tasks/create-supplier-tasks'
   },
   {
-    name: 'Создание базовой задачи на закупщика',
-    buttonLabel: 'Создать задачу на закупщика',
-    description: 'Создание базовой задачи',
+    name: 'Запуск постпродажного процесса',
+    buttonLabel: 'Запустить постпродажный процесс',
+    description: 'Создание базовой задачи на закупщика',
     placement: 'CRM_DEAL_LIST_MENU',
     handler: '/tasks/create-base-supplier-task'
   },
