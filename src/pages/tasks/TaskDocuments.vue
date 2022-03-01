@@ -99,7 +99,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click="dialog = false">Отмена</v-btn>
+          <v-btn color="red darken-1" text @click="close">Отмена</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -239,6 +239,7 @@ export default {
         id: item.FILE_ID
       }, (res) => {
         if (res.data()) {
+          console.log(res.data())
           if (action === 'download') {
             window.open(res.data().DOWNLOAD_URL, '_blank')
           } else {
@@ -267,6 +268,10 @@ export default {
           this.getTaskFiles()
         })
       })
+    },
+    close() {
+      this.dialog = false
+      this.form.files = []
     },
     uploadFiles() {
       this.loadingFiles = true
