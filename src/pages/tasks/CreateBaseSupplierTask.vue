@@ -122,14 +122,19 @@
               placeholder="Введите договоренности с клиентом по срокам поставки"
             />
             <v-switch
-              v-model="form.supply.agreement"
+              v-model="form.supply.has_agreement"
               label="Есть договоренности с поставщиком / производителем"
               dense
               inset
             />
             <v-textarea
-              v-if="form.supply.agreement"
-              v-model="form.supply.term"
+              v-if="form.supply.has_agreement"
+              v-model="form.supply.agreement"
+              dense
+              label="Договоренности с поставщиком и производителем"
+            />
+            <v-textarea
+              v-model="form.supply.client_agreement"
               dense
               label="Договоренности по доставке и разгрузке"
             />
@@ -299,7 +304,10 @@ export default {
       auction: null,
       supply: {
         address: null,
-        agreement: false,
+        term: null,
+        has_agreement: false,
+        agreement: null,
+        client_agreement: null,
         contact: {
           name: null,
           phone: null,
