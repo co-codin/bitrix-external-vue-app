@@ -205,7 +205,7 @@ export default {
           TITLE: `Подзадача #${index}`,
           DESCRIPTION: description
         }], (res) => {
-
+          console.log(res.data())
         })
       })
     },
