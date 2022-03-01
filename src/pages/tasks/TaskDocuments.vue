@@ -271,7 +271,7 @@ export default {
     uploadFiles() {
       this.loadingFiles = true
 
-      this.form.files.forEach((file) => {
+      this.form.files.forEach((file, index) => {
         let fileContent
 
         setTimeout(() => {
@@ -297,13 +297,14 @@ export default {
                   fileId: res.data().ID
                 }, () => {
                   this.getTaskFiles()
+                  this.loadingFiles = false
+                  this.dialog = false
+                  this.form.files.splice(index, 1)
                 })
               }
             })
           })}, 1000)
       })
-      this.loadingFiles = false
-      this.dialog = false
     }
   }
 }
