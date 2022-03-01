@@ -169,7 +169,9 @@ export default {
         let description = ''
 
         console.log(
-          this.taskTypes.find(type => type.value === task.type)
+          task.type,
+          task
+          // this.taskTypes.find(type => type.value === task.type)
         )
 
         if (task.type) {
