@@ -75,20 +75,11 @@
           <v-card
             max-width="300"
           >
-            <qrcode-vue
-              height="200px"
-              contain
+            <canvas
+              id="qr"
               class="white--text align-end"
-              :value="qrText"
-              :size="300"
-              level="H"
+              height="200px"
             />
-            <!--            <v-img-->
-            <!--              class="white&#45;&#45;text align-end"-->
-            <!--              height="200px"-->
-            <!--              contain-->
-            <!--              :src="qrCode"-->
-            <!--            />-->
             <v-divider/>
             <v-card-actions class="justify-center py-2">
               <v-btn
@@ -121,14 +112,12 @@
 import PageLoader from '@/components/PageLoader'
 import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
-import QrcodeVue from 'qrcode.vue'
 
 export default {
   components: {
     PageLoader,
     CopyIcon,
-    DownloadIcon,
-    QrcodeVue
+    DownloadIcon
   },
   data: () => ({
     user: null,
@@ -158,21 +147,31 @@ export default {
     qrText: null
   }),
   computed: {
-    // example of generated qr code
     qrCode() {
-      return '/images/qr.png'
+      if (this.form) {
+        let text = `${this.form.website}?`
+
+        Object.entries(this.form).forEach((item) => {
+          const [key, value] = item
+
+          text += `${key}=${value}&`
+        })
+
+        text = text.slice(0, -1)
+
+        return text
+      } else {
+        return ''
+      }
     }
+  },
+  watch: {
+
   },
 
   mounted() {
-    // get data from bx api
-    // const options = BX24.placement?.info()
-
-    // load current user data from bitrix
     this.loadUser()
 
-    // fill form with current user data
-    // this.fillForm()
   },
   methods: {
     loadUser() {
@@ -184,8 +183,6 @@ export default {
         this.form.phone = res.data().PERSONAL_MOBILE ?? '8 (800) 555-73-87'
         this.form.email = res.data().EMAIL
       })
-
-      console.log(this.form)
 
       this.loading = false
     },
