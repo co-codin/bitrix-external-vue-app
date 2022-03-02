@@ -10,10 +10,9 @@
           <v-card>
             <v-card-text class="pt-3">
               <v-form
+                v-if="form"
                 ref="form"
                 v-model="valid"
-                lazy-validation
-                @submit.prevent="generateQRCode"
               >
                 <v-text-field
                   v-model="form.last_name"
@@ -61,11 +60,6 @@
                   label="Сайт"
                   dense
                 />
-                <div class="text-right mt-2">
-                  <v-btn type="submit" color="primary">
-                    Сгенерировать QR код
-                  </v-btn>
-                </div>
               </v-form>
             </v-card-text>
           </v-card>
@@ -73,12 +67,15 @@
         <v-col cols="12" sm="6" class="pl-sm-2">
           <v-divider class="d-sm-none d-block mt-3 mb-3" />
           <v-card
+            v-if="valid"
             max-width="300"
           >
-            <canvas
-              id="qr"
+            <vue-qr
+              :text="qrCode"
               class="white--text align-end"
               height="200px"
+              :callback="handleQr"
+              :size="600"
             />
             <v-divider/>
             <v-card-actions class="justify-center py-2">
@@ -112,12 +109,15 @@
 import PageLoader from '@/components/PageLoader'
 import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
+import VueQr from 'vue-qr'
+import { debounce } from 'lodash'
 
 export default {
   components: {
     PageLoader,
     CopyIcon,
-    DownloadIcon
+    DownloadIcon,
+    VueQr
   },
   data: () => ({
     user: null,
@@ -125,13 +125,13 @@ export default {
     loading: true,
     valid: false,
     form: {
-      last_name: 'Петров',
-      first_name: 'Иван',
-      middle_name: null,
-      position: null,
+      last_name: '',
+      first_name: '',
+      middle_name: '',
+      position: '',
       company: 'MEDEQ',
-      phone: null,
-      email: null,
+      phone: '',
+      email: '',
       website: 'https://medeq.ru'
     },
     lastnameRules: [
@@ -144,34 +144,29 @@ export default {
       (v) => !!v || 'Телефон обязательно',
       (v) => /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/.test(v) || 'Телефон неправильно'
     ],
-    qrText: null
+    dataUrl: null
   }),
   computed: {
     qrCode() {
-      if (this.form) {
-        let text = `${this.form.website}?`
-
-        Object.entries(this.form).forEach((item) => {
-          const [key, value] = item
-
-          text += `${key}=${value}&`
-        })
-
-        text = text.slice(0, -1)
-
-        return text
-      } else {
-        return ''
-      }
+      return 'BEGIN:VCARD\n' +
+        `N:${this.form.last_name};${this.form.first_name};\n` +
+        `TEL;TYPE=work,VOICE:${this.form.phone}\n` +
+        `EMAIL:${this.form.phone}\n` +
+        `ORG:${this.form.company}\n` +
+        `TITLE:${this.form.position}\n` +
+        `URL:${this.form.website}\n` +
+        'VERSION:3.0\n' +
+        'END:VCARD'
     }
-  },
-  watch: {
 
   },
 
-  mounted() {
+  async mounted() {
     this.loadUser()
-
+    // this.loading = false
+    this.$nextTick(() => {
+      this.$refs.form?.validate()
+    })
   },
   methods: {
     loadUser() {
@@ -182,9 +177,13 @@ export default {
         this.form.position = res.data().WORK_POSITION
         this.form.phone = res.data().PERSONAL_MOBILE ?? '8 (800) 555-73-87'
         this.form.email = res.data().EMAIL
+        this.$refs.form.validate()
       })
 
       this.loading = false
+    },
+    handleQr(dataUrl, id) {
+      this.dataUrl = dataUrl
     },
     async copyImageToClipboard() {
       const response = await fetch(this.qrCode)
@@ -195,37 +194,22 @@ export default {
     },
     downloadImage() {
       fetch(this.qrCode)
-        .then((resp) => resp.blob())
-        .then((blob) => {
-          const url = window.URL.createObjectURL(blob)
-          const a = document.createElement('a')
-
-          a.style.display = 'none'
-          a.href = url
-          a.download = `${this.form.last_name} ${this.form.first_name} - qr код.png`
-          document.body.appendChild(a)
-          a.click()
-          window.URL.revokeObjectURL(url)
+        .then((resp) => {
+          console.log(resp)
+          console.log(resp.blob())
         })
-        .catch(() => alert('oh no!'))
-    },
-    generateQRCode() {
-      this.$refs.form.validate()
-
-      if (this.valid) {
-        this.qrText = `${this.form.website}?`
-
-        Object.entries(this.form).forEach((item) => {
-          const [key, value] = item
-
-          this.qrText += `${key}=${value}&`
-        })
-
-        this.qrText = this.qrText.slice(0, -1)
-
-        console.log(this.qrText)
-      }
-
+      // .then((blob) => {
+      //   const url = window.URL.createObjectURL(blob)
+      //   const a = document.createElement('a')
+      //
+      //   a.style.display = 'none'
+      //   a.href = url
+      //   a.download = `${this.form.last_name} ${this.form.first_name} - qr код.png`
+      //   document.body.appendChild(a)
+      //   a.click()
+      //   window.URL.revokeObjectURL(url)
+      // })
+      // .catch(() => alert('oh no!'))
     }
   }
 }

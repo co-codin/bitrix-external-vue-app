@@ -223,7 +223,6 @@ export default {
         [taskId],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
-          console.log(this.files)
         }
       )
     },
