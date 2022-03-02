@@ -186,30 +186,22 @@ export default {
       this.dataUrl = dataUrl
     },
     async copyImageToClipboard() {
-      const response = await fetch(this.qrCode)
+      const response = await fetch(this.dataUrl)
       const blob = await response.blob()
       const data = [new ClipboardItem({ [blob.type]: blob })]
 
       await navigator.clipboard.write(data)
     },
-    downloadImage() {
-      fetch(this.qrCode)
-        .then((resp) => {
-          console.log(resp)
-          console.log(resp.blob())
-        })
-      // .then((blob) => {
-      //   const url = window.URL.createObjectURL(blob)
-      //   const a = document.createElement('a')
-      //
-      //   a.style.display = 'none'
-      //   a.href = url
-      //   a.download = `${this.form.last_name} ${this.form.first_name} - qr код.png`
-      //   document.body.appendChild(a)
-      //   a.click()
-      //   window.URL.revokeObjectURL(url)
-      // })
-      // .catch(() => alert('oh no!'))
+    async downloadImage() {
+      const link = await document.createElement('a')
+
+      link.href = this.dataUrl
+
+      link.download = `${this.form.last_name} ${this.form.first_name} - qr код.png`
+
+      await document.body.appendChild(link)
+
+      link.click()
     }
   }
 }
