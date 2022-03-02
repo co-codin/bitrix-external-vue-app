@@ -9,16 +9,25 @@
         <v-col cols="12" sm="6">
           <v-card>
             <v-card-text class="pt-3">
-              <v-form @submit.prevent="generateQRCode">
+              <v-form
+                ref="form"
+                v-model="valid"
+                lazy-validation
+                @submit.prevent="generateQRCode"
+              >
                 <v-text-field
                   v-model="form.last_name"
                   label="Фамилия"
                   dense
+                  :rules="lastnameRules"
+                  required
                 />
                 <v-text-field
                   v-model="form.first_name"
                   label="Имя"
                   dense
+                  :rules="firstnameRules"
+                  required
                 />
                 <v-text-field
                   v-model="form.middle_name"
@@ -34,6 +43,8 @@
                   v-model="form.phone"
                   label="Телефон"
                   dense
+                  :rules="phoneRules"
+                  required
                 />
                 <v-text-field
                   v-model="form.email"
@@ -50,14 +61,14 @@
                   label="Сайт"
                   dense
                 />
+                <div class="text-right mt-2">
+                  <v-btn type="submit" color="primary">
+                    Сгенерировать QR код
+                  </v-btn>
+                </div>
               </v-form>
             </v-card-text>
           </v-card>
-          <div class="text-right mt-2">
-            <v-btn type="submit" color="primary">
-              Сгенерировать QR код
-            </v-btn>
-          </div>
         </v-col>
         <v-col cols="12" sm="6" class="pl-sm-2">
           <v-divider class="d-sm-none d-block mt-3 mb-3" />
@@ -113,6 +124,7 @@ export default {
     user: null,
     error: null,
     loading: true,
+    valid: false,
     form: {
       last_name: 'Петров',
       first_name: 'Иван',
@@ -122,7 +134,17 @@ export default {
       phone: null,
       email: null,
       website: 'https://medeq.ru'
-    }
+    },
+    lastnameRules: [
+      (v) => !!v || 'Фамилия обязательно'
+    ],
+    firstnameRules: [
+      (v) => !!v || 'Имя обязательно'
+    ],
+    phoneRules: [
+      (v) => !!v || 'Телефон обязательно',
+      (v) => !!v.test('/^(\\s*)?(\\+)?([- _():=+]?\\d[- _():=+]?){10,14}(\\s*)?$/') || 'Телефон неправильно'
+    ]
   }),
   computed: {
     // example of generated qr code
@@ -144,12 +166,11 @@ export default {
   methods: {
     loadUser() {
       BX24.callMethod('user.current', {}, (res) => {
-        console.log(res.data())
         this.form.last_name = res.data().LAST_NAME
         this.form.first_name = res.data().NAME
         this.form.middle_name = res.data().SECOND_NAME
         this.form.position = res.data().WORK_POSITION
-        this.form.phone = res.data().PERSONAL_MOBILE
+        this.form.phone = res.data().PERSONAL_MOBILE ?? '8 (800) 555-73-87'
         this.form.email = res.data().EMAIL
       })
 
@@ -181,6 +202,11 @@ export default {
         .catch(() => alert('oh no!'))
     },
     generateQRCode() {
+      this.$refs.form.validate()
+
+      if (this.valid) {
+        console.log(this.form)
+      }
       // validate form
       // show errors
       // or generate qr code in right side
