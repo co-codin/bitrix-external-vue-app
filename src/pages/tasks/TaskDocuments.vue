@@ -308,10 +308,15 @@ export default {
                   BX24.callMethod('tasks.task.files.attach', {
                     taskId: taskId,
                     fileId: res.data().ID
-                  }, () => {
-                    this.getTaskFiles()
-                    this.dialog = false
-                    this.form.files.splice(index, 1)
+                  }, (res) => {
+                    if (res.data()) {
+                      this.getTaskFiles()
+                      this.dialog = false
+                      this.form.files.splice(index, 1)
+                    }
+                    if (res.error()) {
+                      this.dialog = true
+                    }
                   })
                 }
               })
