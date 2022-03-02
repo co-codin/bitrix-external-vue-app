@@ -75,12 +75,20 @@
           <v-card
             max-width="300"
           >
-            <v-img
-              class="white--text align-end"
+            <qrcode-vue
               height="200px"
               contain
-              :src="qrCode"
+              class="white--text align-end"
+              :value="qrText"
+              :size="300"
+              level="H"
             />
+            <!--            <v-img-->
+            <!--              class="white&#45;&#45;text align-end"-->
+            <!--              height="200px"-->
+            <!--              contain-->
+            <!--              :src="qrCode"-->
+            <!--            />-->
             <v-divider/>
             <v-card-actions class="justify-center py-2">
               <v-btn
@@ -113,12 +121,14 @@
 import PageLoader from '@/components/PageLoader'
 import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
+import QrcodeVue from 'qrcode.vue'
 
 export default {
   components: {
     PageLoader,
     CopyIcon,
-    DownloadIcon
+    DownloadIcon,
+    QrcodeVue
   },
   data: () => ({
     user: null,
@@ -144,7 +154,8 @@ export default {
     phoneRules: [
       (v) => !!v || 'Телефон обязательно',
       (v) => /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/.test(v) || 'Телефон неправильно'
-    ]
+    ],
+    qrText: null
   }),
   computed: {
     // example of generated qr code
@@ -205,17 +216,17 @@ export default {
       this.$refs.form.validate()
 
       if (this.valid) {
-        let text = `${this.form.website}?`
+        this.qrText = `${this.form.website}?`
 
         Object.entries(this.form).forEach((item) => {
           const [key, value] = item
 
-          text += `${key}=${value}&`
+          this.qrText += `${key}=${value}&`
         })
 
-        text = text.slice(0, -1)
+        this.qrText = this.qrText.slice(0, -1)
 
-        console.log(text)
+        console.log(this.qrText)
       }
 
     }
