@@ -205,11 +205,19 @@ export default {
       this.$refs.form.validate()
 
       if (this.valid) {
-        console.log(this.form)
+        let text = `${this.form.website}?`
+
+        Object.entries(this.form).forEach((item) => {
+          const [key, value] = item
+
+          text += `${key}=${value}&`
+        })
+
+        text = text.slice(0, -1)
+
+        console.log(text)
       }
-      // validate form
-      // show errors
-      // or generate qr code in right side
+
     }
   }
 }
