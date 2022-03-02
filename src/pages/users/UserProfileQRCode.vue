@@ -143,6 +143,10 @@ export default {
   },
   methods: {
     loadUser() {
+      BX24.callMethod('user.current', {}, (res) => {
+        console.log(res.data())
+      })
+
       this.user = {
         first_name: 'Петр'
       }

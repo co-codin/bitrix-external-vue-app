@@ -53,7 +53,7 @@
                   <v-expansion-panel-header class="title">
                     {{ file.file.name }}
                   </v-expansion-panel-header>
-                  <v-expansion-panel-content>
+                  <v-expansion-panel-content :eager="true">
                     <v-row>
                       <v-col cols="12" sm="5" md="4" lg="2">
                         <file-preview-icon :extension="form.files[index].extension">
@@ -331,6 +331,9 @@ export default {
 </script>
 
 <style scoped>
+  .error-block {
+    border: 1px solid red !important
+  }
   .dropzone > div {
     /*cursor: pointer;*/
     /*border-bottom: 1px solid transparent;*/
