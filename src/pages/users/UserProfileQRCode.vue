@@ -145,11 +145,16 @@ export default {
     loadUser() {
       BX24.callMethod('user.current', {}, (res) => {
         console.log(res.data())
+        this.form.last_name = res.data().LAST_NAME
+        this.form.first_name = res.data().NAME
+        this.form.middle_name = res.data().SECOND_NAME
+        this.form.position = res.data().WORK_POSITION
+        this.form.phone = res.data().PERSONAL_MOBILE
+        this.form.email = res.data().EMAIL
       })
 
-      this.user = {
-        first_name: 'Петр'
-      }
+      console.log(this.form)
+
       this.loading = false
     },
     async copyImageToClipboard() {
