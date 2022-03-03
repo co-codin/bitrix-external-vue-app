@@ -177,6 +177,7 @@ export default {
       BX24.callMethod('user.get', {
         ID: userId
       }, (res) => {
+        console.log(res.data())
         this.form.last_name = res.data().LAST_NAME
         this.form.first_name = res.data().NAME
         this.form.middle_name = res.data().SECOND_NAME
@@ -185,7 +186,6 @@ export default {
         this.form.email = res.data().EMAIL
         this.$refs.form.validate()
       })
-      console.log(this.form)
 
       this.loading = false
     },
