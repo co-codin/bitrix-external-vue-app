@@ -177,15 +177,20 @@ export default {
       BX24.callMethod('user.get', {
         ID: userId
       }, (res) => {
-        console.log(res.data())
-        this.form.last_name = res.data().LAST_NAME
-        this.form.first_name = res.data().NAME
-        this.form.middle_name = res.data().SECOND_NAME
-        this.form.position = res.data().WORK_POSITION
-        this.form.phone = res.data().PERSONAL_MOBILE ?? '8 (800) 555-73-87'
-        this.form.email = res.data().EMAIL
+        if (res.data()) {
+          const user = res.data()[0]
+
+          this.form.last_name = user.LAST_NAME
+          this.form.first_name = user.NAME
+          this.form.middle_name = user.SECOND_NAME
+          this.form.position = user.WORK_POSITION
+          this.form.phone = user.PERSONAL_MOBILE ?? '8 (800) 555-73-87'
+          this.form.email = user.EMAIL
+        }
         this.$refs.form.validate()
       })
+
+      console.log(this.form)
 
       this.loading = false
     },
