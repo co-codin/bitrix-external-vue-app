@@ -73,6 +73,7 @@
             <vue-qr
               :text="qrCode"
               class="white--text align-end"
+              style="display: block; margin: 0 auto;"
               height="200px"
               :callback="handleQr"
               :size="600"
@@ -110,7 +111,6 @@ import PageLoader from '@/components/PageLoader'
 import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import VueQr from 'vue-qr'
-import { debounce } from 'lodash'
 
 export default {
   components: {
@@ -187,8 +187,6 @@ export default {
         }
         this.$refs.form.validate()
       })
-
-      console.log(this.form)
 
       this.loading = false
     },
