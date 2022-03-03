@@ -178,14 +178,12 @@ export default {
         ID: userId
       }, (res) => {
         if (res.data()) {
-          const user = res.data()[0]
-
-          this.form.last_name = user.LAST_NAME
-          this.form.first_name = user.NAME
-          this.form.middle_name = user.SECOND_NAME
-          this.form.position = user.WORK_POSITION
-          this.form.phone = user.PERSONAL_MOBILE ?? '8 (800) 555-73-87'
-          this.form.email = user.EMAIL
+          this.form.last_name = res.data()[0].LAST_NAME
+          this.form.first_name = res.data()[0].NAME
+          this.form.middle_name = res.data()[0].SECOND_NAME
+          this.form.position = res.data()[0].WORK_POSITION
+          this.form.phone = res.data()[0].PERSONAL_MOBILE ?? '8 (800) 555-73-87'
+          this.form.email = res.data()[0].EMAIL
         }
         this.$refs.form.validate()
       })
