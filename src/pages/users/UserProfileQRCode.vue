@@ -5,6 +5,8 @@
       Произошла ошибка при загрузке Битрикс 24
     </v-alert>
     <template v-else>
+      <iframe src="https://test-bitrix.medeqstars.com/" allow="encrypted-media *;"></iframe>
+
       <v-row no-gutters>
         <v-col cols="12" sm="6">
           <v-card>
