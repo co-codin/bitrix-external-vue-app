@@ -170,15 +170,18 @@ export default {
   },
   methods: {
     loadUser() {
-      BX24.callMethod('user.current', {}, (res) => {
-        this.form.last_name = res.data().LAST_NAME
-        this.form.first_name = res.data().NAME
-        this.form.middle_name = res.data().SECOND_NAME
-        this.form.position = res.data().WORK_POSITION
-        this.form.phone = res.data().PERSONAL_MOBILE ?? '8 (800) 555-73-87'
-        this.form.email = res.data().EMAIL
-        this.$refs.form.validate()
-      })
+      const { options } = BX24.placement.info()
+
+      console.log(options)
+      // BX24.callMethod('user.current', {}, (res) => {
+      //   this.form.last_name = res.data().LAST_NAME
+      //   this.form.first_name = res.data().NAME
+      //   this.form.middle_name = res.data().SECOND_NAME
+      //   this.form.position = res.data().WORK_POSITION
+      //   this.form.phone = res.data().PERSONAL_MOBILE ?? '8 (800) 555-73-87'
+      //   this.form.email = res.data().EMAIL
+      //   this.$refs.form.validate()
+      // })
 
       this.loading = false
     },
