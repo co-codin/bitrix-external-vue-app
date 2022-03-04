@@ -48,6 +48,7 @@
                 v-model="valid"
                 lazy-validation
                 style="width: 100%;"
+                @submit.prevent="uploadFiles"
               >
                 <v-expansion-panel v-for="(file, index) in form.files" :key="index">
                   <v-expansion-panel-header class="title">
@@ -92,7 +93,7 @@
                   </v-expansion-panel-content>
                 </v-expansion-panel>
                 <div class="text-right mt-2">
-                  <v-btn color="primary" :loading="loadingFiles" :disabled="loadingFiles" @click="uploadFiles">
+                  <v-btn type="submit" color="primary" :loading="loadingFiles" :disabled="loadingFiles">
                     Загрузить выбранные файлы ({{ form.files.length }})
                   </v-btn>
                 </div>
@@ -279,10 +280,9 @@ export default {
     },
     uploadFiles() {
       this.$refs.form.validate()
+      this.loadingFiles = true
 
       if (this.valid) {
-        this.loadingFiles = true
-
         this.form.files.forEach((file, index) => {
           let fileContent
 
@@ -314,6 +314,7 @@ export default {
                       this.form.files.splice(index, 1)
                     }
                     if (res.error()) {
+                      console.log(res.error())
                       this.dialog = true
                     }
                   })
