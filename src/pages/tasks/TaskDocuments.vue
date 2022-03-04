@@ -210,12 +210,11 @@ export default {
       (v) => !!v || 'Тип обязательно'
     ]
   }),
-  watch: {
-    loadingFiles() {
-      setTimeout(() => (this[this.loadingFiles] = false), 3000)
-
-    }
-  },
+  // watch: {
+  //   loadingFiles() {
+  //     setTimeout(() => (this[this.loadingFiles] = false), 3000)
+  //   }
+  // },
   mounted() {
     this.getTaskFiles()
   },
@@ -289,7 +288,7 @@ export default {
 
       if (this.valid) {
         this.loadingFiles = true
-        
+
         this.form.files.forEach((file, index) => {
           let fileContent
 
@@ -327,11 +326,12 @@ export default {
                   })
                 }
                 if (res.error()) {
-                  console.log(res.error())
+                  console.log(res.error()?.ex?.error_description)
                 }
               })
             })}, 1000)
         })
+        this.loadingFiles = true
       }
 
     }
