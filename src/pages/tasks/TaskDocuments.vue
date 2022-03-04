@@ -285,9 +285,8 @@ export default {
     },
     uploadFiles() {
       this.$refs.form.validate()
-
+      this.loadingFiles = true
       if (this.valid) {
-        this.loadingFiles = true
 
         this.form.files.forEach((file, index) => {
           let fileContent
@@ -331,8 +330,9 @@ export default {
               })
             })}, 1000)
         })
-        this.loadingFiles = false
+
       }
+      this.loadingFiles = false
 
     }
   }
