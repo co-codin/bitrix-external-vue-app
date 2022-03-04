@@ -326,7 +326,7 @@ export default {
                   })
                 }
                 if (res.error()) {
-                  console.log(res.error()?.ex?.error_description)
+                  this.$snackbar(res.error()?.ex?.error_description)
                 }
               })
             })}, 1000)
