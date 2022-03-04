@@ -320,7 +320,7 @@ export default {
                       this.form.files.splice(index, 1)
                     }
                     if (res.error()) {
-                      console.log(res.error())
+                      this.$snackbar(res.error()?.ex?.error_description)
                       this.dialog = true
                     }
                   })
@@ -331,7 +331,7 @@ export default {
               })
             })}, 1000)
         })
-        this.loadingFiles = true
+        this.loadingFiles = false
       }
 
     }
