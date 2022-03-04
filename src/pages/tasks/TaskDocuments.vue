@@ -210,11 +210,6 @@ export default {
       (v) => !!v || 'Тип обязательно'
     ]
   }),
-  // watch: {
-  //   loadingFiles() {
-  //     setTimeout(() => (this[this.loadingFiles] = false), 3000)
-  //   }
-  // },
   mounted() {
     this.getTaskFiles()
   },
