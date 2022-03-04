@@ -86,6 +86,7 @@
             dark
             large
             :loading="loading"
+            :disabled="loading"
           >
             Создать подзадачи ({{ tasks.length }})
           </v-btn>
@@ -235,9 +236,7 @@ export default {
               }, () => {
               })
             }
-
             this.tasks.splice(index, 1)
-
           }
 
           if (res.error()) {
@@ -245,6 +244,7 @@ export default {
           }
         })
       })
+
       this.loading = false
     },
     isAvailableField(type, field) {
