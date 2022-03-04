@@ -80,7 +80,13 @@
       <template v-if="tasks.length">
         <v-divider class="my-3"/>
         <div class="text-right">
-          <v-btn type="submit" color="green" dark large>
+          <v-btn
+            type="submit"
+            color="green"
+            dark
+            large
+            :loading="loading"
+          >
             Создать подзадачи ({{ tasks.length }})
           </v-btn>
         </div>
@@ -98,6 +104,7 @@ export default {
     PageHeader
   },
   data: () => ({
+    loading: false,
     taskTypes: [
       { header: 'Отгрузка' },
       { text: 'Отгрузка от поставщика', value: 1, fields: ['bill', 'transfer_document', 'manager_contacts', 'logistics_contacts'] },
@@ -166,6 +173,8 @@ export default {
 
       const taskId = options?.ID ?? options?.TASK_ID
 
+      this.loading = true
+
       this.tasks.forEach((task, index) => {
         const taskName = this.taskTypes.find(type => type.value === task.type.value).text
         let description = ''
@@ -230,8 +239,13 @@ export default {
             this.tasks.splice(index, 1)
 
           }
+
+          if (res.error()) {
+            this.$snackbar(res.error()?.ex?.error_description)
+          }
         })
       })
+      this.loading = false
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)
