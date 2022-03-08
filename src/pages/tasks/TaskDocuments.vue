@@ -53,7 +53,7 @@
                   <v-expansion-panel-header class="title">
                     {{ file.file.name }}
                   </v-expansion-panel-header>
-                  <v-expansion-panel-content :eager="true">
+                  <v-expansion-panel-content eager>
                     <v-row>
                       <v-col cols="12" sm="5" md="4" lg="2">
                         <file-preview-icon :extension="file.extension">
@@ -244,7 +244,17 @@ export default {
       }, (res) => {
         if (res.data()) {
           if (action === 'download') {
-            window.open(res.data().DOWNLOAD_URL, '_blank')
+            fetch(res.data().DOWNLOAD_UR)
+              .then((response) => response.blob())
+              .then((blob) => {
+                const link = document.createElement('a')
+
+                link.href = URL.createObjectURL(blob)
+                link.download = res.data().NAME
+                link.click()
+              })
+              .catch(console.error)
+
           } else {
             window.open(res.data().DETAIL_URL, '_blank')
           }
