@@ -245,17 +245,11 @@ export default {
         if (res.data()) {
           if (action === 'download') {
             console.log(res.data().DOWNLOAD_URL)
-            fetch(res.data().DOWNLOAD_URL)
-              .then((response) => response.blob())
-              .then((blob) => {
-                const link = document.createElement('a')
+            const link = document.createElement('a')
 
-                link.href = URL.createObjectURL(blob)
-                link.download = res.data().NAME
-                link.click()
-              })
-              .catch(console.error)
-
+            link.href = res.data().DOWNLOAD_URL
+            link.download = res.data().NAME
+            link.click()
           } else {
             window.open(res.data().DETAIL_URL, '_blank')
           }
