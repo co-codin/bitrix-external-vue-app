@@ -42,14 +42,13 @@
           </div>
 
           <div class="mb-7">
-            <v-expansion-panels v-if="form.files.length" class="mb-2">
-              <v-form
-                ref="form"
-                v-model="valid"
-                lazy-validation
-                style="width: 100%;"
-                @submit.prevent="uploadFiles"
-              >
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+              @submit.prevent="uploadFiles"
+            >
+              <v-expansion-panels v-if="form.files.length" class="mb-2">
                 <v-expansion-panel v-for="(file, index) in form.files" :key="index">
                   <v-expansion-panel-header class="title">
                     {{ file.file.name }}
@@ -57,21 +56,21 @@
                   <v-expansion-panel-content :eager="true">
                     <v-row>
                       <v-col cols="12" sm="5" md="4" lg="2">
-                        <file-preview-icon :extension="form.files[index].extension">
-                          {{ form.files[index].name }}.{{ form.files[index].extension }}
+                        <file-preview-icon :extension="file.extension">
+                          {{ file.name }}.{{ file.extension }}
                         </file-preview-icon>
                       </v-col>
                       <v-col cols="12" sm="7" md="8" lg="10">
                         <div>
                           <v-text-field
-                            v-model="form.files[index].name"
+                            v-model="file.name"
                             label="Название"
                             dense
                             :rules="nameRules"
                             required
                           />
                           <v-select
-                            v-model="form.files[index].type"
+                            v-model="file.type"
                             label="Выберите тип документа"
                             :items="documentTypeLabels"
                             dense
@@ -79,7 +78,7 @@
                             required
                           />
                           <v-text-field
-                            v-model="form.files[index].comment"
+                            v-model="file.comment"
                             label="Заметка"
                             dense
                           />
@@ -97,9 +96,9 @@
                     Загрузить выбранные файлы ({{ form.files.length }})
                   </v-btn>
                 </div>
-              </v-form>
 
-            </v-expansion-panels>
+              </v-expansion-panels>
+            </v-form>
           </div>
         </v-card-text>
 
@@ -180,6 +179,7 @@ export default {
   data: () => ({
     valid: true,
     files: [],
+    taskId: null,
     dropzoneOptions: {
       url: 'http://localhost',
       thumbnailWidth: 150,
@@ -191,9 +191,7 @@ export default {
       { text: '', sortable: false, align: 'right', value: 'action' }
     ],
     isLoading: false,
-    total: 3,
     dialog: false,
-    isDragging: false,
     form: {
       files: []
     },
@@ -217,11 +215,11 @@ export default {
     getTaskFiles() {
       const { options } = BX24.placement.info()
 
-      const taskId = options?.ID ?? options?.taskId
+      this.taskId = options?.ID ?? options?.taskId
 
       BX24.callMethod(
         'task.item.getdata',
-        [taskId],
+        [this.taskId],
         (result) => {
           this.files = result.data().UF_TASK_WEBDAV_FILES
         }
@@ -261,12 +259,8 @@ export default {
       BX24.callMethod('disk.file.delete', {
         id: item.FILE_ID
       }, () => {
-        const { options } = BX24.placement.info()
-
-        const taskId = options?.ID ?? options?.taskId
-
         BX24.callMethod('task.item.deletefile', {
-          TASK_ID: taskId,
+          TASK_ID: this.taskId,
           ATTACHMENT_ID: item.ATTACHMENT_ID
         }, () => {
           this.$snackbar('Файл успешно удален')
@@ -279,11 +273,10 @@ export default {
       this.form.files = []
     },
     uploadFiles() {
-      this.$refs.form.validate()
 
-      if (this.valid) {
-
-        this.loadingFiles = true
+      if (!this.$refs.form.validate()) {
+        return
+      } else {
 
         this.form.files.forEach((file, index) => {
           let fileContent
@@ -291,6 +284,7 @@ export default {
           setTimeout(() => {
             file.file.text().then((content) => {
               fileContent = content
+              this.loadingFiles = true
               BX24.callMethod('disk.storage.uploadfile', {
                 id: process.env.VUE_APP_STORAGE_ID,
                 fileContent: fileContent,
@@ -302,12 +296,8 @@ export default {
               },
               (res) => {
                 if (res.data()) {
-                  const { options } = BX24.placement.info()
-
-                  const taskId = options?.ID ?? options?.taskId
-
                   BX24.callMethod('tasks.task.files.attach', {
-                    taskId: taskId,
+                    taskId: this.taskId,
                     fileId: res.data().ID
                   }, (res) => {
                     if (res.data()) {
@@ -325,11 +315,12 @@ export default {
                   this.$snackbar(res.error()?.ex?.error_description)
                 }
               })
-            })}, 1000)
+            })
+            this.loadingFiles = false
+          }, 1000)
         })
 
       }
-      this.loadingFiles = false
 
     }
   }
