@@ -130,10 +130,10 @@
 
         <template #item.action="{item}">
           <div class="table-actions">
-            <v-btn icon @click.prevent="fileAction(item, 'preview')">
+            <v-btn icon @click.prevent="previewFile(item)">
               <eye-icon />
             </v-btn>
-            <v-btn icon @click.prevent="fileAction(item)">
+            <v-btn icon @click.prevent="downloadFile(item)">
               <download-icon />
             </v-btn>
             <v-btn icon @click.prevent="deleteFile(item)">
@@ -238,21 +238,28 @@ export default {
       })
       this.$refs.dropzone.removeFile(file)
     },
-    fileAction(item, action = 'download') {
+    downloadFile(item) {
       BX24.callMethod('disk.file.get', {
         id: item.FILE_ID
       }, (res) => {
         if (res.data()) {
-          if (action === 'download') {
-            console.log(res.data().DOWNLOAD_URL)
-            const link = document.createElement('a')
+          const link = document.createElement('a')
 
-            link.href = res.data().DOWNLOAD_URL
-            link.download = res.data().NAME
-            link.click()
-          } else {
-            window.open(res.data().DETAIL_URL, '_blank')
-          }
+          link.href = res.data().DOWNLOAD_URL
+          link.download = res.data().NAME
+          link.click()
+        }
+        if (res.error()) {
+          console.log(res.error())
+        }
+      })
+    },
+    previewFile(item) {
+      BX24.callMethod('disk.file.get', {
+        id: item.FILE_ID
+      }, (res) => {
+        if (res.data()) {
+          window.open(res.data().DETAIL_URL, '_blank')
         }
       })
     },
