@@ -244,7 +244,7 @@ export default {
       }, (res) => {
         if (res.data()) {
           if (action === 'download') {
-            fetch(res.data().DOWNLOAD_UR)
+            fetch(res.data().DOWNLOAD_URL)
               .then((response) => response.blob())
               .then((blob) => {
                 const link = document.createElement('a')
