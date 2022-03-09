@@ -291,12 +291,12 @@ export default {
       } else {
 
         this.form.files.forEach((file, index) => {
+          this.loadingFiles = true
           let fileContent
 
           setTimeout(() => {
             // file.file.text().then((content) => {
             //   fileContent = content
-            this.loadingFiles = true
             BX24.callMethod('disk.storage.uploadfile', {
               id: process.env.VUE_APP_STORAGE_ID,
               fileContent: file.file,
@@ -307,6 +307,7 @@ export default {
               }
             },
             (res) => {
+              console.log(res.data())
               if (res.data()) {
                 BX24.callMethod('tasks.task.files.attach', {
                   taskId: this.taskId,
