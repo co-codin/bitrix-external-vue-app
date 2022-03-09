@@ -297,6 +297,7 @@ export default {
           setTimeout(() => {
             // file.file.text().then((content) => {
             //   fileContent = content
+            console.log(this.taskId)
             BX24.callMethod('disk.storage.uploadfile', {
               id: process.env.VUE_APP_STORAGE_ID,
               fileContent: file.file,
@@ -308,7 +309,7 @@ export default {
             },
             (res) => {
               // console.log(res.data().objectId)
-              console.log(this.taskId)
+              
               if (res.data()) {
                 // BX24.callMethod('tasks.task.files.attach', {
                 //   taskId: this.taskId,
