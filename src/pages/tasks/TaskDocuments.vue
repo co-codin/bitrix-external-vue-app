@@ -307,7 +307,7 @@ export default {
               }
             },
             (res) => {
-              console.log(res.data().objectId)
+              // console.log(res.data().objectId)
               console.log(this.taskId)
               if (res.data()) {
                 // BX24.callMethod('tasks.task.files.attach', {
