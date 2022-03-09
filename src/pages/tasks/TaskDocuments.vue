@@ -313,10 +313,13 @@ export default {
                 }
               },
               (res) => {
-                console.log(this.taskId)
                 if (res.data()) {
+                  const { options } = BX24.placement.info()
+
+                  const taskId = options?.ID ?? options?.taskId
+
                   BX24.callMethod('tasks.task.files.attach', {
-                    taskId: this.taskId,
+                    taskId: taskId,
                     fileId: res.data().ID
                   }, (res) => {
                     if (res.data()) {
