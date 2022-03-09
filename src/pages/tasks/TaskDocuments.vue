@@ -285,7 +285,8 @@ export default {
       this.dialog = false
       this.form.files = []
     },
-    async uploadFiles() {
+    uploadFiles() {
+      this.loadingFiles = true
       const testfile = document.getElementById('test-file')
 
       BX24.callMethod('disk.storage.uploadfile', {
@@ -318,6 +319,7 @@ export default {
           this.$snackbar(res.error()?.ex?.error_description)
         }
       })
+      this.loadingFiles = true
 
       // if (!this.$refs.form.validate()) {
       //   return
