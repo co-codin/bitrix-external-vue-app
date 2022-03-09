@@ -291,14 +291,14 @@ export default {
       } else {
 
         this.form.files.forEach((file, index) => {
-          let fileContent
-          const reader = new FileReader()
-
-          reader.readAsBinaryString(file.file)
-
-          reader.onload = function () {
-            fileContent = reader.result
-          }
+          // let fileContent
+          // const reader = new FileReader()
+          //
+          // reader.readAsBinaryString(file.file)
+          //
+          // reader.onload = function () {
+          //   fileContent = reader.result
+          // }
 
           this.loadingFiles = true
 
@@ -306,7 +306,7 @@ export default {
             this.loadingFiles = true
             BX24.callMethod('disk.storage.uploadfile', {
               id: process.env.VUE_APP_STORAGE_ID,
-              fileContent: fileContent,
+              fileContent: file.file,
               data: {
                 NAME: file.name + '.' + file.extension,
                 TYPE: file.type,
