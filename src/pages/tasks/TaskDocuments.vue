@@ -293,9 +293,9 @@ export default {
         id: process.env.VUE_APP_STORAGE_ID,
         fileContent: testfile,
         data: {
-          NAME: 'test.rtf',
-          TYPE: file.type,
-          COMMENT: file.comment
+          NAME: 'test.rtf'
+          // TYPE: file.type,
+          // COMMENT: file.comment
         }
       },
       (res) => {
