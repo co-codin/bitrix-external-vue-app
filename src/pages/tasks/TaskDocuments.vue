@@ -19,6 +19,7 @@
           <span class="headline">
             Массовая загрузка файлов к задаче
           </span>
+          <input id="test-file" type="file" />
         </v-card-title>
         <v-card-text>
           <div class="mb-2">
@@ -285,58 +286,91 @@ export default {
       this.form.files = []
     },
     async uploadFiles() {
+      const testfile = document.getElementById('test-file')
 
-      if (!this.$refs.form.validate()) {
-        return
-      } else {
+      BX24.callMethod('disk.storage.uploadfile', {
+        id: process.env.VUE_APP_STORAGE_ID,
+        fileContent: testfile,
+        data: {
+          NAME: 'test.rtf',
+          TYPE: file.type,
+          COMMENT: file.comment
+        }
+      },
+      (res) => {
+        if (res.data()) {
+          BX24.callMethod('tasks.task.files.attach', {
+            taskId: this.taskId,
+            fileId: res.data().ID
+          }, (res) => {
+            if (res.data()) {
+              this.getTaskFiles()
+              this.dialog = false
+              this.form.files.splice(index, 1)
+            }
+            if (res.error()) {
+              this.$snackbar(res.error()?.ex?.error_description)
+              this.dialog = true
+            }
+          })
+        }
+        if (res.error()) {
+          this.$snackbar(res.error()?.ex?.error_description)
+        }
+      })
 
-        this.form.files.forEach((file, index) => {
-          let fileContent
-          const reader = new FileReader()
-
-          reader.readAsBinaryString(file.file)
-
-          this.loadingFiles = true
-
-          reader.onload = () => {
-            fileContent = reader.result
-            this.loadingFiles = true
-            BX24.callMethod('disk.storage.uploadfile', {
-              id: process.env.VUE_APP_STORAGE_ID,
-              fileContent: fileContent,
-              data: {
-                NAME: file.name + '.' + file.extension,
-                TYPE: file.type,
-                COMMENT: file.comment
-              }
-            },
-            (res) => {
-              if (res.data()) {
-                BX24.callMethod('tasks.task.files.attach', {
-                  taskId: this.taskId,
-                  fileId: res.data().ID
-                }, (res) => {
-                  if (res.data()) {
-                    this.getTaskFiles()
-                    this.dialog = false
-                    this.form.files.splice(index, 1)
-                  }
-                  if (res.error()) {
-                    this.$snackbar(res.error()?.ex?.error_description)
-                    this.dialog = true
-                  }
-                })
-              }
-              if (res.error()) {
-                this.$snackbar(res.error()?.ex?.error_description)
-              }
-            })
-            this.loadingFiles = false
-          }
-
-        })
-
-      }
+      // if (!this.$refs.form.validate()) {
+      //   return
+      // } else {
+      //
+      //   this.form.files.forEach((file, index) => {
+      //     console.log(file.file)
+      //     let fileContent
+      //     const reader = new FileReader()
+      //
+      //     reader.readAsBinaryString(file.file)
+      //
+      //     this.loadingFiles = true
+      //
+      //     reader.onload = () => {
+      //       fileContent = reader.result
+      //       this.loadingFiles = true
+      //       BX24.callMethod('disk.storage.uploadfile', {
+      //         id: process.env.VUE_APP_STORAGE_ID,
+      //         fileContent: fileContent,
+      //         data: {
+      //           NAME: file.name + '.' + file.extension,
+      //           TYPE: file.type,
+      //           COMMENT: file.comment
+      //         }
+      //       },
+      //       (res) => {
+      //         if (res.data()) {
+      //           BX24.callMethod('tasks.task.files.attach', {
+      //             taskId: this.taskId,
+      //             fileId: res.data().ID
+      //           }, (res) => {
+      //             if (res.data()) {
+      //               this.getTaskFiles()
+      //               this.dialog = false
+      //               this.form.files.splice(index, 1)
+      //             }
+      //             if (res.error()) {
+      //               this.$snackbar(res.error()?.ex?.error_description)
+      //               this.dialog = true
+      //             }
+      //           })
+      //         }
+      //         if (res.error()) {
+      //           this.$snackbar(res.error()?.ex?.error_description)
+      //         }
+      //       })
+      //       this.loadingFiles = false
+      //     }
+      //
+      //   })
+      //
+      // }
 
     }
   }
