@@ -19,7 +19,7 @@
           <span class="headline">
             Массовая загрузка файлов к задаче
           </span>
-          <input id="test-file" type="file" />
+          <v-file-input id="test-file" />
         </v-card-title>
         <v-card-text>
           <div class="mb-2">
