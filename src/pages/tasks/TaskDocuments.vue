@@ -296,48 +296,46 @@ export default {
 
           reader.readAsBinaryString(file.file)
 
+          this.loadingFiles = true
+
           reader.onload = function () {
             fileContent = reader.result
+
+            setTimeout(() => {
+              this.loadingFiles = true
+              BX24.callMethod('disk.storage.uploadfile', {
+                id: process.env.VUE_APP_STORAGE_ID,
+                fileContent: fileContent,
+                data: {
+                  NAME: file.name + '.' + file.extension,
+                  TYPE: file.type,
+                  COMMENT: file.comment
+                }
+              },
+              (res) => {
+                if (res.data()) {
+                  BX24.callMethod('tasks.task.files.attach', {
+                    taskId: this.taskId,
+                    fileId: res.data().ID
+                  }, (res) => {
+                    if (res.data()) {
+                      this.getTaskFiles()
+                      this.dialog = false
+                      this.form.files.splice(index, 1)
+                    }
+                    if (res.error()) {
+                      this.$snackbar(res.error()?.ex?.error_description)
+                      this.dialog = true
+                    }
+                  })
+                }
+                if (res.error()) {
+                  this.$snackbar(res.error()?.ex?.error_description)
+                }
+              })
+              this.loadingFiles = false
+            }, 1000)
           }
-
-          console.log(fileContent)
-
-          // this.loadingFiles = true
-
-          // setTimeout(() => {
-          //   this.loadingFiles = true
-          //   BX24.callMethod('disk.storage.uploadfile', {
-          //     id: process.env.VUE_APP_STORAGE_ID,
-          //     fileContent: fileContent,
-          //     data: {
-          //       NAME: file.name + '.' + file.extension,
-          //       TYPE: file.type,
-          //       COMMENT: file.comment
-          //     }
-          //   },
-          //   (res) => {
-          //     if (res.data()) {
-          //       BX24.callMethod('tasks.task.files.attach', {
-          //         taskId: this.taskId,
-          //         fileId: res.data().ID
-          //       }, (res) => {
-          //         if (res.data()) {
-          //           this.getTaskFiles()
-          //           this.dialog = false
-          //           this.form.files.splice(index, 1)
-          //         }
-          //         if (res.error()) {
-          //           this.$snackbar(res.error()?.ex?.error_description)
-          //           this.dialog = true
-          //         }
-          //       })
-          //     }
-          //     if (res.error()) {
-          //       this.$snackbar(res.error()?.ex?.error_description)
-          //     }
-          //   })
-          //   this.loadingFiles = false
-          // }, 1000)
 
         })
 
