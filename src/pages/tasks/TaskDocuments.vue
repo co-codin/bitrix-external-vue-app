@@ -311,7 +311,7 @@ export default {
               if (res.data()) {
                 BX24.callMethod('tasks.task.files.attach', {
                   taskId: this.taskId,
-                  fileId: res.data().ID
+                  fileId: res.data().objectId
                 }, (res) => {
                   if (res.data()) {
                     this.getTaskFiles()
