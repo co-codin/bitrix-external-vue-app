@@ -291,49 +291,53 @@ export default {
       } else {
 
         this.form.files.forEach((file, index) => {
-          this.loadingFiles = true
-          let fileContent
+          console.log(file)
+          const reader = new FileReader()
 
+          reader.readAsText(file.file)
+
+          this.loadingFiles = true
           setTimeout(() => {
+            reader.onload = function () {
+              this.loadingFiles = true
+              BX24.callMethod('disk.storage.uploadfile', {
+                id: process.env.VUE_APP_STORAGE_ID,
+                fileContent: file.file,
+                data: {
+                  NAME: file.name + '.' + file.extension,
+                  TYPE: file.type,
+                  COMMENT: file.comment
+                }
+              },
+              (res) => {
+                if (res.data()) {
+                  BX24.callMethod('tasks.task.files.attach', {
+                    taskId: this.taskId,
+                    fileId: res.data().ID
+                  }, (res) => {
+                    if (res.data()) {
+                      this.getTaskFiles()
+                      this.dialog = false
+                      this.form.files.splice(index, 1)
+                    }
+                    if (res.error()) {
+                      this.$snackbar(res.error()?.ex?.error_description)
+                      this.dialog = true
+                    }
+                  })
+                }
+                if (res.error()) {
+                  this.$snackbar(res.error()?.ex?.error_description)
+                }
+              })
+            }
             // file.file.text().then((content) => {
             //   fileContent = content
-            BX24.callMethod('disk.storage.uploadfile', {
-              id: process.env.VUE_APP_STORAGE_ID,
-              fileContent: file.file,
-              data: {
-                NAME: file.name + '.' + file.extension,
-                TYPE: file.type,
-                COMMENT: file.comment
-              }
-            },
-            (res) => {
-              if (res.data()) {
-                console.log('uploaded')
-                BX24.callMethod('tasks.task.files.attach', {
-                  taskId: this.taskId,
-                  fileId: res.data().objectId
-                }, (res) => {
-                  if (res.data()) {
-                    console.log('linked file')
-                    this.getTaskFiles()
-                    this.dialog = false
-                    this.form.files.splice(index, 1)
-                  }
-                  if (res.error()) {
-                    console.log(res.error())
-                    this.$snackbar(res.error()?.ex?.error_description)
-                    this.dialog = true
-                  }
-                })
-              }
-              if (res.error()) {
-                console.log(res.error())
-                this.$snackbar(res.error()?.ex?.error_description)
-              }
-            })
+
             // })
-            this.loadingFiles = false
+
           }, 1000)
+          this.loadingFiles = false
         })
 
       }
@@ -344,13 +348,13 @@ export default {
 </script>
 
 <style scoped>
-  .error-block {
-    border: 1px solid red !important
-  }
-  .dropzone > div {
-    /*cursor: pointer;*/
-    /*border-bottom: 1px solid transparent;*/
-    /*transition: 0.5s;*/
-    /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B2B1B1FF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");*/
-  }
+.error-block {
+  border: 1px solid red !important
+}
+.dropzone > div {
+  /*cursor: pointer;*/
+  /*border-bottom: 1px solid transparent;*/
+  /*transition: 0.5s;*/
+  /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B2B1B1FF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");*/
+}
 </style>
