@@ -301,6 +301,7 @@ export default {
           reader.onload = () => {
             fileContent = reader.result
             console.log(this.taskId)
+            console.log(fileContent)
           }
 
           /*setTimeout(() => {*/
