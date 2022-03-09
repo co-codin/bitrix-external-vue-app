@@ -308,11 +308,13 @@ export default {
             },
             (res) => {
               if (res.data()) {
+                console.log('uploaded')
                 BX24.callMethod('tasks.task.files.attach', {
                   taskId: this.taskId,
                   fileId: res.data().objectId
                 }, (res) => {
                   if (res.data()) {
+                    console.log('linked file')
                     this.getTaskFiles()
                     this.dialog = false
                     this.form.files.splice(index, 1)
