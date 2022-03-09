@@ -19,27 +19,11 @@
           <span class="headline">
             Массовая загрузка файлов к задаче
           </span>
-          <v-file-input id="test-file" />
+
         </v-card-title>
         <v-card-text>
           <div class="mb-2">
-            <v-card class="dropzone text-center pa-1">
-              <vue-dropzone
-                id="dropzone"
-                ref="dropzone"
-                class="px-3 py-8"
-                :use-custom-slot="true"
-                :options="dropzoneOptions"
-                @vdropzone-file-added="handleFileUpload"
-              >
-                <div class="dropzone-custom-content">
-                  <upload-icon width="50" height="50" />
-                  <div class="mt-2">
-                    Нажмите, чтобы выбрать файлы или просто перетащите их сюда
-                  </div>
-                </div>
-              </vue-dropzone>
-            </v-card>
+            <v-file-input id="file" @change="handleFileUpload" />
           </div>
 
           <div class="mb-7">
@@ -160,21 +144,16 @@
 </template>
 
 <script>
-import UploadIcon from '@/components/heroicons/UploadIcon'
 import TrashIcon from '@/components/heroicons/TrashIcon'
 import EyeIcon from '@/components/heroicons/EyeIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import FilePreviewIcon from '../../components/FilePreviewIcon'
 
 export default {
   components: {
-    UploadIcon,
     TrashIcon,
     EyeIcon,
     DownloadIcon,
-    vueDropzone: vue2Dropzone,
     FilePreviewIcon
   },
   data: () => ({
@@ -382,11 +361,5 @@ export default {
 <style scoped>
 .error-block {
   border: 1px solid red !important
-}
-.dropzone > div {
-  /*cursor: pointer;*/
-  /*border-bottom: 1px solid transparent;*/
-  /*transition: 0.5s;*/
-  /*background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23B2B1B1FF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");*/
 }
 </style>
