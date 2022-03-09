@@ -297,7 +297,6 @@ export default {
           setTimeout(() => {
             // file.file.text().then((content) => {
             //   fileContent = content
-            console.log(this.taskId)
             BX24.callMethod('disk.storage.uploadfile', {
               id: process.env.VUE_APP_STORAGE_ID,
               fileContent: file.file,
@@ -308,25 +307,24 @@ export default {
               }
             },
             (res) => {
-              // console.log(res.data().objectId)
-              
               if (res.data()) {
-                // BX24.callMethod('tasks.task.files.attach', {
-                //   taskId: this.taskId,
-                //   fileId: res.data().objectId
-                // }, (res) => {
-                //   if (res.data()) {
-                //     this.getTaskFiles()
-                //     this.dialog = false
-                //     this.form.files.splice(index, 1)
-                //   }
-                //   if (res.error()) {
-                //     this.$snackbar(res.error()?.ex?.error_description)
-                //     this.dialog = true
-                //   }
-                // })
+                BX24.callMethod('tasks.task.files.attach', {
+                  taskId: this.taskId,
+                  fileId: res.data().objectId
+                }, (res) => {
+                  if (res.data()) {
+                    this.getTaskFiles()
+                    this.dialog = false
+                    this.form.files.splice(index, 1)
+                  }
+                  if (res.error()) {
+                    this.$snackbar(res.error()?.ex?.error_description)
+                    this.dialog = true
+                  }
+                })
               }
               if (res.error()) {
+                console.log(res.error())
                 this.$snackbar(res.error()?.ex?.error_description)
               }
             })
