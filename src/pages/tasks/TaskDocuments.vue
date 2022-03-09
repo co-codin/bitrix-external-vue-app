@@ -291,49 +291,52 @@ export default {
       } else {
 
         this.form.files.forEach((file, index) => {
-          console.log(file)
+          let fileContent
           const reader = new FileReader()
 
-          reader.readAsText(file.file)
+          reader.readAsBinaryString(file.file)
+
+          reader.onload = function () {
+            fileContent = reader.result
+          }
 
           this.loadingFiles = true
+
           setTimeout(() => {
-            reader.onload = function () {
-              this.loadingFiles = true
-              BX24.callMethod('disk.storage.uploadfile', {
-                id: process.env.VUE_APP_STORAGE_ID,
-                fileContent: file.file,
-                data: {
-                  NAME: file.name + '.' + file.extension,
-                  TYPE: file.type,
-                  COMMENT: file.comment
-                }
-              },
-              (res) => {
-                if (res.data()) {
-                  BX24.callMethod('tasks.task.files.attach', {
-                    taskId: this.taskId,
-                    fileId: res.data().ID
-                  }, (res) => {
-                    if (res.data()) {
-                      this.getTaskFiles()
-                      this.dialog = false
-                      this.form.files.splice(index, 1)
-                    }
-                    if (res.error()) {
-                      this.$snackbar(res.error()?.ex?.error_description)
-                      this.dialog = true
-                    }
-                  })
-                }
-                if (res.error()) {
-                  this.$snackbar(res.error()?.ex?.error_description)
-                }
-              })
-            }
+
             // file.file.text().then((content) => {
             //   fileContent = content
-
+            this.loadingFiles = true
+            BX24.callMethod('disk.storage.uploadfile', {
+              id: process.env.VUE_APP_STORAGE_ID,
+              fileContent: fileContent,
+              data: {
+                NAME: file.name + '.' + file.extension,
+                TYPE: file.type,
+                COMMENT: file.comment
+              }
+            },
+            (res) => {
+              if (res.data()) {
+                BX24.callMethod('tasks.task.files.attach', {
+                  taskId: this.taskId,
+                  fileId: res.data().ID
+                }, (res) => {
+                  if (res.data()) {
+                    this.getTaskFiles()
+                    this.dialog = false
+                    this.form.files.splice(index, 1)
+                  }
+                  if (res.error()) {
+                    this.$snackbar(res.error()?.ex?.error_description)
+                    this.dialog = true
+                  }
+                })
+              }
+              if (res.error()) {
+                this.$snackbar(res.error()?.ex?.error_description)
+              }
+            })
             // })
 
           }, 1000)
