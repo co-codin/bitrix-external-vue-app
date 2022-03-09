@@ -303,9 +303,6 @@ export default {
           this.loadingFiles = true
 
           setTimeout(() => {
-
-            // file.file.text().then((content) => {
-            //   fileContent = content
             this.loadingFiles = true
             BX24.callMethod('disk.storage.uploadfile', {
               id: process.env.VUE_APP_STORAGE_ID,
@@ -337,10 +334,9 @@ export default {
                 this.$snackbar(res.error()?.ex?.error_description)
               }
             })
-            // })
-
+            this.loadingFiles = false
           }, 1000)
-          this.loadingFiles = false
+
         })
 
       }
