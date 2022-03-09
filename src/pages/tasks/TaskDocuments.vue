@@ -49,7 +49,7 @@
               lazy-validation
               @submit.prevent="uploadFiles"
             >
-              <v-expansion-panels v-if="form.files.length" class="mb-2">
+              <v-expansion-panels class="mb-2">
                 <v-expansion-panel v-for="(file, index) in form.files" :key="index">
                   <v-expansion-panel-header class="title">
                     {{ file.file.name }}
