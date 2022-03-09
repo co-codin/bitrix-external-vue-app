@@ -23,7 +23,7 @@
         </v-card-title>
         <v-card-text>
           <div class="mb-2">
-            <v-file-input id="file" @change="handleFileUpload" />
+            <v-file-input id="file" clearable @change="handleFileUpload" />
           </div>
 
           <div class="mb-7">
