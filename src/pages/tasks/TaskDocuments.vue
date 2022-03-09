@@ -284,7 +284,7 @@ export default {
       this.dialog = false
       this.form.files = []
     },
-    uploadFiles() {
+    async uploadFiles() {
 
       if (!this.$refs.form.validate()) {
         return
@@ -298,48 +298,45 @@ export default {
 
           this.loadingFiles = true
 
-          reader.onload = function () {
+          reader.onload = () => {
             fileContent = reader.result
-
-            setTimeout(() => {
-              this.loadingFiles = true
-              BX24.callMethod('disk.storage.uploadfile', {
-                id: process.env.VUE_APP_STORAGE_ID,
-                fileContent: fileContent,
-                data: {
-                  NAME: file.name + '.' + file.extension,
-                  TYPE: file.type,
-                  COMMENT: file.comment
-                }
-              },
-              (res) => {
-                if (res.data()) {
-                  const { options } = BX24.placement.info()
-
-                  const taskId = options?.ID ?? options?.taskId
-
-                  BX24.callMethod('tasks.task.files.attach', {
-                    taskId: taskId,
-                    fileId: res.data().ID
-                  }, (res) => {
-                    if (res.data()) {
-                      this.getTaskFiles()
-                      this.dialog = false
-                      this.form.files.splice(index, 1)
-                    }
-                    if (res.error()) {
-                      this.$snackbar(res.error()?.ex?.error_description)
-                      this.dialog = true
-                    }
-                  })
-                }
-                if (res.error()) {
-                  this.$snackbar(res.error()?.ex?.error_description)
-                }
-              })
-              this.loadingFiles = false
-            }, 1000)
+            console.log(this.taskId)
           }
+
+          /*setTimeout(() => {*/
+          /*  this.loadingFiles = true*/
+          /*  BX24.callMethod('disk.storage.uploadfile', {*/
+          /*      id: process.env.VUE_APP_STORAGE_ID,*/
+          /*      fileContent: fileContent,*/
+          /*      data: {*/
+          /*        NAME: file.name + '.' + file.extension,*/
+          /*        TYPE: file.type,*/
+          /*        COMMENT: file.comment*/
+          /*      }*/
+          /*    },*/
+          /*    (res) => {*/
+          //       if (res.data()) {
+          //         BX24.callMethod('tasks.task.files.attach', {
+          //           taskId: this.taskId,
+          //           fileId: res.data().ID
+          //         }, (res) => {
+          //           if (res.data()) {
+          //             this.getTaskFiles()
+          //             this.dialog = false
+          //             this.form.files.splice(index, 1)
+          //           }
+          //           if (res.error()) {
+          //             this.$snackbar(res.error()?.ex?.error_description)
+          //             this.dialog = true
+          //           }
+          //         })
+          //       }
+          //       if (res.error()) {
+          //         this.$snackbar(res.error()?.ex?.error_description)
+          //       }
+          //     })
+          //   this.loadingFiles = false
+          // }, 1000)
 
         })
 
