@@ -33,10 +33,10 @@
               lazy-validation
               @submit.prevent="uploadFiles"
             >
-              <v-expansion-panels class="mb-2">
+              <v-expansion-panels v-if="form.files.length" class="mb-2">
                 <v-expansion-panel v-for="(file, index) in form.files" :key="index">
                   <v-expansion-panel-header class="title">
-                    {{ file.file.name }}
+                    {{ file.name }}
                   </v-expansion-panel-header>
                   <v-expansion-panel-content eager>
                     <v-row>
@@ -160,11 +160,6 @@ export default {
     valid: true,
     files: [],
     taskId: null,
-    dropzoneOptions: {
-      url: 'http://localhost',
-      thumbnailWidth: 150,
-      maxFilesize: 0.5
-    },
     headers: [
       { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
       { text: 'Название', align: 'left', value: 'NAME', sortable: false },
@@ -210,13 +205,12 @@ export default {
     },
     handleFileUpload(file) {
       this.form.files.push({
-        file: file,
+        file: document.getElementById('file'),
         name: file.name.replace(/\.[^/.]+$/, ''),
         type: null,
         comment: '',
         extension: file.name.split('.').pop()
       })
-      this.$refs.dropzone.removeFile(file)
     },
     downloadFile(item) {
       BX24.callMethod('disk.file.get', {
@@ -266,92 +260,49 @@ export default {
     },
     uploadFiles() {
       this.loadingFiles = true
-      const testfile = document.getElementById('test-file')
 
-      BX24.callMethod('disk.storage.uploadfile', {
-        id: process.env.VUE_APP_STORAGE_ID,
-        fileContent: testfile,
-        data: {
-          NAME: 'test.rtf'
-          // TYPE: file.type,
-          // COMMENT: file.comment
-        }
-      },
-      (res) => {
-        if (res.data()) {
-          BX24.callMethod('tasks.task.files.attach', {
-            taskId: this.taskId,
-            fileId: res.data().ID
-          }, (res) => {
+      if (!this.$refs.form.validate()) {
+        return
+      } else {
+
+        this.form.files.forEach((file, index) => {
+          this.loadingFiles = true
+
+          this.loadingFiles = true
+          BX24.callMethod('disk.storage.uploadfile', {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: file.file,
+            data: {
+              NAME: file.name + '.' + file.extension,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          },
+          (res) => {
             if (res.data()) {
-              this.getTaskFiles()
-              this.dialog = false
-              this.form.files.splice(index, 1)
+              BX24.callMethod('tasks.task.files.attach', {
+                taskId: this.taskId,
+                fileId: res.data().ID
+              }, (res) => {
+                if (res.data()) {
+                  this.getTaskFiles()
+                  this.dialog = false
+                  this.form.files.splice(index, 1)
+                }
+                if (res.error()) {
+                  this.$snackbar(res.error()?.ex?.error_description)
+                  this.dialog = true
+                }
+              })
             }
             if (res.error()) {
               this.$snackbar(res.error()?.ex?.error_description)
-              this.dialog = true
             }
           })
-        }
-        if (res.error()) {
-          this.$snackbar(res.error()?.ex?.error_description)
-        }
-      })
-      this.loadingFiles = true
+          this.loadingFiles = false
+        })
 
-      // if (!this.$refs.form.validate()) {
-      //   return
-      // } else {
-      //
-      //   this.form.files.forEach((file, index) => {
-      //     console.log(file.file)
-      //     let fileContent
-      //     const reader = new FileReader()
-      //
-      //     reader.readAsBinaryString(file.file)
-      //
-      //     this.loadingFiles = true
-      //
-      //     reader.onload = () => {
-      //       fileContent = reader.result
-      //       this.loadingFiles = true
-      //       BX24.callMethod('disk.storage.uploadfile', {
-      //         id: process.env.VUE_APP_STORAGE_ID,
-      //         fileContent: fileContent,
-      //         data: {
-      //           NAME: file.name + '.' + file.extension,
-      //           TYPE: file.type,
-      //           COMMENT: file.comment
-      //         }
-      //       },
-      //       (res) => {
-      //         if (res.data()) {
-      //           BX24.callMethod('tasks.task.files.attach', {
-      //             taskId: this.taskId,
-      //             fileId: res.data().ID
-      //           }, (res) => {
-      //             if (res.data()) {
-      //               this.getTaskFiles()
-      //               this.dialog = false
-      //               this.form.files.splice(index, 1)
-      //             }
-      //             if (res.error()) {
-      //               this.$snackbar(res.error()?.ex?.error_description)
-      //               this.dialog = true
-      //             }
-      //           })
-      //         }
-      //         if (res.error()) {
-      //           this.$snackbar(res.error()?.ex?.error_description)
-      //         }
-      //       })
-      //       this.loadingFiles = false
-      //     }
-      //
-      //   })
-      //
-      // }
+      }
 
     }
   }
