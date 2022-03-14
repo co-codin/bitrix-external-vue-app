@@ -295,6 +295,7 @@ export default {
 
           })
         } catch (e) {
+          this.loadingFiles = true
           console.log(e)
           // this.$snackbar(res.error()?.ex?.error_description)
         }
