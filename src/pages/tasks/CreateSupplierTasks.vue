@@ -80,7 +80,14 @@
       <template v-if="tasks.length">
         <v-divider class="my-3"/>
         <div class="text-right">
-          <v-btn type="submit" color="green" dark large>
+          <v-btn
+            type="submit"
+            color="green"
+            dark
+            large
+            :loading="loading"
+            :disabled="loading"
+          >
             Создать подзадачи ({{ tasks.length }})
           </v-btn>
         </div>
@@ -91,12 +98,14 @@
 
 <script>
 import PageHeader from '../../components/PageHeader'
+import config from '../../configs'
 
 export default {
   components: {
     PageHeader
   },
   data: () => ({
+    loading: false,
     taskTypes: [
       { header: 'Отгрузка' },
       { text: 'Отгрузка от поставщика', value: 1, fields: ['bill', 'transfer_document', 'manager_contacts', 'logistics_contacts'] },
@@ -119,17 +128,32 @@ export default {
       { text: 'Установка оборудования при помощи сторонних компаний', value: 14, fields: ['equipment', 'serial_number', 'bill', 'transfer_document', 'company_contacts'] },
       { text: 'Установка оборудования за наш счет', value: 15, fields: ['equipment', 'serial_number'] }
     ],
-    files: [
-      { text: 'Счет № 2112/2', value: 1 },
-      { text: 'УПД № 2112/2', value: 2 },
-      { text: 'Договор № 2112/2', value: 3 },
-      { text: 'Счет № 1313/2', value: 4 }
-    ],
+    files: [],
     tasks: []
   }),
   mounted() {
+    this.getTaskFiles()
   },
   methods: {
+    getTaskFiles() {
+      const { options } = BX24.placement.info()
+
+      const taskId = options?.ID ?? options?.TASK_ID
+
+      BX24.callMethod(
+        'task.item.getdata',
+        [taskId],
+        (result) => {
+          this.files = result.data().UF_TASK_WEBDAV_FILES
+          this.files = this.files.map((file) => {
+            return {
+              text: file.NAME,
+              value: file.FILE_ID
+            }
+          })
+        }
+      )
+    },
     addTask() {
       this.tasks.push({
         type: null, // тип задачи
@@ -146,7 +170,82 @@ export default {
       this.tasks.splice(index, 1)
     },
     createTasks() {
-      alert('Не так быстро...')
+      const { options } = BX24.placement.info()
+
+      const taskId = options?.ID ?? options?.TASK_ID
+
+      this.loading = true
+
+      this.tasks.forEach((task, index) => {
+        const taskName = this.taskTypes.find(type => type.value === task.type.value).text
+        let description = ''
+
+        if (task.type) {
+          description += 'Тип задачи: ' + taskName + '\n'
+        }
+
+        if (task.bill) {
+          description += 'Счет: в приложении' + '\n'
+        }
+
+        if (task.transfer_document) {
+          description += 'УПД: в приложении' + '\n'
+        }
+
+        if (task.manager_contacts) {
+          description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
+        }
+
+        if (task.company_contacts) {
+          description += 'Контактный компании: ' + task.company_contacts + '\n'
+        }
+
+        if (task.logistics_contacts) {
+          description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
+        }
+
+        if (task.equipment) {
+          description += 'Оборудование / комплектация: ' + task.equipment + '\n'
+        }
+
+        if (task.serial_number) {
+          description += 'Серийный номер: ' + task.serial_number + '\n'
+        }
+
+        BX24.callMethod('task.item.add', [{
+          PARENT_ID: taskId,
+          TITLE: taskName,
+          RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
+          DESCRIPTION: description
+        }], (res) => {
+          if (res.data()) {
+            const currentTaskId = res.data()
+
+            if (task.bill) {
+              BX24.callMethod('tasks.task.files.attach', {
+                taskId: currentTaskId,
+                fileId: task.bill
+              }, () => {
+              })
+            }
+
+            if (task.transfer_document) {
+              BX24.callMethod('tasks.task.files.attach', {
+                taskId: currentTaskId,
+                fileId: task.transfer_document
+              }, () => {
+              })
+            }
+            this.tasks.splice(index, 1)
+          }
+
+          if (res.error()) {
+            this.$snackbar(res.error()?.ex?.error_description)
+          }
+        })
+      })
+
+      this.loading = false
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)

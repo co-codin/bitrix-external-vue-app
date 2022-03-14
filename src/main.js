@@ -19,6 +19,8 @@ import './plugins/echarts'
 import './plugins/animate'
 import './plugins/clipboard'
 import './plugins/moment'
+import './plugins/confirm'
+import './plugins/snackbar'
 
 // FILTERS
 import './filters/capitalize'
@@ -34,8 +36,13 @@ import './assets/scss/theme.scss'
 // Animation library - https://animate.style/
 import 'animate.css/animate.min.css'
 
+// Configs
+import config from './configs'
+
 // Set this to false to prevent the production tip on Vue startup.
 Vue.config.productionTip = false
+
+Vue.prototype.$config = config
 
 /*
 |---------------------------------------------------------------------

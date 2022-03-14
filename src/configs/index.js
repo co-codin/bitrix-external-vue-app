@@ -7,6 +7,8 @@ import locales from './locales'
 import analytics from './analytics'
 import currencies from './currencies'
 import navigation from './navigation'
+import apps from './apps'
+import bitrix from './bitrix'
 
 export default {
   // product display information
@@ -40,5 +42,10 @@ export default {
   currencies,
 
   // navigation configs
-  navigation
+  navigation,
+
+  // bitrix configs
+  bitrix,
+
+  apps
 }

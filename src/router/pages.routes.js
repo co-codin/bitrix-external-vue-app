@@ -34,6 +34,27 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/tasks/create-base-supplier-task',
+    name: 'tasks.create-base-supplier-task',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/CreateBaseSupplierTask.vue'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/tasks/change-task-status',
+    name: 'tasks.change-task-status',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/ChangeTaskStatus.vue'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/users/profile-qr-code',
+    name: 'users.profile-qr-code',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/users/UserProfileQRCode.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',

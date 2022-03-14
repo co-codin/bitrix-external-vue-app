@@ -1,11 +1,12 @@
 <template>
   <div>
     <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" />
-    <v-expansion-panels>
+    <page-loader v-if="loading" message="Идет загрузка приложений" />
+    <v-expansion-panels v-else>
       <v-expansion-panel v-for="(app, index) in apps" :key="index">
         <v-expansion-panel-header class="title">
           {{ app.name }}
-          <span v-if="app.installed" class="text-sm-caption green--text ml-2">
+          <span v-if="app.isInstalled" class="text-sm-caption green--text ml-2">
             Установлено
           </span>
         </v-expansion-panel-header>
@@ -15,7 +16,7 @@
           </p>
           <div>
             <v-btn
-              v-if="!app.installed"
+              v-if="!app.isInstalled"
               small
               color="green"
               dark
@@ -37,48 +38,78 @@
 
 <script>
 import PageHeader from '../components/PageHeader'
+import PageLoader from '../components/PageLoader'
 
 export default {
   components: {
-    PageHeader
+    PageHeader,
+    PageLoader
   },
   data: () => ({
-    apps: [
-      {
-        name: 'Вкладка "Документы" в задачах',
-        buttonLabel: 'Документы',
-        description: 'Загрузка документов к задачам',
-        placement: 'TASK_VIEW_TAB',
-        handler: '/tasks/documents',
-        installed: false
-      },
-      {
-        name: 'Создание подзадач закупщиком',
-        buttonLabel: 'Постпродажный процесс',
-        description: 'Создание подзадач закупщиком к базовой задаче',
-        placement: 'TASK_LIST_CONTEXT_MENU',
-        handler: '/tasks/create-supplier-tasks',
-        installed: false
-      }
-    ],
-    breadcrumbs: [{ text: 'Установка приложений' }]
+    breadcrumbs: [{ text: 'Установка приложений' }],
+    loading: true,
+    installedApps: []
   }),
+  computed: {
+    apps() {
+      return this.$config.apps.map((app) => ({
+        ...app,
+        isInstalled: this.isInstalled(app)
+      }))
+    }
+  },
+  mounted() {
+    BX24.init(this.loadInstalledApps)
+  },
   methods: {
     installApp(app) {
       try {
-        window.BX24.callMethod('placement.bind', {
+        BX24.callMethod('placement.bind', {
           PLACEMENT: app.placement,
-          HANDLER: `https://bitrix-external-app.medeqstars.com${app.handler}`,
+          HANDLER: this.getHandlerFullPath(app.handler),
           TITLE: app.buttonLabel,
           DESCRIPTION: app.description
+        }, () => {
+          this.loadInstalledApps()
         })
       }
       catch (e) {
         console.log(e)
       }
     },
+    loadInstalledApps() {
+      BX24.callMethod('placement.get', {}, (response) => {
+        if (response.data()) {
+          this.installedApps = response.data()
+          this.loading = false
+
+          return
+        }
+
+        alert('Произошла ошибка при загрузке приложений')
+      })
+    },
     deleteApp(app) {
-      console.log(app)
+      try {
+        BX24.callMethod('placement.unbind', {
+          PLACEMENT: app.placement,
+          HANDLER: this.getHandlerFullPath(app.handler)
+        }, () => {
+          this.loadInstalledApps()
+        })
+      }
+      catch (e) {
+        console.log(e)
+      }
+    },
+    isInstalled(app) {
+      return !! this.installedApps.find((installedApp) => {
+        return installedApp.handler === this.getHandlerFullPath(app.handler)
+          && installedApp.placement === app.placement
+      })
+    },
+    getHandlerFullPath(handler) {
+      return `${process.env.VUE_APP_APP_URL}${handler}`
     }
   }
 }

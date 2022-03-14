@@ -1,20 +1,41 @@
 <template>
   <div class="pa-2">
-    <slot></slot>
+    <page-loader
+      v-if="!loaded"
+    />
+    <v-alert v-else-if="error" type="error" text>
+      Произошла ошибка при загрузке Битрикс 24
+    </v-alert>
+    <slot v-else></slot>
   </div>
 </template>
 
 <script>
+import PageLoader from '../components/PageLoader'
+
 export default {
-  mounted() {
-    const script = document.createElement('script')
+  components: {
+    PageLoader
+  },
+  data: () => ({
+    loaded: false,
+    error: null
+  }),
+  async mounted() {
+    const script = await document.createElement('script')
 
-    script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
-    document.head.appendChild(script)
+    await script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
+    await document.head.appendChild(script)
 
-    // script.addEventListener('load', () => {
-    //   window.BX24?.init()
-    // })
+    script.addEventListener('load', () => {
+      try {
+        BX24.init(() => this.loaded = true)
+      }
+      catch (e) {
+        this.error = e
+        this.loaded = true
+      }
+    })
   }
 }
 </script>
