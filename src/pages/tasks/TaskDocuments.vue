@@ -254,15 +254,18 @@ export default {
       this.dialog = false
       this.form.files = []
     },
-    uploadFiles() {
+    async uploadFiles() {
       this.loadingFiles = true
 
       const validation = new Validator(this.form, this.rules)
 
       if (validation.fails()) {
         this.formErrors = validation.errors.errors
-      } else {
-        this.form.files.forEach((file, index) => {
+
+        return
+      }
+      this.form.files.forEach((file, index) => {
+        try {
           BX24.callMethod('disk.storage.uploadfile', {
             id: process.env.VUE_APP_STORAGE_ID,
             fileContent: file.file,
@@ -289,12 +292,14 @@ export default {
                 }
               })
             }
-            if (res.error()) {
-              this.$snackbar(res.error()?.ex?.error_description)
-            }
+
           })
-        })
-      }
+        } catch (e) {
+          console.log(e)
+          // this.$snackbar(res.error()?.ex?.error_description)
+        }
+
+      })
       this.loadingFiles = false
     }
   }
