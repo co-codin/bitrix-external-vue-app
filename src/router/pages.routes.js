@@ -6,14 +6,14 @@ export default [
     meta: {
       layout: 'simple'
     }
-  },{
+  }, {
     path: '/install-apps',
     name: 'install-apps',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/InstallApps.vue'),
     meta: {
       layout: 'simple'
     }
-  },{
+  }, {
     path: '/settings',
     name: 'settings',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/SettingsPage.vue'),
@@ -77,4 +77,4 @@ export default [
     meta: {
       layout: 'error'
     }
-}]
+  }]
