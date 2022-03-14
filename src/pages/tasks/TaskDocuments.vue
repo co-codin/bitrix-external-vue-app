@@ -28,9 +28,6 @@
 
           <div class="mb-7">
             <v-form
-              ref="form"
-              v-model="valid"
-              lazy-validation
               @submit.prevent="uploadFiles"
             >
               <v-expansion-panels v-if="form.files.length" class="mb-2">
@@ -51,16 +48,12 @@
                             v-model="file.name"
                             label="Название"
                             dense
-                            :rules="nameRules"
-                            required
                           />
                           <v-select
                             v-model="file.type"
                             label="Выберите тип документа"
                             :items="documentTypeLabels"
                             dense
-                            :rules="typeRules"
-                            required
                           />
                           <v-text-field
                             v-model="file.comment"
@@ -148,6 +141,7 @@ import TrashIcon from '@/components/heroicons/TrashIcon'
 import EyeIcon from '@/components/heroicons/EyeIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import FilePreviewIcon from '../../components/FilePreviewIcon'
+import * as Validator from 'validatorjs'
 
 export default {
   components: {
@@ -157,7 +151,6 @@ export default {
     FilePreviewIcon
   },
   data: () => ({
-    valid: true,
     files: [],
     taskId: null,
     headers: [
@@ -176,12 +169,14 @@ export default {
       { text: 'УПД', value: 3 }
     ],
     loadingFiles: false,
-    nameRules: [
-      (v) => !!v || 'Название обязательно'
-    ],
-    typeRules: [
-      (v) => !!v || 'Тип обязательно'
-    ]
+    rules: {
+      'files.*.name': 'required',
+      'files.*.type': 'required'
+    },
+    errorMessages: {
+      'files.*.name.required': 'Название обязательно',
+      'files.*.type.required': 'Тип обязательно'
+    }
   }),
   mounted() {
     this.getTaskFiles()
@@ -261,48 +256,54 @@ export default {
     uploadFiles() {
       this.loadingFiles = true
 
-      if (!this.$refs.form.validate()) {
-        return
-      } else {
+      const validation = new Validator(this.form, this.rules, this.errorMessages)
 
-        this.form.files.forEach((file, index) => {
-          this.loadingFiles = true
+      const fileErrorMessages = validation.errors.get('errors')
 
-          this.loadingFiles = true
-          BX24.callMethod('disk.storage.uploadfile', {
-            id: process.env.VUE_APP_STORAGE_ID,
-            fileContent: file.file,
-            data: {
-              NAME: file.name + '.' + file.extension,
-              TYPE: file.type,
-              COMMENT: file.comment
-            }
-          },
-          (res) => {
-            if (res.data()) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: this.taskId,
-                fileId: res.data().ID
-              }, (res) => {
-                if (res.data()) {
-                  this.getTaskFiles()
-                  this.dialog = false
-                  this.form.files.splice(index, 1)
-                }
-                if (res.error()) {
-                  this.$snackbar(res.error()?.ex?.error_description)
-                  this.dialog = true
-                }
-              })
-            }
-            if (res.error()) {
-              this.$snackbar(res.error()?.ex?.error_description)
-            }
-          })
-          this.loadingFiles = false
-        })
+      console.log(validation.passes())
 
-      }
+      console.log(fileErrorMessages)
+
+      // if (validation.fails()) {
+      //   return
+      // } else {
+      //   this.form.files.forEach((file, index) => {
+      //     this.loadingFiles = true
+      //
+      //     this.loadingFiles = true
+      //     BX24.callMethod('disk.storage.uploadfile', {
+      //       id: process.env.VUE_APP_STORAGE_ID,
+      //       fileContent: file.file,
+      //       data: {
+      //         NAME: file.name + '.' + file.extension,
+      //         TYPE: file.type,
+      //         COMMENT: file.comment
+      //       }
+      //     },
+      //     (res) => {
+      //       if (res.data()) {
+      //         BX24.callMethod('tasks.task.files.attach', {
+      //           taskId: this.taskId,
+      //           fileId: res.data().ID
+      //         }, (res) => {
+      //           if (res.data()) {
+      //             this.getTaskFiles()
+      //             this.dialog = false
+      //             this.form.files.splice(index, 1)
+      //           }
+      //           if (res.error()) {
+      //             this.$snackbar(res.error()?.ex?.error_description)
+      //             this.dialog = true
+      //           }
+      //         })
+      //       }
+      //       if (res.error()) {
+      //         this.$snackbar(res.error()?.ex?.error_description)
+      //       }
+      //     })
+      //     this.loadingFiles = false
+      //   })
+      // }
 
     }
   }
