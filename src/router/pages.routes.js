@@ -55,6 +55,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/deals/filling-statistics',
+    name: 'deals.filling-statistics',
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatistics.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',
@@ -69,5 +76,4 @@ export default [
     component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/error/UnexpectedPage.vue'),
     meta: {
       layout: 'error'
-    }
-  }]
+    }]
