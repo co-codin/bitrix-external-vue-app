@@ -48,12 +48,16 @@
                             v-model="file.name"
                             label="Название"
                             dense
+                            :error="formErrors.hasOwnProperty(`files.${index}.name`)"
+                            :error-messages="formErrors[`files.${index}.name`]"
                           />
                           <v-select
                             v-model="file.type"
                             label="Выберите тип документа"
                             :items="documentTypeLabels"
                             dense
+                            :error="formErrors.hasOwnProperty(`files.${index}.type`)"
+                            :error-messages="formErrors[`files.${index}.type`]"
                           />
                           <v-text-field
                             v-model="file.comment"
@@ -173,10 +177,7 @@ export default {
       'files.*.name': 'required',
       'files.*.type': 'required'
     },
-    errorMessages: {
-      'files.*.name.required': 'Название обязательно',
-      'files.*.type.required': 'Тип обязательно'
-    }
+    formErrors: {}
   }),
   mounted() {
     this.getTaskFiles()
@@ -256,55 +257,45 @@ export default {
     uploadFiles() {
       this.loadingFiles = true
 
-      const validation = new Validator(this.form, this.rules, this.errorMessages)
+      const validation = new Validator(this.form, this.rules)
 
-      const fileErrorMessages = validation.errors.get('errors')
-
-      console.log(validation.passes())
-
-      console.log(fileErrorMessages)
-
-      // if (validation.fails()) {
-      //   return
-      // } else {
-      //   this.form.files.forEach((file, index) => {
-      //     this.loadingFiles = true
-      //
-      //     this.loadingFiles = true
-      //     BX24.callMethod('disk.storage.uploadfile', {
-      //       id: process.env.VUE_APP_STORAGE_ID,
-      //       fileContent: file.file,
-      //       data: {
-      //         NAME: file.name + '.' + file.extension,
-      //         TYPE: file.type,
-      //         COMMENT: file.comment
-      //       }
-      //     },
-      //     (res) => {
-      //       if (res.data()) {
-      //         BX24.callMethod('tasks.task.files.attach', {
-      //           taskId: this.taskId,
-      //           fileId: res.data().ID
-      //         }, (res) => {
-      //           if (res.data()) {
-      //             this.getTaskFiles()
-      //             this.dialog = false
-      //             this.form.files.splice(index, 1)
-      //           }
-      //           if (res.error()) {
-      //             this.$snackbar(res.error()?.ex?.error_description)
-      //             this.dialog = true
-      //           }
-      //         })
-      //       }
-      //       if (res.error()) {
-      //         this.$snackbar(res.error()?.ex?.error_description)
-      //       }
-      //     })
-      //     this.loadingFiles = false
-      //   })
-      // }
-
+      if (validation.fails()) {
+        this.formErrors = validation.errors.errors
+      } else {
+        this.form.files.forEach((file, index) => {
+          BX24.callMethod('disk.storage.uploadfile', {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: file.file,
+            data: {
+              NAME: file.name + '.' + file.extension,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          },
+          (res) => {
+            if (res.data()) {
+              BX24.callMethod('tasks.task.files.attach', {
+                taskId: this.taskId,
+                fileId: res.data().ID
+              }, (res) => {
+                if (res.data()) {
+                  this.getTaskFiles()
+                  this.dialog = false
+                  this.form.files.splice(index, 1)
+                }
+                if (res.error()) {
+                  this.$snackbar(res.error()?.ex?.error_description)
+                  this.dialog = true
+                }
+              })
+            }
+            if (res.error()) {
+              this.$snackbar(res.error()?.ex?.error_description)
+            }
+          })
+        })
+      }
+      this.loadingFiles = false
     }
   }
 }
