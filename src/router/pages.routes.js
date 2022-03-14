@@ -76,4 +76,5 @@ export default [
     component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/error/UnexpectedPage.vue'),
     meta: {
       layout: 'error'
-    }]
+    }
+}]
