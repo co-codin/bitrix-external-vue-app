@@ -33,5 +33,12 @@ export default [
     description: 'Получение QR кода пользователя',
     placement: 'USER_PROFILE_TOOLBAR',
     handler: '/users/profile-qr-code'
+  },
+  {
+    name: 'Статистика заполнения сделок',
+    buttonLabel: 'Заполнение сделок',
+    description: 'Статистика заполнения сделок',
+    placement: 'CRM_DEAL_LIST_TOOLBAR',
+    handler: '/deals/filling-statistics'
   }
 ]
