@@ -189,12 +189,14 @@ export default {
 
       this.taskId = options?.ID ?? options?.taskId
 
-      const task = await this.$bxwrapper.callMethod(
-        'task.item.getdata',
-        [this.taskId]
-      )
+      console.log(this.$bxwrapper)
 
-      console.log(task)
+      // const task = await this.$bxwrapper.callMethod(
+      //   'task.item.getdata',
+      //   [this.taskId]
+      // )
+      //
+      // console.log(task)
       // (result) => {
       //   this.files = result.data().UF_TASK_WEBDAV_FILES
       // }
