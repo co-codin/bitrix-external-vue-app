@@ -259,59 +259,75 @@ export default {
       }
 
       const batch = this.form.files.map((file) => {
-        return ['disk.storage.uploadfile', {
-          id: process.env.VUE_APP_STORAGE_ID,
-          fileContent: file.file,
-          data: {
-            NAME: file.name + '.' + file.extension,
-            TYPE: file.type,
-            COMMENT: file.comment
+        return [
+          'disk.storage.uploadfile',
+          {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: file.file,
+            data: {
+              NAME: file.name + '.' + file.extension,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
           }
-        }]
+        ]
       })
 
-      console.log(batch)
+      let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+        .catch((e) => {
+          this.$snackbar(e.message)
+        })
 
-      const batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-
+      batchResponse = batchResponse.map((batch) => {
+        return [
+          'tasks.task.files.attach',
+          {
+            taskId: this.taskId,
+            fileId: batch.ID
+          }
+        ]
+      })
       console.log(batchResponse)
 
-      this.form.files.forEach((file, index) => {
-        // (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
-        //   id: process.env.VUE_APP_STORAGE_ID,
-        //   fileContent: file.file,
-        //   data: {
-        //     NAME: file.name + '.' + file.extension,
-        //     TYPE: file.type,
-        //     COMMENT: file.comment
-        //   }
-        // }).catch((e) => {
-        //   this.$snackbar(e.message)
-        // })
-        // (res) => {
-        //   if (res.data()) {
-        //     BX24.callMethod('tasks.task.files.attach', {
-        //       taskId: this.taskId,
-        //       fileId: res.data().ID
-        //     }, (res) => {
-        //       if (res.data()) {
-        //         this.getTaskFiles()
-        //         this.dialog = false
-        //         this.form.files.splice(index, 1)
-        //       }
-        //       if (res.error()) {
-        //         this.$snackbar(res.error()?.ex?.error_description)
-        //         this.dialog = true
-        //       }
-        //     })
-        //   }
-        // }
-        // this.loadingFiles = true
-        // console.log('error: ' + e)
-        // this.$snackbar(res.error()?.ex?.error_description)
+      await (new BX24Wrapper()).callBatch(batchResponse, false)
 
-      })
       this.loadingFiles = false
+
+      // this.form.files.forEach((file, index) => {
+      // (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
+      //   id: process.env.VUE_APP_STORAGE_ID,
+      //   fileContent: file.file,
+      //   data: {
+      //     NAME: file.name + '.' + file.extension,
+      //     TYPE: file.type,
+      //     COMMENT: file.comment
+      //   }
+      // }).catch((e) => {
+      //   this.$snackbar(e.message)
+      // })
+      // (res) => {
+      //   if (res.data()) {
+      //     BX24.callMethod('tasks.task.files.attach', {
+      //       taskId: this.taskId,
+      //       fileId: res.data().ID
+      //     }, (res) => {
+      //       if (res.data()) {
+      //         this.getTaskFiles()
+      //         this.dialog = false
+      //         this.form.files.splice(index, 1)
+      //       }
+      //       if (res.error()) {
+      //         this.$snackbar(res.error()?.ex?.error_description)
+      //         this.dialog = true
+      //       }
+      //     })
+      //   }
+      // }
+      // this.loadingFiles = true
+      // console.log('error: ' + e)
+      // this.$snackbar(res.error()?.ex?.error_description)
+
+      // })
     }
   }
 }
