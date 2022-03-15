@@ -10,6 +10,10 @@
     <v-card v-if="isUserSelected" class="mt-3">
       <v-card-title>
         Сделки
+        <v-spacer />
+        <v-btn icon>
+          <download-icon width="30" height="30" />
+        </v-btn>
       </v-card-title>
       <v-data-table
         item-key="id"
@@ -57,16 +61,20 @@
 import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
+import DownloadIcon from '@/components/heroicons/DownloadIcon'
 
 export default {
   components: {
     DocumentSearchIcon,
     CheckCircleSolidIcon,
-    XCircleSolidIcon
+    XCircleSolidIcon,
+    DownloadIcon
   },
   data: () => ({
     loading: false,
-    manager: null,
+    manager: {
+      name: 'sa sa s'
+    },
     deals: [
       {
         id: 83031,
