@@ -32,7 +32,7 @@ export default class BX24Wrapper {
      * <script src="//api.bitrix24.com/api/v1/"></script>
      */
     if (! window.BX24) {
-      throw 'Can\'t find BX24 libary! See https://dev.1c-bitrix.ru/rest_help/js_library/index.php'
+      throw new Error('Can\'t find BX24 libary! See https://dev.1c-bitrix.ru/rest_help/js_library/index.php')
     }
 
     /**
@@ -105,8 +105,9 @@ export default class BX24Wrapper {
     return new Promise((resolve, reject) => {
       const callback = (result) => {
         this.lastResult = result
-        if (result.status != 200 || result.error()) {
-          return reject(`${result.error()} (callMethod ${method}: ${JSON.stringify(params)})`)
+        if (result.status !== 200 || result.error()) {
+
+          return reject(new Error(`${result.error()} (callMethod ${method}: ${JSON.stringify(params)})`))
         }
 
         return resolve(result.data())
@@ -134,8 +135,8 @@ export default class BX24Wrapper {
       const callback = async (result) => {
         this.lastResult = result
 
-        if (result.status != 200 || result.error()) {
-          return reject(`${result.error()} (callListMethod ${method}: ${JSON.stringify(params)})`)
+        if (result.status !== 200 || result.error()) {
+          return reject(new Error(`${result.error()} (callListMethod ${method}: ${JSON.stringify(params)})`))
         }
 
         data = data.concat(result.data())
@@ -180,14 +181,14 @@ export default class BX24Wrapper {
       const data = await this.callMethod(method, params),
         result = this.lastResult
 
-      if (params.filter['>ID'] == 0) {
+      if (params.filter['>ID'] === 0) {
         total = result.total()
       }
 
       counter += data.length
       this.progress(total > 0 ? Math.round(100 * counter / total) : 100)
 
-      if (data.length == 0) {
+      if (data.length === 0) {
         break
       }
 
@@ -220,8 +221,8 @@ export default class BX24Wrapper {
         if (Array.isArray(results)) {
           data = []
           for (const result of results) {
-            if (result.status != 200 || result.error()) {
-              return reject(`${result.error()} (callBatch ${result.query.method}: ${result.query.data})`)
+            if (result.status !== 200 || result.error()) {
+              return reject(new Error(`${result.error()} (callBatch ${result.query.method}: ${result.query.data})`))
             }
             data.push(result.data())
           }
@@ -230,7 +231,7 @@ export default class BX24Wrapper {
           for (const key of Object.keys(results)) {
             const result = results[key]
 
-            if (result.status != 200 || result.error()) {
+            if (result.status !== 200 || result.error()) {
               return reject(`${result.error()} (callBatch ${result.query.method}: ${result.query.data})`)
             }
             data[key] = result.data()
