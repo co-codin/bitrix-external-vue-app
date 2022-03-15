@@ -146,6 +146,7 @@ import EyeIcon from '@/components/heroicons/EyeIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import FilePreviewIcon from '../../components/FilePreviewIcon'
 import * as Validator from 'validatorjs'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
@@ -183,12 +184,14 @@ export default {
     this.getTaskFiles()
   },
   methods: {
-    getTaskFiles() {
+    async getTaskFiles() {
       const { options } = BX24.placement.info()
 
       this.taskId = options?.ID ?? options?.taskId
 
-      BX24.callMethod(
+      const bx24 = new BX24Wrapper()
+
+      await bx24.callMethod(
         'task.item.getdata',
         [this.taskId],
         (result) => {
