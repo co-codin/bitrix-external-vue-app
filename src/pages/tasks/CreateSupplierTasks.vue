@@ -99,12 +99,14 @@
 <script>
 import PageHeader from '../../components/PageHeader'
 import config from '../../configs'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
     PageHeader
   },
   data: () => ({
+    taskId: null,
     loading: false,
     taskTypes: [
       { header: 'Отгрузка' },
@@ -135,24 +137,27 @@ export default {
     this.getTaskFiles()
   },
   methods: {
-    getTaskFiles() {
+    async getTaskFiles() {
       const { options } = BX24.placement.info()
 
-      const taskId = options?.ID ?? options?.TASK_ID
+      this.taskId = options?.ID ?? options?.TASK_ID
 
-      BX24.callMethod(
-        'task.item.getdata',
-        [taskId],
-        (result) => {
-          this.files = result.data().UF_TASK_WEBDAV_FILES
-          this.files = this.files.map((file) => {
-            return {
-              text: file.NAME,
-              value: file.FILE_ID
-            }
-          })
-        }
-      )
+      try {
+        const task = await (new BX24Wrapper()).callMethod(
+          'task.item.getdata',
+          [this.taskId]
+        )
+
+        this.files = task.UF_TASK_WEBDAV_FILES
+        this.files = this.files.map((file) => {
+          return {
+            text: file.NAME,
+            value: file.FILE_ID
+          }
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
     addTask() {
       this.tasks.push({
@@ -170,10 +175,6 @@ export default {
       this.tasks.splice(index, 1)
     },
     createTasks() {
-      const { options } = BX24.placement.info()
-
-      const taskId = options?.ID ?? options?.TASK_ID
-
       this.loading = true
 
       this.tasks.forEach((task, index) => {
@@ -213,7 +214,7 @@ export default {
         }
 
         BX24.callMethod('task.item.add', [{
-          PARENT_ID: taskId,
+          PARENT_ID: this.taskId,
           TITLE: taskName,
           RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
           DESCRIPTION: description
