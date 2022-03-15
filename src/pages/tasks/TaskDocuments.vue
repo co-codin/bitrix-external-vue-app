@@ -267,7 +267,7 @@ export default {
             COMMENT: file.comment
           }
         }).catch((e) => {
-          console.log(e)
+          console.log(e.message)
         })
         // (res) => {
         //   if (res.data()) {
