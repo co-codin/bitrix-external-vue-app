@@ -257,18 +257,39 @@ export default {
 
         return
       }
+
+      const batch = this.form.files.map((file) => {
+        return [
+          ['disk.storage.uploadfile', {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: file.file,
+            data: {
+              NAME: file.name + '.' + file.extension,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          }]
+        ]
+      })
+
+      console.log(batch)
+
+      const batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+
+      console.log(batchResponse)
+
       this.form.files.forEach((file, index) => {
-        (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
-          id: process.env.VUE_APP_STORAGE_ID,
-          fileContent: file.file,
-          data: {
-            NAME: file.name + '.' + file.extension,
-            TYPE: file.type,
-            COMMENT: file.comment
-          }
-        }).catch((e) => {
-          console.log(e.message)
-        })
+        // (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
+        //   id: process.env.VUE_APP_STORAGE_ID,
+        //   fileContent: file.file,
+        //   data: {
+        //     NAME: file.name + '.' + file.extension,
+        //     TYPE: file.type,
+        //     COMMENT: file.comment
+        //   }
+        // }).catch((e) => {
+        //   this.$snackbar(e.message)
+        // })
         // (res) => {
         //   if (res.data()) {
         //     BX24.callMethod('tasks.task.files.attach', {
