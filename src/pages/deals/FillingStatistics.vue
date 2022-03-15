@@ -24,6 +24,30 @@
             <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
           </div>
         </template>
+
+        <template #item="{ headers, item }">
+          <tr>
+            <td>
+              <div class="font-weight-bold text-no-wrap">
+                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+              </div>
+            </td>
+            <td v-for="(header, i) in headers.slice(1)" :key="i">
+              <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
+                <div class="d-flex justify-center align-center">
+                  <check-circle-solid-icon width="15" height="15" />
+                  <div class="text-caption font-weight-bold ml-1">Да</div>
+                </div>
+              </div>
+              <div v-else class="red--text text--darken-4">
+                <div class="d-flex justify-center align-center">
+                  <x-circle-solid-icon width="15" height="15" />
+                  <div class="text-caption font-weight-bold ml-1">Нет</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </template>
       </v-data-table>
     </v-card>
   </div>
@@ -31,29 +55,38 @@
 
 <script>
 import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
+import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
+import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
 
 export default {
   components: {
-    DocumentSearchIcon
+    DocumentSearchIcon,
+    CheckCircleSolidIcon,
+    XCircleSolidIcon
   },
   data: () => ({
     loading: false,
     manager: null,
     deals: [
-      { id: 83031, name: '#22102 / Максим / Москва', is_phone_filled: 'Да' }
+      {
+        id: 83031,
+        name: '#22102 / Максим / Москва',
+        has_company_name: true,
+        has_overdue_call: true
+      }
     ],
 
     headers: [
       { text: '', align: 'left', value: 'name', sortable: false },
-      { text: 'Указана компания', value: 'is', sortable: false },
-      { text: 'Указан ИНН', value: 'is', sortable: false },
-      { text: 'Указано имя', value: 'is', sortable: false },
-      { text: 'Указана почта', value: 'is', sortable: false },
-      { text: 'БД', value: 'is', sortable: false },
-      { text: 'Просрочен звонок', value: 'is', sortable: false },
-      { text: 'За последние 60 дней не было звонка', value: 'is', sortable: false },
-      { text: 'Звонок позже 60 дней', value: 'is', sortable: false },
-      { text: 'Указана сумма', value: 'is', sortable: false }
+      { text: 'Компания', value: 'has_company_name', sortable: false },
+      { text: 'ИНН', value: 'has_inn', sortable: false },
+      { text: 'Имя', value: 'has_name', sortable: false },
+      { text: 'E-mail', value: 'has_email', sortable: false },
+      { text: 'Дело', value: 'has_planned_activity', sortable: false },
+      { text: 'Сумма', value: 'has_sum', sortable: false },
+      { text: 'Нет просроченных звонков', value: 'has_no_overdue_calls', sortable: false },
+      { text: 'За последние 60 дней был звонок', value: 'has_no_recent_calls', sortable: false },
+      { text: 'Звонок позже 60 дней', value: 'has_planned_call', sortable: false }
     ]
   }),
   computed: {
@@ -76,6 +109,9 @@ export default {
       this.loading = true
       // loading deals for selected user
       this.loading = false
+    },
+    getResultCellText(result = true) {
+
     }
   }
 }
