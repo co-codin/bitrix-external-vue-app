@@ -31,7 +31,7 @@
               @submit.prevent="uploadFiles"
             >
               <v-expansion-panels v-if="form.files.length" class="mb-2">
-                <v-expansion-panel v-for="(file, index) in form.files" :key="index">
+                <v-expansion-panel v-for="(file, index) in form.files" :key="index" :class="{'error-block': formErrors.hasOwnProperty(`files.${index}.name`) || formErrors.hasOwnProperty(`files.${index}.type`)}">
                   <v-expansion-panel-header class="title">
                     {{ file.name }}
                   </v-expansion-panel-header>
@@ -62,7 +62,9 @@
                           <v-text-field
                             v-model="file.comment"
                             label="Заметка"
-                            dense
+                            dens
+                            :error="formErrors.hasOwnProperty(`files.${index}.comment`)"
+                            :error-messages="formErrors[`files.${index}.comment`]"
                           />
                         </div>
                       </v-col>
@@ -175,7 +177,7 @@ export default {
     ],
     loadingFiles: false,
     rules: {
-      'files.*.name': 'required',
+      'files.*.name': 'required|distinct',
       'files.*.type': 'required'
     },
     formErrors: {}
@@ -189,12 +191,16 @@ export default {
 
       this.taskId = options?.ID ?? options?.taskId
 
-      const task = await (new BX24Wrapper()).callMethod(
-        'task.item.getdata',
-        [this.taskId]
-      )
+      try {
+        const task = await (new BX24Wrapper()).callMethod(
+          'task.item.getdata',
+          [this.taskId]
+        )
 
-      this.files = task.UF_TASK_WEBDAV_FILES
+        this.files = task.UF_TASK_WEBDAV_FILES
+      } catch (e) {
+        console.log(e)
+      }
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -209,47 +215,63 @@ export default {
       })
     },
     async downloadFile(item) {
-      const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
-        id: item.FILE_ID
-      })
+      try {
+        const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
+          id: item.FILE_ID
+        })
 
-      const link = document.createElement('a')
+        const link = document.createElement('a')
 
-      link.href = file.DOWNLOAD_URL
-      link.download = file.NAME
-      link.click()
+        link.href = file.DOWNLOAD_URL
+        link.download = file.NAME
+        link.click()
+        link.remove()
+      } catch (e) {
+        console.log(e)
+      }
+
     },
     async previewFile(item) {
-      const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
-        id: item.FILE_ID
-      })
+      try {
+        const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
+          id: item.FILE_ID
+        })
 
-      window.open(file.DETAIL_URL, '_blank')
+        window.open(file.DETAIL_URL, '_blank')
+      } catch (e) {
+        console.lo(e)
+      }
     },
     async deleteFile(item) {
       if (!await this.$confirm('Вы действительно хотите удалить файл?')) {
         return
       }
 
-      await (new BX24Wrapper()).callMethod('disk.file.delete', {
-        id: item.FILE_ID
-      })
+      try {
+        await (new BX24Wrapper()).callMethod('disk.file.delete', {
+          id: item.FILE_ID
+        })
 
-      await (new BX24Wrapper()).callMethod('task.item.deletefile', {
-        TASK_ID: this.taskId,
-        ATTACHMENT_ID: item.ATTACHMENT_ID
-      })
+        try {
+          await (new BX24Wrapper()).callMethod('task.item.deletefile', {
+            TASK_ID: this.taskId,
+            ATTACHMENT_ID: item.ATTACHMENT_ID
+          })
 
-      this.$snackbar('Файл успешно удален')
-      await this.getTaskFiles()
+          this.$snackbar('Файл успешно удален')
+          await this.getTaskFiles()
+        } catch (e) {
+          console.log(e)
+        }
+      } catch (e) {
+        console.log(e)
+      }
     },
     close() {
       this.dialog = false
       this.form.files = []
     },
     async uploadFiles() {
-      this.loadingFiles = true
-
       const validation = new Validator(this.form, this.rules)
 
       if (validation.fails()) {
@@ -257,6 +279,8 @@ export default {
 
         return
       }
+
+      this.loadingFiles = true
 
       const batch = this.form.files.map((file) => {
         return [
@@ -273,22 +297,27 @@ export default {
         ]
       })
 
-      let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-        .catch((e) => {
-          this.loadingFiles = false
-          this.$snackbar(e.message)
-        })
+      try {
+        let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
 
-      batchResponse = batchResponse.map((batch) => {
-        return [
-          'tasks.task.files.attach',
-          {
-            taskId: this.taskId,
-            fileId: batch.ID
-          }
-        ]
-      })
-      await (new BX24Wrapper()).callBatch(batchResponse, false)
+        batchResponse = batchResponse.map((batch) => {
+          return [
+            'tasks.task.files.attach',
+            {
+              taskId: this.taskId,
+              fileId: batch.ID
+            }
+          ]
+        })
+        try {
+          await (new BX24Wrapper()).callBatch(batchResponse, false)
+        } catch (e) {
+          console.log(e)
+        }
+      } catch (e) {
+        this.loadingFiles = false
+        this.$snackbar(e.message)
+      }
 
       this.loadingFiles = false
       this.dialog = false
