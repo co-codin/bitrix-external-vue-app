@@ -1,14 +1,16 @@
 <template>
   <div>
     <page-header h1="Статистика заполнения сделок" :show-home-link="false"/>
-    <v-autocomplete
-      solo
-      hide-details
-      label="Ответственный менеджер"
-      :items="managers"
-      placeholder="Выберите ответственного менеджера"
-    />
-    <v-card class="mt-3">
+    <v-btn @click="selectUser">
+      <span v-if="isUserSelected">
+        {{ manager.name }}
+      </span>
+      <span v-else>
+        Выбрать пользователя
+      </span>
+    </v-btn>
+
+    <v-card v-if="isUserSelected" class="mt-3">
       <v-data-table
         v-if="deals.length"
         item-key="id"
@@ -42,6 +44,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    manager: null,
     deals: [
       { id: 10202, name: '#22102 / Максим / Москва', is_phone_filled: 'Да' }
     ],
@@ -57,9 +60,19 @@ export default {
       { text: 'Иван Петров', value: 4 }
     ]
   }),
+  computed: {
+    isUserSelected() {
+      return !! this.manager?.name
+    }
+  },
   methods: {
     openDeal(dealId) {
       // open deal slider
+    },
+    selectUser() {
+      BX24.selectUser((data) => {
+        console.log(data)
+      })
     }
   }
 }
