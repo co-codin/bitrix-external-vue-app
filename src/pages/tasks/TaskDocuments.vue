@@ -275,6 +275,7 @@ export default {
 
       let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
         .catch((e) => {
+          this.loadingFiles = false
           this.$snackbar(e.message)
         })
 
