@@ -71,7 +71,7 @@ export default {
     },
     selectUser() {
       BX24.selectUser((data) => {
-        console.log(data)
+        this.manager = { ...data }
       })
     }
   }
