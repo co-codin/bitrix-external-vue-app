@@ -180,8 +180,8 @@ export default {
     },
     formErrors: {}
   }),
-  mounted() {
-    this.getTaskFiles()
+  async mounted() {
+    await this.getTaskFiles()
   },
   methods: {
     async getTaskFiles() {
@@ -195,13 +195,6 @@ export default {
       )
 
       this.files = task.UF_TASK_WEBDAV_FILES
-
-      console.log(task)
-
-      // console.log(task)
-      // (result) => {
-      //   this.files = result.data().UF_TASK_WEBDAV_FILES
-      // }
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -215,47 +208,40 @@ export default {
         extension: file.name.split('.').pop()
       })
     },
-    downloadFile(item) {
-      BX24.callMethod('disk.file.get', {
+    async downloadFile(item) {
+      const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
         id: item.FILE_ID
-      }, (res) => {
-        if (res.data()) {
-          const link = document.createElement('a')
+      })
 
-          link.href = res.data().DOWNLOAD_URL
-          link.download = res.data().NAME
-          link.click()
-        }
-        if (res.error()) {
-          console.log(res.error())
-        }
-      })
+      const link = document.createElement('a')
+
+      link.href = file.DOWNLOAD_URL
+      link.download = file.NAME
+      link.click()
     },
-    previewFile(item) {
-      BX24.callMethod('disk.file.get', {
+    async previewFile(item) {
+      const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
         id: item.FILE_ID
-      }, (res) => {
-        if (res.data()) {
-          window.open(res.data().DETAIL_URL, '_blank')
-        }
       })
+
+      window.open(file.DETAIL_URL, '_blank')
     },
     async deleteFile(item) {
       if (!await this.$confirm('Вы действительно хотите удалить файл?')) {
         return
       }
 
-      BX24.callMethod('disk.file.delete', {
+      await (new BX24Wrapper()).callMethod('disk.file.delete', {
         id: item.FILE_ID
-      }, () => {
-        BX24.callMethod('task.item.deletefile', {
-          TASK_ID: this.taskId,
-          ATTACHMENT_ID: item.ATTACHMENT_ID
-        }, () => {
-          this.$snackbar('Файл успешно удален')
-          this.getTaskFiles()
-        })
       })
+
+      await (new BX24Wrapper()).callMethod('task.item.deletefile', {
+        TASK_ID: this.taskId,
+        ATTACHMENT_ID: item.ATTACHMENT_ID
+      })
+
+      this.$snackbar('Файл успешно удален')
+      await this.getTaskFiles()
     },
     close() {
       this.dialog = false
