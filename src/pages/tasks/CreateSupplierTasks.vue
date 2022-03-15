@@ -168,83 +168,103 @@ export default {
         company_contacts: null, // контакты компании
         logistics_contacts: null, // контакты логиста
         equipment: null, // оборудование / комплектация
-        serial_number: null // серийный номер
+        serial_number: null, // серийный номер
+        description: null
       })
     },
     deleteTask(index) {
       this.tasks.splice(index, 1)
     },
-    createTasks() {
+    async createTasks() {
       this.loading = true
 
       this.tasks.forEach((task, index) => {
-        const taskName = this.taskTypes.find(type => type.value === task.type.value).text
-        let description = ''
-
         if (task.type) {
-          description += 'Тип задачи: ' + taskName + '\n'
+          task.description += 'Тип задачи: ' + taskName + '\n'
         }
 
         if (task.bill) {
-          description += 'Счет: в приложении' + '\n'
+          task.description += 'Счет: в приложении' + '\n'
         }
 
         if (task.transfer_document) {
-          description += 'УПД: в приложении' + '\n'
+          task.description += 'УПД: в приложении' + '\n'
         }
 
         if (task.manager_contacts) {
-          description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
+          task.description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
         }
 
         if (task.company_contacts) {
-          description += 'Контактный компании: ' + task.company_contacts + '\n'
+          task.description += 'Контактный компании: ' + task.company_contacts + '\n'
         }
 
         if (task.logistics_contacts) {
-          description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
+          task.description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
         }
 
         if (task.equipment) {
-          description += 'Оборудование / комплектация: ' + task.equipment + '\n'
+          task.description += 'Оборудование / комплектация: ' + task.equipment + '\n'
         }
 
         if (task.serial_number) {
-          description += 'Серийный номер: ' + task.serial_number + '\n'
+          task.description += 'Серийный номер: ' + task.serial_number + '\n'
         }
-
-        BX24.callMethod('task.item.add', [{
-          PARENT_ID: this.taskId,
-          TITLE: taskName,
-          RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
-          DESCRIPTION: description
-        }], (res) => {
-          if (res.data()) {
-            const currentTaskId = res.data()
-
-            if (task.bill) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: currentTaskId,
-                fileId: task.bill
-              }, () => {
-              })
-            }
-
-            if (task.transfer_document) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: currentTaskId,
-                fileId: task.transfer_document
-              }, () => {
-              })
-            }
-            this.tasks.splice(index, 1)
-          }
-
-          if (res.error()) {
-            this.$snackbar(res.error()?.ex?.error_description)
-          }
-        })
       })
+
+      const batch = this.tasks.map((task) => {
+        const taskName = this.taskTypes.find(type => type.value === task.type.value).text
+
+        return [
+          'task.item.add',
+          {
+            PARENT_ID: this.taskId,
+            TITLE: taskName,
+            RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
+            DESCRIPTION: task.description
+          }
+        ]
+      })
+
+      try {
+        const batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+
+        console.log(batchResponse)
+      } catch (e) {
+        this.$snackbar(e.message)
+      }
+
+      // BX24.callMethod('task.item.add', [{
+      //   PARENT_ID: this.taskId,
+      //   TITLE: taskName,
+      //   RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
+      //   DESCRIPTION: description
+      // }], (res) => {
+      // if (res.data()) {
+      //   const currentTaskId = res.data()
+      //
+      //   if (task.bill) {
+      //     BX24.callMethod('tasks.task.files.attach', {
+      //       taskId: currentTaskId,
+      //       fileId: task.bill
+      //     }, () => {
+      //     })
+      //   }
+      //
+      //   if (task.transfer_document) {
+      //     BX24.callMethod('tasks.task.files.attach', {
+      //       taskId: currentTaskId,
+      //       fileId: task.transfer_document
+      //     }, () => {
+      //     })
+      //   }
+      //   this.tasks.splice(index, 1)
+      // }
+      //
+      //   if (res.error()) {
+      //     this.$snackbar(res.error()?.ex?.error_description)
+      //   }
+      // })
 
       this.loading = false
     },
