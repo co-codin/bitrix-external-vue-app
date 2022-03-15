@@ -182,7 +182,7 @@ export default {
       this.tasks.forEach((task, index) => {
         task.name =  this.taskTypes.find(type => type.value === task.type.value).text
         if (task.type) {
-          task.description += 'Тип задачи: ' + taskName + '\n'
+          task.description += 'Тип задачи: ' + task.name + '\n'
         }
 
         if (task.bill) {
