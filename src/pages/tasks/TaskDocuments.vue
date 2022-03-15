@@ -146,6 +146,7 @@ import EyeIcon from '@/components/heroicons/EyeIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import FilePreviewIcon from '../../components/FilePreviewIcon'
 import * as Validator from 'validatorjs'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
@@ -179,22 +180,21 @@ export default {
     },
     formErrors: {}
   }),
-  mounted() {
-    this.getTaskFiles()
+  async mounted() {
+    await this.getTaskFiles()
   },
   methods: {
-    getTaskFiles() {
+    async getTaskFiles() {
       const { options } = BX24.placement.info()
 
       this.taskId = options?.ID ?? options?.taskId
 
-      BX24.callMethod(
+      const task = await (new BX24Wrapper()).callMethod(
         'task.item.getdata',
-        [this.taskId],
-        (result) => {
-          this.files = result.data().UF_TASK_WEBDAV_FILES
-        }
+        [this.taskId]
       )
+
+      this.files = task.UF_TASK_WEBDAV_FILES
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -208,47 +208,40 @@ export default {
         extension: file.name.split('.').pop()
       })
     },
-    downloadFile(item) {
-      BX24.callMethod('disk.file.get', {
+    async downloadFile(item) {
+      const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
         id: item.FILE_ID
-      }, (res) => {
-        if (res.data()) {
-          const link = document.createElement('a')
+      })
 
-          link.href = res.data().DOWNLOAD_URL
-          link.download = res.data().NAME
-          link.click()
-        }
-        if (res.error()) {
-          console.log(res.error())
-        }
-      })
+      const link = document.createElement('a')
+
+      link.href = file.DOWNLOAD_URL
+      link.download = file.NAME
+      link.click()
     },
-    previewFile(item) {
-      BX24.callMethod('disk.file.get', {
+    async previewFile(item) {
+      const file = await (new BX24Wrapper()).callMethod('disk.file.get', {
         id: item.FILE_ID
-      }, (res) => {
-        if (res.data()) {
-          window.open(res.data().DETAIL_URL, '_blank')
-        }
       })
+
+      window.open(file.DETAIL_URL, '_blank')
     },
     async deleteFile(item) {
       if (!await this.$confirm('Вы действительно хотите удалить файл?')) {
         return
       }
 
-      BX24.callMethod('disk.file.delete', {
+      await (new BX24Wrapper()).callMethod('disk.file.delete', {
         id: item.FILE_ID
-      }, () => {
-        BX24.callMethod('task.item.deletefile', {
-          TASK_ID: this.taskId,
-          ATTACHMENT_ID: item.ATTACHMENT_ID
-        }, () => {
-          this.$snackbar('Файл успешно удален')
-          this.getTaskFiles()
-        })
       })
+
+      await (new BX24Wrapper()).callMethod('task.item.deletefile', {
+        TASK_ID: this.taskId,
+        ATTACHMENT_ID: item.ATTACHMENT_ID
+      })
+
+      this.$snackbar('Файл успешно удален')
+      await this.getTaskFiles()
     },
     close() {
       this.dialog = false
@@ -265,40 +258,38 @@ export default {
         return
       }
       this.form.files.forEach((file, index) => {
-        try {
-          BX24.callMethod('disk.storage.uploadfile', {
-            id: process.env.VUE_APP_STORAGE_ID,
-            fileContent: file.file,
-            data: {
-              NAME: file.name + '.' + file.extension,
-              TYPE: file.type,
-              COMMENT: file.comment
-            }
-          },
-          (res) => {
-            if (res.data()) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: this.taskId,
-                fileId: res.data().ID
-              }, (res) => {
-                if (res.data()) {
-                  this.getTaskFiles()
-                  this.dialog = false
-                  this.form.files.splice(index, 1)
-                }
-                if (res.error()) {
-                  this.$snackbar(res.error()?.ex?.error_description)
-                  this.dialog = true
-                }
-              })
-            }
-
-          })
-        } catch (e) {
-          this.loadingFiles = true
-          console.log(e)
-          // this.$snackbar(res.error()?.ex?.error_description)
-        }
+        (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
+          id: process.env.VUE_APP_STORAGE_ID,
+          fileContent: file.file,
+          data: {
+            NAME: file.name + '.' + file.extension,
+            TYPE: file.type,
+            COMMENT: file.comment
+          }
+        }).catch((e) => {
+          console.log(e.message)
+        })
+        // (res) => {
+        //   if (res.data()) {
+        //     BX24.callMethod('tasks.task.files.attach', {
+        //       taskId: this.taskId,
+        //       fileId: res.data().ID
+        //     }, (res) => {
+        //       if (res.data()) {
+        //         this.getTaskFiles()
+        //         this.dialog = false
+        //         this.form.files.splice(index, 1)
+        //       }
+        //       if (res.error()) {
+        //         this.$snackbar(res.error()?.ex?.error_description)
+        //         this.dialog = true
+        //       }
+        //     })
+        //   }
+        // }
+        // this.loadingFiles = true
+        // console.log('error: ' + e)
+        // this.$snackbar(res.error()?.ex?.error_description)
 
       })
       this.loadingFiles = false
