@@ -72,9 +72,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    manager: {
-      name: 'sa sa s'
-    },
+    manager: null,
     deals: [
       {
         id: 83031,
