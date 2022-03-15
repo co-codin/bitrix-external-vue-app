@@ -189,9 +189,7 @@ export default {
 
       this.taskId = options?.ID ?? options?.taskId
 
-      const bx24 = new BX24Wrapper()
-
-      const task = await bx24.callMethod(
+      const task = await this.$bxwrapper.callMethod(
         'task.item.getdata',
         [this.taskId]
       )
