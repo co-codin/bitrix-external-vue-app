@@ -217,12 +217,12 @@ export default {
       const batch = this.tasks.map((task) => {
         return [
           'task.item.add',
-          {
+          [{
             PARENT_ID: this.taskId,
             TITLE: task.name,
             RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
             DESCRIPTION: task.description
-          }
+          }]
         ]
       })
 
