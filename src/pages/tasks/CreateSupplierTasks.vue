@@ -214,53 +214,41 @@ export default {
         }
       })
 
-      const batch = this.tasks.map((task) => {
-        return [
-          'task.item.add',
-          [{
-            PARENT_ID: this.taskId,
-            TITLE: task.name,
-            RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
-            DESCRIPTION: task.description
-          }]
-        ]
-      })
-
       try {
         const batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+        const createdTaskId = batchResponse[0]
 
-        console.log(batchResponse)
       } catch (e) {
         console.log(e)
         this.$snackbar(e.message)
       }
 
-      // BX24.callMethod('task.item.add', [{
+      // (new BX24Wrapper()).callMethod('task.item.add', [{
       //   PARENT_ID: this.taskId,
       //   TITLE: taskName,
       //   RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
       //   DESCRIPTION: description
       // }], (res) => {
-      // if (res.data()) {
-      //   const currentTaskId = res.data()
+      //   if (res.data()) {
+      //     const currentTaskId = res.data()
       //
-      //   if (task.bill) {
-      //     BX24.callMethod('tasks.task.files.attach', {
-      //       taskId: currentTaskId,
-      //       fileId: task.bill
-      //     }, () => {
-      //     })
-      //   }
+      //     if (task.bill) {
+      //       BX24.callMethod('tasks.task.files.attach', {
+      //         taskId: currentTaskId,
+      //         fileId: task.bill
+      //       }, () => {
+      //       })
+      //     }
       //
-      //   if (task.transfer_document) {
-      //     BX24.callMethod('tasks.task.files.attach', {
-      //       taskId: currentTaskId,
-      //       fileId: task.transfer_document
-      //     }, () => {
-      //     })
+      //     if (task.transfer_document) {
+      //       BX24.callMethod('tasks.task.files.attach', {
+      //         taskId: currentTaskId,
+      //         fileId: task.transfer_document
+      //       }, () => {
+      //       })
+      //     }
+      //     this.tasks.splice(index, 1)
       //   }
-      //   this.tasks.splice(index, 1)
-      // }
       //
       //   if (res.error()) {
       //     this.$snackbar(res.error()?.ex?.error_description)
