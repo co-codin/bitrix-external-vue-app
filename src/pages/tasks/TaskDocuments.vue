@@ -191,13 +191,15 @@ export default {
 
       const bx24 = new BX24Wrapper()
 
-      await bx24.callMethod(
+      const task = await bx24.callMethod(
         'task.item.getdata',
-        [this.taskId],
-        (result) => {
-          this.files = result.data().UF_TASK_WEBDAV_FILES
-        }
+        [this.taskId]
       )
+
+      console.log(task)
+      // (result) => {
+      //   this.files = result.data().UF_TASK_WEBDAV_FILES
+      // }
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
