@@ -40,7 +40,7 @@ export default {
     loading: false,
     manager: null,
     deals: [
-      { id: 10202, name: '#22102 / Максим / Москва', is_phone_filled: 'Да' }
+      { id: 83031, name: '#22102 / Максим / Москва', is_phone_filled: 'Да' }
     ],
 
     headers: [
