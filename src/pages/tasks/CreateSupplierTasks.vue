@@ -169,7 +169,8 @@ export default {
         logistics_contacts: null, // контакты логиста
         equipment: null, // оборудование / комплектация
         serial_number: null, // серийный номер
-        description: null
+        description: null,
+        name: null
       })
     },
     deleteTask(index) {
@@ -179,6 +180,7 @@ export default {
       this.loading = true
 
       this.tasks.forEach((task, index) => {
+        task.name =  this.taskTypes.find(type => type.value === task.type.value).text
         if (task.type) {
           task.description += 'Тип задачи: ' + taskName + '\n'
         }
@@ -213,13 +215,11 @@ export default {
       })
 
       const batch = this.tasks.map((task) => {
-        const taskName = this.taskTypes.find(type => type.value === task.type.value).text
-
         return [
           'task.item.add',
           {
             PARENT_ID: this.taskId,
-            TITLE: taskName,
+            TITLE: task.name,
             RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
             DESCRIPTION: task.description
           }
