@@ -231,6 +231,7 @@ export default {
 
         console.log(batchResponse)
       } catch (e) {
+        console.log(e)
         this.$snackbar(e.message)
       }
 
