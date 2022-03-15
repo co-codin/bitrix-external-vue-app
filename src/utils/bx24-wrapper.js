@@ -178,6 +178,7 @@ export default class BX24Wrapper {
     this.progress(0)
 
     do {
+      // eslint-disable-next-line no-await-in-loop
       const data = await this.callMethod(method, params),
         result = this.lastResult
 
@@ -232,7 +233,7 @@ export default class BX24Wrapper {
             const result = results[key]
 
             if (result.status !== 200 || result.error()) {
-              return reject(`${result.error()} (callBatch ${result.query.method}: ${result.query.data})`)
+              return reject(new Error(`${result.error()} (callBatch ${result.query.method}: ${result.query.data})`))
             }
             data[key] = result.data()
           }
@@ -254,10 +255,11 @@ export default class BX24Wrapper {
    */
   async callLongBatch(calls, haltOnError = true) {
     if (! Array.isArray(calls)) {
-      throw 'Parameter \'calls\' must be an array'
+      throw new Error('Parameter \'calls\' must be an array')
     }
 
     let data = [],
+      // eslint-disable-next-line prefer-const
       total = calls.length,
       start = 0
 
@@ -267,6 +269,7 @@ export default class BX24Wrapper {
       const end = start + this.batchSize,
         chunk = calls.slice(start, end)
 
+      // eslint-disable-next-line no-await-in-loop
       const response = await this.callBatch(chunk, haltOnError)
 
       data = data.concat(response)
@@ -278,6 +281,7 @@ export default class BX24Wrapper {
         break
       }
 
+      // eslint-disable-next-line no-constant-condition
     } while (true)
 
     return data
@@ -292,9 +296,10 @@ export default class BX24Wrapper {
    */
   async *callLargeBatch(calls, haltOnError = true) {
     if (! Array.isArray(calls)) {
-      throw 'Parameter \'calls\' must be an array'
+      throw new Error('Parameter \'calls\' must be an array')
     }
 
+    // eslint-disable-next-line prefer-const
     let total = calls.length,
       counter = 0,
       start = 0
@@ -305,6 +310,7 @@ export default class BX24Wrapper {
       const end = start + this.batchSize,
         chunk = calls.slice(start, end)
 
+      // eslint-disable-next-line no-await-in-loop
       const data = await this.callBatch(chunk, haltOnError)
 
       counter += data.length
