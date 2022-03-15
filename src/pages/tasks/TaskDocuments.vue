@@ -177,7 +177,7 @@ export default {
     ],
     loadingFiles: false,
     rules: {
-      'files.*.name': 'required|distinct',
+      'files.*.name': 'required|unique:files.*.name',
       'files.*.type': 'required'
     },
     formErrors: {}
