@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     openDeal(dealId) {
-      BX24.openPath(`/crm/deal/details/${dealId}`)
+      BX24.openPath(`/crm/deal/details/${dealId}/`)
       // open deal slider
     },
     selectUser() {
