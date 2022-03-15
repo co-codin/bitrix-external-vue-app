@@ -259,7 +259,7 @@ export default {
       }
       this.form.files.forEach((file, index) => {
         try {
-          BX24.callMethod('disk.storage.uploadfile', {
+          (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
             id: process.env.VUE_APP_STORAGE_ID,
             fileContent: file.file,
             data: {
@@ -267,26 +267,25 @@ export default {
               TYPE: file.type,
               COMMENT: file.comment
             }
-          },
-          (res) => {
-            if (res.data()) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: this.taskId,
-                fileId: res.data().ID
-              }, (res) => {
-                if (res.data()) {
-                  this.getTaskFiles()
-                  this.dialog = false
-                  this.form.files.splice(index, 1)
-                }
-                if (res.error()) {
-                  this.$snackbar(res.error()?.ex?.error_description)
-                  this.dialog = true
-                }
-              })
-            }
-
           })
+          // (res) => {
+          //   if (res.data()) {
+          //     BX24.callMethod('tasks.task.files.attach', {
+          //       taskId: this.taskId,
+          //       fileId: res.data().ID
+          //     }, (res) => {
+          //       if (res.data()) {
+          //         this.getTaskFiles()
+          //         this.dialog = false
+          //         this.form.files.splice(index, 1)
+          //       }
+          //       if (res.error()) {
+          //         this.$snackbar(res.error()?.ex?.error_description)
+          //         this.dialog = true
+          //       }
+          //     })
+          //   }
+          // }
         } catch (e) {
           this.loadingFiles = true
           console.log(e)
