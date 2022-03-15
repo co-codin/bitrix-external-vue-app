@@ -292,6 +292,7 @@ export default {
       await (new BX24Wrapper()).callBatch(batchResponse, false)
 
       this.loadingFiles = false
+      this.dialog = false
 
       // this.form.files.forEach((file, index) => {
       // (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
