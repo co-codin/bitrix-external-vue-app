@@ -338,7 +338,7 @@ export default {
       } catch (e) {
         this.loadingFiles = false
         console.log(e.message)
-        // console.log(e)
+        console.log(typeof e.message)
 
         this.$snackbar(e.message)
       }
