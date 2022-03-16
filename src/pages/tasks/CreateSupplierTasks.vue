@@ -225,66 +225,33 @@ export default {
 
         if (task.bill) {
           Object.assign(batch, {
-            [task.name + 'bill']: ['tasks.task.files.attach', {
+            [index + '-bill']: ['tasks.task.files.attach', {
               taskId: `$result[${index}][0]`,
               fileId: task.bill
             }]
           })
         }
 
-        // if (task.transfer_document) {
-        //   Object.assign(batch, {
-        //     [task.name + 'transfer']: ['tasks.task.files.attach', {
-        //       taskId: `$result[${task.name}][0]`,
-        //       fileId: task.transfer_document
-        //     }]
-        //   })
-        // }
+        if (task.transfer_document) {
+          Object.assign(batch, {
+            [index + '-transfer']: ['tasks.task.files.attach', {
+              taskId: `$result[${index}][0]`,
+              fileId: task.transfer_document
+            }]
+          })
+        }
       })
 
       try {
-        const batchResponse = await (new BX24Wrapper()).callBatch(batch)
+        await (new BX24Wrapper()).callBatch(batch)
 
-        console.log(batchResponse)
+        this.tasks = []
+
+        this.loading = false
       } catch (e) {
         this.$snackbar(e.message)
       }
 
-      this.tasks.splice = []
-
-      // (new BX24Wrapper()).callMethod('task.item.add', [{
-      //   PARENT_ID: this.taskId,
-      //   TITLE: taskName,
-      //   RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
-      //   DESCRIPTION: description
-      // }], (res) => {
-      //   if (res.data()) {
-      //     const currentTaskId = res.data()
-      //
-      //     if (task.bill) {
-      //       BX24.callMethod('tasks.task.files.attach', {
-      //         taskId: currentTaskId,
-      //         fileId: task.bill
-      //       }, () => {
-      //       })
-      //     }
-      //
-      //     if (task.transfer_document) {
-      //       BX24.callMethod('tasks.task.files.attach', {
-      //         taskId: currentTaskId,
-      //         fileId: task.transfer_document
-      //       }, () => {
-      //       })
-      //     }
-      //     this.tasks.splice(index, 1)
-      //   }
-      //
-      //   if (res.error()) {
-      //     this.$snackbar(res.error()?.ex?.error_description)
-      //   }
-      // })
-
-      this.loading = false
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)
