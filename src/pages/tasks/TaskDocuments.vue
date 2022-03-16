@@ -284,7 +284,8 @@ export default {
         }).length > 1
       })
       const validation = await new Validator(this.form, this.rules, {
-        'required': ':attribute обязательно для заполнения.'
+        'required': ':attribute обязательно для заполнения.',
+        'distinct': ':attribute должен быть уникальным.'
       })
 
       for (let i = 0; i < this.form.files.length; i++) {
