@@ -248,6 +248,7 @@ export default {
         this.tasks = []
 
         this.loading = false
+        this.$snackbar('Успешно созданы под-задачи')
       } catch (e) {
         this.$snackbar(e.message)
       }
