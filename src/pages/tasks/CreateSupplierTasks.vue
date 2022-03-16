@@ -133,8 +133,8 @@ export default {
     files: [],
     tasks: []
   }),
-  mounted() {
-    this.getTaskFiles()
+  async mounted() {
+    await this.getTaskFiles()
   },
   methods: {
     async getTaskFiles() {
