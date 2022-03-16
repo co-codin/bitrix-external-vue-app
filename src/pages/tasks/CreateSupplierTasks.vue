@@ -224,9 +224,10 @@ export default {
         })
 
         if (task.bill) {
+          console.log(`$result[${task.name}]`)
           Object.assign(batch, {
             [task.name + 'bill']: ['tasks.task.files.attach', {
-              taskId: `$result[${task.name}]`,
+              taskId: `$result[${task.name}][]`,
               fileId: task.bill
             }]
           })
