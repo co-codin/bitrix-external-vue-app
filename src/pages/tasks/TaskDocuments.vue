@@ -334,12 +334,11 @@ export default {
           await (new BX24Wrapper()).callBatch(batchResponse, false)
         } catch (e) {
           console.log(e)
+          this.$snackbar('Произошла ошибка')
         }
       } catch (e) {
         this.loadingFiles = false
-        console.log(e.stack)
-
-        this.$snackbar(e.message)
+        this.$snackbar('Произошла ошибка')
       }
 
       this.loadingFiles = false
