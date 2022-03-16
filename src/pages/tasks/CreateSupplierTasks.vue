@@ -178,6 +178,7 @@ export default {
     },
     async createTasks() {
       this.loading = true
+      const batch = {}
 
       this.tasks.forEach((task, index) => {
         task.name =  this.taskTypes.find(type => type.value === task.type.value).text
@@ -212,16 +213,44 @@ export default {
         if (task.serial_number) {
           task.description += 'Серийный номер: ' + task.serial_number + '\n'
         }
+
+        Object.assign(batch, {
+          [task.name]: ['task.item.add', [{
+            PARENT_ID: this.taskId,
+            TITLE: task.name,
+            RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
+            DESCRIPTION: task.description
+          }]]
+        })
+
+        if (task.bill) {
+          Object.assign(batch, {
+            [task.name + 'bill']: ['tasks.task.files.attach', {
+              taskId: `$result[${task.name}][0]`,
+              fileId: task.bill
+            }]
+          })
+        }
+
+        if (task.transfer_document) {
+          Object.assign(batch, {
+            [task.name + 'transfer']: ['tasks.task.files.attach', {
+              taskId: `$result[${task.name}][0]`,
+              fileId: task.transfer_document
+            }]
+          })
+        }
       })
 
       try {
-        const batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-        const createdTaskId = batchResponse[0]
+        const batchResponse = await (new BX24Wrapper()).callBatch(batch)
 
+        console.log(batchResponse)
       } catch (e) {
-        console.log(e)
         this.$snackbar(e.message)
       }
+
+      this.tasks.splice = []
 
       // (new BX24Wrapper()).callMethod('task.item.add', [{
       //   PARENT_ID: this.taskId,
