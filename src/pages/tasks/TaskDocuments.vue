@@ -279,9 +279,9 @@ export default {
     },
     async uploadFiles() {
       Validator.register('distinct', (value, requirement, attribute) => {
-        return !this.form.files.filter((file) => {
+        return this.form.files.filter((file) => {
           return file.name === value
-        }).length > 1
+        }).length <= 1
       })
       const validation = await new Validator(this.form, this.rules, {
         'required': ':attribute обязательно для заполнения.',
