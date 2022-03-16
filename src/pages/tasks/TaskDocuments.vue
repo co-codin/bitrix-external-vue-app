@@ -337,7 +337,7 @@ export default {
         }
       } catch (e) {
         this.loadingFiles = false
-        console.log(e.DISK_OBJ_22000)
+        console.log(e.ex.error_description)
         console.log(e)
         this.$snackbar(e.message)
       }
