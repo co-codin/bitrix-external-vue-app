@@ -226,20 +226,20 @@ export default {
         if (task.bill) {
           Object.assign(batch, {
             [task.name + 'bill']: ['tasks.task.files.attach', {
-              taskId: `$result[${task.name}][0]`,
+              taskId: `$result[${task.name}]`,
               fileId: task.bill
             }]
           })
         }
 
-        if (task.transfer_document) {
-          Object.assign(batch, {
-            [task.name + 'transfer']: ['tasks.task.files.attach', {
-              taskId: `$result[${task.name}][0]`,
-              fileId: task.transfer_document
-            }]
-          })
-        }
+        // if (task.transfer_document) {
+        //   Object.assign(batch, {
+        //     [task.name + 'transfer']: ['tasks.task.files.attach', {
+        //       taskId: `$result[${task.name}][0]`,
+        //       fileId: task.transfer_document
+        //     }]
+        //   })
+        // }
       })
 
       try {
