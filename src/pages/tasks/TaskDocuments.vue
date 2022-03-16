@@ -23,7 +23,11 @@
         </v-card-title>
         <v-card-text>
           <div class="mb-2">
-            <v-file-input id="file" clearable @change="handleFileUpload" />
+            <v-file-input
+              id="file"
+              v-model="uploadedFile"
+              @change="handleFileUpload"
+            />
           </div>
 
           <div class="mb-7">
@@ -159,6 +163,7 @@ export default {
   },
   data: () => ({
     files: [],
+    uploadedFile: null,
     taskId: null,
     headers: [
       { text: 'ID', align: 'left', value: 'ATTACHMENT_ID', sortable: false },
@@ -213,6 +218,7 @@ export default {
         comment: '',
         extension: file.name.split('.').pop()
       })
+      this.uploadedFile = []
     },
     async downloadFile(item) {
       try {
@@ -239,7 +245,7 @@ export default {
 
         window.open(file.DETAIL_URL, '_blank')
       } catch (e) {
-        console.lo(e)
+        console.log(e)
       }
     },
     async deleteFile(item) {
@@ -272,7 +278,16 @@ export default {
       this.form.files = []
     },
     async uploadFiles() {
-      const validation = new Validator(this.form, this.rules)
+      const validation = await new Validator(this.form, this.rules, {
+        'required': ':attribute обязательно для заполнения.'
+      })
+
+      for (let i = 0; i < this.form.files.length; i++) {
+        validation.setAttributeNames({
+          [`files.${i}.name`]: 'Название',
+          [`files.${i}.type`]: 'Тип'
+        })
+      }
 
       if (validation.fails()) {
         this.formErrors = validation.errors.errors
