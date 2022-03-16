@@ -215,7 +215,7 @@ export default {
         }
 
         Object.assign(batch, {
-          [task.name]: ['task.item.add', [{
+          [index]: ['task.item.add', [{
             PARENT_ID: this.taskId,
             TITLE: task.name,
             RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
@@ -224,10 +224,9 @@ export default {
         })
 
         if (task.bill) {
-          console.log(`$result[${task.name}]`)
           Object.assign(batch, {
             [task.name + 'bill']: ['tasks.task.files.attach', {
-              taskId: `$result[${task.name}][]`,
+              taskId: `$result[${index}][0]`,
               fileId: task.bill
             }]
           })
