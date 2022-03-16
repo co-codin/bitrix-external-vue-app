@@ -337,8 +337,8 @@ export default {
         }
       } catch (e) {
         this.loadingFiles = false
-        console.log(e)
-        // this.$snackbar(e.message)
+        console.log(e.error)
+        this.$snackbar(e.message)
       }
 
       this.loadingFiles = false
