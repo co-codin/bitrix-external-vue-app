@@ -208,8 +208,6 @@ export default {
       }
 
       const batch = this.form.files.map((file) => {
-        console.log(file.file)
-
         return [
           'disk.storage.uploadfile',
           {
@@ -265,18 +263,18 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       this.isDragging = false
-      const { files } = e.dataTransfer
+      const { files } = e.target
 
-      for (let i = 0; i < files.length; i++) {
+      const fileName = files[0].name.replace(/\.[^/.]+$/, '')
+      const fileExtension = files[0].name.split('.').pop()
 
-        this.form.files.push({
-          file: document.getElementById('file'),
-          name: files[i].name.replace(/\.[^/.]+$/, ''),
-          type: null,
-          comment: '',
-          extension: files[i].name.split('.').pop()
-        })
-      }
+      this.form.files.push({
+        file: [fileName + '.' + fileExtension, await this.toBase64(files[0])],
+        name: fileName,
+        type: null,
+        comment: '',
+        extension: fileExtension
+      })
     }
   }
 }
