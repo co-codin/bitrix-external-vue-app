@@ -125,10 +125,11 @@ export default {
       console.log(deals)
 
       this.deals = deals.map((deal) => {
+        let hasEmail = false
         (new BX24Wrapper()).callMethod('crm.contact.get', {
           id: deal.CONTACT_ID
-        }).then((res) => {
-          console.log(res)
+        }).then((contact) => {
+          hasEmail = contact.EMAIL.length > 0
         })
 
         return {
@@ -136,7 +137,7 @@ export default {
           has_company_name: !!deal.COMPANY_ID,
           has_inn: !!deal.UF_ADDITIONAL_INN,
           has_name: !!deal.CONTACT_ID,
-          has_email: false,
+          has_email: hasEmail,
           has_planned_activity: !!deal.CLOSEDATE,
           has_sum: !!deal.OPPORTUNITY
         }
