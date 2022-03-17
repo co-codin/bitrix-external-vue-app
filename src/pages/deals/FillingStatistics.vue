@@ -115,7 +115,7 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      await deals.forEach((deal) => {
+      deals.forEach((deal) => {
         let dealData
 
         (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
@@ -141,9 +141,7 @@ export default {
           }
         })
 
-        if (dealData) {
-          this.deals.push(dealData)
-        }
+        this.deals.push(dealData)
       })
 
       this.loading = false
