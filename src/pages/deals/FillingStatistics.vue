@@ -138,6 +138,7 @@ export default {
       })
 
       this.deals = await Promise.all(promise)
+
       console.log(this.deals)
       this.loading = false
     },
