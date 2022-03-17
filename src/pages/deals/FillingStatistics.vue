@@ -125,6 +125,11 @@ export default {
       console.log(deals)
 
       this.deals = deals.map((deal) => {
+        (new BX24Wrapper()).callMethod('crm.contact.get', {
+          id: deal.CONTACT_ID
+        }).then((res) => {
+          console.log(res)
+        })
 
         return {
           name: deal.TITLE,
