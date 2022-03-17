@@ -130,8 +130,10 @@ export default {
         (new BX24Wrapper()).callMethod('crm.contact.get', {
           id: deal.CONTACT_ID
         }).then((contact) => {
-          console.log(contact.EMAIL)
+          console.log(typeof console.log(contact.EMAIL.length))
+          console.log(contact.EMAIL.length)
           hasEmail = contact.EMAIL.length > 0
+          console.log(hasEmail)
         })
 
         return {
