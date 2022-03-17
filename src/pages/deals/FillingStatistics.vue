@@ -121,22 +121,23 @@ export default {
         select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      this.deals = deals.map((deal) => {
-        (new BX24Wrapper()).callMethod('crm.contact.get', {
+      const promise = deals.map(async (deal) => {
+        const contact = await (new BX24Wrapper()).callMethod('crm.contact.get', {
           id: deal.CONTACT_ID
-        }).then((contact) => {
-          return {
-            name: deal.TITLE,
-            has_company_name: !!deal.COMPANY_ID,
-            has_inn: !!deal.UF_ADDITIONAL_INN,
-            has_name: !!deal.CONTACT_ID,
-            has_email: contact.EMAIL.length > 0,
-            has_planned_activity: !!deal.CLOSEDATE,
-            has_sum: !!deal.OPPORTUNITY
-          }
         })
+
+        return {
+          name: deal.TITLE,
+          has_company_name: !!deal.COMPANY_ID,
+          has_inn: !!deal.UF_ADDITIONAL_INN,
+          has_name: !!deal.CONTACT_ID,
+          has_email: contact.EMAIL.length > 0,
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY
+        }
       })
-      console.log(this.deals)
+
+      console.log(Promise.all(promise))
       this.loading = false
     },
     getResultCellText(result = true) {
