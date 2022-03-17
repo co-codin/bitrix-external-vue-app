@@ -119,17 +119,12 @@ export default {
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'UF_*']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      // console.log(deals)
+      console.log(deals)
 
       this.deals = deals.map(async (deal) => {
-        const contact = await (new BX24Wrapper()).callMethod('crm.contact.get', {
-          ID: deal.ID
-        })
-
-        console.log(contact)
 
         return {
           id: deal.ID,
@@ -138,8 +133,8 @@ export default {
           has_inn: !!deal.UF_ADDITIONAL_INN,
           has_name: !!deal.CONTACT_ID,
           has_email: false,
-          has_planned_activity: false,
-          has_sum: false
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY
         }
       })
       this.loading = false
