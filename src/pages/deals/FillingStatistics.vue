@@ -126,8 +126,11 @@ export default {
               const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y');
 
               (new BX24Wrapper()).callMethod('crm.timeline.comment.list', {
-                'ENTITY_ID': 82368,
-                'ENTITY_TYPE': 'deal'
+                filter: {
+                  'ENTITY_ID': 82368,
+                  'ENTITY_TYPE': 'deal'
+                },
+                select: ['ID', 'COMMENT ', 'FILES']
               }).then((comments) => {
                 console.log(comments)
               })
