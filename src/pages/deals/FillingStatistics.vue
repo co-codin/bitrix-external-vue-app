@@ -124,7 +124,7 @@ export default {
 
       console.log(deals)
 
-      this.deals = deals.map(async (deal) => {
+      this.deals = deals.map((deal) => {
 
         return {
           name: deal.TITLE,
