@@ -120,15 +120,15 @@ export default {
         'get_deals': ['crm.deal.list', {
           order: { 'CLOSEDATE': 'DESC' },
           filter: { 'ASSIGNED_BY_ID': this.manager.id },
-          select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'CONTACT_IDS', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+          select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'CONTACT_IDS', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
         }],
-        'get_contacts': ['crm.deal.contact.items.get', {
-          id: '$result[get_deals][ID]'
+        'get_contacts': ['crm.contact.get', {
+          id: '$result[get_deals][CONTACT_ID]'
+        }],
+        'get_additional_contacts': ['crm.contact.list', {
+          filter: { 'ID': '$result[get_deals][CONTACT_IDS]' },
+          select: ['EMAIL']
         }]
-        // 'get_addtional_contacts': ['crm.contact.list', {
-        //   filter: { 'ID': '$result[get_deals][CONTACT_IDS]' },
-        //   select: ['EMAIL']
-        // }]
       }
 
       const deals = await (new BX24Wrapper()).callBatch(batch, false)
