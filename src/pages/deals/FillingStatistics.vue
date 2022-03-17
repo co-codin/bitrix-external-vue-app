@@ -115,14 +115,11 @@ export default {
     },
     async loadDeals() {
       this.loading = true
-      console.log(this.manager)
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
-
-      console.log(deals)
 
       this.deals = deals.map((deal) => {
         let hasEmail
@@ -130,7 +127,7 @@ export default {
         (new BX24Wrapper()).callMethod('crm.contact.get', {
           id: deal.CONTACT_ID
         }).then((contact) => {
-          console.log(typeof console.log(contact.EMAIL.length))
+          console.log(typeof contact.EMAIL.length)
           console.log(contact.EMAIL.length)
           hasEmail = contact.EMAIL.length > 0
           console.log(hasEmail)
@@ -146,7 +143,6 @@ export default {
           has_sum: !!deal.OPPORTUNITY
         }
       })
-      console.log(this.deals)
       this.loading = false
     },
     getResultCellText(result = true) {
