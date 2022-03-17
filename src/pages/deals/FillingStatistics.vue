@@ -119,7 +119,7 @@ export default {
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'UTM_CONTENT']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_*']
       })
 
       console.log(deals)
