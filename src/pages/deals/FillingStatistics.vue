@@ -123,7 +123,15 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y')
+              const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y');
+
+              (new BX24Wrapper()).callMethod('crm.timeline.comment.list', {
+                'ENTITY_ID': 82368,
+                'ENTITY_TYPE': 'deal'
+              }).then((comments) => {
+                console.log(comments)
+              })
+
               const has_no_overdue_calls = false
               const has_no_recent_calls = false
               const has_planned_call = false
