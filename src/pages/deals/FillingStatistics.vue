@@ -137,7 +137,8 @@ export default {
         }
       })
 
-      console.log(Promise.all(promise))
+      this.deals = await Promise.all(promise)
+      console.log(this.deals)
       this.loading = false
     },
     getResultCellText(result = true) {
