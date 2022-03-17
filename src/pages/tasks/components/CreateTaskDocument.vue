@@ -149,15 +149,26 @@ export default {
   methods: {
     async handleFileUpload(e) {
       const { files } = e.target
+      const fileName = files[0].name.replace(/\.[^/.]+$/, '')
 
       this.form.files.push({
-        file: files[0],
-        name: files[0].name.replace(/\.[^/.]+$/, ''),
+        file: [fileName, await this.toBase64(files[0])],
+        name: fileName,
         type: null,
         comment: '',
         extension: files[0].name.split('.').pop()
       })
+
       e.target.value = null
+    },
+    toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader()
+
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result)
+        reader.onerror = (error) => reject(error)
+      })
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -220,27 +231,27 @@ export default {
         ]
       })
 
-      try {
-        let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-
-        batchResponse = batchResponse.map((batch) => {
-          return [
-            'tasks.task.files.attach',
-            {
-              taskId: this.taskId,
-              fileId: batch.ID
-            }
-          ]
-        })
-        try {
-          await (new BX24Wrapper()).callBatch(batchResponse, false)
-          this.$emit('uploaded')
-        } catch (e) {
-          this.$snackbar('Произошла ошибка')
-        }
-      } catch (e) {
-        this.$snackbar('Произошла ошибка')
-      }
+      // try {
+      //   let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+      //
+      //   batchResponse = batchResponse.map((batch) => {
+      //     return [
+      //       'tasks.task.files.attach',
+      //       {
+      //         taskId: this.taskId,
+      //         fileId: batch.ID
+      //       }
+      //     ]
+      //   })
+      //   try {
+      //     await (new BX24Wrapper()).callBatch(batchResponse, false)
+      //     this.$emit('uploaded')
+      //   } catch (e) {
+      //     this.$snackbar('Произошла ошибка')
+      //   }
+      // } catch (e) {
+      //   this.$snackbar('Произошла ошибка')
+      // }
 
       this.dialog = false
     },
