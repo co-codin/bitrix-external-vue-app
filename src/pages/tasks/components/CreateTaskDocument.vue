@@ -196,17 +196,6 @@ export default {
       }
 
       const batch = this.form.files.map((file) => {
-        console.log(
-          {
-            id: process.env.VUE_APP_STORAGE_ID,
-            fileContent: file.file,
-            data: {
-              NAME: file.name + '.' + file.extension,
-              TYPE: file.type,
-              COMMENT: file.comment
-            }
-          }
-        )
 
         return [
           'disk.storage.uploadfile',
@@ -265,6 +254,7 @@ export default {
       const { files } = e.dataTransfer
 
       for (let i = 0; i < files.length; i++) {
+
         this.form.files.push({
           file: document.getElementById('file'),
           name: files[i].name.replace(/\.[^/.]+$/, ''),
