@@ -125,7 +125,8 @@ export default {
       console.log(deals)
 
       this.deals = deals.map((deal) => {
-        let hasEmail = false
+        let hasEmail
+
         (new BX24Wrapper()).callMethod('crm.contact.get', {
           id: deal.CONTACT_ID
         }).then((contact) => {
