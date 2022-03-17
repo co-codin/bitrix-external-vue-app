@@ -123,10 +123,10 @@ export default {
           select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'CONTACT_IDS', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
         }],
         'get_contacts': ['crm.contact.get', {
-          id: '$result[get_deals][CONTACT_ID]'
+          id: '$result[get_deals][][CONTACT_ID]'
         }],
         'get_additional_contacts': ['crm.contact.list', {
-          filter: { 'ID': '$result[get_deals][CONTACT_IDS]' },
+          filter: { 'ID': '$result[get_deals][][CONTACT_IDS]' },
           select: ['EMAIL']
         }]
       }
