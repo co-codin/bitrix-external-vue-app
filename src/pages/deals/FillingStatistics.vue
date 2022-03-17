@@ -7,53 +7,53 @@
       </v-card-title>
     </v-card>
 
-    <!--    <v-card v-if="isUserSelected" class="mt-3">-->
-    <!--      <v-card-title>-->
-    <!--        Сделки-->
-    <!--        <v-spacer />-->
-    <!--        <v-btn icon>-->
-    <!--          <download-icon width="30" height="30" />-->
-    <!--        </v-btn>-->
-    <!--      </v-card-title>-->
-    <!--      <v-data-table-->
-    <!--        item-key="id"-->
-    <!--        :headers="headers"-->
-    <!--        :items="deals"-->
-    <!--        :loading="loading"-->
-    <!--        loading-text="Идет загрузка..."-->
-    <!--        hide-default-footer-->
-    <!--      >-->
-    <!--        <template #item.name="{ item }">-->
-    <!--          <div class="font-weight-bold text-no-wrap">-->
-    <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
-    <!--          </div>-->
-    <!--        </template>-->
+    <v-card v-if="isUserSelected" class="mt-3">
+      <v-card-title>
+        Сделки
+        <v-spacer />
+        <v-btn icon>
+          <download-icon width="30" height="30" />
+        </v-btn>
+      </v-card-title>
+      <v-data-table
+        item-key="id"
+        :headers="headers"
+        :items="deals"
+        :loading="loading"
+        loading-text="Идет загрузка..."
+        hide-default-footer
+      >
+        <template #item.name="{ item }">
+          <div class="font-weight-bold text-no-wrap">
+            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+          </div>
+        </template>
 
-    <!--        <template #item="{ headers, item }">-->
-    <!--          <tr>-->
-    <!--            <td>-->
-    <!--              <div class="font-weight-bold text-no-wrap">-->
-    <!--                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
-    <!--              </div>-->
-    <!--            </td>-->
-    <!--            <td v-for="(header, i) in headers.slice(1)" :key="i">-->
-    <!--              <div v-if="Boolean(item[header.value])" class="green&#45;&#45;text text&#45;&#45;darken-4">-->
-    <!--                <div class="d-flex justify-center align-center">-->
-    <!--                  <check-circle-solid-icon width="15" height="15" />-->
-    <!--                  <div class="text-caption font-weight-bold ml-1">Да</div>-->
-    <!--                </div>-->
-    <!--              </div>-->
-    <!--              <div v-else class="red&#45;&#45;text text&#45;&#45;darken-4">-->
-    <!--                <div class="d-flex justify-center align-center">-->
-    <!--                  <x-circle-solid-icon width="15" height="15" />-->
-    <!--                  <div class="text-caption font-weight-bold ml-1">Нет</div>-->
-    <!--                </div>-->
-    <!--              </div>-->
-    <!--            </td>-->
-    <!--          </tr>-->
-    <!--        </template>-->
-    <!--      </v-data-table>-->
-    <!--    </v-card>-->
+        <template #item="{ headers, item }">
+          <tr>
+            <td>
+              <div class="font-weight-bold text-no-wrap">
+                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+              </div>
+            </td>
+            <td v-for="(header, i) in headers.slice(1)" :key="i">
+              <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
+                <div class="d-flex justify-center align-center">
+                  <check-circle-solid-icon width="15" height="15" />
+                  <div class="text-caption font-weight-bold ml-1">Да</div>
+                </div>
+              </div>
+              <div v-else class="red--text text--darken-4">
+                <div class="d-flex justify-center align-center">
+                  <x-circle-solid-icon width="15" height="15" />
+                  <div class="text-caption font-weight-bold ml-1">Нет</div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 
@@ -67,9 +67,9 @@ import BX24Wrapper from '@/utils/bx24-wrapper'
 export default {
   components: {
     DocumentSearchIcon
-    // CheckCircleSolidIcon,
-    // XCircleSolidIcon,
-    // DownloadIcon
+    CheckCircleSolidIcon,
+    XCircleSolidIcon,
+    DownloadIcon
   },
   data: () => ({
     loading: false,
@@ -101,15 +101,7 @@ export default {
       return !! this.manager?.name
     }
   },
-  async mounted() {
-    await this.getUsers()
-  },
   methods: {
-    async getUsers() {
-      const response = (new BX24Wrapper()).callMethod('user.get')
-
-      console.log(response)
-    },
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
       // open deal slider
