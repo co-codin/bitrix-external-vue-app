@@ -74,14 +74,7 @@ export default {
   data: () => ({
     loading: false,
     manager: null,
-    deals: [
-      // {
-      //   id: 83031,
-      //   name: '#22102 / Максим / Москва',
-      //   has_company_name: true,
-      //   has_overdue_call: true
-      // }
-    ],
+    deals: [],
 
     headers: [
       { text: '', align: 'left', value: 'name', sortable: false },
@@ -116,52 +109,34 @@ export default {
     async loadDeals() {
       this.loading = true
 
-      const batch = {
-        'get_deals': ['crm.deal.list', {
-          order: { 'CLOSEDATE': 'DESC' },
-          filter: { 'ASSIGNED_BY_ID': this.manager.id },
-          select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'CONTACT_IDS', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
-        }],
-        'get_contacts': ['crm.contact.get', {
-          id: '$result[get_deals][][CONTACT_ID]'
-        }],
-        'get_additional_contacts': ['crm.contact.list', {
-          filter: { 'ID': '$result[get_deals][][CONTACT_IDS]' },
-          select: ['EMAIL']
-        }]
-      }
+      const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
+        order: { 'CLOSEDATE': 'DESC' },
+        filter: { 'ASSIGNED_BY_ID': this.manager.id },
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+      })
 
-      const deals = await (new BX24Wrapper()).callBatch(batch, false)
+      this.deals = deals.forEach((deal) => {
+        (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+          id: deal.ID
+        }).then((contact) => {
+          console.log(contact)
+        })
 
-      // this.deals = deals.get_deals
-      console.log(deals)
+        this.deals.push({
+          id: deal.ID,
+          name: deal.TITLE,
+          has_company_name: !!deal.COMPANY_ID,
+          has_inn: !!deal.UF_ADDITIONAL_INN,
+          has_name: !!deal.CONTACT_ID,
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY,
+          has_no_overdue_calls: false,
+          has_no_recent_calls: false,
+          has_planned_call: false
+        })
+      })
 
-      // const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
-      //   order: { 'CLOSEDATE': 'DESC' },
-      //   filter: { 'ASSIGNED_BY_ID': this.manager.id },
-      //   select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
-      // })
-      //
-      // const promise = deals.map(async (deal) => {
-      //   const contact = await (new BX24Wrapper()).callMethod('crm.contact.get', {
-      //     id: deal.CONTACT_ID
-      //   })
-      //
-      //   return {
-      //     name: deal.TITLE,
-      //     has_company_name: !!deal.COMPANY_ID,
-      //     has_inn: !!deal.UF_ADDITIONAL_INN,
-      //     has_name: !!deal.CONTACT_ID,
-      //     has_email: contact.EMAIL.length > 0,
-      //     has_planned_activity: !!deal.CLOSEDATE,
-      //     has_sum: !!deal.OPPORTUNITY
-      //   }
-      // })
-      //
-      // this.deals = await Promise.all(promise)
-      //
-      // console.log(this.deals)
-      // this.loading = false
+      this.loading = false
     },
     getResultCellText(result = true) {
 
