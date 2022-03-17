@@ -34,10 +34,10 @@
             <div class="image-uploader-empty-bg"></div>
             <div class="image-uploader-empty-text">
               <p>
-                <label>Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
+                <label for="fileInput">Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
                 сюда
               </p>
-              <input id="file" type="file" @change="handleFileUpload" />
+              <input id="fileInput" type="file" @change="handleFileUpload" />
             </div>
           </div>
 
@@ -127,7 +127,8 @@ export default {
   props: {
     taskId: {
       required: true,
-      type: Number
+      type: Number,
+      default: 1
     }
   },
   data: () => ({
@@ -150,7 +151,7 @@ export default {
       const { files } = e.target
 
       this.form.files.push({
-        file: document.getElementById('file'),
+        file: files[0],
         name: files[0].name.replace(/\.[^/.]+$/, ''),
         type: null,
         comment: '',
@@ -374,5 +375,4 @@ p
     text-overflow: ellipsis
     white-space: nowrap
     margin-bottom: 0
-
 </style>
