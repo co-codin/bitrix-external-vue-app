@@ -195,44 +195,52 @@ export default {
         return
       }
 
-      const batch = this.form.files.map((file) => {
-        console.log(file.file)
+      // const batch = this.form.files.map((file) => {
+      //   console.log(file.file)
+      //
+      //   return [
+      //     'disk.storage.uploadfile',
+      //     {
+      //       id: process.env.VUE_APP_STORAGE_ID,
+      //       fileContent: file.file,
+      //       data: {
+      //         NAME: file.name + '.' + file.extension,
+      //         TYPE: file.type,
+      //         COMMENT: file.comment
+      //       }
+      //     }
+      //   ]
+      // })
 
-        return [
-          'disk.storage.uploadfile',
-          {
-            id: process.env.VUE_APP_STORAGE_ID,
-            fileContent: file.file,
-            data: {
-              NAME: file.name + '.' + file.extension,
-              TYPE: file.type,
-              COMMENT: file.comment
-            }
-          }
-        ]
+      await (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
+        id: process.env.VUE_APP_STORAGE_ID,
+        fileContent:  this.form.files[0].file,
+        data: {
+          NAME: this.form.files[0].name + '.' + this.form.files[0].extension
+        }
       })
 
-      try {
-        let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-
-        batchResponse = batchResponse.map((batch) => {
-          return [
-            'tasks.task.files.attach',
-            {
-              taskId: this.taskId,
-              fileId: batch.ID
-            }
-          ]
-        })
-        try {
-          await (new BX24Wrapper()).callBatch(batchResponse, false)
-          this.$emit('uploaded')
-        } catch (e) {
-          this.$snackbar('Произошла ошибка')
-        }
-      } catch (e) {
-        this.$snackbar('Произошла ошибка')
-      }
+      // try {
+      //   let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+      //
+      //   batchResponse = batchResponse.map((batch) => {
+      //     return [
+      //       'tasks.task.files.attach',
+      //       {
+      //         taskId: this.taskId,
+      //         fileId: batch.ID
+      //       }
+      //     ]
+      //   })
+      //   try {
+      //     await (new BX24Wrapper()).callBatch(batchResponse, false)
+      //     this.$emit('uploaded')
+      //   } catch (e) {
+      //     this.$snackbar('Произошла ошибка')
+      //   }
+      // } catch (e) {
+      //   this.$snackbar('Произошла ошибка')
+      // }
 
       this.dialog = false
     },
