@@ -116,7 +116,6 @@ export default {
       })
 
       this.deals = deals.forEach((deal) => {
-
         (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
           id: deal.ID
         }).then((contact) => {
@@ -124,7 +123,9 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              console.log(res)
+              const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y')
+
+              console.log(hasEmail)
             })
           }
         })
