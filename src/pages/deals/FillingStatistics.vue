@@ -116,13 +116,7 @@ export default {
       })
 
       this.deals = deals.forEach((deal) => {
-        (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
-          id: deal.ID
-        }).then((contact) => {
-          console.log(contact)
-        })
-
-        this.deals.push({
+        const dealData = {
           id: deal.ID,
           name: deal.TITLE,
           has_company_name: !!deal.COMPANY_ID,
@@ -133,7 +127,24 @@ export default {
           has_no_overdue_calls: false,
           has_no_recent_calls: false,
           has_planned_call: false
+        }
+
+        // eslint-disable-next-line no-unexpected-multiline
+        (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+          id: deal.ID
+        }).then((contact) => {
+          if (contact.length) {
+            (new BX24Wrapper()).callMethod('crm.contact.list', {
+              filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
+            }).then((res) => {
+              console.log(res)
+            })
+          } else {
+            dealData.has_email = false
+          }
         })
+
+        this.deals.push(dealData)
       })
 
       this.loading = false
