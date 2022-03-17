@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreateTaskDocument @uploaded="getTaskFiles" />
+    <CreateTaskDocument :task-id="taskId" @uploaded="getTaskFiles" />
     <v-card>
       <v-data-table
         v-if="files.length"

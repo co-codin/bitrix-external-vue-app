@@ -107,6 +107,12 @@ export default {
   components: {
     FilePreviewIcon
   },
+  props: {
+    taskId: {
+      required: true,
+      type: Number
+    }
+  },
   data: () => ({
     dialog: false,
     uploadedFile: null,
