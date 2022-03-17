@@ -133,8 +133,8 @@ export default {
 
       const deals = await (new BX24Wrapper()).callBatch(batch, false)
 
-      this.deals = deals.get_deals
-      console.log(this.deals)
+      // this.deals = deals.get_deals
+      console.log(deals)
 
       // const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
       //   order: { 'CLOSEDATE': 'DESC' },
