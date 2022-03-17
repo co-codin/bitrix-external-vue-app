@@ -116,8 +116,6 @@ export default {
       })
 
       deals.forEach((deal) => {
-        let dealData
-
         (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
           id: deal.ID
         }).then((contact) => {
