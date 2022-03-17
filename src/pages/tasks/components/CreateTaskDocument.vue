@@ -196,7 +196,17 @@ export default {
       }
 
       const batch = this.form.files.map((file) => {
-        console.log(file)
+        console.log(
+          {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: file.file,
+            data: {
+              NAME: file.name + '.' + file.extension,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          }
+        )
 
         return [
           'disk.storage.uploadfile',
