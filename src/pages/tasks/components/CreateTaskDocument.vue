@@ -263,7 +263,7 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       this.isDragging = false
-      const { files } = e.target
+      const { files } = e.dataTransfer
 
       const fileName = files[0].name.replace(/\.[^/.]+$/, '')
       const fileExtension = files[0].name.split('.').pop()
