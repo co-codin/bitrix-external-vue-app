@@ -116,13 +116,22 @@ export default {
     async loadDeals() {
       this.loading = true
       console.log(this.manager)
-      const response = await (new BX24Wrapper()).callMethod('crm.deal.list', {
+      const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'STAGE_ID', 'PROBABILITY', 'OPPORTUNITY', 'CURRENCY_ID']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'SOURCE_DESCRIPTION']
       })
 
-      console.log(response)
+      console.log(deals)
+
+      this.deals = deals.map((deal) => {
+        return {
+          id: deal.ID,
+          name: deal.TITLE
+          // has_company_name
+          // has_overdue_call
+        }
+      })
       this.loading = false
     },
     getResultCellText(result = true) {
