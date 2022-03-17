@@ -130,7 +130,7 @@ export default {
           name: deal.TITLE,
           has_company_name: !!deal.COMPANY_ID,
           has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!DEAL.CONTACT_ID
+          has_name: !!deal.CONTACT_ID
         }
       })
       this.loading = false
