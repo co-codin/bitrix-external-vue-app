@@ -122,15 +122,24 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'UF_*']
       })
 
-      console.log(deals)
+      // console.log(deals)
 
-      this.deals = deals.map((deal) => {
+      this.deals = deals.map(async (deal) => {
+        const contact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+          ID: deal.ID
+        })
+
+        console.log(contact)
+
         return {
           id: deal.ID,
           name: deal.TITLE,
           has_company_name: !!deal.COMPANY_ID,
           has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!deal.CONTACT_ID
+          has_name: !!deal.CONTACT_ID,
+          has_email: false,
+          has_planned_activity: false,
+          has_sum: false
         }
       })
       this.loading = false
