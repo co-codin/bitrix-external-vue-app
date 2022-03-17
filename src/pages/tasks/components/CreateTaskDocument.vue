@@ -23,28 +23,24 @@
       </v-card-title>
       <v-card-text>
         <div class="mb-2">
-          <!--          <div-->
-          <!--            class="image-uploader"-->
-          <!--            :class="{ dragging: isDragging }"-->
-          <!--            @dragenter="onDragEnter"-->
-          <!--            @dragleave="onDragLeave"-->
-          <!--            @dragover.prevent-->
-          <!--            @drop="onDrop"-->
-          <!--          >-->
-          <!--            <div class="image-uploader-empty-bg"></div>-->
-          <!--            <div class="image-uploader-empty-text">-->
-          <!--              <p>-->
-          <!--                <label for="file">Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их-->
-          <!--                сюда-->
-          <!--              </p>-->
-          <!--              <input id="file" type="file" @change="handleFileUpload" />-->
-          <!--            </div>-->
-          <!--          </div>-->
+          <div
+            class="image-uploader"
+            :class="{ dragging: isDragging }"
+            @dragenter="onDragEnter"
+            @dragleave="onDragLeave"
+            @dragover.prevent
+            @drop="onDrop"
+          >
+            <div class="image-uploader-empty-bg"></div>
+            <div class="image-uploader-empty-text">
+              <p>
+                <label>Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
+                сюда
+              </p>
+              <v-file-input id="file" v-model="uploadedFile" type="file" @change="handleFileUpload" />
+            </div>
+          </div>
 
-          <v-file-input
-            id="file"
-            @change="handleFileUpload"
-          />
         </div>
 
         <div class="mb-7">
@@ -138,6 +134,7 @@ export default {
     form: {
       files: []
     },
+    uploadedFile: null,
     formErrors: {},
     documentTypeLabels: [
       { text: 'Счет', value: 1 },
@@ -146,17 +143,15 @@ export default {
     ]
   }),
   methods: {
-    async handleFileUpload(e) {
-      const { files } = e.target
-
+    async handleFileUpload(file) {
       this.form.files.push({
         file: document.getElementById('file'),
-        name: files[0].name.replace(/\.[^/.]+$/, ''),
+        name: file.name.replace(/\.[^/.]+$/, ''),
         type: null,
         comment: '',
-        extension: files[0].name.split('.').pop()
+        extension: file.name.split('.').pop()
       })
-      e.target.value = null
+      this.uploadedFile = []
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
