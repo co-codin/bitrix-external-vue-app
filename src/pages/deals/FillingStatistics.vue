@@ -75,12 +75,12 @@ export default {
     loading: false,
     manager: null,
     deals: [
-      {
-        id: 83031,
-        name: '#22102 / Максим / Москва',
-        has_company_name: true,
-        has_overdue_call: true
-      }
+      // {
+      //   id: 83031,
+      //   name: '#22102 / Максим / Москва',
+      //   has_company_name: true,
+      //   has_overdue_call: true
+      // }
     ],
 
     headers: [
@@ -106,15 +106,22 @@ export default {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
       // open deal slider
     },
-    selectUser() {
+    async selectUser() {
       BX24.selectUser((data) => {
         this.manager = { ...data }
-        this.loadDeals()
       })
+      console.log(this.manager)
+      await this.loadDeals()
     },
-    loadDeals() {
+    async loadDeals() {
       this.loading = true
-      // loading deals for selected user
+      const response = await (new BX24Wrapper()).callMethod('crm.deal.list', {
+        order: { 'CLOSEDATE': 'DESC' },
+        filter: { 'ASSIGNED_BY_ID': this.manager.ID },
+        select: ['ID', 'TITLE', 'STAGE_ID', 'PROBABILITY', 'OPPORTUNITY', 'CURRENCY_ID']
+      })
+
+      console.log(response)
       this.loading = false
     },
     getResultCellText(result = true) {
