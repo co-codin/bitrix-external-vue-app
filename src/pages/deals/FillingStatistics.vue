@@ -108,6 +108,7 @@ export default {
     },
     async selectUser() {
       BX24.selectUser((data) => {
+        console.log(data)
         this.manager = { ...data }
       })
       console.log(this.manager)
