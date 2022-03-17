@@ -37,10 +37,14 @@
                 <label>Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
                 сюда
               </p>
-              <v-file-input id="file" v-model="uploadedFile" type="file" @change="handleFileUpload" />
+              <v-file-input id="file" type="file" @change="handleFileUpload" />
             </div>
           </div>
 
+          <v-file-input
+            id="file"
+            @change="handleFileUpload"
+          />
         </div>
 
         <div class="mb-7">
@@ -134,7 +138,6 @@ export default {
     form: {
       files: []
     },
-    uploadedFile: null,
     formErrors: {},
     documentTypeLabels: [
       { text: 'Счет', value: 1 },
@@ -143,15 +146,17 @@ export default {
     ]
   }),
   methods: {
-    async handleFileUpload(file) {
+    async handleFileUpload(e) {
+      const { files } = e.target
+
       this.form.files.push({
         file: document.getElementById('file'),
-        name: file.name.replace(/\.[^/.]+$/, ''),
+        name: files[0].name.replace(/\.[^/.]+$/, ''),
         type: null,
         comment: '',
-        extension: file.name.split('.').pop()
+        extension: files[0].name.split('.').pop()
       })
-      this.uploadedFile = []
+      e.target.value = null
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
@@ -194,7 +199,7 @@ export default {
           id: process.env.VUE_APP_STORAGE_ID,
           fileContent: file.file,
           data: {
-            NAME: file.name,
+            NAME: file.name + '.' + file.extension,
             TYPE: file.type,
             COMMENT: file.comment
           }
