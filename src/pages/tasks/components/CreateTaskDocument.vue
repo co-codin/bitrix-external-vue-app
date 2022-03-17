@@ -23,11 +23,29 @@
       </v-card-title>
       <v-card-text>
         <div class="mb-2">
-          <v-file-input
-            id="file"
-            v-model="uploadedFile"
-            @change="handleFileUpload"
-          />
+          <div
+            class="image-uploader"
+            :class="{ dragging: isDragging }"
+            @dragenter="onDragEnter"
+            @dragleave="onDragLeave"
+            @dragover.prevent
+            @drop="onDrop"
+          >
+            <div class="image-uploader-empty-bg"></div>
+            <div class="image-uploader-empty-text">
+              <p>
+                <label for="file">Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
+                сюда
+              </p>
+              <input id="file" v-model="uploadedFile" type="file" @change="handleFileUpload" />
+            </div>
+          </div>
+
+          <!--          <v-file-input-->
+          <!--            id="file"-->
+          <!--            v-model="uploadedFile"-->
+          <!--            @change="handleFileUpload"-->
+          <!--          />-->
         </div>
 
         <div class="mb-7">
@@ -117,6 +135,8 @@ export default {
     dialog: false,
     uploadedFile: null,
     loadingFiles: false,
+    isDragging: false,
+    dragCount: 0,
     form: {
       files: []
     },
@@ -212,7 +232,52 @@ export default {
       }
 
       this.dialog = false
+    },
+    onDragEnter(e) {
+      e.preventDefault()
+      this.dragCount++
+      this.isDragging = true
+    },
+    onDragLeave(e) {
+      e.preventDefault()
+      this.dragCount--
+      if (this.dragCount <= 0) {
+        this.isDragging = false
+      }
+    },
+    async onDrop(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      this.isDragging = false
+      const { files } = e.dataTransfer
+
+      for (let i = 0; i < files.length; i++) {
+        // await this.addImage(files[i]);
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+
+.image-uploader {
+  border: 1px dashed #c7ccd6;
+  padding: 0 20px;
+  height: 100%;
+  min-height: 160px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.dragging {
+  border: 3px dashed #3b5998;
+}
+
+</style>
