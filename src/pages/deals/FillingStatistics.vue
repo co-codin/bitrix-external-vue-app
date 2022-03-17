@@ -116,6 +116,20 @@ export default {
       })
 
       deals.forEach((deal) => {
+        const dealData = {
+          id: deal.ID,
+          name: deal.TITLE,
+          has_company_name: !!deal.COMPANY_ID,
+          has_inn: !!deal.UF_ADDITIONAL_INN,
+          has_name: !!deal.CONTACT_ID,
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY,
+          has_email: false,
+          has_no_overdue_calls: false,
+          has_no_recent_calls: false,
+          has_planned_call: false
+        };
+
         (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
           id: deal.ID
         }).then((contact) => {
@@ -123,36 +137,19 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y');
-
-              (new BX24Wrapper()).callMethod('crm.timeline.bindings.list', {
-                filter: {
-                  'OWNER_ID': 82368
-                }
-              }).then((comments) => {
-                console.log(comments)
-              })
-
-              const has_no_overdue_calls = false
-              const has_no_recent_calls = false
-              const has_planned_call = false
-
-              this.deals.push({
-                id: deal.ID,
-                name: deal.TITLE,
-                has_company_name: !!deal.COMPANY_ID,
-                has_inn: !!deal.UF_ADDITIONAL_INN,
-                has_name: !!deal.CONTACT_ID,
-                has_email: hasEmail,
-                has_planned_activity: !!deal.CLOSEDATE,
-                has_sum: !!deal.OPPORTUNITY,
-                has_no_overdue_calls,
-                has_no_recent_calls,
-                has_planned_call
-              })
+              dealData.has_email = res.map((item) => item.HAS_EMAIL).includes('Y')
             })
           }
         })
+      });
+
+      (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+        filter: {
+          CRM_ENTITY_ID: 82368,
+          CRM_ENTITY_TYPE: 'deal'
+        }
+      }).then((calls) => {
+        console.log(calls)
       })
 
       this.loading = false
