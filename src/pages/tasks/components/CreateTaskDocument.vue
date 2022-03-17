@@ -150,13 +150,14 @@ export default {
     async handleFileUpload(e) {
       const { files } = e.target
       const fileName = files[0].name.replace(/\.[^/.]+$/, '')
+      const fileExtension = files[0].name.split('.').pop()
 
       this.form.files.push({
-        file: [fileName, await this.toBase64(files[0])],
+        file: [fileName + '.' + fileExtension, await this.toBase64(files[0])],
         name: fileName,
         type: null,
         comment: '',
-        extension: files[0].name.split('.').pop()
+        extension: fileExtension
       })
 
       e.target.value = null
@@ -166,7 +167,7 @@ export default {
         const reader = new FileReader()
 
         reader.readAsDataURL(file)
-        reader.onload = () => resolve(reader.result)
+        reader.onload = () => resolve(reader.result.replace('data:', '').replace(/^.+,/, ''))
         reader.onerror = (error) => reject(error)
       })
     },
@@ -207,6 +208,8 @@ export default {
       }
 
       const batch = this.form.files.map((file) => {
+        console.log(file.file)
+
         return [
           'disk.storage.uploadfile',
           {
