@@ -66,7 +66,7 @@ import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
-    DocumentSearchIcon
+    DocumentSearchIcon,
     CheckCircleSolidIcon,
     XCircleSolidIcon,
     DownloadIcon
