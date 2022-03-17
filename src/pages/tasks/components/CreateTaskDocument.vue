@@ -147,16 +147,24 @@ export default {
     ]
   }),
   methods: {
-    handleFileUpload(e) {
+    async handleFileUpload(e) {
       const { files } = e.target
 
-      this.form.files.push({
-        file: document.getElementById('file'),
-        name: files[0].name.replace(/\.[^/.]+$/, ''),
-        type: null,
-        comment: '',
-        extension: files[0].name.split('.').pop()
+      await (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
+        id: process.env.VUE_APP_STORAGE_ID,
+        fileContent: files[0].file,
+        data: {
+          NAME: files[0].name + '.' + files[0].extension
+        }
       })
+
+      // this.form.files.push({
+      //   file: document.getElementById('file'),
+      //   name: files[0].name.replace(/\.[^/.]+$/, ''),
+      //   type: null,
+      //   comment: '',
+      //   extension: files[0].name.split('.').pop()
+      // })
       e.target.value = null
     },
     removeFile(index) {
@@ -211,14 +219,6 @@ export default {
       //     }
       //   ]
       // })
-
-      await (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
-        id: process.env.VUE_APP_STORAGE_ID,
-        fileContent:  this.form.files[0].file,
-        data: {
-          NAME: this.form.files[0].name + '.' + this.form.files[0].extension
-        }
-      })
 
       // try {
       //   let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
