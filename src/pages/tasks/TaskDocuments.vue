@@ -84,7 +84,9 @@ export default {
     }
   }),
   async mounted() {
+    this.isLoading = true
     await this.getTaskFiles()
+    this.isLoading = false
   },
   methods: {
     async getTaskFiles() {
