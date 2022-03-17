@@ -126,10 +126,10 @@ export default {
     FilePreviewIcon
   },
   props: {
-    // taskId: {
-    //   required: true,
-    //   type: Number
-    // }
+    taskId: {
+      required: true,
+      type: Number
+    }
   },
   data: () => ({
     dialog: false,
@@ -196,6 +196,8 @@ export default {
       }
 
       const batch = this.form.files.map((file) => {
+        console.log(file.file)
+
         return [
           'disk.storage.uploadfile',
           {
