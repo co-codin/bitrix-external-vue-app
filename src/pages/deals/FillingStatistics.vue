@@ -107,17 +107,18 @@ export default {
       // open deal slider
     },
     async selectUser() {
-      BX24.selectUser((data) => {
+      BX24.selectUser(async (data) => {
         this.manager = data
+        await this.loadDeals()
       })
-      console.log(this.manager)
-      await this.loadDeals()
+
     },
     async loadDeals() {
       this.loading = true
+      console.log(this.manager)
       const response = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
-        filter: { 'ASSIGNED_BY_ID': this.manager.ID },
+        filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['ID', 'TITLE', 'STAGE_ID', 'PROBABILITY', 'OPPORTUNITY', 'CURRENCY_ID']
       })
 
