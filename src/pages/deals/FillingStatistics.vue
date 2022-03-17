@@ -115,7 +115,9 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      deals.forEach((deal) => {
+      await deals.forEach((deal) => {
+        let dealData
+
         (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
           id: deal.ID
         }).then((contact) => {
@@ -125,7 +127,7 @@ export default {
             }).then((res) => {
               const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y')
 
-              this.deals.push({
+              dealData = {
                 id: deal.ID,
                 name: deal.TITLE,
                 has_company_name: !!deal.COMPANY_ID,
@@ -134,10 +136,14 @@ export default {
                 has_email: hasEmail,
                 has_planned_activity: !!deal.CLOSEDATE,
                 has_sum: !!deal.OPPORTUNITY
-              })
+              }
             })
           }
         })
+
+        if (dealData) {
+          this.deals.push(dealData)
+        }
       })
 
       this.loading = false
