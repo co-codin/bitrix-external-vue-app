@@ -37,14 +37,14 @@
                 <label>Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
                 сюда
               </p>
-              <v-file-input id="file" type="file" @change="handleFileUpload" />
+              <input id="file" type="file" @change="handleFileUpload" />
             </div>
           </div>
 
-          <v-file-input
-            id="file"
-            @change="handleFileUpload"
-          />
+          <!--          <v-file-input-->
+          <!--            id="file"-->
+          <!--            @change="handleFileUpload"-->
+          <!--          />-->
         </div>
 
         <div class="mb-7">
