@@ -253,7 +253,13 @@ export default {
       const { files } = e.dataTransfer
 
       for (let i = 0; i < files.length; i++) {
-        // await this.addImage(files[i]);
+        this.form.files.push({
+          file: document.getElementById('file'),
+          name: files[i].name.replace(/\.[^/.]+$/, ''),
+          type: null,
+          comment: '',
+          extension: files[i].name.split('.').pop()
+        })
       }
     }
   }
