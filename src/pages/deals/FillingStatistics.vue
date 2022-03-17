@@ -120,13 +120,21 @@ export default {
         'get_deals': ['crm.deal.list', {
           order: { 'CLOSEDATE': 'DESC' },
           filter: { 'ASSIGNED_BY_ID': this.manager.id },
-          select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+          select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'CONTACT_IDS', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        }],
+        'get_contacts': ['crm.contact.get', {
+          id: '$result[get_deals][CONTACT_ID]'
+        }],
+        'get_addtional_contacts': ['crm.contact.list', {
+          filter: { 'ID': '$result[get_deals][CONTACT_IDS]' },
+          select: ['EMAIL']
         }]
       }
 
       const deals = await (new BX24Wrapper()).callBatch(batch, false)
 
-      console.log(deals)
+      this.deals = deals.get_deals
+      console.log(this.deals)
 
       // const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
       //   order: { 'CLOSEDATE': 'DESC' },
