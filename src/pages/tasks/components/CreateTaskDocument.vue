@@ -23,29 +23,28 @@
       </v-card-title>
       <v-card-text>
         <div class="mb-2">
-          <div
-            class="image-uploader"
-            :class="{ dragging: isDragging }"
-            @dragenter="onDragEnter"
-            @dragleave="onDragLeave"
-            @dragover.prevent
-            @drop="onDrop"
-          >
-            <div class="image-uploader-empty-bg"></div>
-            <div class="image-uploader-empty-text">
-              <p>
-                <label for="file">Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
-                сюда
-              </p>
-              <input id="file" type="file" @change="handleFileUpload" />
-            </div>
-          </div>
+          <!--          <div-->
+          <!--            class="image-uploader"-->
+          <!--            :class="{ dragging: isDragging }"-->
+          <!--            @dragenter="onDragEnter"-->
+          <!--            @dragleave="onDragLeave"-->
+          <!--            @dragover.prevent-->
+          <!--            @drop="onDrop"-->
+          <!--          >-->
+          <!--            <div class="image-uploader-empty-bg"></div>-->
+          <!--            <div class="image-uploader-empty-text">-->
+          <!--              <p>-->
+          <!--                <label for="file">Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их-->
+          <!--                сюда-->
+          <!--              </p>-->
+          <!--              <input id="file" type="file" @change="handleFileUpload" />-->
+          <!--            </div>-->
+          <!--          </div>-->
 
-          <!--          <v-file-input-->
-          <!--            id="file"-->
-          <!--            v-model="uploadedFile"-->
-          <!--            @change="handleFileUpload"-->
-          <!--          />-->
+          <v-file-input
+            id="file"
+            @change="handleFileUpload"
+          />
         </div>
 
         <div class="mb-7">
