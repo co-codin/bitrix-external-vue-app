@@ -37,7 +37,7 @@
                 <label for="file">Нажмите на ссылку</label>, чтобы выбрать файлы или просто перетащите их
                 сюда
               </p>
-              <input id="file" v-model="uploadedFile" type="file" @change="handleFileUpload" />
+              <input id="file" type="file" @change="handleFileUpload" />
             </div>
           </div>
 
@@ -126,14 +126,13 @@ export default {
     FilePreviewIcon
   },
   props: {
-    taskId: {
-      required: true,
-      type: Number
-    }
+    // taskId: {
+    //   required: true,
+    //   type: Number
+    // }
   },
   data: () => ({
     dialog: false,
-    uploadedFile: null,
     loadingFiles: false,
     isDragging: false,
     dragCount: 0,
@@ -148,15 +147,17 @@ export default {
     ]
   }),
   methods: {
-    handleFileUpload(file) {
+    handleFileUpload(e) {
+      const { files } = e.target
+
       this.form.files.push({
         file: document.getElementById('file'),
-        name: file.name.replace(/\.[^/.]+$/, ''),
+        name: files[0].name.replace(/\.[^/.]+$/, ''),
         type: null,
         comment: '',
-        extension: file.name.split('.').pop()
+        extension: files[0].name.split('.').pop()
       })
-      this.uploadedFile = []
+      e.target.value = null
     },
     removeFile(index) {
       this.form.files.splice(index, 1)
