@@ -126,7 +126,7 @@ export default {
           id: deal.CONTACT_ID
         })
 
-        return {
+        return Promise.resolve({
           name: deal.TITLE,
           has_company_name: !!deal.COMPANY_ID,
           has_inn: !!deal.UF_ADDITIONAL_INN,
@@ -134,7 +134,7 @@ export default {
           has_email: contact.EMAIL.length > 0,
           has_planned_activity: !!deal.CLOSEDATE,
           has_sum: !!deal.OPPORTUNITY
-        }
+        })
       })
       console.log(this.deals)
       this.loading = false
