@@ -121,23 +121,20 @@ export default {
         select: ['TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      deals.map(async (deal) => {
-        const contact = (new BX24Wrapper()).callMethod('crm.contact.get', {
+      this.deals = deals.map((deal) => {
+        (new BX24Wrapper()).callMethod('crm.contact.get', {
           id: deal.CONTACT_ID
+        }).then((contact) => {
+          return {
+            name: deal.TITLE,
+            has_company_name: !!deal.COMPANY_ID,
+            has_inn: !!deal.UF_ADDITIONAL_INN,
+            has_name: !!deal.CONTACT_ID,
+            has_email: contact.EMAIL.length > 0,
+            has_planned_activity: !!deal.CLOSEDATE,
+            has_sum: !!deal.OPPORTUNITY
+          }
         })
-
-        return {
-          name: deal.TITLE,
-          has_company_name: !!deal.COMPANY_ID,
-          has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!deal.CONTACT_ID,
-          has_email: contact.EMAIL.length > 0,
-          has_planned_activity: !!deal.CLOSEDATE,
-          has_sum: !!deal.OPPORTUNITY
-        }
-      }).then((data) => {
-        console.log(data)
-        this.deals = data
       })
       console.log(this.deals)
       this.loading = false
