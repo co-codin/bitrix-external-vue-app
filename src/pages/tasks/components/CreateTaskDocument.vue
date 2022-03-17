@@ -231,27 +231,27 @@ export default {
         ]
       })
 
-      // try {
-      //   let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-      //
-      //   batchResponse = batchResponse.map((batch) => {
-      //     return [
-      //       'tasks.task.files.attach',
-      //       {
-      //         taskId: this.taskId,
-      //         fileId: batch.ID
-      //       }
-      //     ]
-      //   })
-      //   try {
-      //     await (new BX24Wrapper()).callBatch(batchResponse, false)
-      //     this.$emit('uploaded')
-      //   } catch (e) {
-      //     this.$snackbar('Произошла ошибка')
-      //   }
-      // } catch (e) {
-      //   this.$snackbar('Произошла ошибка')
-      // }
+      try {
+        let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+
+        batchResponse = batchResponse.map((batch) => {
+          return [
+            'tasks.task.files.attach',
+            {
+              taskId: this.taskId,
+              fileId: batch.ID
+            }
+          ]
+        })
+        try {
+          await (new BX24Wrapper()).callBatch(batchResponse, false)
+          this.$emit('uploaded')
+        } catch (e) {
+          this.$snackbar('Произошла ошибка')
+        }
+      } catch (e) {
+        this.$snackbar('Произошла ошибка')
+      }
 
       this.dialog = false
     },
