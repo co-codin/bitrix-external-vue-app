@@ -126,8 +126,11 @@ export default {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
               const hasEmail = res.map((item) => item.HAS_EMAIL).includes('Y')
+              const has_no_overdue_calls = false
+              const has_no_recent_calls = false
+              const has_planned_call = false
 
-              dealData = {
+              this.deals.push({
                 id: deal.ID,
                 name: deal.TITLE,
                 has_company_name: !!deal.COMPANY_ID,
@@ -135,13 +138,14 @@ export default {
                 has_name: !!deal.CONTACT_ID,
                 has_email: hasEmail,
                 has_planned_activity: !!deal.CLOSEDATE,
-                has_sum: !!deal.OPPORTUNITY
-              }
+                has_sum: !!deal.OPPORTUNITY,
+                has_no_overdue_calls,
+                has_no_recent_calls,
+                has_planned_call
+              })
             })
           }
         })
-
-        this.deals.push(dealData)
       })
 
       this.loading = false
