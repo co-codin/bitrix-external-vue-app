@@ -150,21 +150,13 @@ export default {
     async handleFileUpload(e) {
       const { files } = e.target
 
-      await (new BX24Wrapper()).callMethod('disk.storage.uploadfile', {
-        id: process.env.VUE_APP_STORAGE_ID,
-        fileContent: files[0].file,
-        data: {
-          NAME: files[0].name + '.' + files[0].extension
-        }
+      this.form.files.push({
+        file: document.getElementById('file'),
+        name: files[0].name.replace(/\.[^/.]+$/, ''),
+        type: null,
+        comment: '',
+        extension: files[0].name.split('.').pop()
       })
-
-      // this.form.files.push({
-      //   file: document.getElementById('file'),
-      //   name: files[0].name.replace(/\.[^/.]+$/, ''),
-      //   type: null,
-      //   comment: '',
-      //   extension: files[0].name.split('.').pop()
-      // })
       e.target.value = null
     },
     removeFile(index) {
@@ -203,44 +195,44 @@ export default {
         return
       }
 
-      // const batch = this.form.files.map((file) => {
-      //   console.log(file.file)
-      //
-      //   return [
-      //     'disk.storage.uploadfile',
-      //     {
-      //       id: process.env.VUE_APP_STORAGE_ID,
-      //       fileContent: file.file,
-      //       data: {
-      //         NAME: file.name + '.' + file.extension,
-      //         TYPE: file.type,
-      //         COMMENT: file.comment
-      //       }
-      //     }
-      //   ]
-      // })
+      const batch = this.form.files.map((file) => {
+        console.log(file)
 
-      // try {
-      //   let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
-      //
-      //   batchResponse = batchResponse.map((batch) => {
-      //     return [
-      //       'tasks.task.files.attach',
-      //       {
-      //         taskId: this.taskId,
-      //         fileId: batch.ID
-      //       }
-      //     ]
-      //   })
-      //   try {
-      //     await (new BX24Wrapper()).callBatch(batchResponse, false)
-      //     this.$emit('uploaded')
-      //   } catch (e) {
-      //     this.$snackbar('Произошла ошибка')
-      //   }
-      // } catch (e) {
-      //   this.$snackbar('Произошла ошибка')
-      // }
+        return [
+          'disk.storage.uploadfile',
+          {
+            id: process.env.VUE_APP_STORAGE_ID,
+            fileContent: file.file,
+            data: {
+              NAME: file.name,
+              TYPE: file.type,
+              COMMENT: file.comment
+            }
+          }
+        ]
+      })
+
+      try {
+        let batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+
+        batchResponse = batchResponse.map((batch) => {
+          return [
+            'tasks.task.files.attach',
+            {
+              taskId: this.taskId,
+              fileId: batch.ID
+            }
+          ]
+        })
+        try {
+          await (new BX24Wrapper()).callBatch(batchResponse, false)
+          this.$emit('uploaded')
+        } catch (e) {
+          this.$snackbar('Произошла ошибка')
+        }
+      } catch (e) {
+        this.$snackbar('Произошла ошибка')
+      }
 
       this.dialog = false
     },
