@@ -194,7 +194,7 @@ export default {
           id: process.env.VUE_APP_STORAGE_ID,
           fileContent: file.file,
           data: {
-            NAME: file.name + '.' + file.extension,
+            NAME: file.name,
             TYPE: file.type,
             COMMENT: file.comment
           }
