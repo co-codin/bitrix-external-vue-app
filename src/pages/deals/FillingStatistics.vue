@@ -125,7 +125,7 @@ export default {
       // console.log(deals)
 
       this.deals = deals.map(async (deal) => {
-        const contact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+        const contact = await (new BX24Wrapper()).callMethod('crm.contact.get', {
           ID: deal.ID
         })
 
