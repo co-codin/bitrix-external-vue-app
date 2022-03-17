@@ -119,7 +119,7 @@ export default {
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'SOURCE_DESCRIPTION']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'UTM_CONTENT']
       })
 
       console.log(deals)
@@ -127,9 +127,10 @@ export default {
       this.deals = deals.map((deal) => {
         return {
           id: deal.ID,
-          name: deal.TITLE
-          // has_company_name
-          // has_overdue_call
+          name: deal.TITLE,
+          has_company_name: deal.COMPANY_ID !== '',
+          has_inn: false,
+          has_name: false
         }
       })
       this.loading = false
