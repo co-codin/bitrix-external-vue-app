@@ -101,6 +101,7 @@ export default {
         )
 
         this.files = task.UF_TASK_WEBDAV_FILES
+        console.log(this.files.length)
       } catch (e) {
         this.$snackbar('Произошла ошибка при загрузке файлов')
       }
