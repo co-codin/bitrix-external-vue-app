@@ -112,7 +112,7 @@ export default {
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'ASSIGNED_BY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
       deals.forEach((deal) => {
@@ -126,7 +126,8 @@ export default {
               (new BX24Wrapper()).callMethod('crm.timeline.bindings.list', {
                 filter: {
                   ENTITY_TYPE: 'deal',
-                  ENTITY_ID: 82368
+                  ENTITY_ID: 82368,
+                  OWNER_ID: deal.ASSIGNED_BY_ID
                 }
               }).then((calls) => {
                 console.log(calls)
