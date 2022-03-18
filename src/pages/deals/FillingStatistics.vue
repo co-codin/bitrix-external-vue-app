@@ -125,7 +125,7 @@ export default {
             }).then((res) => {
               (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
                 filter: {
-                  CRM_ACTIVITY_ID: 82368
+                  CRM_ACTIVITY_ID: deal.ID
                 }
               }).then((calls) => {
                 console.log(calls)
