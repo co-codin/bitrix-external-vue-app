@@ -112,7 +112,7 @@ export default {
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'ASSIGNED_BY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
       deals.forEach((deal) => {
@@ -124,7 +124,7 @@ export default {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
               (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-                filter: {
+                FILTER: {
                   CRM_ENTITY_TYPE: 'DEAL'
                 }
               }).then((calls) => {
