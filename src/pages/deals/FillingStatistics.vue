@@ -135,14 +135,19 @@ export default {
                   CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
                 }
               }).then((calls) => {
-                const activityIds = calls.map((call) => call.CRM_ACTIVITY_ID)
+                const activityIds = calls.map((call) => call.CRM_ACTIVITY_ID);
 
-                const hasNoRecentCall = calls.map((call) => {
-                  console.log(deal.ID, call.CALL_START_DATE)
-                  console.log(((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24))
-
-                  return ((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24) < 60
+                (new BX24Wrapper()).callMethod('crm.activity.list', {
+                  filter: { ID: activityIds }
+                }).then((activities) => {
+                  console.log(activities)
                 })
+                // const hasNoRecentCall = calls.map((call) => {
+                //   console.log(deal.ID, call.CALL_START_DATE)
+                //   console.log(((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24))
+                //
+                //   return ((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24) < 60
+                // })
 
                 this.deals.push({
                   id: deal.ID,
