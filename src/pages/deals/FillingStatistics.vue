@@ -126,7 +126,7 @@ export default {
               (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
                 filter: {
                   CRM_ENTITY_ID: 82368,
-                  CRM_ENTITY_TYPE: 'deal'
+                  CRM_ENTITY_TYPE: 'DEAL'
                 }
               }).then((calls) => {
                 console.log(calls)
@@ -148,8 +148,6 @@ export default {
           }
         })
       })
-
-      console.log(this.deals)
 
       this.loading = false
     },
