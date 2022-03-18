@@ -151,7 +151,7 @@ export default {
                   has_sum: !!deal.OPPORTUNITY,
                   has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
                   has_no_overdue_calls: false,
-                  has_no_recent_calls: hasNoRecentCall.include(true),
+                  has_no_recent_calls: hasNoRecentCall.includes(true),
                   has_planned_call: false
                 })
                 console.log(calls)
