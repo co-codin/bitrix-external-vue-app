@@ -123,13 +123,6 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-                FILTER: {
-                  CRM_ENTITY_TYPE: 'DEAL'
-                }
-              }).then((calls) => {
-                console.log(calls)
-              })
               this.deals.push({
                 id: deal.ID,
                 name: deal.TITLE,
@@ -143,6 +136,15 @@ export default {
                 has_no_recent_calls: false,
                 has_planned_call: false
               })
+            }).then((contact) => {
+              console.log(contact)
+              // (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+              //   FILTER: {
+              //     CRM_ENTITY_TYPE: 'DEAL'
+              //   }
+              // }).then((calls) => {
+              //   console.log(calls)
+              // })
             })
           }
         })
