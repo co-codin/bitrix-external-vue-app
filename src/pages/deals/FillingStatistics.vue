@@ -122,7 +122,7 @@ export default {
           if (contact.length) {
 
             (new BX24Wrapper()).callMethod('crm.activity.list', {
-              filter: { ASSOCIATED_ENTITY_ID: deal.ID }
+              filter: { ASSOCIATED_ENTITY_ID: 82368 }
             }).then((activities) => {
               console.log(activities)
             });
