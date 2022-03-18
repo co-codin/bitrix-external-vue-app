@@ -138,6 +138,9 @@ export default {
                 const activityIds = calls.map((call) => call.CRM_ACTIVITY_ID)
 
                 const hasNoRecentCall = calls.map((call) => {
+                  console.log(deal.ID, call.CALL_START_DATE)
+                  console.log(((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24))
+
                   return ((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24) < 60
                 })
 
@@ -154,13 +157,13 @@ export default {
                   has_no_recent_calls: hasNoRecentCall.includes(true),
                   has_planned_call: false
                 })
-                console.log(calls)
               })
 
             })
           }
         })
       })
+      console.log(calls)
 
       this.loading = false
     },
