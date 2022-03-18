@@ -160,12 +160,10 @@ export default {
                   })
                 })
               })
-
             })
           }
         })
       })
-      console.log(calls)
 
       this.loading = false
     },
