@@ -128,6 +128,7 @@ export default {
                   CRM_ACTIVITY_ID: deal.ID
                 }
               }).then((calls) => {
+                console.log(deal.id)
                 console.log(calls)
               })
               this.deals.push({
