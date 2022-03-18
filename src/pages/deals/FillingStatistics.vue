@@ -152,6 +152,8 @@ export default {
         console.log(calls)
       })
 
+      console.log(this.deals)
+
       this.loading = false
     },
     getResultCellText(result = true) {
