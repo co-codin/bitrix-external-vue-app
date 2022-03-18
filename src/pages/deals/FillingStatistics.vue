@@ -123,11 +123,9 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              (new BX24Wrapper()).callMethod('crm.timeline.bindings.list', {
+              (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
                 filter: {
-                  ENTITY_TYPE: 'deal',
-                  ENTITY_ID: deal.ID,
-                  OWNER_ID: deal.ASSIGNED_BY_ID
+                  CRM_ENTITY_TYPE: 'DEAL'
                 }
               }).then((calls) => {
                 console.log(calls)
