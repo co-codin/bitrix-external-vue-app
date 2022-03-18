@@ -120,13 +120,6 @@ export default {
           id: deal.ID
         }).then((contact) => {
           if (contact.length) {
-
-            // (new BX24Wrapper()).callMethod('crm.activity.list', {
-            //   filter: { ASSOCIATED_ENTITY_ID: 82368 }
-            // }).then((activities) => {
-            //   console.log(activities)
-            // });
-
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
@@ -140,27 +133,31 @@ export default {
                 (new BX24Wrapper()).callMethod('crm.activity.list', {
                   filter: { ID: activityIds }
                 }).then((activities) => {
-                  console.log(activities)
-                })
-                // const hasNoRecentCall = calls.map((call) => {
-                //   console.log(deal.ID, call.CALL_START_DATE)
-                //   console.log(((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24))
-                //
-                //   return ((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24) < 60
-                // })
+                  const hasNoRecentCalls = activities.map((activity) => {
+                    return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
+                  }).includes(true)
 
-                this.deals.push({
-                  id: deal.ID,
-                  name: deal.TITLE,
-                  has_company_name: !!deal.COMPANY_ID,
-                  has_inn: !!deal.UF_ADDITIONAL_INN,
-                  has_name: !!deal.CONTACT_ID,
-                  has_planned_activity: !!deal.CLOSEDATE,
-                  has_sum: !!deal.OPPORTUNITY,
-                  has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
-                  has_no_overdue_calls: false,
-                  has_no_recent_calls: hasNoRecentCall.includes(true),
-                  has_planned_call: false
+                  const hasNoOverdueCalls = activities.map((activity) => {
+                    return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+                  }).includes(true)
+
+                  const hasPlannedCalls = activities.map((activity) => {
+                    return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+                  }).includes(true)
+
+                  this.deals.push({
+                    id: deal.ID,
+                    name: deal.TITLE,
+                    has_company_name: !!deal.COMPANY_ID,
+                    has_inn: !!deal.UF_ADDITIONAL_INN,
+                    has_name: !!deal.CONTACT_ID,
+                    has_planned_activity: !!deal.CLOSEDATE,
+                    has_sum: !!deal.OPPORTUNITY,
+                    has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+                    has_no_overdue_calls: hasNoOverdueCalls,
+                    has_no_recent_calls: hasNoRecentCalls,
+                    has_planned_call: hasPlannedCalls
+                  })
                 })
               })
 
