@@ -116,20 +116,6 @@ export default {
       })
 
       deals.forEach((deal) => {
-        const dealData = {
-          id: deal.ID,
-          name: deal.TITLE,
-          has_company_name: !!deal.COMPANY_ID,
-          has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!deal.CONTACT_ID,
-          has_planned_activity: !!deal.CLOSEDATE,
-          has_sum: !!deal.OPPORTUNITY,
-          has_email: false,
-          has_no_overdue_calls: false,
-          has_no_recent_calls: false,
-          has_planned_call: false
-        };
-
         (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
           id: deal.ID
         }).then((contact) => {
@@ -137,19 +123,30 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              dealData.has_email = res.map((item) => item.HAS_EMAIL).includes('Y')
+              (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+                filter: {
+                  CRM_ENTITY_ID: 82368,
+                  CRM_ENTITY_TYPE: 'deal'
+                }
+              }).then((calls) => {
+                console.log(calls)
+              })
+              this.deals.push({
+                id: deal.ID,
+                name: deal.TITLE,
+                has_company_name: !!deal.COMPANY_ID,
+                has_inn: !!deal.UF_ADDITIONAL_INN,
+                has_name: !!deal.CONTACT_ID,
+                has_planned_activity: !!deal.CLOSEDATE,
+                has_sum: !!deal.OPPORTUNITY,
+                has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+                has_no_overdue_calls: false,
+                has_no_recent_calls: false,
+                has_planned_call: false
+              })
             })
           }
         })
-      });
-
-      (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-        filter: {
-          CRM_ENTITY_ID: 82368,
-          CRM_ENTITY_TYPE: 'deal'
-        }
-      }).then((calls) => {
-        console.log(calls)
       })
 
       console.log(this.deals)
