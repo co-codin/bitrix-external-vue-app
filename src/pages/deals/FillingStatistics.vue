@@ -127,31 +127,36 @@ export default {
             //   console.log(activities)
             // });
 
-            (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-              FILTER: {
-                CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
-              }
-            }).then((calls) => {
-
-              console.log(calls)
-            });
-
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              this.deals.push({
-                id: deal.ID,
-                name: deal.TITLE,
-                has_company_name: !!deal.COMPANY_ID,
-                has_inn: !!deal.UF_ADDITIONAL_INN,
-                has_name: !!deal.CONTACT_ID,
-                has_planned_activity: !!deal.CLOSEDATE,
-                has_sum: !!deal.OPPORTUNITY,
-                has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
-                has_no_overdue_calls: false,
-                has_no_recent_calls: false,
-                has_planned_call: false
+              (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+                FILTER: {
+                  CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
+                }
+              }).then((calls) => {
+                const activityIds = calls.map((call) => call.CRM_ACTIVITY_ID)
+
+                const hasNoRecentCall = calls.map((call) => {
+                  return ((new Date()).getTime() - (new Date(call.CALL_START_DATE)).getTime()) / (1000 * 3600 * 24) < 60
+                })
+
+                this.deals.push({
+                  id: deal.ID,
+                  name: deal.TITLE,
+                  has_company_name: !!deal.COMPANY_ID,
+                  has_inn: !!deal.UF_ADDITIONAL_INN,
+                  has_name: !!deal.CONTACT_ID,
+                  has_planned_activity: !!deal.CLOSEDATE,
+                  has_sum: !!deal.OPPORTUNITY,
+                  has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+                  has_no_overdue_calls: false,
+                  has_no_recent_calls: hasNoRecentCall.include(true),
+                  has_planned_call: false
+                })
+                console.log(calls)
               })
+
             })
           }
         })
