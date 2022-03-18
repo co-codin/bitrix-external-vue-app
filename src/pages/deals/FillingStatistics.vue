@@ -126,7 +126,7 @@ export default {
               (new BX24Wrapper()).callMethod('crm.timeline.bindings.list', {
                 filter: {
                   ENTITY_TYPE: 'deal',
-                  ENTITY_ID: 82368,
+                  ENTITY_ID: deal.ID,
                   OWNER_ID: deal.ASSIGNED_BY_ID
                 }
               }).then((calls) => {
