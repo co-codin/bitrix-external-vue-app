@@ -123,12 +123,12 @@ export default {
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
             }).then((res) => {
-              (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+              (new BX24Wrapper()).callMethod('crm.timeline.bindings.list', {
                 filter: {
-                  CRM_ACTIVITY_ID: deal.ID
+                  ENTITY_TYPE: 'deal',
+                  ENTITY_ID: 82368
                 }
               }).then((calls) => {
-                console.log(deal.ID)
                 console.log(calls)
               })
               this.deals.push({
