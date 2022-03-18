@@ -121,20 +121,20 @@ export default {
         }).then((contact) => {
           if (contact.length) {
 
-            (new BX24Wrapper()).callMethod('crm.activity.list', {
-              filter: { ASSOCIATED_ENTITY_ID: 82368 }
-            }).then((activities) => {
-              console.log(activities)
-            });
-
-            // (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-            //   FILTER: {
-            //     CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
-            //   }
-            // }).then((calls) => {
-            //
-            //   console.log(calls)
+            // (new BX24Wrapper()).callMethod('crm.activity.list', {
+            //   filter: { ASSOCIATED_ENTITY_ID: 82368 }
+            // }).then((activities) => {
+            //   console.log(activities)
             // });
+
+            (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+              FILTER: {
+                CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
+              }
+            }).then((calls) => {
+
+              console.log(calls)
+            });
 
             (new BX24Wrapper()).callMethod('crm.contact.list', {
               filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
