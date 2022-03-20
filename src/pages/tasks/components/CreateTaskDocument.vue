@@ -249,6 +249,7 @@ export default {
           this.$snackbar('Произошла ошибка')
         }
       } catch (e) {
+        this.loadingFiles = false
         this.$snackbar('Произошла ошибка')
       }
     },
