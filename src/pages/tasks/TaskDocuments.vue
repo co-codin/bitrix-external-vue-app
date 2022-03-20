@@ -77,10 +77,6 @@ export default {
     isLoading: false,
     form: {
       files: []
-    },
-    rules: {
-      'files.*.name': 'required|distinct',
-      'files.*.type': 'required'
     }
   }),
   async mounted() {

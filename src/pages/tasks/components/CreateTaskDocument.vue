@@ -144,7 +144,11 @@ export default {
       { text: 'Счет', value: 1 },
       { text: 'Договор', value: 2 },
       { text: 'УПД', value: 3 }
-    ]
+    ],
+    rules: {
+      'files.*.name': 'required|distinct',
+      'files.*.type': 'required'
+    }
   }),
   methods: {
     async handleFileUpload(e) {
