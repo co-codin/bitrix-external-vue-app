@@ -188,7 +188,8 @@ export default {
       this.form.files = []
     },
     async uploadFiles() {
-      Validator.register('distinct', (value, requirement, attribute) => {
+      console.log('uploading')
+      await Validator.register('distinct', (value, requirement, attribute) => {
         return this.form.files.filter((file) => {
           return file.name === value
         }).length <= 1
