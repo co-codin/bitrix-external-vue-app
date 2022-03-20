@@ -246,11 +246,10 @@ export default {
           this.$emit('uploaded')
           this.dialog = false
         } catch (e) {
-          this.$snackbar('Произошла ошибка')
+          this.$snackbar('Произошла ошибка при привязке файлов.')
         }
       } catch (e) {
-        this.loadingFiles = false
-        this.$snackbar('Произошла ошибка')
+        this.$snackbar('Произошла ошибка при загрузку файлов.')
       }
     },
     onDragEnter(e) {
