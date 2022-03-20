@@ -201,6 +201,8 @@ export default {
         })
       }
 
+      console.log(validation.fails())
+
       if (validation.fails()) {
         this.formErrors = validation.errors.errors
 
@@ -238,14 +240,13 @@ export default {
           await (new BX24Wrapper()).callBatch(batchResponse, false)
           this.form.files = []
           this.$emit('uploaded')
+          this.dialog = false
         } catch (e) {
           this.$snackbar('Произошла ошибка')
         }
       } catch (e) {
         this.$snackbar('Произошла ошибка')
       }
-
-      this.dialog = false
     },
     onDragEnter(e) {
       e.preventDefault()
