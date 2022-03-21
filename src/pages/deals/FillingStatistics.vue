@@ -109,40 +109,37 @@ export default {
     async loadDeals() {
       this.loading = true
 
-      const dealBatch = {
-
-        // get_deal_contact_list: [
-        //   'crm.deal.contact.items.get', {
-        //     id: '$result[get_deal_list][][ID]'
-        //   }]
-        // get_contact_list: ['crm.contact.list', {
-        //   filter: { 'ID': '$result[get_deal_contact_list][CONTACT_ID]' }
-        // }],
-        // get_voximplant_statistic: ['voximplant.statistic.get', {
-        //   FILTER: {
-        //     CRM_ENTITY_ID: '$result[get_deal_contact_list][CONTACT_ID]'
-        //   }
-        // }],
-        // get_activity_list: ['crm.activity.list', {
-        //   filter: { ID: '$result[get_voximplant_statistic][CRM_ACTIVITY_ID]' }
-        // }]
-      }
-
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      const batch = deals.map((deal) => {
+      // this.deals.push({
+      //   id: deal.ID,
+      //   name: deal.TITLE,
+      //   has_company_name: !!deal.COMPANY_ID,
+      //   has_inn: !!deal.UF_ADDITIONAL_INN,
+      //   has_name: !!deal.CONTACT_ID,
+      //   has_planned_activity: !!deal.CLOSEDATE,
+      //   has_sum: !!deal.OPPORTUNITY,
+      //   has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+      //   has_no_overdue_calls: hasNoOverdueCalls,
+      //   has_no_recent_calls: hasNoRecentCalls,
+      //   has_planned_call: hasPlannedCalls
+      // })
+
+      const dealContacts = await (new BX24Wrapper()).callLongBatch(deals.map((deal) => {
         return [
           'crm.deal.contact.items.get', { id: deal.ID }
         ]
+      }))
+
+      const contacts = await (new BX24Wrapper()).callLongBatch('crm.contact.list', {
+        filter: { 'ID': dealContacts.map((item) => item.CONTACT_ID) }
       })
 
-      const batchResponse = await (new BX24Wrapper()).callLongBatch(batch)
-
-      console.log(batchResponse)
+      console.log(contacts)
 
       // deals.forEach((deal) => {
       //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
