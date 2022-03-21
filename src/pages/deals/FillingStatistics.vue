@@ -133,10 +133,10 @@ export default {
 
       deals.forEach((deal) => {
         Object.assign(contactBatch, {
-          get_deal_contact: ['crm.deal.contact.items.get', { id: deal.ID }]
+          get_deal_contact: ['crm.deal.contact.items.list', { filter: { id: deal.ID } }]
         })
         Object.assign(contactBatch, {
-          get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][][CONTACT_ID]' }]
+          get_contact: ['crm.contact.list', { filter: { id: '$result[get_deal_contact][][CONTACT_ID]' } }]
         })
       })
 
