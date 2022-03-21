@@ -115,8 +115,11 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      const dealContactCalls = BX24Wrapper.createCalls('crm.deal.contact.items.get', deals.map((deal) => ({ id: deal.ID })))
+      const dealContactCalls = BX24Wrapper.createCalls('crm.deal.contact.items.get', { id: 3075 })
       const dealContacts = await (new BX24Wrapper()).callBatch(dealContactCalls)
+
+      // const contactCalls = BX24Wrapper.createCalls('crm.contact.get', dealContacts.map((dealContact) => ({ id: dealContact.CONTACT_ID })))
+      // const contacts = await (new BX24Wrapper()).callBatch(contactCalls)
 
       console.log(dealContacts)
 
