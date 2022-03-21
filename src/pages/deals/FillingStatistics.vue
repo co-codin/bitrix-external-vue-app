@@ -132,6 +132,10 @@ export default {
         }]
       }
 
+      const batchResponse = await (new BX24Wrapper()).callBatch(batch, false)
+
+      console.log(batchResponse)
+
       // const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
       //   order: { 'CLOSEDATE': 'DESC' },
       //   filter: { 'ASSIGNED_BY_ID': this.manager.id },
