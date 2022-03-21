@@ -146,6 +146,8 @@ export default {
           return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
         }).includes(true)
 
+        console.log(deal)
+
         this.deals.push({
           id: deal.ID,
           name: deal.TITLE,
@@ -154,12 +156,14 @@ export default {
           has_name: !!deal.CONTACT_ID,
           has_planned_activity: !!deal.CLOSEDATE,
           has_sum: !!deal.OPPORTUNITY,
-          has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+          has_email: contact.map((item) => item.HAS_EMAIL).includes('Y'),
           has_no_overdue_calls: hasNoOverdueCalls,
           has_no_recent_calls: hasNoRecentCalls,
           has_planned_call: hasPlannedCalls
         })
       })
+
+      console.log(this.deals)
 
       this.loading = false
     },
