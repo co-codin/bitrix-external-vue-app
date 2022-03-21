@@ -121,6 +121,8 @@ export default {
       const contactCalls = BX24Wrapper.createCalls('crm.contact.get', dealContacts.map((dealContact) => ({ id: dealContact.CONTACT_ID })))
       const contacts = await (new BX24Wrapper()).callBatch(contactCalls)
 
+      console.log(dealContacts)
+
       console.log(contacts)
       console.log('count')
       console.log(deals.length)
