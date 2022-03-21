@@ -135,21 +135,13 @@ export default {
         ]
       }))
 
-      const contacts = await (new BX24Wrapper()).callLongBatch(dealContacts.map((dealContact) => {
-        return [
-          'crm.contact.list', { filter: { 'ID': dealContact.CONTACT_ID } }
-        ]
-      }))
-
-      const singleContacts = await (new BX24Wrapper()).callLongBatch(dealContacts.map((dealContact) => {
+      const сontacts = await (new BX24Wrapper()).callLongBatch(dealContacts.map((dealContact) => {
         return [
           'crm.contact.get', { id: dealContact.CONTACT_ID }
         ]
       }))
 
-      console.log(contacts)
-
-      console.log(singleContacts)
+      console.log(сontacts)
 
       // deals.forEach((deal) => {
       //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
