@@ -129,17 +129,18 @@ export default {
       //   has_planned_call: hasPlannedCalls
       // })
 
-      const dealContacts = await (new BX24Wrapper()).callLongBatch(deals.map((deal) => {
-        return [
-          'crm.deal.contact.items.get', { id: deal.ID }
-        ]
-      }))
+      const contactBatch = {}
 
-      const contacts = await (new BX24Wrapper()).callLongBatch(dealContacts.map((dealContact) => {
-        return [
-          'crm.contact.get', { id: dealContact.CONTACT_ID }
-        ]
-      }))
+      deals.forEach((deal) => {
+        Object.assign(contactBatch, {
+          get_deal_contact: ['crm.deal.contact.items.get', { id: deal.ID }]
+        })
+        Object.assign(contactBatch, {
+          get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][CONTACT_ID]' }]
+        })
+      })
+
+      const contacts = await (new BX24Wrapper()).callBatch(contactBatch)
 
       console.log(contacts)
 
