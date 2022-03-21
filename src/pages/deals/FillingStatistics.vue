@@ -115,7 +115,7 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      deals.forEach(async (deal) => {
+      await deals.forEach(async (deal) => {
         const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
           id: deal.ID
         })
