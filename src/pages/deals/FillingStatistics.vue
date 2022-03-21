@@ -62,6 +62,7 @@ import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
@@ -73,14 +74,7 @@ export default {
   data: () => ({
     loading: false,
     manager: null,
-    deals: [
-      {
-        id: 83031,
-        name: '#22102 / Максим / Москва',
-        has_company_name: true,
-        has_overdue_call: true
-      }
-    ],
+    deals: [],
 
     headers: [
       { text: '', align: 'left', value: 'name', sortable: false },
@@ -105,15 +99,96 @@ export default {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
       // open deal slider
     },
-    selectUser() {
-      BX24.selectUser((data) => {
-        this.manager = { ...data }
-        this.loadDeals()
+    async selectUser() {
+      BX24.selectUser(async (data) => {
+        this.manager = data
+        await this.loadDeals()
       })
+
     },
-    loadDeals() {
+    async loadDeals() {
       this.loading = true
-      // loading deals for selected user
+
+      const batch = {
+        get_deal_list: [
+          'crm.deal.list', {
+            order: { 'CLOSEDATE': 'DESC' },
+            filter: { 'ASSIGNED_BY_ID': this.manager.id },
+            select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+          }],
+        get_deal_contact_list: ['crm.deal.contact.items.get', {
+          id: '$result[get_deal_list][ID]'
+        }],
+        get_contact_list: ['crm.contact.list', {
+          filter: { 'ID': '$result[get_deal_contact_list][CONTACT_ID]' }
+        }],
+        get_voximplant_statistic: ['voximplant.statistic.get', {
+          FILTER: {
+            CRM_ENTITY_ID: '$result[get_deal_contact_list][CONTACT_ID]'
+          }
+        }],
+        get_activity_list: ['crm.activity.list', {
+          filter: { ID: '$result[get_voximplant_statistic][CRM_ACTIVITY_ID]' }
+        }]
+      }
+
+      // const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
+      //   order: { 'CLOSEDATE': 'DESC' },
+      //   filter: { 'ASSIGNED_BY_ID': this.manager.id },
+      //   select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+      // })
+
+      // deals.forEach((deal) => {
+      //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+      //     id: deal.ID
+      //   }).then((contact) => {
+      //     if (contact.length) {
+      //       (new BX24Wrapper()).callMethod('crm.contact.list', {
+      //         filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
+      //       }).then((res) => {
+      //         (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+      //           FILTER: {
+      //             CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
+      //           }
+      //         }).then((calls) => {
+      //           const activityIds = calls.map((call) => call.CRM_ACTIVITY_ID);
+      //
+      //           (new BX24Wrapper()).callMethod('crm.activity.list', {
+      //             filter: { ID: activityIds }
+      //           }).then((activities) => {
+      //             const hasNoRecentCalls = activities.map((activity) => {
+      //               return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
+      //             }).includes(true)
+      //
+      //             const hasNoOverdueCalls = activities.map((activity) => {
+      //               return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+      //             }).includes(true)
+      //
+      //             const hasPlannedCalls = activities.map((activity) => {
+      //               return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+      //             }).includes(true)
+      //
+      //             this.deals.push({
+      //               id: deal.ID,
+      //               name: deal.TITLE,
+      //               has_company_name: !!deal.COMPANY_ID,
+      //               has_inn: !!deal.UF_ADDITIONAL_INN,
+      //               has_name: !!deal.CONTACT_ID,
+      //               has_planned_activity: !!deal.CLOSEDATE,
+      //               has_sum: !!deal.OPPORTUNITY,
+      //               has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+      //               has_no_overdue_calls: hasNoOverdueCalls,
+      //               has_no_recent_calls: hasNoRecentCalls,
+      //               has_planned_call: hasPlannedCalls
+      //             })
+      //           })
+      //         })
+      //
+      //       })
+      //     }
+      //   })
+      // })
+
       this.loading = false
     },
     getResultCellText(result = true) {
