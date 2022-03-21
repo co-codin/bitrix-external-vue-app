@@ -124,62 +124,41 @@ export default {
           filter: { 'ID': dealContact.map((item) => item.CONTACT_ID) }
         })
 
-        const call = await (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+        const calls = await (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
           FILTER: {
             CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
           }
         })
 
-        console.log(call)
+        const activities = await (new BX24Wrapper()).callMethod('crm.activity.list', {
+          filter: { ID: calls.map((call) => call.CRM_ACTIVITY_ID) }
+        })
 
-      //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
-      //     id: deal.ID
-      //   }).then((contact) => {
-      //     if (contact.length) {
-      //       (new BX24Wrapper()).callMethod('crm.contact.list', {
-      //         filter: { 'ID': contact.map((item) => item.CONTACT_ID) }
-      //       }).then((res) => {
-      //         (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-      //           FILTER: {
-      //             CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
-      //           }
-      //         }).then((calls) => {
-      //           const activityIds = calls.map((call) => call.CRM_ACTIVITY_ID);
-      //
-      //           (new BX24Wrapper()).callMethod('crm.activity.list', {
-      //             filter: { ID: activityIds }
-      //           }).then((activities) => {
-      //             const hasNoRecentCalls = activities.map((activity) => {
-      //               return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
-      //             }).includes(true)
-      //
-      //             const hasNoOverdueCalls = activities.map((activity) => {
-      //               return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
-      //             }).includes(true)
-      //
-      //             const hasPlannedCalls = activities.map((activity) => {
-      //               return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
-      //             }).includes(true)
-      //
-      //             this.deals.push({
-      //               id: deal.ID,
-      //               name: deal.TITLE,
-      //               has_company_name: !!deal.COMPANY_ID,
-      //               has_inn: !!deal.UF_ADDITIONAL_INN,
-      //               has_name: !!deal.CONTACT_ID,
-      //               has_planned_activity: !!deal.CLOSEDATE,
-      //               has_sum: !!deal.OPPORTUNITY,
-      //               has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
-      //               has_no_overdue_calls: hasNoOverdueCalls,
-      //               has_no_recent_calls: hasNoRecentCalls,
-      //               has_planned_call: hasPlannedCalls
-      //             })
-      //           })
-      //         })
-      //
-      //       })
-      //     }
-      //   })
+        const hasNoRecentCalls = activities.map((activity) => {
+          return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
+        }).includes(true)
+
+        const hasNoOverdueCalls = activities.map((activity) => {
+          return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+        }).includes(true)
+
+        const hasPlannedCalls = activities.map((activity) => {
+          return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+        }).includes(true)
+
+        this.deals.push({
+          id: deal.ID,
+          name: deal.TITLE,
+          has_company_name: !!deal.COMPANY_ID,
+          has_inn: !!deal.UF_ADDITIONAL_INN,
+          has_name: !!deal.CONTACT_ID,
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY,
+          has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
+          has_no_overdue_calls: hasNoOverdueCalls,
+          has_no_recent_calls: hasNoRecentCalls,
+          has_planned_call: hasPlannedCalls
+        })
       })
 
       this.loading = false
