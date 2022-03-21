@@ -17,6 +17,7 @@
       </v-card-title>
       <v-data-table
         item-key="id"
+        :items-per-page="100"
         :headers="headers"
         :items="deals"
         :loading="loading"

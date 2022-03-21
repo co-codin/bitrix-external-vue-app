@@ -8,6 +8,7 @@
         :headers="headers"
         :items="files"
         :loading="isLoading"
+        :items-per-page="100"
         loading-text="Идет загрузка..."
         hide-default-footer
       >
@@ -97,6 +98,7 @@ export default {
         )
 
         this.files = task.UF_TASK_WEBDAV_FILES
+        console.log(this.files)
       } catch (e) {
         this.$snackbar('Произошла ошибка при загрузке файлов')
       }
