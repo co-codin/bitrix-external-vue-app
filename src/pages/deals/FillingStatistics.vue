@@ -109,11 +109,15 @@ export default {
     async loadDeals() {
       this.loading = true
 
-      const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
-        order: { 'CLOSEDATE': 'DESC' },
-        filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
-      })
+      const batch = {
+        get_deals: ['crm.deal.list', {
+          order: { 'CLOSEDATE': 'DESC' },
+          filter: { 'ASSIGNED_BY_ID': this.manager.id },
+          select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        }],
+        get_deal_contact: ['crm.deal.contact.items.get', { id: '$result[get_deals][][ID]' }],
+        get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][CONTACT_ID]' }]
+      }
 
       // this.deals.push({
       //   id: deal.ID,
@@ -129,20 +133,9 @@ export default {
       //   has_planned_call: hasPlannedCalls
       // })
 
-      const contactBatch = {}
+      const response = await (new BX24Wrapper()).callBatch(batch)
 
-      deals.forEach((deal) => {
-        Object.assign(contactBatch, {
-          get_deal_contact: ['crm.deal.contact.items.list', { filter: { id: deal.ID } }]
-        })
-        Object.assign(contactBatch, {
-          get_contact: ['crm.contact.list', { filter: { id: '$result[get_deal_contact][][CONTACT_ID]' } }]
-        })
-      })
-
-      const contacts = await (new BX24Wrapper()).callBatch(contactBatch)
-
-      console.log(contacts)
+      console.log(response)
 
       // deals.forEach((deal) => {
       //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
