@@ -92,12 +92,14 @@ export default {
       this.taskId = options?.ID ?? options?.taskId
 
       try {
-        const task = await (new BX24Wrapper()).callMethod(
-          'task.item.getdata',
-          [this.taskId]
+        const files = await (new BX24Wrapper()).callMethod(
+          'task.item.getfiles',
+          { TASKID: this.taskId }
         )
+        
+        console.log(files)
 
-        this.files = task.UF_TASK_WEBDAV_FILES.sort((a, b) => b.ATTACHMENT_ID - a.ATTACHMENT_ID)
+        // this.files = task.UF_TASK_WEBDAV_FILES.sort((a, b) => b.ATTACHMENT_ID - a.ATTACHMENT_ID)
       } catch (e) {
         this.$snackbar('Произошла ошибка при загрузке файлов')
       }

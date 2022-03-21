@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" scrollable max-width="1000px">
+  <v-dialog v-model="dialog" scrollable max-width="1000px" @click:outside="form.files = []">
     <template v-slot:activator="{ on, attrs }">
       <v-btn
         color="primary"
