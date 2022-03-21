@@ -107,8 +107,6 @@ export default {
 
     },
     async loadDeals() {
-      const data = []
-
       this.loading = true
 
       const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
@@ -148,7 +146,7 @@ export default {
           return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
         }).includes(true)
 
-        data.push({
+        this.deals.push({
           id: deal.ID,
           name: deal.TITLE,
           has_company_name: !!deal.COMPANY_ID,
@@ -163,9 +161,10 @@ export default {
         })
 
       })
-      this.deals = this.data
-      this.loading = false
 
+      if (this.deals.length === deals.length) {
+        this.loading = false
+      }
     },
     getResultCellText(result = true) {
 
