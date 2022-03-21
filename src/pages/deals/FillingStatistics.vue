@@ -136,7 +136,7 @@ export default {
           get_deal_contact: ['crm.deal.contact.items.get', { id: deal.ID }]
         })
         Object.assign(contactBatch, {
-          get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][CONTACT_ID]' }]
+          get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][][CONTACT_ID]' }]
         })
       })
 
