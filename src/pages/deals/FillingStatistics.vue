@@ -115,35 +115,13 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      const dealContactCalls = BX24Wrapper.createCalls('crm.deal.contact.items.get', deals.map((deal) => ({ id: deal.ID })))
-      const dealContacts = await (new BX24Wrapper()).callBatch(dealContactCalls)
+      deals.forEach(async (deal) => {
+        const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+          id: deal.ID
+        })
 
-      // const contactCalls = BX24Wrapper.createCalls('crm.contact.get', dealContacts.map((dealContact) => ({ id: dealContact.CONTACT_ID })))
-      // const contacts = await (new BX24Wrapper()).callBatch(contactCalls)
+        console.log(dealContact)
 
-      console.log(dealContacts)
-
-      console.log(contacts)
-      console.log('count')
-      console.log(deals.length)
-      console.log(dealContacts.length)
-      console.log(contacts.length)
-
-      // this.deals.push({
-      //   id: deal.ID,
-      //   name: deal.TITLE,
-      //   has_company_name: !!deal.COMPANY_ID,
-      //   has_inn: !!deal.UF_ADDITIONAL_INN,
-      //   has_name: !!deal.CONTACT_ID,
-      //   has_planned_activity: !!deal.CLOSEDATE,
-      //   has_sum: !!deal.OPPORTUNITY,
-      //   has_email: res.map((item) => item.HAS_EMAIL).includes('Y'),
-      //   has_no_overdue_calls: hasNoOverdueCalls,
-      //   has_no_recent_calls: hasNoRecentCalls,
-      //   has_planned_call: hasPlannedCalls
-      // })
-
-      // deals.forEach((deal) => {
       //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
       //     id: deal.ID
       //   }).then((contact) => {
@@ -192,7 +170,7 @@ export default {
       //       })
       //     }
       //   })
-      // })
+      })
 
       this.loading = false
     },
