@@ -8,7 +8,7 @@
         :headers="headers"
         :items="files"
         :loading="isLoading"
-        :items-per-page="100"
+        :items-per-page="200"
         loading-text="Идет загрузка..."
         hide-default-footer
       >
@@ -97,8 +97,7 @@ export default {
           [this.taskId]
         )
 
-        this.files = task.UF_TASK_WEBDAV_FILES
-        console.log(this.files)
+        this.files = task.UF_TASK_WEBDAV_FILES.sort((a, b) => b.ATTACHMENT_ID - a.ATTACHMENT_ID)
       } catch (e) {
         this.$snackbar('Произошла ошибка при загрузке файлов')
       }

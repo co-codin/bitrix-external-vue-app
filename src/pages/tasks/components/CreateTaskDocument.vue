@@ -381,4 +381,8 @@ p
     text-overflow: ellipsis
     white-space: nowrap
     margin-bottom: 0
+
+.error-block
+  border: 1px solid red !important
+
 </style>
