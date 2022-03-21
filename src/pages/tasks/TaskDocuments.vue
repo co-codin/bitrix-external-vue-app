@@ -97,13 +97,6 @@ export default {
           { TASKID: this.taskId }
         )
 
-        const file = await (new BX24Wrapper()).callMethod(
-          'disk.file.get',
-          { id: 714799 }
-        )
-
-        console.log(file)
-
         this.files = files.sort((a, b) => b.ATTACHMENT_ID - a.ATTACHMENT_ID)
       } catch (e) {
         this.$snackbar('Произошла ошибка при загрузке файлов')
