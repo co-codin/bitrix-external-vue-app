@@ -115,11 +115,11 @@ export default {
             order: { 'CLOSEDATE': 'DESC' },
             filter: { 'ASSIGNED_BY_ID': this.manager.id },
             select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+          }],
+        get_deal_contact_list: [
+          'crm.deal.contact.items.get', {
+            id: '$result[get_deal_list][ID]'
           }]
-        // get_deal_contact_list: [
-        //   'crm.deal.contact.items.get', {
-        //     id: '$result[get_deal_list][ID]'
-        //   }],
         // get_contact_list: ['crm.contact.list', {
         //   filter: { 'ID': '$result[get_deal_contact_list][CONTACT_ID]' }
         // }],
