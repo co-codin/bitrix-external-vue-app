@@ -120,7 +120,17 @@ export default {
           id: deal.ID
         })
 
-        console.log(dealContact)
+        const contact = await (new BX24Wrapper()).callMethod('crm.contact.list', {
+          filter: { 'ID': dealContact.map((item) => item.CONTACT_ID) }
+        })
+
+        const call = await (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+          FILTER: {
+            CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
+          }
+        })
+
+        console.log(call)
 
       //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
       //     id: deal.ID
