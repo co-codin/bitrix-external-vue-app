@@ -109,15 +109,16 @@ export default {
     async loadDeals() {
       this.loading = true
 
-      const batch = {
-        get_deals: ['crm.deal.list', {
-          order: { 'CLOSEDATE': 'DESC' },
-          filter: { 'ASSIGNED_BY_ID': this.manager.id },
-          select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
-        }],
-        get_deal_contact: ['crm.deal.contact.items.get', { id: '$result[get_deals][][ID]' }]
-        // get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][CONTACT_ID]' }]
-      }
+      const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
+        order: { 'CLOSEDATE': 'DESC' },
+        filter: { 'ASSIGNED_BY_ID': this.manager.id },
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+      })
+
+      const dealContactCalls = BX24Wrapper.createCalls('crm.deal.contact.items.get', deals.map((deal) => ({ id: deal.ID })))
+      const dealContacts = await (new BX24Wrapper()).callBatch(dealContactCalls)
+
+      console.log(dealContacts)
 
       // this.deals.push({
       //   id: deal.ID,
@@ -132,10 +133,6 @@ export default {
       //   has_no_recent_calls: hasNoRecentCalls,
       //   has_planned_call: hasPlannedCalls
       // })
-
-      const response = await (new BX24Wrapper()).callBatch(batch)
-
-      console.log(response)
 
       // deals.forEach((deal) => {
       //   (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
