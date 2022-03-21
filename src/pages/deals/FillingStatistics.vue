@@ -161,11 +161,12 @@ export default {
           has_no_recent_calls: hasNoRecentCalls,
           has_planned_call: hasPlannedCalls
         })
+
+        if (--deals.lenght === 0) {
+          this.loading = false
+        }
       })
 
-      console.log(this.deals)
-
-      this.loading = false
     },
     getResultCellText(result = true) {
 
