@@ -99,7 +99,7 @@ export default {
 
         const file = await (new BX24Wrapper()).callMethod(
           'disk.file.get',
-          { ID: 714799 }
+          { id: 714799 }
         )
 
         console.log(file)
