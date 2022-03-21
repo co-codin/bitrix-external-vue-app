@@ -115,8 +115,8 @@ export default {
           filter: { 'ASSIGNED_BY_ID': this.manager.id },
           select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
         }],
-        get_deal_contact: ['crm.deal.contact.items.get', { id: '$result[get_deals][ID]' }],
-        get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][CONTACT_ID]' }]
+        get_deal_contact: ['crm.deal.contact.items.get', { id: '$result[get_deals][][ID]' }]
+        // get_contact: ['crm.contact.get', { id: '$result[get_deal_contact][CONTACT_ID]' }]
       }
 
       // this.deals.push({
