@@ -116,7 +116,19 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      console.log(deals)
+      const dealContactBatch = deals.map((deal) => {
+        return [
+          'crm.deal.contact.items.get', { id: deal.ID }
+        ]
+      })
+
+      dealContactBatch.push([
+        'crm.deal.contact.items.get', { id: 564321 }
+      ])
+
+      const dealContacts = (new BX24Wrapper()).callLongBatch(dealContactBatch)
+
+      console.log(dealContacts)
 
       // await deals.forEach(async (deal) => {
       //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
