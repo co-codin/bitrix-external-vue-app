@@ -122,10 +122,6 @@ export default {
         ]
       })
 
-      dealContactBatch.push([
-        'crm.deal.contact.items.get', { id: 564321 }
-      ])
-
       const dealContacts = await (new BX24Wrapper()).callLongBatch(dealContactBatch, false)
 
       console.log(dealContacts)
