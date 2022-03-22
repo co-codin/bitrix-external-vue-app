@@ -116,6 +116,8 @@ export default {
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
+      console.log(deals.length)
+
       const dealContactBatch = deals.map((deal) => {
         return [
           'crm.deal.contact.items.get', { id: deal.ID }
@@ -124,7 +126,17 @@ export default {
 
       const dealContacts = await (new BX24Wrapper()).callLongBatch(dealContactBatch, false)
 
-      console.log(dealContacts)
+      console.log(dealContacts.length)
+
+      const contactBatch = dealContacts.map((dealContact) => {
+        return [
+          'crm.contact.get', { id: dealContact.CONTACT_ID }
+        ]
+      })
+
+      const contacts = await (new BX24Wrapper()).callLongBatch(contactBatch, false)
+
+      console.log(contacts.length)
 
       // await deals.forEach(async (deal) => {
       //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
