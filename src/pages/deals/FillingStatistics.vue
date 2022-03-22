@@ -110,58 +110,60 @@ export default {
     async loadDeals() {
       this.loading = true
 
-      const deals = await (new BX24Wrapper()).callMethod('crm.deal.list', {
+      const deals = await (new BX24Wrapper()).callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
-      await deals.forEach(async (deal) => {
-        const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
-          id: deal.ID
-        })
+      console.log(deals)
 
-        const contact = await (new BX24Wrapper()).callMethod('crm.contact.list', {
-          filter: { 'ID': dealContact.map((item) => item.CONTACT_ID) }
-        })
-
-        const calls = await (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-          FILTER: {
-            CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
-          }
-        })
-
-        const activities = await (new BX24Wrapper()).callMethod('crm.activity.list', {
-          filter: { ID: calls.map((call) => call.CRM_ACTIVITY_ID) }
-        })
-
-        const hasNoRecentCalls = activities.map((activity) => {
-          return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
-        }).includes(true)
-
-        const hasNoOverdueCalls = activities.map((activity) => {
-          return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
-        }).includes(true)
-
-        const hasPlannedCalls = activities.map((activity) => {
-          return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
-        }).includes(true)
-
-        this.deals.push({
-          id: deal.ID,
-          name: deal.TITLE,
-          has_company_name: !!deal.COMPANY_ID,
-          has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!deal.CONTACT_ID,
-          has_planned_activity: !!deal.CLOSEDATE,
-          has_sum: !!deal.OPPORTUNITY,
-          has_email: contact.map((item) => item.HAS_EMAIL).includes('Y'),
-          has_no_overdue_calls: hasNoOverdueCalls,
-          has_no_recent_calls: hasNoRecentCalls,
-          has_planned_call: hasPlannedCalls
-        })
-
-      })
+      // await deals.forEach(async (deal) => {
+      //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
+      //     id: deal.ID
+      //   })
+      //
+      //   const contact = await (new BX24Wrapper()).callMethod('crm.contact.list', {
+      //     filter: { 'ID': dealContact.map((item) => item.CONTACT_ID) }
+      //   })
+      //
+      //   const calls = await (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
+      //     FILTER: {
+      //       CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
+      //     }
+      //   })
+      //
+      //   const activities = await (new BX24Wrapper()).callMethod('crm.activity.list', {
+      //     filter: { ID: calls.map((call) => call.CRM_ACTIVITY_ID) }
+      //   })
+      //
+      //   const hasNoRecentCalls = activities.map((activity) => {
+      //     return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
+      //   }).includes(true)
+      //
+      //   const hasNoOverdueCalls = activities.map((activity) => {
+      //     return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+      //   }).includes(true)
+      //
+      //   const hasPlannedCalls = activities.map((activity) => {
+      //     return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+      //   }).includes(true)
+      //
+      //   this.deals.push({
+      //     id: deal.ID,
+      //     name: deal.TITLE,
+      //     has_company_name: !!deal.COMPANY_ID,
+      //     has_inn: !!deal.UF_ADDITIONAL_INN,
+      //     has_name: !!deal.CONTACT_ID,
+      //     has_planned_activity: !!deal.CLOSEDATE,
+      //     has_sum: !!deal.OPPORTUNITY,
+      //     has_email: contact.map((item) => item.HAS_EMAIL).includes('Y'),
+      //     has_no_overdue_calls: hasNoOverdueCalls,
+      //     has_no_recent_calls: hasNoRecentCalls,
+      //     has_planned_call: hasPlannedCalls
+      //   })
+      //
+      // })
 
       if (this.deals.length === deals.length) {
         this.loading = false
