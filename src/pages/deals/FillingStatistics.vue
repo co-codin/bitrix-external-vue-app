@@ -128,25 +128,27 @@ export default {
 
       console.log(dealContacts.length)
 
-      const contactBatch = dealContacts.map((dealContact) => {
-        return [
-          'crm.contact.list', { id: dealContact.map((dealContact) => dealContact.CONTACT_ID) }
-        ]
-      })
+      console.log(dealContacts)
 
-      const contacts = await (new BX24Wrapper()).callLargeBatch(contactBatch, false)
-
-      console.log(contacts.length)
-
-      const callBatch = contacts.map((contact) => {
-        return [
-          'crm.contact.list', { FILTER: { CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID) } }
-        ]
-      })
-
-      const calls = await (new BX24Wrapper()).callLargeBatch(callBatch, false)
-
-      console.log(calls.length)
+      // const contactBatch = dealContacts.map((dealContact) => {
+      //   return [
+      //     'crm.contact.list', { id: dealContact.map((dealContact) => dealContact.CONTACT_ID) }
+      //   ]
+      // })
+      //
+      // const contacts = await (new BX24Wrapper()).callLargeBatch(contactBatch, false)
+      //
+      // console.log(contacts.length)
+      //
+      // const callBatch = contacts.map((contact) => {
+      //   return [
+      //     'crm.contact.list', { FILTER: { CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID) } }
+      //   ]
+      // })
+      //
+      // const calls = await (new BX24Wrapper()).callLargeBatch(callBatch, false)
+      //
+      // console.log(calls.length)
 
       // await deals.forEach(async (deal) => {
       //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
