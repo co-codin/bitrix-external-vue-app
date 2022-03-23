@@ -130,7 +130,7 @@ export default {
 
       const contactBatch = dealContacts.map((dealContact) => {
         return [
-          'crm.contact.get', { id: dealContact.map((dealContact) => dealContact.CONTACT_ID) }
+          'crm.contact.list', { filter: { ID: dealContact.map((dealContact) => dealContact.CONTACT_ID) } }
         ]
       })
 
