@@ -135,10 +135,10 @@ export default {
       })
 
       console.log(contactBatch)
-      //
-      // const contacts = await (new BX24Wrapper()).callLargeBatch(contactBatch, false)
-      //
-      // console.log(contacts.length)
+      
+      const contacts = await (new BX24Wrapper()).callLargeBatch(contactBatch, false)
+
+      console.log(contacts.length)
       //
       // const callBatch = contacts.map((contact) => {
       //   return [
