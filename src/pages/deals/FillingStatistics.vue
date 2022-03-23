@@ -184,7 +184,7 @@ export default {
         this.deals.push({
           id: deal.ID,
           name: deal.TITLE,
-          has_company_name: !!companies[index].map((company) => contact.TITLE).length,
+          has_company_name: !!companies[index].map((company) => company.TITLE).length,
           has_inn: !!deal.UF_ADDITIONAL_INN,
           has_name: !!deal.CONTACT_ID,
           has_planned_activity: !!deal.CLOSEDATE,
