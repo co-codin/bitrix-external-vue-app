@@ -128,8 +128,6 @@ export default {
 
       console.log(companies.length)
 
-      console.log(companies)
-
       const dealContactBatch = deals.map((deal) => {
         return [
           'crm.deal.contact.items.get', { id: deal.ID }
@@ -186,12 +184,12 @@ export default {
         this.deals.push({
           id: deal.ID,
           name: deal.TITLE,
-          has_company_name: !!companies[index].TITLE,
+          has_company_name: !!companies[index].map((company) => contact.TITLE).length,
           has_inn: !!deal.UF_ADDITIONAL_INN,
           has_name: !!deal.CONTACT_ID,
           has_planned_activity: !!deal.CLOSEDATE,
           has_sum: !!deal.OPPORTUNITY,
-          has_email: contacts[index].map((item) => item.HAS_EMAIL).includes('Y'),
+          has_email: contacts[index].map((contact) => contact.HAS_EMAIL).includes('Y'),
           has_no_overdue_calls: hasNoOverdueCalls,
           has_no_recent_calls: hasNoRecentCalls,
           has_planned_call: hasPlannedCalls
