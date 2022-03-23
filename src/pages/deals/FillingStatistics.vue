@@ -170,11 +170,11 @@ export default {
 
       deals.forEach((deal, index) => {
         const hasNoRecentCalls = activities[index].map((activity) => {
-          return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
+          return ((new Date()).getTime() - (new Date(activity.START_TIME)).getTime()) / (1000 * 3600 * 24) < 60
         }).includes(true)
 
         const hasNoOverdueCalls = activities[index].map((activity) => {
-          return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+          return ((new Date(activity.START_TIME)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
         }).includes(true)
 
         const hasPlannedCalls = activities[index].map((activity) => {
@@ -196,60 +196,7 @@ export default {
         })
       })
 
-      // await deals.forEach(async (deal) => {
-      //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
-      //     id: deal.ID
-      //   })
-      //
-      //   const contact = await (new BX24Wrapper()).callMethod('crm.contact.list', {
-      //     filter: { 'ID': dealContact.map((item) => item.CONTACT_ID) }
-      //   })
-      //
-      //   const calls = await (new BX24Wrapper()).callMethod('voximplant.statistic.get', {
-      //     FILTER: {
-      //       CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
-      //     }
-      //   })
-      //
-      //   const activities = await (new BX24Wrapper()).callMethod('crm.activity.list', {
-      //     filter: { ID: calls.map((call) => call.CRM_ACTIVITY_ID) }
-      //   })
-      //
-      //   const hasNoRecentCalls = activities.map((activity) => {
-      //     return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
-      //   }).includes(true)
-      //
-      //   const hasNoOverdueCalls = activities.map((activity) => {
-      //     return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
-      //   }).includes(true)
-      //
-      //   const hasPlannedCalls = activities.map((activity) => {
-      //     return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
-      //   }).includes(true)
-      //
-      //   this.deals.push({
-      //     id: deal.ID,
-      //     name: deal.TITLE,
-      //     has_company_name: !!deal.COMPANY_ID,
-      //     has_inn: !!deal.UF_ADDITIONAL_INN,
-      //     has_name: !!deal.CONTACT_ID,
-      //     has_planned_activity: !!deal.CLOSEDATE,
-      //     has_sum: !!deal.OPPORTUNITY,
-      //     has_email: contact.map((item) => item.HAS_EMAIL).includes('Y'),
-      //     has_no_overdue_calls: hasNoOverdueCalls,
-      //     has_no_recent_calls: hasNoRecentCalls,
-      //     has_planned_call: hasPlannedCalls
-      //   })
-      //
-      // })
-
-      console.log(this.deals)
       this.loading = false
-
-      // if (this.deals.length === deals.length) {
-      //   console.log(this.deals)
-      //   this.loading = false
-      // }
     },
     getResultCellText(result = true) {
 
