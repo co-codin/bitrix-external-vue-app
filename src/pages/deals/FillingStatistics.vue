@@ -138,17 +138,17 @@ export default {
 
       const contacts = await (new BX24Wrapper()).callLongBatch(contactBatch, false)
 
-      console.log(contacts)
-      //
-      // const callBatch = contacts.map((contact) => {
-      //   return [
-      //     'crm.contact.list', { FILTER: { CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID) } }
-      //   ]
-      // })
-      //
-      // const calls = await (new BX24Wrapper()).callLargeBatch(callBatch, false)
-      //
-      // console.log(calls.length)
+      console.log(contacts.length)
+
+      const callBatch = contacts.map((contact) => {
+        return [
+          'voximplant.statistic.get', { FILTER: { CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID) } }
+        ]
+      })
+
+      const calls = await (new BX24Wrapper()).callLongBatch(callBatch, false)
+
+      console.log(calls.length)
 
       // await deals.forEach(async (deal) => {
       //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
