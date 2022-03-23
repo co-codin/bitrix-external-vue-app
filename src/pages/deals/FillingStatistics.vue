@@ -118,6 +118,18 @@ export default {
 
       console.log(deals.length)
 
+      const companyBatch = deals.map((deal) => {
+        return [
+          'crm.company.get', { id: deal.COMPANY_ID }
+        ]
+      })
+
+      const companies = await (new BX24Wrapper()).callLongBatch(companyBatch, false)
+
+      console.log(companies.length)
+
+      console.log(companies)
+
       const dealContactBatch = deals.map((deal) => {
         return [
           'crm.deal.contact.items.get', { id: deal.ID }
@@ -157,6 +169,34 @@ export default {
       const activities = await (new BX24Wrapper()).callLongBatch(activityBatch, false)
 
       console.log(activities.length)
+
+      deals.forEach((deal, index) => {
+        const hasNoRecentCalls = activities[index].map((activity) => {
+          return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60
+        }).includes(true)
+
+        const hasNoOverdueCalls = activities[index].map((activity) => {
+          return ((new Date(activity.CREATED)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+        }).includes(true)
+
+        const hasPlannedCalls = activities[index].map((activity) => {
+          return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+        }).includes(true)
+
+        this.deals.push({
+          id: deal.ID,
+          name: deal.TITLE,
+          has_company_name: !!companies[index].TITLE,
+          has_inn: !!deal.UF_ADDITIONAL_INN,
+          has_name: !!deal.CONTACT_ID,
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY,
+          has_email: contacts[index].map((item) => item.HAS_EMAIL).includes('Y'),
+          has_no_overdue_calls: hasNoOverdueCalls,
+          has_no_recent_calls: hasNoRecentCalls,
+          has_planned_call: hasPlannedCalls
+        })
+      })
 
       // await deals.forEach(async (deal) => {
       //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
@@ -205,9 +245,12 @@ export default {
       //
       // })
 
-      if (this.deals.length === deals.length) {
-        this.loading = false
-      }
+      console.log(this.deals)
+
+      // if (this.deals.length === deals.length) {
+      //   console.log(this.deals)
+      //   this.loading = false
+      // }
     },
     getResultCellText(result = true) {
 
