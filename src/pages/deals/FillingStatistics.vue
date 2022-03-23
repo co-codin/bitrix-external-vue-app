@@ -120,7 +120,7 @@ export default {
 
       const companyBatch = deals.map((deal) => {
         return [
-          'crm.company.get', { id: deal.COMPANY_ID }
+          'crm.company.list', { filter: { ID: deal.COMPANY_ID } }
         ]
       })
 
