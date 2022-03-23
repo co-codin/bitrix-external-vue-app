@@ -244,6 +244,7 @@ export default {
       // })
 
       console.log(this.deals)
+      this.loading = false
 
       // if (this.deals.length === deals.length) {
       //   console.log(this.deals)
