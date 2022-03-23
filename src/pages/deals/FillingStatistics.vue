@@ -134,8 +134,6 @@ export default {
         ]
       })
 
-      console.log(contactBatch)
-
       const contacts = await (new BX24Wrapper()).callLongBatch(contactBatch, false)
 
       console.log(contacts.length)
@@ -149,6 +147,16 @@ export default {
       const calls = await (new BX24Wrapper()).callLongBatch(callBatch, false)
 
       console.log(calls.length)
+
+      const activityBatch = calls.map((call) => {
+        return [
+          'crm.activity.list', { filter: { ID: call.map((call) => call.CRM_ACTIVITY_ID) } }
+        ]
+      })
+
+      const activities = await (new BX24Wrapper()).callLongBatch(activityBatch, false)
+
+      console.log(activities.length)
 
       // await deals.forEach(async (deal) => {
       //   const dealContact = await (new BX24Wrapper()).callMethod('crm.deal.contact.items.get', {
