@@ -16,7 +16,7 @@
         </v-btn>
       </v-card-title>
       <v-data-table
-        item-key="id"
+        item-key="name"
         :items-per-page="10000"
         :headers="headers"
         fixed-header
