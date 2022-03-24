@@ -156,7 +156,8 @@ export default {
         return [
           'voximplant.statistic.get', {
             FILTER: {
-              CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
+              CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID),
+              CRM_ENTITY_TYPE: 'TIMELINE'
             }
           }
         ]
@@ -166,7 +167,7 @@ export default {
 
       console.log('calls')
 
-      console.log(calls.length)
+      console.log(calls)
 
       const activityBatch = calls.map((call, index) => {
         return [
@@ -185,7 +186,6 @@ export default {
 
       deals.forEach((deal, index) => {
         if (deal.ID === 86041 || deal.ID === '86041') {
-          console.log(deal)
           console.log(activities[index])
         }
         const hasNoRecentCalls = activities[index].map((activity) => {
