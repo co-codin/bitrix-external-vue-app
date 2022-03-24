@@ -150,8 +150,8 @@ export default {
       const activitiesById = {}
 
       activities.forEach((activity) => {
-        if (activitiesById[activity.OWNER_ID]) {
-          activitiesById[activity.OWNER_ID] = activitiesById[activity.OWNER_ID].push(activity)
+        if (activity.OWNER_ID in activitiesById) {
+          activitiesById[activity.OWNER_ID].push(activity)
         } else {
           activitiesById[activity.OWNER_ID] = [activity]
         }
