@@ -171,7 +171,8 @@ export default {
       const activityBatch = deals.map((deal) => {
         return [
           'crm.activity.list', { filter: {
-            OWNER_ID: deal.ASSIGNED_BY_ID
+            OWNER_ID: deal.ID,
+            OWNER_TYPE_ID: 2
           } }
         ]
       })
