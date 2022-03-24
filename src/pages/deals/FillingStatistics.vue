@@ -20,6 +20,7 @@
         :items-per-page="10000"
         :headers="headers"
         fixed-header
+        height="100%"
         :items="deals"
         :loading="loading"
         loading-text="Идет загрузка..."
@@ -79,7 +80,7 @@ export default {
     deals: [],
 
     headers: [
-      { text: '', align: 'left', value: 'name', sortable: false, fixed: true },
+      { text: '', align: 'left', value: 'name', sortable: false },
       { text: 'Компания', value: 'has_company_name', sortable: false },
       { text: 'ИНН', value: 'has_inn', sortable: false },
       { text: 'Имя', value: 'has_name', sortable: false },
