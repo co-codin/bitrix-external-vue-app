@@ -17,7 +17,6 @@
       </v-card-title>
       <v-data-table
         item-key="name"
-        :fixed-header="true"
         :items-per-page="10000"
         :headers="headers"
         fixed-header
