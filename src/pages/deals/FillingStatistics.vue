@@ -108,7 +108,7 @@ export default {
 
     },
     async loadDeals() {
-      const bx24 = await new BX24Wrapper()
+      const bx24 = new BX24Wrapper()
 
       this.loading = true
 
@@ -120,13 +120,13 @@ export default {
 
       console.log(deals.length)
 
-      // const companyBatch = deals.map((deal) => {
-      //   return [
-      //     'crm.company.list', { filter: { ID: deal.COMPANY_ID } }
-      //   ]
-      // })
+      const companyBatch = deals.map((deal) => {
+        return [
+          'crm.company.list', { filter: { ID: deal.COMPANY_ID } }
+        ]
+      })
 
-      const companies = await bx24.callListMethod('crm.company.list', { filter: { ID: deals.map((deal) => deal.COMPANY_ID) } })
+      const companies = await bx24.callLongBatch(companyBatch, false)
 
       console.log(companies.length)
 
@@ -136,7 +136,7 @@ export default {
         ]
       })
 
-      const dealContacts = await (new BX24Wrapper()).callLongBatch(dealContactBatch, false)
+      const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
 
       console.log(dealContacts.length)
 
@@ -146,17 +146,22 @@ export default {
         ]
       })
 
-      const contacts = await (new BX24Wrapper()).callLongBatch(contactBatch, false)
+      const contacts = await bx24.callLongBatch(contactBatch, false)
 
       console.log(contacts.length)
 
       const callBatch = contacts.map((contact) => {
         return [
-          'voximplant.statistic.get', { FILTER: { CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID) } }
+          'voximplant.statistic.get', {
+            FILTER: {
+              CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID),
+              CRM_ENTITY_TYPE: 'DEAL'
+            }
+          }
         ]
       })
 
-      const calls = await (new BX24Wrapper()).callLongBatch(callBatch, false)
+      const calls = await bx24.callLongBatch(callBatch, false)
 
       console.log(calls.length)
 
@@ -166,7 +171,7 @@ export default {
         ]
       })
 
-      const activities = await (new BX24Wrapper()).callLongBatch(activityBatch, false)
+      const activities = await bx24.callLongBatch(activityBatch, false)
 
       console.log(activities.length)
 
