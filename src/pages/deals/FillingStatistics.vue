@@ -185,7 +185,7 @@ export default {
         }).includes(true)
 
         const hasNoOverdueCalls = activities[index].map((activity) => {
-          return ((new Date(activity.START_TIME)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+          return ((new Date()).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
         }).includes(true)
 
         const hasPlannedCalls = activities[index].map((activity) => {
