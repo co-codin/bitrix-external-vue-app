@@ -172,7 +172,8 @@ export default {
         return [
           'crm.activity.list', { filter: {
             OWNER_ID: deal.ID,
-            OWNER_TYPE_ID: 2
+            OWNER_TYPE_ID: 2,
+            TYPE_ID: 2
           } }
         ]
       })
