@@ -173,7 +173,7 @@ export default {
           'crm.activity.list', { filter: {
             ID: call.map((call) => call.CRM_ACTIVITY_ID),
             TYPE_ID: 2,
-            OWNER_ID: deals[index].map((deal) => deal.ASSIGNED_BY_ID)
+            OWNER_ID: deals[index].ASSIGNED_BY_ID
           } }
         ]
       })
