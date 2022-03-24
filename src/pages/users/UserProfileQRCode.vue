@@ -100,15 +100,12 @@
 
 <script>
 import PageLoader from '@/components/PageLoader'
-import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import VueQr from 'vue-qr'
-import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
     PageLoader,
-    CopyIcon,
     DownloadIcon,
     VueQr
   },
