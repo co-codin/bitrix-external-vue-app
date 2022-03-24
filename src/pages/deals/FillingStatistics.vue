@@ -126,7 +126,7 @@ export default {
 
       const companies = await bx24.callListMethod('crm.company.list', {
         filter: { 'ID': companyIds },
-        select: ['ID', 'TITLE']
+        select: ['ID', 'TITLE', 'BANKING_DETAILS']
       })
 
       const companiesById = {}
@@ -134,6 +134,20 @@ export default {
       companies.forEach((company) => {
         companiesById[company.ID] = company
       })
+
+      console.log(companies.length)
+
+      const dealIds = deals.map((deal) => deal.ID).filter(Boolean)
+
+      const activities = await bx24.callListMethod('crm.activity.list', {
+        filter: {
+          OWNER_ID: dealIds,
+          OWNER_TYPE_ID: 2,
+          TYPE_ID: 2
+        }
+      })
+
+      console.log(activities.length)
 
       const dealContactBatch = deals.map((deal) => {
         return [
@@ -154,20 +168,6 @@ export default {
       const contacts = await bx24.callLongBatch(contactBatch, false)
 
       console.log(contacts.length)
-
-      const activityBatch = deals.map((deal) => {
-        return [
-          'crm.activity.list', { filter: {
-            OWNER_ID: deal.ID,
-            OWNER_TYPE_ID: 2,
-            TYPE_ID: 2
-          } }
-        ]
-      })
-
-      const activities = await bx24.callLongBatch(activityBatch, false)
-
-      console.log(activities.length)
 
       deals.forEach((deal, index) => {
         const hasNoRecentCalls = activities[index].map((activity) => {
