@@ -168,45 +168,45 @@ export default {
 
       const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
 
-      const contactIdsById = {}
+      console.log(dealContacts.length)
 
-      console.log(dealContacts)
+      const contactBatch = dealContacts.map((dealContact) => {
+        return [
+          'crm.contact.list', { filter: { ID: dealContact.map((dealContact) => dealContact.CONTACT_ID) } }
+        ]
+      })
 
-      // const contactIds = dealContacts.map((dealContact) => dealContact.CONTACT_ID)
-      //
-      // const contacts = await bx24.callListMethod('crm.contact.list', {
-      //   filter: { ID: contactIds }
-      // })
-      //
-      // console.log(contacts.length)
+      const contacts = await bx24.callLongBatch(contactBatch, false)
 
-      // deals.forEach((deal, index) => {
-      //   const hasNoRecentCalls = activities[index].map((activity) => {
-      //     return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60 && activity.COMPLETED === 'Y'
-      //   }).includes(true)
-      //
-      //   const hasNoOverdueCalls = activities[index].map((activity) => {
-      //     return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) > 1 && activity.COMPLETED === 'N'
-      //   }).includes(true)
-      //
-      //   const hasPlannedCalls = activities[index].map((activity) => {
-      //     return ((new Date(activity.END_TIME)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
-      //   }).includes(true)
-      //
-      //   this.deals.push({
-      //     id: deal.ID,
-      //     name: deal.TITLE,
-      //     has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
-      //     has_inn: !!deal.UF_ADDITIONAL_INN,
-      //     has_name: !!deal.CONTACT_ID,
-      //     has_planned_activity: !!deal.CLOSEDATE,
-      //     has_sum: !!deal.OPPORTUNITY,
-      //     has_email: contacts[index].map((contact) => contact.HAS_EMAIL).includes('Y'),
-      //     has_no_overdue_calls: hasNoOverdueCalls,
-      //     has_no_recent_calls: hasNoRecentCalls,
-      //     has_planned_call: hasPlannedCalls
-      //   })
-      // })
+      console.log(contacts.length)
+
+      deals.forEach((deal, index) => {
+        const hasNoRecentCalls = activities[deal.ID].map((activity) => {
+          return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60 && activity.COMPLETED === 'Y'
+        }).includes(true)
+
+        const hasNoOverdueCalls = activities[deal.ID].map((activity) => {
+          return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) > 1 && activity.COMPLETED === 'N'
+        }).includes(true)
+
+        const hasPlannedCalls = activities[deal.ID].map((activity) => {
+          return ((new Date(activity.END_TIME)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+        }).includes(true)
+
+        this.deals.push({
+          id: deal.ID,
+          name: deal.TITLE,
+          has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
+          has_inn: !!deal.UF_ADDITIONAL_INN || (companiesById?.[deal.COMPANY_ID]?.BANKING_DETAILS?.length),
+          has_name: !!contacts[index]?.NAME.length,
+          has_planned_activity: !!deal.CLOSEDATE,
+          has_sum: !!deal.OPPORTUNITY,
+          has_email: contacts[index].map((contact) => contact.HAS_EMAIL).includes('Y'),
+          has_no_overdue_calls: hasNoOverdueCalls,
+          has_no_recent_calls: hasNoRecentCalls,
+          has_planned_call: hasPlannedCalls
+        })
+      })
 
       this.loading = false
     },
