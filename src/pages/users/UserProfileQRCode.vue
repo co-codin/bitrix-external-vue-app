@@ -18,20 +18,13 @@
                   v-model="form.last_name"
                   label="Фамилия"
                   dense
-                  :rules="lastnameRules"
                   required
                 />
                 <v-text-field
                   v-model="form.first_name"
                   label="Имя"
                   dense
-                  :rules="firstnameRules"
                   required
-                />
-                <v-text-field
-                  v-model="form.middle_name"
-                  label="Отчество"
-                  dense
                 />
                 <v-text-field
                   v-model="form.position"
@@ -42,7 +35,6 @@
                   v-model="form.phone"
                   label="Телефон"
                   dense
-                  :rules="phoneRules"
                   required
                 />
                 <v-text-field
@@ -111,6 +103,7 @@ import PageLoader from '@/components/PageLoader'
 import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import VueQr from 'vue-qr'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
@@ -127,23 +120,12 @@ export default {
     form: {
       last_name: '',
       first_name: '',
-      middle_name: '',
       position: '',
       company: 'MEDEQ',
       phone: '',
       email: '',
       website: 'https://medeq.ru'
     },
-    lastnameRules: [
-      (v) => !!v || 'Фамилия обязательно'
-    ],
-    firstnameRules: [
-      (v) => !!v || 'Имя обязательно'
-    ],
-    phoneRules: [
-      (v) => !!v || 'Телефон обязательно',
-      (v) => /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/.test(v) || 'Телефон неправильно'
-    ],
     dataUrl: null
   }),
   computed: {
@@ -151,22 +133,17 @@ export default {
       return 'BEGIN:VCARD\n' +
         `N:${this.form.last_name};${this.form.first_name};\n` +
         `TEL;TYPE=work,VOICE:${this.form.phone}\n` +
-        `EMAIL:${this.form.phone}\n` +
+        `EMAIL:${this.form.email}\n` +
         `ORG:${this.form.company}\n` +
         `TITLE:${this.form.position}\n` +
         `URL:${this.form.website}\n` +
         'VERSION:3.0\n' +
         'END:VCARD'
     }
-
   },
 
   async mounted() {
     this.loadUser()
-    // this.loading = false
-    this.$nextTick(() => {
-      this.$refs.form?.validate()
-    })
   },
   methods: {
     loadUser() {
@@ -180,12 +157,10 @@ export default {
         if (res.data()) {
           this.form.last_name = res.data()[0].LAST_NAME
           this.form.first_name = res.data()[0].NAME
-          this.form.middle_name = res.data()[0].SECOND_NAME
           this.form.position = res.data()[0].WORK_POSITION
           this.form.phone = res.data()[0].PERSONAL_MOBILE ?? '8 (800) 555-73-87'
           this.form.email = res.data()[0].EMAIL
         }
-        this.$refs.form.validate()
       })
 
       this.loading = false
