@@ -167,9 +167,6 @@ export default {
       console.log(activities.length)
 
       deals.forEach((deal, index) => {
-        if (deal.ID === 86041 || deal.ID === '86041') {
-          console.log(activities[index])
-        }
         const hasNoRecentCalls = activities[index].map((activity) => {
           return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60 && activity.COMPLETED === 'Y'
         }).includes(true)
