@@ -12,17 +12,16 @@
               <v-form
                 v-if="form"
                 ref="form"
-                v-model="valid"
               >
                 <v-text-field
-                  v-model="form.last_name"
-                  label="Фамилия"
+                  v-model="form.first_name"
+                  label="Имя"
                   dense
                   required
                 />
                 <v-text-field
-                  v-model="form.first_name"
-                  label="Имя"
+                  v-model="form.last_name"
+                  label="Фамилия"
                   dense
                   required
                 />
@@ -59,7 +58,6 @@
         <v-col cols="12" sm="6" class="pl-sm-2">
           <v-divider class="d-sm-none d-block mt-3 mb-3" />
           <v-card
-            v-if="valid"
             max-width="300"
             class="pt-1"
           >
@@ -114,7 +112,6 @@ export default {
     user: null,
     error: null,
     loading: true,
-    valid: false,
     form: {
       last_name: '',
       first_name: '',
