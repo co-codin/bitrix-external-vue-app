@@ -117,7 +117,7 @@ export default {
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'ASSIGNED_BY_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
       console.log(deals.length)
@@ -168,9 +168,13 @@ export default {
 
       console.log(calls.length)
 
-      const activityBatch = calls.map((call) => {
+      const activityBatch = calls.map((call, index) => {
         return [
-          'crm.activity.list', { filter: { ID: call.map((call) => call.CRM_ACTIVITY_ID), TYPE_ID: 2 } }
+          'crm.activity.list', { filter: {
+            ID: call.map((call) => call.CRM_ACTIVITY_ID),
+            TYPE_ID: 2,
+            OWNER_ID: deals[index].map((deal) => deal.ASSIGNED_BY_ID)
+          } }
         ]
       })
 
@@ -181,6 +185,7 @@ export default {
 
       deals.forEach((deal, index) => {
         if (deal.ID === 86041 || deal.ID === '86041') {
+          console.log(deal)
           console.log(activities[index])
         }
         const hasNoRecentCalls = activities[index].map((activity) => {
