@@ -126,7 +126,7 @@ export default {
       //   ]
       // })
 
-      const companies = await bx24.callListMethod('crm.company.list', { filter: { ID: deals.COMPANY_ID } })
+      const companies = await bx24.callListMethod('crm.company.list', { filter: { ID: deals.map((deal) => deal.COMPANY_ID) } })
 
       console.log(companies.length)
 
