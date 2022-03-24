@@ -16,16 +16,18 @@
         </v-btn>
       </v-card-title>
       <v-data-table
-        item-key="id"
-        :items-per-page="100"
+        item-key="name"
+        :items-per-page="10000"
         :headers="headers"
+        fixed-header
+        height="100%"
         :items="deals"
         :loading="loading"
         loading-text="Идет загрузка..."
         hide-default-footer
       >
         <template #item.name="{ item }">
-          <div class="font-weight-bold text-no-wrap">
+          <div class="font-weight-bold text-no-wrap headcol">
             <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
           </div>
         </template>
@@ -79,15 +81,15 @@ export default {
 
     headers: [
       { text: '', align: 'left', value: 'name', sortable: false },
-      { text: 'Компания', value: 'has_company_name', sortable: false },
-      { text: 'ИНН', value: 'has_inn', sortable: false },
-      { text: 'Имя', value: 'has_name', sortable: false },
-      { text: 'E-mail', value: 'has_email', sortable: false },
-      { text: 'Дело', value: 'has_planned_activity', sortable: false },
-      { text: 'Сумма', value: 'has_sum', sortable: false },
-      { text: 'Нет просроченных звонков', value: 'has_no_overdue_calls', sortable: false },
-      { text: 'За последние 60 дней был звонок', value: 'has_no_recent_calls', sortable: false },
-      { text: 'Звонок позже 60 дней', value: 'has_planned_call', sortable: false }
+      { text: 'Компания', align: 'left', value: 'has_company_name', sortable: false },
+      { text: 'ИНН', align: 'left', value: 'has_inn', sortable: false },
+      { text: 'Имя', align: 'left', value: 'has_name', sortable: false },
+      { text: 'E-mail', align: 'left', value: 'has_email', sortable: false },
+      { text: 'Дело', align: 'left', value: 'has_planned_activity', sortable: false },
+      { text: 'Сумма', align: 'left', value: 'has_sum', sortable: false },
+      { text: 'Нет просроченных звонков', align: 'left', value: 'has_no_overdue_calls', sortable: false },
+      { text: 'За последние 60 дней был звонок', align: 'left', value: 'has_no_recent_calls', sortable: false },
+      { text: 'Звонок позже 60 дней', align: 'left', value: 'has_planned_call', sortable: false }
     ]
   }),
   computed: {
@@ -108,9 +110,11 @@ export default {
 
     },
     async loadDeals() {
+      const bx24 = new BX24Wrapper()
+
       this.loading = true
 
-      const deals = await (new BX24Wrapper()).callListMethod('crm.deal.list', {
+      const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
@@ -124,7 +128,7 @@ export default {
         ]
       })
 
-      const companies = await (new BX24Wrapper()).callLongBatch(companyBatch, false)
+      const companies = await bx24.callLongBatch(companyBatch, false)
 
       console.log(companies.length)
 
@@ -134,7 +138,7 @@ export default {
         ]
       })
 
-      const dealContacts = await (new BX24Wrapper()).callLongBatch(dealContactBatch, false)
+      const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
 
       console.log(dealContacts.length)
 
@@ -144,17 +148,24 @@ export default {
         ]
       })
 
-      const contacts = await (new BX24Wrapper()).callLongBatch(contactBatch, false)
+      const contacts = await bx24.callLongBatch(contactBatch, false)
 
       console.log(contacts.length)
 
       const callBatch = contacts.map((contact) => {
         return [
-          'voximplant.statistic.get', { FILTER: { CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID) } }
+          'voximplant.statistic.get', {
+            FILTER: {
+              CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID),
+              CRM_ENTITY_TYPE: 'DEAL'
+            }
+          }
         ]
       })
 
-      const calls = await (new BX24Wrapper()).callLongBatch(callBatch, false)
+      const calls = await bx24.callLongBatch(callBatch, false)
+
+      console.log('calls')
 
       console.log(calls.length)
 
@@ -164,7 +175,7 @@ export default {
         ]
       })
 
-      const activities = await (new BX24Wrapper()).callLongBatch(activityBatch, false)
+      const activities = await bx24.callLongBatch(activityBatch, false)
 
       console.log(activities.length)
 
@@ -174,7 +185,7 @@ export default {
         }).includes(true)
 
         const hasNoOverdueCalls = activities[index].map((activity) => {
-          return ((new Date(activity.START_TIME)).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
+          return ((new Date()).getTime() - (new Date(activity.DEADLINE)).getTime()) / (1000 * 3600 * 24) > 1
         }).includes(true)
 
         const hasPlannedCalls = activities[index].map((activity) => {
@@ -204,3 +215,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.headcol {
+  position:absolute;
+  width:30%;
+  left:0;
+  background:#eee;
+  text-align: center !important;
+  padding-top: 10px !important;
+}
+</style>
