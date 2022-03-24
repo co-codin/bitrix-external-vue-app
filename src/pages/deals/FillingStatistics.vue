@@ -117,20 +117,23 @@ export default {
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'ASSIGNED_BY_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
       console.log(deals.length)
 
-      const companyBatch = deals.map((deal) => {
-        return [
-          'crm.company.list', { filter: { ID: deal.COMPANY_ID } }
-        ]
+      const companyIds = deals.map((deal) => deal.COMPANY_ID).filter(Boolean)
+
+      const companies = await bx24.callListMethod('crm.company.list', {
+        filter: { 'ID': companyIds },
+        select: ['ID', 'TITLE']
       })
 
-      const companies = await bx24.callLongBatch(companyBatch, false)
+      const companiesById = {}
 
-      console.log(companies.length)
+      companies.forEach((company) => {
+        companiesById[company.ID] = company
+      })
 
       const dealContactBatch = deals.map((deal) => {
         return [
@@ -182,7 +185,7 @@ export default {
         this.deals.push({
           id: deal.ID,
           name: deal.TITLE,
-          has_company_name: !!companies[index].map((company) => company.TITLE).length,
+          has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN,
           has_name: !!deal.CONTACT_ID,
           has_planned_activity: !!deal.CLOSEDATE,
