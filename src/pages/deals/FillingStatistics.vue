@@ -120,13 +120,13 @@ export default {
 
       console.log(deals.length)
 
-      const companyBatch = deals.map((deal) => {
-        return [
-          'crm.company.list', { filter: { ID: deal.COMPANY_ID } }
-        ]
-      })
+      // const companyBatch = deals.map((deal) => {
+      //   return [
+      //     'crm.company.list', { filter: { ID: deal.COMPANY_ID } }
+      //   ]
+      // })
 
-      const companies = await bx24.callListMethod('crm.company.list', { filter: { ID: deal.COMPANY_ID } })
+      const companies = await bx24.callListMethod('crm.company.list', { filter: { ID: deals.COMPANY_ID } })
 
       console.log(companies.length)
 
