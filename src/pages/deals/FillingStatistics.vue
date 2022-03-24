@@ -150,7 +150,7 @@ export default {
       const activitiesById = {}
 
       activities.forEach((activity) => {
-        activitiesById[activity.OWNER_ID] = activity
+        activitiesById[activity.OWNER_ID] += activity
       })
 
       console.log(activitiesById)
