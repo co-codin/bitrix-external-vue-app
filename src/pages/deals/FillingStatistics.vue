@@ -145,7 +145,7 @@ export default {
           OWNER_TYPE_ID: 2,
           TYPE_ID: 2
         },
-        select: ['CREATED', 'END_TIME', 'COMPLETED']
+        select: ['CREATED', 'END_TIME', 'COMPLETED', 'OWNER_ID']
       })
 
       console.log(activities.length)
