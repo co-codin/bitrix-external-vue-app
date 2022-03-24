@@ -144,6 +144,11 @@ export default {
           OWNER_ID: dealIds,
           OWNER_TYPE_ID: 2,
           TYPE_ID: 2
+        },
+        select: {
+          CREATED,
+          END_TIME,
+          COMPLETED
         }
       })
 
@@ -171,7 +176,15 @@ export default {
 
       const contactBatch = dealContacts.map((dealContact) => {
         return [
-          'crm.contact.list', { filter: { ID: dealContact.map((dealContact) => dealContact.CONTACT_ID) } }
+          'crm.contact.list', {
+            filter: {
+              ID: dealContact.map((dealContact) => dealContact.CONTACT_ID)
+            },
+            select: {
+              NAME,
+              HAS_EMAIL
+            }
+          }
         ]
       })
 
