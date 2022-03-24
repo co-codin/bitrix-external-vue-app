@@ -156,8 +156,7 @@ export default {
         return [
           'voximplant.statistic.get', {
             FILTER: {
-              CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID),
-              CRM_ENTITY_TYPE: 'DEAL'
+              CRM_ENTITY_ID: contact.map((item) => item.CONTACT_ID)
             }
           }
         ]
@@ -178,6 +177,7 @@ export default {
       const activities = await bx24.callLongBatch(activityBatch, false)
 
       console.log(activities.length)
+      console.log(activities)
 
       deals.forEach((deal, index) => {
         if (deal.ID === 86041 || deal.ID === '86041') {
