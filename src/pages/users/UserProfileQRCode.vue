@@ -61,6 +61,7 @@
           <v-card
             v-if="valid"
             max-width="300"
+            class="pt-1"
           >
             <vue-qr
               :text="qrCode"
