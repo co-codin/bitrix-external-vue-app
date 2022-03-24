@@ -197,10 +197,10 @@ export default {
           name: deal.TITLE,
           has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN || (companiesById?.[deal.COMPANY_ID]?.BANKING_DETAILS?.length),
-          has_name: !!contacts[index]?.NAME.length,
+          has_name: !!contacts[index]?.NAME?.length,
           has_planned_activity: !!deal.CLOSEDATE,
           has_sum: !!deal.OPPORTUNITY,
-          has_email: contacts[index]?.map((contact) => contact.HAS_EMAIL).includes('Y'),
+          has_email: contacts[index]?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
           has_no_overdue_calls: hasNoOverdueCalls,
           has_no_recent_calls: hasNoRecentCalls,
           has_planned_call: hasPlannedCalls
