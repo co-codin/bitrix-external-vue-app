@@ -145,11 +145,7 @@ export default {
           OWNER_TYPE_ID: 2,
           TYPE_ID: 2
         },
-        select: {
-          CREATED,
-          END_TIME,
-          COMPLETED
-        }
+        select: ['CREATED', 'END_TIME', 'COMPLETED']
       })
 
       console.log(activities.length)
@@ -180,10 +176,10 @@ export default {
             filter: {
               ID: dealContact.map((dealContact) => dealContact.CONTACT_ID)
             },
-            select: {
-              NAME,
-              HAS_EMAIL
-            }
+            select: [
+              'NAME',
+              'HAS_EMAIL'
+            ]
           }
         ]
       })
