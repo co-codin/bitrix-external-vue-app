@@ -180,6 +180,13 @@ export default {
       console.log(activities.length)
 
       deals.forEach((deal, index) => {
+        if (deal.ID === 86041 || deal.ID === '86041') {
+          console.log(activities[index].START_TIME)
+          console.log(activities[index].END_TIME)
+          console.log(activities[index].DEADLINE)
+          console.log(activities[index].CREATED)
+          console.log(activities[index].LAST_UPDATED)
+        }
         const hasNoRecentCalls = activities[index].map((activity) => {
           return ((new Date()).getTime() - (new Date(activity.START_TIME)).getTime()) / (1000 * 3600 * 24) < 60
         }).includes(true)
@@ -189,7 +196,7 @@ export default {
         }).includes(true)
 
         const hasPlannedCalls = activities[index].map((activity) => {
-          return ((new Date(activity.DEADLINE)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
+          return ((new Date(activity.END_TIME)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
         }).includes(true)
 
         this.deals.push({
