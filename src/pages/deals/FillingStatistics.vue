@@ -157,7 +157,6 @@ export default {
         } else {
           activitiesById[activity.OWNER_ID] = [activity]
         }
-
       })
 
       const dealContactBatch = deals.map((deal) => {
@@ -181,15 +180,15 @@ export default {
       console.log(contacts.length)
 
       deals.forEach((deal, index) => {
-        const hasNoRecentCalls = activities[deal.ID].map((activity) => {
+        const hasNoRecentCalls = activities[deal.ID]?.map((activity) => {
           return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60 && activity.COMPLETED === 'Y'
         }).includes(true)
 
-        const hasNoOverdueCalls = activities[deal.ID].map((activity) => {
+        const hasNoOverdueCalls = activities[deal.ID]?.map((activity) => {
           return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) > 1 && activity.COMPLETED === 'N'
         }).includes(true)
 
-        const hasPlannedCalls = activities[deal.ID].map((activity) => {
+        const hasPlannedCalls = activities[deal.ID]?.map((activity) => {
           return ((new Date(activity.END_TIME)).getTime() - (new Date()).getTime()) / (1000 * 3600 * 24) > 55
         }).includes(true)
 
@@ -201,7 +200,7 @@ export default {
           has_name: !!contacts[index]?.NAME.length,
           has_planned_activity: !!deal.CLOSEDATE,
           has_sum: !!deal.OPPORTUNITY,
-          has_email: contacts[index].map((contact) => contact.HAS_EMAIL).includes('Y'),
+          has_email: contacts[index]?.map((contact) => contact.HAS_EMAIL).includes('Y'),
           has_no_overdue_calls: hasNoOverdueCalls,
           has_no_recent_calls: hasNoRecentCalls,
           has_planned_call: hasPlannedCalls
