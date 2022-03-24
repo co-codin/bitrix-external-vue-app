@@ -159,16 +159,16 @@ export default {
         }
       })
 
-      const dealContactBatch = {}
-
-      deals.forEach((deal) => {
-        dealContactBatch[deal.ID] = ['crm.deal.contact.items.get', { id: deal.ID }]
+      const dealContactBatch = deals.map((deal) => {
+        return [
+          { [deal.ID]: ['crm.deal.contact.items.get', { id: deal.ID }] }
+        ]
       })
 
-      const dealContacts = await bx24.callBatch(dealContactBatch, false)
+      const dealContacts = await bx24.callLargeBatch(dealContactBatch, false)
 
-      console.log(dealContacts.length)
       console.log(dealContacts)
+      console.log(dealContacts.length)
 
       // const contactBatch = dealContacts.map((dealContact) => {
       //   return [
@@ -179,7 +179,7 @@ export default {
       // const contacts = await bx24.callLongBatch(contactBatch, false)
       //
       // console.log(contacts.length)
-
+      //
       // deals.forEach((deal, index) => {
       //   const hasNoRecentCalls = activitiesById[deal.ID]?.map((activity) => {
       //     return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) < 60 && activity.COMPLETED === 'Y'
