@@ -20,7 +20,7 @@
         :items-per-page="10000"
         :headers="headers"
         fixed-header
-        height="100%"
+        height="500"
         :items="deals"
         :loading="loading"
         loading-text="Идет загрузка..."
