@@ -170,7 +170,7 @@ export default {
 
       const activityBatch = calls.map((call) => {
         return [
-          'crm.activity.list', { filter: { ID: call.map((call) => call.CRM_ACTIVITY_ID) } }
+          'crm.activity.list', { filter: { ID: call.map((call) => call.CRM_ACTIVITY_ID), TYPE_ID: 2 } }
         ]
       })
 
