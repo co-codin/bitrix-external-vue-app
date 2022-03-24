@@ -147,6 +147,8 @@ export default {
         }
       })
 
+      console.log(activities.length)
+
       const activitiesById = {}
 
       activities.forEach((activity) => {
@@ -158,25 +160,23 @@ export default {
 
       })
 
-      console.log(activitiesById)
+      const dealContactBatch = deals.map((deal) => {
+        return [
+          'crm.deal.contact.items.get', { id: deal.ID }
+        ]
+      })
 
-      // const dealContactBatch = deals.map((deal) => {
-      //   return [
-      //     'crm.deal.contact.items.get', { id: deal.ID }
-      //   ]
+      const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
+
+      const contactIdsById = {}
+
+      console.log(dealContacts)
+
+      // const contactIds = dealContacts.map((dealContact) => dealContact.CONTACT_ID)
+      //
+      // const contacts = await bx24.callListMethod('crm.contact.list', {
+      //   filter: { ID: contactIds }
       // })
-      //
-      // const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
-      //
-      // console.log(dealContacts.length)
-      //
-      // const contactBatch = dealContacts.map((dealContact) => {
-      //   return [
-      //     'crm.contact.list', { filter: { ID: dealContact.map((dealContact) => dealContact.CONTACT_ID) } }
-      //   ]
-      // })
-      //
-      // const contacts = await bx24.callLongBatch(contactBatch, false)
       //
       // console.log(contacts.length)
 
