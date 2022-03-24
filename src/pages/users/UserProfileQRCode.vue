@@ -72,15 +72,15 @@
             />
             <v-divider/>
             <v-card-actions class="justify-center py-2">
-              <v-btn
-                icon
-                class="pa-3"
-                color="primary"
-                title="Скопировать QR код в буфер обмена"
-                @click="copyImageToClipboard"
-              >
-                <copy-icon width="38" height="38" />
-              </v-btn>
+<!--              <v-btn-->
+<!--                icon-->
+<!--                class="pa-3"-->
+<!--                color="primary"-->
+<!--                title="Скопировать QR код в буфер обмена"-->
+<!--                @click="copyImageToClipboard"-->
+<!--              >-->
+<!--                <copy-icon width="38" height="38" />-->
+<!--              </v-btn>-->
               <v-btn
                 class="pa-3"
                 icon
