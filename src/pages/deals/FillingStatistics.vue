@@ -163,6 +163,8 @@ export default {
 
       const calls = await bx24.callLongBatch(callBatch, false)
 
+      console.log('calls')
+
       console.log(calls.length)
 
       const activityBatch = calls.map((call) => {
