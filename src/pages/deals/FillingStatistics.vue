@@ -78,7 +78,7 @@ export default {
     deals: [],
 
     headers: [
-      { text: '', align: 'left', value: 'name', sortable: false },
+      { text: '', align: 'left', value: 'name', sortable: false, fixed: true },
       { text: 'Компания', value: 'has_company_name', sortable: false },
       { text: 'ИНН', value: 'has_inn', sortable: false },
       { text: 'Имя', value: 'has_name', sortable: false },
@@ -108,9 +108,11 @@ export default {
 
     },
     async loadDeals() {
+      const bx24 = await new BX24Wrapper()
+
       this.loading = true
 
-      const deals = await (new BX24Wrapper()).callListMethod('crm.deal.list', {
+      const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
@@ -124,7 +126,7 @@ export default {
         ]
       })
 
-      const companies = await (new BX24Wrapper()).callLongBatch(companyBatch, false)
+      const companies = await bx24.callListMethod('crm.company.list', { filter: { ID: deal.COMPANY_ID } })
 
       console.log(companies.length)
 
