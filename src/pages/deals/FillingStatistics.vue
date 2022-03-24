@@ -17,8 +17,9 @@
       </v-card-title>
       <v-data-table
         item-key="id"
-        :items-per-page="100"
+        :items-per-page="10000"
         :headers="headers"
+        fixed-header
         :items="deals"
         :loading="loading"
         loading-text="Идет загрузка..."
