@@ -276,7 +276,7 @@ export default {
           name: deal.TITLE,
           has_company_name: !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!(contacts[index]?.filter((contact) => contact.NAME).length),
+          has_name: !!(contacts[index]?.filter((contact) => contact.NAME !== '').length),
           has_planned_activity: hasPlannedActivities,
           has_sum: !!deal.UF_PROCEEDS,
           has_email: contacts[index]?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
