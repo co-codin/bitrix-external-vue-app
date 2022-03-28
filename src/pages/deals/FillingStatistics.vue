@@ -26,26 +26,32 @@
         loading-text="Идет загрузка..."
         hide-default-footer
       >
-        <template #item.index="{ item }">
-          <div class="font-weight-bold text-no-wrap headcol">
-            # {{ item.index }}
-          </div>
-        </template>
+        <!--        <template #item.index="{ item }">-->
+        <!--          <div class="font-weight-bold text-no-wrap headcol">-->
+        <!--            # {{ item.index }}-->
+        <!--          </div>-->
+        <!--        </template>-->
 
-        <template #item.name="{ item }">
-          <div class="font-weight-bold text-no-wrap">
-            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
-          </div>
-        </template>
+        <!--        <template #item.name="{ item }">-->
+        <!--          <div class="font-weight-bold text-no-wrap">-->
+        <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
+        <!--          </div>-->
+        <!--        </template>-->
 
         <template #item="{ headers, item }">
           <tr>
             <td>
               <div class="font-weight-bold text-no-wrap">
+                # {{ item.index }}
                 <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
               </div>
             </td>
-            <td v-for="(header, i) in headers.slice(1)" :key="i">
+            <td>
+              <div class="font-weight-bold text-no-wrap">
+                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+              </div>
+            </td>
+            <td v-for="(header, i) in headers.slice(2)" :key="i">
               <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
                 <div class="d-flex justify-center align-center">
                   <check-circle-solid-icon width="15" height="15" />
