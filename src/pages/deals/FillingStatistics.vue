@@ -221,7 +221,7 @@ export default {
         ]
       })
 
-      const dealContacts = await bx24.callBatch(dealContactBatch, false)
+      const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
 
       console.log(dealContacts.length)
 
@@ -260,7 +260,7 @@ export default {
         const hasPlannedActivities = !!activityResponse[3]?.filter((activity) => {
           return activity.OWNER_ID === deal.ID
         }).length
-        
+
         this.deals.push({
           index: index + 1,
           id: deal.ID,
