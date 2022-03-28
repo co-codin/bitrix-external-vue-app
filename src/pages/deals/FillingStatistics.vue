@@ -119,7 +119,7 @@ export default {
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'OPPORTUNITY', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'UF_PROCEEDS', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
       })
 
       console.log(deals.length)
@@ -258,7 +258,7 @@ export default {
           has_inn: !!deal.UF_ADDITIONAL_INN || (companiesById?.[deal.COMPANY_ID]?.BANKING_DETAILS?.length),
           has_name: !!contacts[index]?.NAME?.length,
           has_planned_activity: hasPlannedActivities,
-          has_sum: !!deal.OPPORTUNITY,
+          has_sum: !!deal.UF_PROCEEDS,
           has_email: contacts[index]?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
           has_no_overdue_calls: hasNoOverdueCalls,
           has_no_recent_calls: hasNoRecentCalls,
