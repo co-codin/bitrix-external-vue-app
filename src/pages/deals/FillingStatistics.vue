@@ -1,73 +1,81 @@
 <template>
   <div>
-    <v-card>
-      <v-card-title class="cursor-pointer" @click="selectUser">
-        <document-search-icon width="30" height="30" class="mr-1" />
-        {{ isUserSelected ? manager.name : 'Выберите ответственного менеджера' }}
-      </v-card-title>
-    </v-card>
+    <template>
+      <v-btn @click="choice = 1">Статистика заполнения по менеджерам</v-btn>
+      <v-btn @click="choice = 2">Сводка по менеджерам</v-btn>
+    </template>
+    <template v-if="choice === 1">
+      <v-card>
+        <v-card-title class="cursor-pointer" @click="selectUser">
+          <document-search-icon width="30" height="30" class="mr-1" />
+          {{ isUserSelected ? manager.name : 'Выберите ответственного менеджера' }}
+        </v-card-title>
+      </v-card>
 
-    <v-card v-if="isUserSelected" class="mt-3">
-      <v-card-title>
-        Сделки
-        <v-spacer />
-        <v-btn icon>
-          <download-icon width="30" height="30" />
-        </v-btn>
-      </v-card-title>
-      <v-data-table
-        item-key="name"
-        :items-per-page="10000"
-        :headers="headers"
-        fixed-header
-        height="600"
-        :items="deals"
-        :loading="loading"
-        loading-text="Идет загрузка..."
-        hide-default-footer
-      >
-        <!--        <template #item.index="{ item }">-->
-        <!--          <div class="font-weight-bold text-no-wrap headcol">-->
-        <!--            # {{ item.index }}-->
-        <!--          </div>-->
-        <!--        </template>-->
+      <v-card v-if="isUserSelected" class="mt-3">
+        <v-card-title>
+          Сделки
+          <v-spacer />
+          <v-btn icon>
+            <download-icon width="30" height="30" />
+          </v-btn>
+        </v-card-title>
+        <v-data-table
+          item-key="name"
+          :items-per-page="10000"
+          :headers="headers"
+          fixed-header
+          height="600"
+          :items="deals"
+          :loading="loading"
+          loading-text="Идет загрузка..."
+          hide-default-footer
+        >
+          <!--        <template #item.index="{ item }">-->
+          <!--          <div class="font-weight-bold text-no-wrap headcol">-->
+          <!--            # {{ item.index }}-->
+          <!--          </div>-->
+          <!--        </template>-->
 
-        <!--        <template #item.name="{ item }">-->
-        <!--          <div class="font-weight-bold text-no-wrap">-->
-        <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
-        <!--          </div>-->
-        <!--        </template>-->
+          <!--        <template #item.name="{ item }">-->
+          <!--          <div class="font-weight-bold text-no-wrap">-->
+          <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
+          <!--          </div>-->
+          <!--        </template>-->
 
-        <template #item="{ headers, item }">
-          <tr>
-            <td>
-              <div class="font-weight-bold text-no-wrap">
-                {{ item.index }}
-              </div>
-            </td>
-            <td>
-              <div class="font-weight-bold text-no-wrap">
-                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
-              </div>
-            </td>
-            <td v-for="(header, i) in headers.slice(2)" :key="i">
-              <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
-                <div class="d-flex justify-center align-center">
-                  <check-circle-solid-icon width="15" height="15" />
-                  <div class="text-caption font-weight-bold ml-1">Да</div>
+          <template #item="{ headers, item }">
+            <tr>
+              <td>
+                <div class="font-weight-bold text-no-wrap">
+                  {{ item.index }}
                 </div>
-              </div>
-              <div v-else class="red--text text--darken-4">
-                <div class="d-flex justify-center align-center">
-                  <x-circle-solid-icon width="15" height="15" />
-                  <div class="text-caption font-weight-bold ml-1">Нет</div>
+              </td>
+              <td>
+                <div class="font-weight-bold text-no-wrap">
+                  <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+              </td>
+              <td v-for="(header, i) in headers.slice(2)" :key="i">
+                <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
+                  <div class="d-flex justify-center align-center">
+                    <check-circle-solid-icon width="15" height="15" />
+                    <div class="text-caption font-weight-bold ml-1">Да</div>
+                  </div>
+                </div>
+                <div v-else class="red--text text--darken-4">
+                  <div class="d-flex justify-center align-center">
+                    <x-circle-solid-icon width="15" height="15" />
+                    <div class="text-caption font-weight-bold ml-1">Нет</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </template>
+    <template v-if="choice === 2">под разработкой</template>
+
   </div>
 </template>
 
@@ -86,6 +94,7 @@ export default {
     DownloadIcon
   },
   data: () => ({
+    choice: null,
     loading: false,
     manager: null,
     deals: [],
