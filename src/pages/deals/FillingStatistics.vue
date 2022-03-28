@@ -26,9 +26,9 @@
         loading-text="Идет загрузка..."
         hide-default-footer
       >
-        <template #item.id="{ item }">
+        <template #item.index="{ item }">
           <div class="font-weight-bold text-no-wrap headcol">
-            # {{ index }}
+            # {{ item.index }}
           </div>
         </template>
 
