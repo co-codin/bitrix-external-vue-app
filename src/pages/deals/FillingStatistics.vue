@@ -20,7 +20,7 @@
         :items-per-page="10000"
         :headers="headers"
         fixed-header
-        height="100%"
+        height="600px;"
         :items="deals"
         :loading="loading"
         loading-text="Идет загрузка..."
@@ -233,6 +233,7 @@ export default {
       const contacts = await bx24.callLongBatch(contactBatch, false)
 
       console.log(contacts.length)
+      console.log(contacts)
 
       deals.forEach((deal, index) => {
         const hasNoRecentCalls = !!activityResponse[0]?.filter((activity) => {
@@ -255,7 +256,7 @@ export default {
           id: index + 1,
           name: deal.TITLE,
           has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
-          has_inn: !!deal.UF_ADDITIONAL_INN || (companiesById?.[deal.COMPANY_ID]?.BANKING_DETAILS?.length),
+          has_inn: !!deal.UF_ADDITIONAL_INN,
           has_name: !!contacts[index]?.NAME?.length,
           has_planned_activity: hasPlannedActivities,
           has_sum: !!deal.UF_PROCEEDS,
