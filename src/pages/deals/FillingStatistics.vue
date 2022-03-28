@@ -143,6 +143,7 @@ export default {
 
       const activityBatch = [
         [
+          // hasNoRecentCalls
           'crm.activity.list',
           {
             filter: {
@@ -157,6 +158,7 @@ export default {
           }
         ],
         [
+          // hasNoOverdueCalls
           'crm.activity.list',
           {
             filter: {
@@ -170,6 +172,7 @@ export default {
           }
         ],
         [
+          // hasPlannedCalls
           'crm.activity.list',
           {
             filter: {
@@ -183,12 +186,12 @@ export default {
           }
         ],
         [
+          // hasPlannedActivities
           'crm.activity.list',
           {
             filter: {
               OWNER_ID: dealIds,
               OWNER_TYPE_ID: 2,
-              TYPE_ID: 2,
               COMPLETED: 'N',
               '>END_TIME': now.format('YYYY-MM-DD HH:mm:ss')
             },
@@ -201,25 +204,16 @@ export default {
 
       console.log(activityResponse)
 
-      // const activities = await bx24.callListMethod('crm.activity.list', {
-      //   filter: {
-      //     OWNER_ID: dealIds,
-      //     OWNER_TYPE_ID: 2
-      //   },
-      //   select: ['CREATED', 'END_TIME', 'COMPLETED', 'OWNER_ID', 'TYPE_ID']
-      // })
-      //
-      // console.log(activities.length)
-      //
-      // const activitiesById = {}
-      //
-      // activities.forEach((activity) => {
-      //   if (activity.OWNER_ID in activitiesById) {
-      //     activitiesById[activity.OWNER_ID].push(activity)
-      //   } else {
-      //     activitiesById[activity.OWNER_ID] = [activity]
-      //   }
-      // })
+      const activitiesById = {}
+
+      activityResponse.forEach((activities, index) => {
+        console.log(activities, index)
+        // if (activity.OWNER_ID in activitiesById) {
+        //   activitiesById[activity.OWNER_ID].push(activity)
+        // } else {
+        //   activitiesById[activity.OWNER_ID] = [activity]
+        // }
+      })
 
       // const dealContactBatch = deals.map((deal) => {
       //   return [
