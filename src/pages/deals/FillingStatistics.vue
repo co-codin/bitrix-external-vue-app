@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template>
+    <template v-if="!choice">
       <v-btn @click="choice = 1">Статистика заполнения по менеджерам</v-btn>
       <v-btn @click="choice = 2">Сводка по менеджерам</v-btn>
     </template>
