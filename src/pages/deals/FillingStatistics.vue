@@ -80,7 +80,7 @@ export default {
     deals: [],
 
     headers: [
-      { text: '', align: 'left', value: 'id', sortable: false },
+      { text: '', align: 'left', value: 'index', sortable: false },
       { text: '', align: 'left', value: 'name', sortable: false },
       { text: 'Компания', align: 'left', value: 'has_company_name', sortable: false },
       { text: 'ИНН', align: 'left', value: 'has_inn', sortable: false },
@@ -253,7 +253,8 @@ export default {
         }).length
 
         this.deals.push({
-          id: index + 1,
+          index: index + 1,
+          id: deal.ID,
           name: deal.TITLE,
           has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN,
