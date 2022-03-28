@@ -141,17 +141,39 @@ export default {
 
       const now = this.$dayjs()
 
-      const recentCallActivities = await bx24.callListMethod('crm.activity.list', {
-        filter: {
-          OWNER_ID: dealIds,
-          OWNER_TYPE_ID: 2,
-          TYPE_ID: 2,
-          '>=CREATED': now.subtract(50, 'day').format('YYYY-MM-DD HH:mm:ss'),
-          '<=CREATED': now.format('YYYY-MM-DD HH:mm:ss')
-        }
-      })
+      const activityBatch = [
+        [
+          'crm.activity.list',
+          {
+            filter: {
+              OWNER_ID: dealIds,
+              OWNER_TYPE_ID: 2,
+              TYPE_ID: 2,
+              COMPLETED: 'Y',
+              '>=CREATED': now.subtract(50, 'day').format('YYYY-MM-DD HH:mm:ss'),
+              '<=CREATED': now.format('YYYY-MM-DD HH:mm:ss')
+            },
+            select: ['OWNER_ID']
+          }
+        ],
+        [
+          'crm.activity.list',
+          {
+            filter: {
+              OWNER_ID: dealIds,
+              OWNER_TYPE_ID: 2,
+              TYPE_ID: 2,
+              COMPLETED: 'N',
+              '>=END_TIME': now.format('YYYY-MM-DD HH:mm:ss')
+            },
+            select: ['OWNER_ID']
+          }
+        ]
+      ]
 
-      console.log(recentCallActivities)
+      const activityResponse = await bx24.callBatch(activityBatch, false)
+
+      console.log(activityResponse)
 
       // const activities = await bx24.callListMethod('crm.activity.list', {
       //   filter: {
@@ -209,7 +231,7 @@ export default {
       //   }).includes(true)
       //
       //   const hasNoOverdueCalls = activitiesById[deal.ID]?.map((activity) => {
-      //     return ((new Date()).getTime() - (new Date(activity.CREATED)).getTime()) / (1000 * 3600 * 24) > 1 &&
+      //     return ((new Date()).getTime() - (new Date(activity.END_TIME)).getTime()) / (1000 * 3600 * 24) > 1 &&
       //       activity.COMPLETED === 'N' &&
       //       activity.TYPE_ID === 2
       //   }).includes(true)
