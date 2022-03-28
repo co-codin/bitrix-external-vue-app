@@ -97,10 +97,6 @@ export default {
       return !! this.manager?.name
     }
   },
-  mounted() {
-    console.log(this.$dayjs().format('YYYY-MM-DD HH:mm:ss'))
-    console.log(this.$dayjs().subtract(50, 'day').format('YYYY-MM-DD HH:mm:ss'))
-  },
   methods: {
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
@@ -142,8 +138,6 @@ export default {
       console.log(companies.length)
 
       const dealIds = deals.map((deal) => deal.ID).filter(Boolean)
-
-      console.log(new Date('Y-m-d H:i:s'))
 
       const now = this.$dayjs()
 
@@ -203,9 +197,9 @@ export default {
       //   ]
       // })
 
-      const contacts = await bx24.callLongBatch(contactBatch, false)
+      // const contacts = await bx24.callLongBatch(contactBatch, false)
 
-      console.log(contacts.length)
+      // console.log(contacts.length)
 
       // deals.forEach((deal, index) => {
       //   const hasNoRecentCalls = activitiesById[deal.ID]?.map((activity) => {
