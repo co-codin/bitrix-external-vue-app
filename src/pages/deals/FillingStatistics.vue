@@ -80,6 +80,7 @@ export default {
     deals: [],
 
     headers: [
+      { text: '', align: 'left', value: 'id', sortable: false },
       { text: '', align: 'left', value: 'name', sortable: false },
       { text: 'Компания', align: 'left', value: 'has_company_name', sortable: false },
       { text: 'ИНН', align: 'left', value: 'has_inn', sortable: false },
@@ -105,6 +106,7 @@ export default {
     async selectUser() {
       BX24.selectUser(async (data) => {
         this.manager = data
+        this.deals = []
         await this.loadDeals()
       })
 
@@ -250,7 +252,7 @@ export default {
         }).length
 
         this.deals.push({
-          id: deal.ID,
+          id: index + 1,
           name: deal.TITLE,
           has_company_name: !! (companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN || (companiesById?.[deal.COMPANY_ID]?.BANKING_DETAILS?.length),
