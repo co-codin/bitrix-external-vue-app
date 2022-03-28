@@ -26,8 +26,14 @@
         loading-text="Идет загрузка..."
         hide-default-footer
       >
-        <template #item.name="{ item }">
+        <template #item.id="{ item }">
           <div class="font-weight-bold text-no-wrap headcol">
+            # {{ item.id }}
+          </div>
+        </template>
+
+        <template #item.name="{ item }">
+          <div class="font-weight-bold text-no-wrap">
             <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
           </div>
         </template>
@@ -80,8 +86,6 @@ export default {
     deals: [],
 
     headers: [
-      { text: '', align: 'left', value: 'index', sortable: false },
-      { text: '', align: 'left', value: 'name', sortable: false },
       { text: 'Компания', align: 'left', value: 'has_company_name', sortable: false },
       { text: 'ИНН', align: 'left', value: 'has_inn', sortable: false },
       { text: 'Контакт', align: 'left', value: 'has_name', sortable: false },
