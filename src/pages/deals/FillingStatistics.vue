@@ -42,8 +42,7 @@
           <tr>
             <td>
               <div class="font-weight-bold text-no-wrap">
-                # {{ item.index }}
-                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+                {{ item.index }}
               </div>
             </td>
             <td>
