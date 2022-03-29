@@ -175,67 +175,17 @@ export default {
 
       const now = this.$dayjs()
 
-      const activityBatch = [
-        [
-          // hasNoRecentCalls
-          'crm.activity.list',
-          {
-            filter: {
-              OWNER_ID: dealIds,
-              OWNER_TYPE_ID: 2,
-              TYPE_ID: 2,
-              COMPLETED: 'Y',
-              '>=CREATED': now.subtract(50, 'day').format('YYYY-MM-DD HH:mm:ss'),
-              '<=CREATED': now.format('YYYY-MM-DD HH:mm:ss')
-            },
-            select: ['OWNER_ID']
-          }
-        ],
-        [
-          // hasNoOverdueCalls
-          'crm.activity.list',
-          {
-            filter: {
-              OWNER_ID: dealIds,
-              OWNER_TYPE_ID: 2,
-              TYPE_ID: 2,
-              COMPLETED: 'N',
-              '>=END_TIME': now.format('YYYY-MM-DD HH:mm:ss')
-            },
-            select: ['OWNER_ID']
-          }
-        ],
-        [
-          // hasPlannedCalls
-          'crm.activity.list',
-          {
-            filter: {
-              OWNER_ID: dealIds,
-              OWNER_TYPE_ID: 2,
-              TYPE_ID: 2,
-              COMPLETED: 'N',
-              '<END_TIME': now.format('YYYY-MM-DD HH:mm:ss')
-            },
-            select: ['OWNER_ID']
-          }
-        ],
-        [
-          // hasPlannedActivities
-          'crm.activity.list',
-          {
-            filter: {
-              OWNER_ID: dealIds,
-              OWNER_TYPE_ID: 2,
-              TYPE_ID: 2,
-              COMPLETED: 'N',
-              '>END_TIME': now.format('YYYY-MM-DD HH:mm:ss')
-            },
-            select: ['OWNER_ID']
-          }
-        ]
-      ]
+      const activities = (await bx24.callListMethod('crm.requisite.list', {
+        filter: {
+          'OWNER_ID': dealIds,
+          'OWNER_TYPE_ID': 2,
+          'TYPE_ID': 2,
+          '>=DEADLINE': now.subtract(50, 'day').format('YYYY-MM-DD HH:mm:ss')
+        },
+        select: ['COMPLETED', 'OWNER_ID', 'DEADLINE']
+      })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
 
-      const activityResponse = await bx24.callBatch(activityBatch, false)
+      console.log(activities)
 
       const dealContactBatch = deals.map((deal) => {
         return [
@@ -264,21 +214,13 @@ export default {
 
         const currentDealContacts = dealContacts[index].map((dealContact) => contactsById[dealContact.CONTACT_ID])
 
-        const hasNoRecentCalls = !!activityResponse[0]?.filter((activity) => {
-          return activity.OWNER_ID === deal.ID
-        }).length
+        const hasNoRecentCalls = false
 
-        const hasNoOverdueCalls = !!activityResponse[1]?.filter((activity) => {
-          return activity.OWNER_ID === deal.ID
-        }).length
+        const hasNoOverdueCalls = false
 
-        const hasPlannedCalls = !!activityResponse[2]?.filter((activity) => {
-          return activity.OWNER_ID === deal.ID
-        }).length
+        const hasPlannedCalls = false
 
-        const hasPlannedActivities = !!activityResponse[3]?.filter((activity) => {
-          return activity.OWNER_ID === deal.ID
-        }).length
+        const hasPlannedActivities = false
 
         this.deals.push({
           index: index + 1,
