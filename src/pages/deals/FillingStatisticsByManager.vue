@@ -215,7 +215,7 @@ export default {
 
         const currentDealContacts = dealContacts[index].map((dealContact) => contactsById[dealContact.CONTACT_ID])
 
-        const dealActivities = activities?.[id] || []
+        const dealActivities = activities?.[deal.ID] || []
 
         // есть ли просроченные звонки
         const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && new Date(activity.DEADLINE) < now)
