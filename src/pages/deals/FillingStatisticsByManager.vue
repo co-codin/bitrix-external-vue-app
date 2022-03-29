@@ -16,15 +16,21 @@
           <download-icon width="30" height="30" />
         </v-btn>
       </v-card-title>
+      <v-progress-circular
+        v-if="loading"
+        :size="70"
+        :width="7"
+        color="purple"
+        indeterminate
+      />
       <v-data-table
+        v-else
         item-key="name"
         :items-per-page="10000"
         :headers="headers"
         fixed-header
         :height="tableHeight"
         :items="deals"
-        :loading="loading"
-        loading-text="Идет загрузка..."
         hide-default-footer
       >
         <!--        <template #item.index="{ item }">-->
@@ -87,7 +93,7 @@ export default {
     DownloadIcon
   },
   data: () => ({
-    loading: false,
+    loading: true,
     manager: null,
     deals: [],
     tableHeight: null,
@@ -123,20 +129,19 @@ export default {
   methods: {
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
-      // open deal slider
     },
     async selectUser() {
       BX24.selectUser(async (data) => {
         this.manager = data
+        this.loading = true
         this.deals = []
         await this.loadDeals()
+        this.loading = false
       })
 
     },
     async loadDeals() {
       const bx24 = new BX24Wrapper()
-
-      this.loading = true
 
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
@@ -287,8 +292,6 @@ export default {
           has_planned_call: hasPlannedCalls
         })
       })
-
-      this.loading = false
     },
     getResultCellText(result = true) {
 
