@@ -221,6 +221,7 @@ export default {
             filter: {
               OWNER_ID: dealIds,
               OWNER_TYPE_ID: 2,
+              TYPE_ID: 2,
               COMPLETED: 'N',
               '>END_TIME': now.format('YYYY-MM-DD HH:mm:ss')
             },
