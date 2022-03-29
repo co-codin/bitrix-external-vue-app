@@ -127,9 +127,17 @@ export default {
     }
   },
   mounted() {
-    this.tableHeight = window.innerHeight - 280
+    this.calculateTableHeight()
+
+    window.addEventListener('resize', this.calculateTableHeight)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.calculateTableHeight)
   },
   methods: {
+    calculateTableHeight() {
+      this.tableHeight = window.innerHeight - 280
+    },
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
     },
