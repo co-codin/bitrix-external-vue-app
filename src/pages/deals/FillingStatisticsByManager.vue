@@ -53,8 +53,8 @@
                   {{ item.index }}
                 </div>
               </td>
-              <td>
-                <div class="font-weight-bold text-no-wrap">
+              <td style="max-width: 450px">
+                <div class="font-weight-bold">
                   <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
                 </div>
               </td>
