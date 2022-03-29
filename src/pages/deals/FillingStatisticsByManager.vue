@@ -16,13 +16,14 @@
           <download-icon width="30" height="30" />
         </v-btn>
       </v-card-title>
-      <v-progress-circular
-        v-if="loading"
-        :size="70"
-        :width="7"
-        color="purple"
-        indeterminate
-      />
+      <div v-if="loading" class="text-center">
+        <v-progress-circular
+          :size="70"
+          :width="7"
+          color="purple"
+          indeterminate
+        />
+      </div>
       <v-data-table
         v-else
         item-key="name"
