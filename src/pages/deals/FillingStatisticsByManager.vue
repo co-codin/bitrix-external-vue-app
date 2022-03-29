@@ -9,7 +9,7 @@
     </v-card>
 
     <div v-if="isUserSelected" class="mt-3">
-      <div v-if="loading" class="text-center">
+      <div v-if="loading" class="text-center mt-5">
         <v-progress-circular
           :size="70"
           :width="7"
