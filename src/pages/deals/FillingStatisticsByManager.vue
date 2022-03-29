@@ -214,6 +214,8 @@ export default {
 
         const currentDealContacts = dealContacts[index].map((dealContact) => contactsById[dealContact.CONTACT_ID])
 
+        const dealActivities = activities?.[deal.ID] || []
+
         const hasNoRecentCalls = false
 
         const hasNoOverdueCalls = false
