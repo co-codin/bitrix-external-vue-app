@@ -19,14 +19,15 @@ export default {
     showHomeLink: {
       type: Boolean,
       default: true
+    },
+    homeLink: {
+      type: Object,
+      default: () => ({
+        text: 'MEDEQ Application',
+        to: { name: 'home' }
+      })
     }
   },
-  data: () => ({
-    homeLink: {
-      text: 'MEDEQ Application',
-      to: { name: 'home' }
-    }
-  }),
   computed: {
     allBreadcrumbs() {
       if (!this.showHomeLink) {

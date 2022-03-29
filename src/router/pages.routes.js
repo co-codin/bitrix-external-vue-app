@@ -62,6 +62,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  }, {
+    path: '/deals/filling-statistics/by-manager',
+    name: 'deals.filling-statistics.by-manager',
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatisticsByManager.vue'),
+    meta: {
+      layout: 'simple'
+    }
   },
   {
     path: '/error/not-found',
