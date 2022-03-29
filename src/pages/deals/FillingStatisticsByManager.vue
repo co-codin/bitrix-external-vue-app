@@ -102,11 +102,11 @@ export default {
       { text: 'ИНН', align: 'left', value: 'has_inn', sortable: false },
       { text: 'Контакт', align: 'left', value: 'has_name', sortable: false },
       { text: 'E-mail', align: 'left', value: 'has_email', sortable: false },
-      { text: 'Дело', align: 'left', value: 'has_planned_activity', sortable: false },
       { text: 'Сумма', align: 'left', value: 'has_sum', sortable: false },
+      { text: 'Дело', align: 'left', value: 'has_planned_activity', sortable: false },
+      { text: 'Звонок позже 60 дней', align: 'left', value: 'has_planned_call', sortable: false },
       { text: 'Нет просроченных звонков', align: 'left', value: 'has_no_overdue_calls', sortable: false },
-      { text: 'За последние 60 дней был звонок', align: 'left', value: 'has_no_recent_calls', sortable: false },
-      { text: 'Звонок позже 60 дней', align: 'left', value: 'has_planned_call', sortable: false }
+      { text: 'За последние 60 дней был звонок', align: 'left', value: 'has_no_recent_calls', sortable: false }
     ],
     breadcrumbs: [
       { text: 'Заполнение сделок по менеджеру' }
