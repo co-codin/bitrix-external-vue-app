@@ -8,14 +8,7 @@
       </v-card-title>
     </v-card>
 
-    <v-card v-if="isUserSelected" class="mt-3">
-      <v-card-title>
-        Сделки
-        <v-spacer />
-        <v-btn icon>
-          <download-icon width="30" height="30" />
-        </v-btn>
-      </v-card-title>
+    <div v-if="isUserSelected" class="mt-3">
       <div v-if="loading" class="text-center">
         <v-progress-circular
           :size="70"
@@ -24,56 +17,65 @@
           indeterminate
         />
       </div>
-      <v-data-table
-        v-else
-        item-key="name"
-        :items-per-page="10000"
-        :headers="headers"
-        fixed-header
-        :height="tableHeight"
-        :items="deals"
-        hide-default-footer
-      >
-        <!--        <template #item.index="{ item }">-->
-        <!--          <div class="font-weight-bold text-no-wrap headcol">-->
-        <!--            # {{ item.index }}-->
-        <!--          </div>-->
-        <!--        </template>-->
+      <v-card v-else>
+        <v-card-title>
+          Сделки
+          <v-spacer />
+          <v-btn icon>
+            <download-icon width="30" height="30" />
+          </v-btn>
+        </v-card-title>
+        <v-data-table
+          item-key="name"
+          :items-per-page="10000"
+          :headers="headers"
+          fixed-header
+          :height="tableHeight"
+          :items="deals"
+          hide-default-footer
+        >
+          <!--        <template #item.index="{ item }">-->
+          <!--          <div class="font-weight-bold text-no-wrap headcol">-->
+          <!--            # {{ item.index }}-->
+          <!--          </div>-->
+          <!--        </template>-->
 
-        <!--        <template #item.name="{ item }">-->
-        <!--          <div class="font-weight-bold text-no-wrap">-->
-        <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
-        <!--          </div>-->
-        <!--        </template>-->
+          <!--        <template #item.name="{ item }">-->
+          <!--          <div class="font-weight-bold text-no-wrap">-->
+          <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
+          <!--          </div>-->
+          <!--        </template>-->
 
-        <template #item="{ headers, item }">
-          <tr>
-            <td>
-              <div class="font-weight-bold text-no-wrap">
-                {{ item.index }}
-              </div>
-            </td>
-            <td>
-              <div class="font-weight-bold text-no-wrap">
-                <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
-              </div>
-            </td>
-            <td v-for="(header, i) in headers.slice(2)" :key="i">
-              <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
-                <div class="d-flex justify-center align-center">
-                  <check-circle-solid-icon width="15" height="15" />
+          <template #item="{ headers, item }">
+            <tr>
+              <td>
+                <div class="font-weight-bold text-no-wrap">
+                  {{ item.index }}
                 </div>
-              </div>
-              <div v-else class="red--text text--darken-4">
-                <div class="d-flex justify-center align-center">
-                  <x-circle-solid-icon width="15" height="15" />
+              </td>
+              <td>
+                <div class="font-weight-bold text-no-wrap">
+                  <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-    </v-card>
+              </td>
+              <td v-for="(header, i) in headers.slice(2)" :key="i">
+                <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
+                  <div class="d-flex justify-center align-center">
+                    <check-circle-solid-icon width="15" height="15" />
+                  </div>
+                </div>
+                <div v-else class="red--text text--darken-4">
+                  <div class="d-flex justify-center align-center">
+                    <x-circle-solid-icon width="15" height="15" />
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+
+    </div>
   </div>
 </template>
 
