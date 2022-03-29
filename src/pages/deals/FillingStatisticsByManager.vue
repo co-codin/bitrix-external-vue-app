@@ -161,13 +161,15 @@ export default {
         select: ['ID', 'TITLE', 'BANKING_DETAILS']
       })
 
-      const companiesById = {}
+      const companiesById = companies.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
 
-      companies.forEach((company) => {
-        companiesById[company.ID] = company
-      })
-
-      console.log(companies.length)
+      const companyRequisites = (await bx24.callListMethod('crm.requisite.list', {
+        filter: {
+          'ENTITY_ID': companyIds,
+          'ENTITY_TYPE_ID': 4
+        },
+        select: ['ENTITY_ID', 'RQ_INN']
+      })).filter((requisite) => !! requisite.RQ_INN.length).reduce((o, key) => ({ ...o, [key.ENTITY_ID]: key.RQ_INN }), {})
 
       const dealIds = deals.map((deal) => deal.ID).filter(Boolean)
 
@@ -256,11 +258,7 @@ export default {
         ]
       })
 
-      const contactsById = {}
-
-      contacts.forEach((contact) => {
-        contactsById[contact.ID] = contact
-      })
+      const contactsById = contacts.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
 
       deals.forEach((deal, index) => {
 
@@ -287,7 +285,7 @@ export default {
           id: deal.ID,
           name: deal.TITLE,
           has_company_name: !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
-          has_inn: !!deal.UF_ADDITIONAL_INN,
+          has_inn: !! companyRequisites?.[deal.COMPANY_ID],
           has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
           has_planned_activity: hasPlannedActivities,
           has_sum: !!deal.UF_PROCEEDS,
