@@ -149,7 +149,7 @@ export default {
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'CONTACT_ID', 'UF_PROCEEDS', 'CLOSEDATE', 'ADDITIONAL_INFO', 'UF_ADDITIONAL_INN']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS']
       })
 
       console.log(deals.length)
