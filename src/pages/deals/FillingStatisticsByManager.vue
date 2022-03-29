@@ -169,7 +169,7 @@ export default {
           'ENTITY_TYPE_ID': 4
         },
         select: ['ENTITY_ID', 'RQ_INN']
-      })).filter((requisite) => !! requisite.RQ_INN.length).reduce((o, key) => ({ ...o, [key.ENTITY_ID]: key.RQ_INN }), {})
+      })).filter((requisite) => !! requisite?.RQ_INN?.length).reduce((o, key) => ({ ...o, [key.ENTITY_ID]: key.RQ_INN }), {})
 
       const dealIds = deals.map((deal) => deal.ID).filter(Boolean)
 
