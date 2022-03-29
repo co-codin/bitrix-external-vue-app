@@ -164,3 +164,8 @@ textarea {
 .width-full {
   width: 100%;
 }
+
+
+.v-data-table table tbody tr:hover {
+  background: rgba(0, 150, 199, 0.17) !important;
+}
