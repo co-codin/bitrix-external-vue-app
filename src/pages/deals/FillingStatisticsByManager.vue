@@ -55,13 +55,11 @@
               <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
                 <div class="d-flex justify-center align-center">
                   <check-circle-solid-icon width="15" height="15" />
-                  <div class="text-caption font-weight-bold ml-1">Да</div>
                 </div>
               </div>
               <div v-else class="red--text text--darken-4">
                 <div class="d-flex justify-center align-center">
                   <x-circle-solid-icon width="15" height="15" />
-                  <div class="text-caption font-weight-bold ml-1">Нет</div>
                 </div>
               </div>
             </td>
