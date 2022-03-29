@@ -120,7 +120,7 @@ export default {
     }
   },
   mounted() {
-    this.tableHeight = window.innerHeight - 180
+    this.tableHeight = window.innerHeight - 280
   },
   methods: {
     openDeal(dealId) {
