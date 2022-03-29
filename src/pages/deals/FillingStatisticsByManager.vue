@@ -175,7 +175,7 @@ export default {
 
       const now = this.$dayjs()
 
-      const activities = (await bx24.callListMethod('crm.requisite.list', {
+      const activities = (await bx24.callListMethod('crm.activity.list', {
         filter: {
           'OWNER_ID': dealIds,
           'OWNER_TYPE_ID': 2,
