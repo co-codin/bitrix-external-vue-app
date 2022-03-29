@@ -252,7 +252,7 @@ export default {
           'NAME',
           'HAS_EMAIL',
           'LAST_NAME',
-          'SECOND_NAME',
+          'SECOND_NAME'
         ]
       })
 
