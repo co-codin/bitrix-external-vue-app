@@ -218,13 +218,13 @@ export default {
         const dealActivities = activities?.[deal.ID] || []
 
         // есть ли просроченные звонки
-        const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && new Date(activity.DEADLINE) < now)
+        const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) < now)
 
         // последний звонок
-        const lastCall = dealActivities.find((activity) => activity.COMPLETED === 'Y' && new Date(activity.DEADLINE) <= now)
+        const lastCall = dealActivities.find((activity) => activity.COMPLETED === 'Y' && this.$dayjs(activity.DEADLINE) <= now)
 
         // есть ли запланированный звонок
-        const hasPlannedCall = !! dealActivities.find((activity) => activity.COMPLETED === 'N' && new Date(activity.DEADLINE) >= now)
+        const hasPlannedCall = !! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) >= now)
 
         // есть ли запланированный звонок в течение 60 дней с момента последнего звонка
         const hasPlannedCallIn60DaysAfterLastCall = !! lastCall &&
