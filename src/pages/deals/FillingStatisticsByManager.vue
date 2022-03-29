@@ -112,8 +112,8 @@ export default {
       { text: 'Контакт', align: 'left', value: 'has_name', sortable: false },
       { text: 'E-mail', align: 'left', value: 'has_email', sortable: false },
       { text: 'Сумма', align: 'left', value: 'has_sum', sortable: false },
-      { text: 'Дело', align: 'left', value: 'has_planned_activity', sortable: false },
-      { text: 'Звонок позже 60 дней', align: 'left', value: 'has_planned_call', sortable: false },
+      { text: 'Дело', align: 'left', value: 'has_planned_call', sortable: false },
+      { text: 'Звонок позже 60 дней', align: 'left', value: 'has_planned_call_after_last_call', sortable: false },
       { text: 'Нет просроченных звонков', align: 'left', value: 'has_no_overdue_calls', sortable: false },
       { text: 'За последние 60 дней был звонок', align: 'left', value: 'has_no_recent_calls', sortable: false }
     ],
@@ -180,9 +180,10 @@ export default {
           'OWNER_ID': dealIds,
           'OWNER_TYPE_ID': 2,
           'TYPE_ID': 2,
-          '>=DEADLINE': now.subtract(50, 'day').format('YYYY-MM-DD HH:mm:ss')
+          '>=DEADLINE': now.subtract(60, 'day').format('YYYY-MM-DD HH:mm:ss')
         },
-        select: ['COMPLETED', 'OWNER_ID', 'DEADLINE']
+        select: ['COMPLETED', 'OWNER_ID', 'DEADLINE'],
+        order: { 'DEADLINE': 'DESC' }
       })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
 
       console.log(activities)
@@ -214,15 +215,20 @@ export default {
 
         const currentDealContacts = dealContacts[index].map((dealContact) => contactsById[dealContact.CONTACT_ID])
 
-        const dealActivities = activities?.[deal.ID] || []
+        const dealActivities = activities?.[id] || []
 
-        const hasNoRecentCalls = false
+        // есть ли просроченные звонки
+        const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && new Date(activity.DEADLINE) < now)
 
-        const hasNoOverdueCalls = false
+        // последний звонок
+        const lastCall = dealActivities.find((activity) => activity.COMPLETED === 'Y' && new Date(activity.DEADLINE) <= now)
 
-        const hasPlannedCalls = false
+        // есть ли запланированный звонок
+        const hasPlannedCall = !! dealActivities.find((activity) => activity.COMPLETED === 'N' && new Date(activity.DEADLINE) >= now)
 
-        const hasPlannedActivities = false
+        // есть ли запланированный звонок в течение 60 дней с момента последнего звонка
+        const hasPlannedCallIn60DaysAfterLastCall = !! lastCall &&
+          !! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) >= now && this.$dayjs(activity.DEADLINE) <= this.$dayjs(lastCall.DEADLINE).add(60, 'day'))
 
         this.deals.push({
           index: index + 1,
@@ -231,12 +237,12 @@ export default {
           has_company_name: !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !! companyRequisites?.[deal.COMPANY_ID],
           has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
-          has_planned_activity: hasPlannedActivities,
           has_sum: !!deal.UF_PROCEEDS,
           has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
-          has_no_overdue_calls: hasNoOverdueCalls,
-          has_no_recent_calls: hasNoRecentCalls,
-          has_planned_call: hasPlannedCalls
+          has_planned_call: hasPlannedCall,
+          has_planned_call_after_last_call: hasPlannedCallIn60DaysAfterLastCall,
+          has_no_overdue_calls: hasNoOverdueCall,
+          has_recent_calls: !! lastCall
         })
       })
     },
