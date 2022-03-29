@@ -250,7 +250,9 @@ export default {
         select: [
           'ID',
           'NAME',
-          'HAS_EMAIL'
+          'HAS_EMAIL',
+          'LAST_NAME',
+          'SECOND_NAME',
         ]
       })
 
@@ -286,7 +288,7 @@ export default {
           name: deal.TITLE,
           has_company_name: !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME.length).length,
+          has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
           has_planned_activity: hasPlannedActivities,
           has_sum: !!deal.UF_PROCEEDS,
           has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
