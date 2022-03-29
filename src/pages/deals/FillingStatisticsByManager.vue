@@ -115,7 +115,7 @@ export default {
       { text: 'Дело', align: 'left', value: 'has_planned_call', sortable: false },
       { text: 'Звонок позже 60 дней', align: 'left', value: 'has_planned_call_after_last_call', sortable: false },
       { text: 'Нет просроченных звонков', align: 'left', value: 'has_no_overdue_calls', sortable: false },
-      { text: 'За последние 60 дней был звонок', align: 'left', value: 'has_no_recent_calls', sortable: false }
+      { text: 'За последние 60 дней был звонок', align: 'left', value: 'has_recent_calls', sortable: false }
     ],
     breadcrumbs: [
       { text: 'Заполнение сделок по менеджеру' }
