@@ -1,8 +1,8 @@
 <template>
   <div>
     <template v-if="!choice">
-      <v-btn @click="choice = 1">Статистика заполнения по менеджерам</v-btn> <br />
-      <v-btn @click="choice = 2">Сводка по менеджерам</v-btn>
+      <v-btn block @click="choice = 1">Статистика заполнения по менеджерам</v-btn> <br />
+      <v-btn block class="mt-2" @click="choice = 2">Сводка по менеджерам</v-btn>
     </template>
     <template v-if="choice === 1">
       <v-card>
@@ -25,7 +25,7 @@
           :items-per-page="10000"
           :headers="headers"
           fixed-header
-          height="600"
+          :height="tableHeight"
           :items="deals"
           :loading="loading"
           loading-text="Идет загрузка..."
@@ -98,6 +98,7 @@ export default {
     loading: false,
     manager: null,
     deals: [],
+    tableHeight: null,
 
     headers: [
       { text: '', align: 'left', value: 'index', sortable: false },
@@ -117,6 +118,9 @@ export default {
     isUserSelected() {
       return !! this.manager?.name
     }
+  },
+  mounted() {
+    this.tableHeight = window.innerHeight - 100
   },
   methods: {
     openDeal(dealId) {
