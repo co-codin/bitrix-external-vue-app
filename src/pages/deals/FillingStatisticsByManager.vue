@@ -243,28 +243,27 @@ export default {
 
       const dealContacts = await bx24.callLongBatch(dealContactBatch, false)
 
-      console.log(dealContacts.length)
+      const contactIds = dealContacts.flat().map((dealContact) => dealContact.CONTACT_ID)
 
-      const contactBatch = dealContacts.map((dealContact) => {
-        return [
-          'crm.contact.list', {
-            filter: {
-              ID: dealContact.map((dealContact) => dealContact.CONTACT_ID)
-            },
-            select: [
-              'NAME',
-              'HAS_EMAIL'
-            ]
-          }
+      const contacts = await bx24.callListMethod('crm.contact.list', {
+        filter: { 'ID': contactIds },
+        select: [
+          'ID',
+          'NAME',
+          'HAS_EMAIL'
         ]
       })
 
-      const contacts = await bx24.callLongBatch(contactBatch, false)
+      const contactsById = {}
 
-      console.log(contacts.length)
-      console.log(contacts)
+      contacts.forEach((contact) => {
+        contactsById[contact.ID] = contact
+      })
 
       deals.forEach((deal, index) => {
+
+        const currentDealContacts = dealContacts[index].map((dealContact) => contactsById[dealContact.CONTACT_ID])
+
         const hasNoRecentCalls = !!activityResponse[0]?.filter((activity) => {
           return activity.OWNER_ID === deal.ID
         }).length
@@ -287,10 +286,10 @@ export default {
           name: deal.TITLE,
           has_company_name: !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
           has_inn: !!deal.UF_ADDITIONAL_INN,
-          has_name: !!(contacts[index]?.filter((contact) => contact.NAME !== '').length),
+          has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME.length).length,
           has_planned_activity: hasPlannedActivities,
           has_sum: !!deal.UF_PROCEEDS,
-          has_email: contacts[index]?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
+          has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
           has_no_overdue_calls: hasNoOverdueCalls,
           has_no_recent_calls: hasNoRecentCalls,
           has_planned_call: hasPlannedCalls
