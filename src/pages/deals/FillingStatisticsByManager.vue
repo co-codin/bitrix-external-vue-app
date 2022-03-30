@@ -28,9 +28,7 @@
             worksheet="Отчет по заполнению сделок"
             name="statistics.xls"
           >
-            <v-btn icon>
-              <download-icon width="30" height="30" />
-            </v-btn>
+            <download-icon width="30" height="30" />
           </export-excel>
         </v-card-title>
         <v-data-table
