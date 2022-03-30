@@ -77,7 +77,6 @@
 import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
-import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 
@@ -86,8 +85,7 @@ export default {
     PageHeader,
     DocumentSearchIcon,
     CheckCircleSolidIcon,
-    XCircleSolidIcon,
-    DownloadIcon
+    XCircleSolidIcon
   },
   data: () => ({
     loading: true,
