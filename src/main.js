@@ -22,6 +22,7 @@ import './plugins/moment'
 import './plugins/confirm'
 import './plugins/snackbar'
 import './plugins/dayjs'
+import './plugins/excel'
 
 // FILTERS
 import './filters/capitalize'
