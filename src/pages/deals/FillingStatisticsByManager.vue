@@ -25,10 +25,11 @@
             v-if="deals.length"
             :fields="excelFields"
             :data="excelData"
+            :fetch="downloading"
             worksheet="Отчет по заполнению сделок"
             name="statistics.xls"
           >
-            Скачать Excel
+            <download-icon width="30" height="30" />
           </export-excel>
         </v-card-title>
         <v-data-table
@@ -77,6 +78,7 @@
 import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
+import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 
@@ -85,7 +87,8 @@ export default {
     PageHeader,
     DocumentSearchIcon,
     CheckCircleSolidIcon,
-    XCircleSolidIcon
+    XCircleSolidIcon,
+    DownloadIcon
   },
   data: () => ({
     loading: true,
@@ -143,6 +146,9 @@ export default {
     window.removeEventListener('resize', this.calculateTableHeight)
   },
   methods: {
+    downloading() {
+      console.log('downloading')
+    },
     calculateTableHeight() {
       this.tableHeight = window.innerHeight - 280
     },
