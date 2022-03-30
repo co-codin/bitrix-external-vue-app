@@ -21,9 +21,17 @@
         <v-card-title>
           Сделки
           <v-spacer />
-          <v-btn icon>
-            <download-icon width="30" height="30" />
-          </v-btn>
+          <export-excel
+            v-if="deals.length"
+            :fields="excelFields"
+            :data="excelData"
+            worksheet="Отчет по заполнению сделок"
+            name="statistics.xls"
+          >
+            <v-btn icon>
+              <download-icon width="30" height="30" />
+            </v-btn>
+          </export-excel>
         </v-card-title>
         <v-data-table
           item-key="name"
@@ -34,18 +42,6 @@
           :items="deals"
           hide-default-footer
         >
-          <!--        <template #item.index="{ item }">-->
-          <!--          <div class="font-weight-bold text-no-wrap headcol">-->
-          <!--            # {{ item.index }}-->
-          <!--          </div>-->
-          <!--        </template>-->
-
-          <!--        <template #item.name="{ item }">-->
-          <!--          <div class="font-weight-bold text-no-wrap">-->
-          <!--            <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>-->
-          <!--          </div>-->
-          <!--        </template>-->
-
           <template #item="{ headers, item }">
             <tr>
               <td>
@@ -124,6 +120,22 @@ export default {
   computed: {
     isUserSelected() {
       return !! this.manager?.name
+    },
+    excelFields() {
+      return {
+        'Сделка': 'name',
+        'Компания': 'city',
+        'ИНН': 'city',
+        'Контакт': 'city',
+        'E-mail': 'city',
+        'Дело': 'city',
+        'Звонок позже 60 дней': 'city',
+        'Нет просроченныйх звонков': 'city',
+        'За последние 60 дней был звонок': 'city'
+      }
+    },
+    excelData() {
+      return []
     }
   },
   mounted() {
@@ -253,9 +265,6 @@ export default {
           has_recent_calls: !! lastCall
         })
       })
-    },
-    getResultCellText(result = true) {
-
     }
   }
 }
