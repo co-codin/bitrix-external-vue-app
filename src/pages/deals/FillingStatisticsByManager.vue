@@ -148,19 +148,20 @@ export default {
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 10 }
       ]
 
-      this.deals.forEach((deal) => {
-        worksheet.addRows(deal)
-        // worksheet.addRow([
-        //   deal.name,
-        //   deal.has_company_name,
-        //   deal.has_inn,
-        //   deal.has_email,
-        //   deal.has_planned_call,
-        //   deal.has_planned_call_after_last_call,
-        //   deal.has_no_overdue_calls,
-        //   deal.has_recent_calls
-        // ])
-      })
+      worksheet.addRows(this.deals)
+      // this.deals.forEach((deal) => {
+      // worksheet.addRows(deal)
+      // worksheet.addRow([
+      //   deal.name,
+      //   deal.has_company_name,
+      //   deal.has_inn,
+      //   deal.has_email,
+      //   deal.has_planned_call,
+      //   deal.has_planned_call_after_last_call,
+      //   deal.has_no_overdue_calls,
+      //   deal.has_recent_calls
+      // ])
+      // })
 
       const uint8Array = await workbook.xlsx.writeBuffer()
       const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
