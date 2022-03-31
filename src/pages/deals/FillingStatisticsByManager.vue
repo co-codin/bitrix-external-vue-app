@@ -176,7 +176,7 @@ export default {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'darkVertical',
-              bgColor: { argb: '90EE90' }
+              bgColor: { argb: '88F94E' }
             }
             cell.value = ''
           }
@@ -184,7 +184,7 @@ export default {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'darkVertical',
-              bgColor: { argb: 'FFCCCB' }
+              bgColor: { argb: 'FE634D' }
             }
             cell.value = ''
           }
