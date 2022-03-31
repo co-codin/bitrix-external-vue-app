@@ -149,7 +149,11 @@ export default {
       ]
 
       this.deals.forEach((deal) => {
-        console.log(deal)
+        const row = worksheet.addRow(deal)
+
+        row.eachCell((cell) => {
+          console.log(cell.value)
+        })
       })
       // worksheet.addRows(this.deals)
 
