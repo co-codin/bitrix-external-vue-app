@@ -148,8 +148,8 @@ export default {
         { header: 'E-mail', key: 'has_email', width: 15 },
         { header: 'Дело', key: 'has_planned_call', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
-        { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 30 },
-        { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 30 }
+        { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
+        { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
       ]
 
       worksheet.getRow(1).height = 50
@@ -164,7 +164,7 @@ export default {
       this.deals.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
-        row.width = worksheet.columns.length
+        row.splice(-1, worksheet.columns.length)
 
         row.eachCell((cell, colNumber) => {
           cell.font = { size: 14 }
