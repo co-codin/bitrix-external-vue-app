@@ -165,19 +165,26 @@ export default {
         const row = worksheet.addRow(deal)
 
         row.eachCell((cell, colNumber) => {
+          cell.font = { size: 14 }
+          cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' }
+          }
           if (cell.value === true) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
-              pattern: 'solid',
-              bgColor: { argb: '00FF00' }
+              pattern: 'darkVertical',
+              bgColor: { argb: '90EE90' }
             }
             cell.value = ''
           }
           if (cell.value === false) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
-              pattern: 'solid',
-              bgColor: { argb: 'FFFF0000' }
+              pattern: 'darkVertical',
+              bgColor: { argb: 'FFCCCB' }
             }
             cell.value = ''
           }
