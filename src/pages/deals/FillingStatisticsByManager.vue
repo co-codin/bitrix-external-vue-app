@@ -23,15 +23,14 @@
           <v-spacer />
           <export-excel
             v-if="deals.length"
+            class="v-btn v-btn--icon"
             :fields="excelFields"
             :data="excelData"
             :fetch="downloading"
             worksheet="Отчет по заполнению сделок"
             name="statistics.xls"
           >
-            <v-btn icon>
-              <download-icon width="30" height="30" />
-            </v-btn>
+            <download-icon width="30" height="30" />
           </export-excel>
         </v-card-title>
         <v-data-table
@@ -125,14 +124,14 @@ export default {
     excelFields() {
       return {
         'Сделка': 'name',
-        'Компания': 'city',
-        'ИНН': 'city',
-        'Контакт': 'city',
-        'E-mail': 'city',
-        'Дело': 'city',
-        'Звонок позже 60 дней': 'city',
-        'Нет просроченныйх звонков': 'city',
-        'За последние 60 дней был звонок': 'city'
+        'Компания': 'has_company_name',
+        'ИНН': 'has_inn',
+        'Контакт': 'has_name',
+        'E-mail': 'has_email',
+        'Дело': 'has_planned_call',
+        'Звонок позже 60 дней': 'has_planned_call_after_last_call',
+        'Нет просроченныйх звонков': 'has_no_overdue_calls',
+        'За последние 60 дней был звонок': 'has_recent_calls'
       }
     },
     excelData() {
