@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import JsonExcel from 'vue-json-excel'
+import excel from 'vue-excel-export'
 
-Vue.component('downloadExcel', JsonExcel)
+Vue.use(excel)
