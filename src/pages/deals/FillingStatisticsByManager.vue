@@ -22,13 +22,14 @@
           Сделки
           <v-spacer />
           <export-excel
-            class="v-btn v-btn--icon"
             :fields="excelFields"
             :data="excelData"
             worksheet="Отчет по заполнению сделок"
             name="statistics.xls"
           >
-            <download-icon width="30" height="30" />
+            <v-btn icon>
+              <download-icon width="30" height="30" />
+            </v-btn>
           </export-excel>
         </v-card-title>
         <v-data-table
