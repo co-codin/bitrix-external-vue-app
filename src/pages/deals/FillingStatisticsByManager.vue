@@ -164,7 +164,7 @@ export default {
       this.deals.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
-        row.splice(-1, worksheet.columns.length)
+        row.splice(16384 - worksheet.columns.length, 16384)
 
         row.eachCell((cell, colNumber) => {
           cell.font = { size: 14 }
