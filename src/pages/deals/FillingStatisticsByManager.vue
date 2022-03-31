@@ -137,18 +137,22 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 10 },
+        { header: 'Сделка', key: 'name', width: 30 },
         { header: 'Компания', key: 'has_company_name', width: 10 },
         { header: 'ИНН', key: 'has_inn', width: 10 },
         { header: 'Контакт', key: 'has_name', width: 10 },
         { header: 'E-mail', key: 'has_email', width: 10 },
         { header: 'Дело', key: 'has_planned_call', width: 10 },
-        { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 10 },
-        { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 10 },
-        { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 10 }
+        { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
+        { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 30 },
+        { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 30 }
       ]
 
-      worksheet.addRows(this.deals)
+      this.deals.forEach((deal) => {
+        console.log(deal)
+      })
+      // worksheet.addRows(this.deals)
+
       // this.deals.forEach((deal) => {
       // worksheet.addRows(deal)
       // worksheet.addRow([
@@ -163,15 +167,15 @@ export default {
       // ])
       // })
 
-      const uint8Array = await workbook.xlsx.writeBuffer()
-      const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-
-      a.href = url
-      a.download = 'statistics.xlsx'
-      a.click()
-      a.remove()
+      // const uint8Array = await workbook.xlsx.writeBuffer()
+      // const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
+      // const url = window.URL.createObjectURL(blob)
+      // const a = document.createElement('a')
+      //
+      // a.href = url
+      // a.download = 'statistics.xlsx'
+      // a.click()
+      // a.remove()
 
     },
     async selectUser() {
