@@ -158,6 +158,7 @@ export default {
               pattern:'darkTrellis',
               bgColor: { argb: '00FF00' }
             }
+            cell.value = ''
           }
           if (cell === false) {
             cell.fill = {
@@ -165,6 +166,7 @@ export default {
               pattern:'darkTrellis',
               bgColor: { argb: 'FFFF0000' }
             }
+            cell.value = ''
           }
         })
       })
