@@ -141,24 +141,23 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 70, height: 5 },
-        { header: 'Компания', key: 'has_company_name', width: 10 },
-        { header: 'ИНН', key: 'has_inn', width: 10 },
-        { header: 'Контакт', key: 'has_name', width: 10 },
-        { header: 'E-mail', key: 'has_email', width: 10 },
-        { header: 'Дело', key: 'has_planned_call', width: 10 },
+        { header: 'Сделка', key: 'name', width: 70 },
+        { header: 'Компания', key: 'has_company_name', width: 15 },
+        { header: 'ИНН', key: 'has_inn', width: 15 },
+        { header: 'Контакт', key: 'has_name', width: 15 },
+        { header: 'E-mail', key: 'has_email', width: 15 },
+        { header: 'Дело', key: 'has_planned_call', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
         { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 30 },
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 30 }
       ]
 
-      worksheet.getRow(0).height = 50
+      worksheet.getRow(1).height = 50
 
-      worksheet.getRow(0).eachCell((cell, colNumber) => {
+      worksheet.getRow(1).eachCell((cell, colNumber) => {
         cell.font = {
-          name: 'Arial',
           bold: true,
-          size: 10
+          size: 16
         }
       })
 
@@ -183,15 +182,6 @@ export default {
             cell.value = ''
           }
         })
-      })
-
-      worksheet.columns.forEach((column) => {
-        column.border = {
-          top: { style: 'thick' },
-          left: { style: 'thick' },
-          bottom: { style: 'thick' },
-          right: { style: 'thick' }
-        }
       })
 
       const uint8Array = await workbook.xlsx.writeBuffer()
