@@ -141,7 +141,7 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 70 },
+        { header: 'Сделка', key: 'name', width: 100 },
         { header: 'Компания', key: 'has_company_name', width: 15 },
         { header: 'ИНН', key: 'has_inn', width: 15 },
         { header: 'Контакт', key: 'has_name', width: 15 },
@@ -190,6 +190,9 @@ export default {
           }
         })
       })
+
+      worksheet.spliceColumns(-1, worksheet.columns.length)
+      worksheet.spliceRows(-1, this.deals.length)
 
       const uint8Array = await workbook.xlsx.writeBuffer()
       const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
