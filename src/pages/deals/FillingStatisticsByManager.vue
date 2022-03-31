@@ -164,6 +164,8 @@ export default {
       this.deals.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
+        row.with = worksheet.columns.length
+
         row.eachCell((cell, colNumber) => {
           cell.font = { size: 14 }
           cell.border = {
@@ -190,7 +192,7 @@ export default {
           }
         })
       })
-      
+
       const uint8Array = await workbook.xlsx.writeBuffer()
       const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
       const url = window.URL.createObjectURL(blob)
