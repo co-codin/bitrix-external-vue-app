@@ -131,19 +131,10 @@ export default {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
     },
     async exportExcel() {
-      const options = {
-        filename: './statistics.xlsx',
-        useStyles: true,
-        useSharedStrings: true
-      }
+      const workbook = new ExcelJS.Workbook()
 
-      const workbook = new ExcelJS.Workbook(options)
-
-      workbook.creator = 'LAB'
-      workbook.lastModifiedBy = 'LAB'
-      workbook.modified = new Date()
-
-      const worksheet = workbook.addWorksheet('Отчеты по заполнению сделок')
+      workbook.addWorksheet('sheet1')
+      const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
         { header: 'Сделка', key: 'name', width: 10 },
@@ -158,25 +149,29 @@ export default {
       ]
 
       this.deals.forEach((deal) => {
-        worksheet.addRow([
-          deal.name,
-          deal.has_company_name,
-          deal.has_inn,
-          deal.has_email,
-          deal.has_planned_call,
-          deal.has_planned_call_after_last_call,
-          deal.has_no_overdue_calls,
-          deal.has_recent_calls
-        ])
+        worksheet.addRows(deal)
+        // worksheet.addRow([
+        //   deal.name,
+        //   deal.has_company_name,
+        //   deal.has_inn,
+        //   deal.has_email,
+        //   deal.has_planned_call,
+        //   deal.has_planned_call_after_last_call,
+        //   deal.has_no_overdue_calls,
+        //   deal.has_recent_calls
+        // ])
       })
 
-      for (let index = 0; index < 10; index++) {
-        worksheet.addRow([index, 'Tiago', new Date()])
-      }
+      const uint8Array = await workbook.xlsx.writeBuffer()
+      const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
 
-      const fileName = 'statistics.xlsx'
+      a.href = url
+      a.download = 'statistics.xlsx'
+      a.click()
+      a.remove()
 
-      await workbook.xlsx.write(fileName)
     },
     async selectUser() {
       BX24.selectUser(async (data) => {
