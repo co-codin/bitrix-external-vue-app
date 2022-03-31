@@ -21,16 +21,9 @@
         <v-card-title>
           Сделки
           <v-spacer />
-          <export-excel
-            :fields="excelFields"
-            :data="excelData"
-            worksheet="Отчет по заполнению сделок"
-            name="statistics.xls"
-          >
-            <v-btn icon>
-              <download-icon width="30" height="30" />
-            </v-btn>
-          </export-excel>
+          <v-btn icon @click="exportExcel">
+            <download-icon width="30" height="30" />
+          </v-btn>
         </v-card-title>
         <v-data-table
           item-key="name"
@@ -81,6 +74,7 @@ import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
+import ExcelJS from 'exceljs'
 
 export default {
   components: {
@@ -119,22 +113,6 @@ export default {
   computed: {
     isUserSelected() {
       return !! this.manager?.name
-    },
-    excelFields() {
-      return {
-        'Сделка': 'name',
-        'Компания': 'has_company_name',
-        'ИНН': 'has_inn',
-        'Контакт': 'has_name',
-        'E-mail': 'has_email',
-        'Дело': 'has_planned_call',
-        'Звонок позже 60 дней': 'has_planned_call_after_last_call',
-        'Нет просроченныйх звонков': 'has_no_overdue_calls',
-        'За последние 60 дней был звонок': 'has_recent_calls'
-      }
-    },
-    excelData() {
-      return []
     }
   },
   mounted() {
@@ -151,6 +129,54 @@ export default {
     },
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
+    },
+    async exportExcel() {
+      const options = {
+        filename: './statistics.xlsx',
+        useStyles: true,
+        useSharedStrings: true
+      }
+
+      const workbook = new ExcelJS.Workbook(options)
+
+      workbook.creator = 'LAB'
+      workbook.lastModifiedBy = 'LAB'
+      workbook.modified = new Date()
+
+      const worksheet = workbook.addWorksheet('Отчеты по заполнению сделок')
+
+      worksheet.columns = [
+        { header: 'Сделка', key: 'name', width: 10 },
+        { header: 'Компания', key: 'has_company_name', width: 10 },
+        { header: 'ИНН', key: 'has_inn', width: 10 },
+        { header: 'Контакт', key: 'has_name', width: 10 },
+        { header: 'E-mail', key: 'has_email', width: 10 },
+        { header: 'Дело', key: 'has_planned_call', width: 10 },
+        { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 10 },
+        { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 10 },
+        { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 10 }
+      ]
+
+      this.deals.forEach((deal) => {
+        worksheet.addRow([
+          deal.name,
+          deal.has_company_name,
+          deal.has_inn,
+          deal.has_email,
+          deal.has_planned_call,
+          deal.has_planned_call_after_last_call,
+          deal.has_no_overdue_calls,
+          deal.has_recent_calls
+        ])
+      })
+
+      for (let index = 0; index < 10; index++) {
+        worksheet.addRow([index, 'Tiago', new Date()])
+      }
+
+      const fileName = 'statistics.xlsx'
+
+      await workbook.xlsx.write(fileName)
     },
     async selectUser() {
       BX24.selectUser(async (data) => {
