@@ -164,8 +164,6 @@ export default {
       this.deals.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
-        row.splice(16384 - worksheet.columns.length, 16384)
-
         row.eachCell((cell, colNumber) => {
           cell.font = { size: 14 }
           cell.border = {
@@ -192,6 +190,8 @@ export default {
           }
         })
       })
+
+      worksheet.spliceRows()
 
       const uint8Array = await workbook.xlsx.writeBuffer()
       const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
