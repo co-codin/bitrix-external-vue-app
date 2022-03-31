@@ -190,10 +190,7 @@ export default {
           }
         })
       })
-
-      worksheet.spliceColumns(-1, worksheet.columns.length)
-      worksheet.spliceRows(-1, this.deals.length)
-
+      
       const uint8Array = await workbook.xlsx.writeBuffer()
       const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
       const url = window.URL.createObjectURL(blob)
