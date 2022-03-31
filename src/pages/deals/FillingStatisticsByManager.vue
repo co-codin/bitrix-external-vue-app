@@ -170,7 +170,7 @@ export default {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
-              bgColor: { argb: '88f94e' }
+              bgColor: { argb: '00FF00' }
             }
             cell.value = ''
           }
@@ -178,7 +178,7 @@ export default {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
-              bgColor: { argb: 'fe634d' }
+              bgColor: { argb: 'FFFF0000' }
             }
             cell.value = ''
           }
