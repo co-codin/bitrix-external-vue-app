@@ -22,11 +22,9 @@
           Сделки
           <v-spacer />
           <export-excel
-            v-if="deals.length"
             class="v-btn v-btn--icon"
             :fields="excelFields"
             :data="excelData"
-            :fetch="downloading"
             worksheet="Отчет по заполнению сделок"
             name="statistics.xls"
           >
@@ -147,9 +145,6 @@ export default {
     window.removeEventListener('resize', this.calculateTableHeight)
   },
   methods: {
-    downloading() {
-      console.log('downloading')
-    },
     calculateTableHeight() {
       this.tableHeight = window.innerHeight - 280
     },
