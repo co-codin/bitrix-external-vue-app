@@ -155,18 +155,16 @@ export default {
           if (cell === true) {
             cell.fill = {
               type: 'pattern',
-              pattern:'solid',
+              pattern:'darkTrellis',
               bgColor: { argb: '00FF00' }
             }
-            cell.value = ''
           }
           if (cell === false) {
             cell.fill = {
               type: 'pattern',
-              pattern:'solid',
-              bgColor: { argb: 'FF0000FF' }
+              pattern:'darkTrellis',
+              bgColor: { argb: 'FFFF0000' }
             }
-            cell.value = ''
           }
         })
       })
