@@ -164,7 +164,7 @@ export default {
       this.deals.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
-        row.with = worksheet.columns.length
+        row.width = worksheet.columns.length
 
         row.eachCell((cell, colNumber) => {
           cell.font = { size: 14 }
