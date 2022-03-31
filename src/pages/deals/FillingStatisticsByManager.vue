@@ -148,36 +148,25 @@ export default {
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 30 }
       ]
 
-      this.deals.forEach((deal) => {
-        const row = worksheet.addRow(deal)
+      worksheet.addRows(this.deals)
 
-        row.eachCell((cell) => {
-          if (cell === true) {
-            cell.fill = {
-              type: 'pattern',
-              pattern:'darkTrellis',
-              bgColor: { argb: '00FF00' }
-            }
-          }
-          if (cell === false) {
-            cell.fill = {
-              type: 'pattern',
-              pattern:'darkTrellis',
-              bgColor: { argb: 'FFFF0000' }
-            }
-          }
-        })
-      })
+      for (let i = 1; i <= worksheet.actualRowCount; i++) {
+        for (let j = 1; j <= worksheet.actualColumnCount; j++) {
+          const data = worksheet.getRow(i).getCell(j).toString()
 
-      const uint8Array = await workbook.xlsx.writeBuffer()
-      const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
+          console.log(data)
+        }
+      }
 
-      a.href = url
-      a.download = 'statistics.xlsx'
-      a.click()
-      a.remove()
+      // const uint8Array = await workbook.xlsx.writeBuffer()
+      // const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
+      // const url = window.URL.createObjectURL(blob)
+      // const a = document.createElement('a')
+      //
+      // a.href = url
+      // a.download = 'statistics.xlsx'
+      // a.click()
+      // a.remove()
 
     },
     async selectUser() {
