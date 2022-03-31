@@ -133,12 +133,16 @@ export default {
     async exportExcel() {
       const workbook = new ExcelJS.Workbook()
 
-      workbook.addWorksheet('sheet1')
+      workbook.addWorksheet('sheet1', {
+        views: [
+          { state: 'frozen', ySplit: 1 }
+        ]
+      })
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 50, height: 5 },
-        { header: 'Компания', key: 'has_company_name', width: 10, height: 5 },
+        { header: 'Сделка', key: 'name', width: 70, height: 5 },
+        { header: 'Компания', key: 'has_company_name', width: 10 },
         { header: 'ИНН', key: 'has_inn', width: 10 },
         { header: 'Контакт', key: 'has_name', width: 10 },
         { header: 'E-mail', key: 'has_email', width: 10 },
@@ -148,6 +152,16 @@ export default {
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 30 }
       ]
 
+      worksheet.getRow(0).height = 50
+
+      worksheet.getRow(0).eachCell((cell, colNumber) => {
+        cell.font = {
+          name: 'Arial',
+          bold: true,
+          size: 10
+        }
+      })
+
       this.deals.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
@@ -155,20 +169,29 @@ export default {
           if (cell.value === true) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
-              pattern:'darkTrellis',
-              bgColor: { argb: '00FF00' }
+              pattern: 'solid',
+              bgColor: { argb: '88f94e' }
             }
             cell.value = ''
           }
           if (cell.value === false) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
-              pattern:'darkTrellis',
-              bgColor: { argb: 'FFFF0000' }
+              pattern: 'solid',
+              bgColor: { argb: 'fe634d' }
             }
             cell.value = ''
           }
         })
+      })
+
+      worksheet.columns.forEach((column) => {
+        column.border = {
+          top: { style: 'thick' },
+          left: { style: 'thick' },
+          bottom: { style: 'thick' },
+          right: { style: 'thick' }
+        }
       })
 
       const uint8Array = await workbook.xlsx.writeBuffer()
