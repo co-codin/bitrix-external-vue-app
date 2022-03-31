@@ -137,7 +137,7 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 30 },
+        { header: 'Сделка', key: 'name', width: 50 },
         { header: 'Компания', key: 'has_company_name', width: 10 },
         { header: 'ИНН', key: 'has_inn', width: 10 },
         { header: 'Контакт', key: 'has_name', width: 10 },
@@ -154,13 +154,15 @@ export default {
         row.eachCell((cell) => {
           if (cell === true) {
             cell.fill = {
-              color: { argb: '#008000' }
+              bgColor: { argb: '00FF00' }
             }
+            cell.value = ''
           }
           if (cell === false) {
             cell.fill = {
-              color: { argb: '#FF0000' }
+              bgColor: { argb: 'FF0000FF' }
             }
+            cell.value = ''
           }
         })
       })
