@@ -152,22 +152,26 @@ export default {
         const row = worksheet.addRow(deal)
 
         row.eachCell((cell) => {
-          if (cell === true) {
-            cell.fill = {
-              type: 'pattern',
-              pattern:'darkTrellis',
-              bgColor: { argb: '00FF00' }
-            }
-            cell.value = ''
-          }
-          if (cell === false) {
-            cell.fill = {
-              type: 'pattern',
-              pattern:'darkTrellis',
-              bgColor: { argb: 'FFFF0000' }
-            }
-            cell.value = ''
-          }
+          console.log(cell)
+          console.log(typeof cell)
+          console.log(cell.value)
+          console.log(typeof cell.value)
+          // if (cell === true) {
+          //   cell.fill = {
+          //     type: 'pattern',
+          //     pattern:'darkTrellis',
+          //     bgColor: { argb: '00FF00' }
+          //   }
+          //   cell.value = ''
+          // }
+          // if (cell === false) {
+          //   cell.fill = {
+          //     type: 'pattern',
+          //     pattern:'darkTrellis',
+          //     bgColor: { argb: 'FFFF0000' }
+          //   }
+          //   cell.value = ''
+          // }
         })
       })
 
