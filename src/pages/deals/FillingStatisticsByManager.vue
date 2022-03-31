@@ -137,8 +137,8 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 50 },
-        { header: 'Компания', key: 'has_company_name', width: 10 },
+        { header: 'Сделка', key: 'name', width: 50, height: 5 },
+        { header: 'Компания', key: 'has_company_name', width: 10, height: 5 },
         { header: 'ИНН', key: 'has_inn', width: 10 },
         { header: 'Контакт', key: 'has_name', width: 10 },
         { header: 'E-mail', key: 'has_email', width: 10 },
@@ -154,12 +154,16 @@ export default {
         row.eachCell((cell) => {
           if (cell === true) {
             cell.fill = {
+              type: 'pattern',
+              pattern:'solid',
               bgColor: { argb: '00FF00' }
             }
             cell.value = ''
           }
           if (cell === false) {
             cell.fill = {
+              type: 'pattern',
+              pattern:'solid',
               bgColor: { argb: 'FF0000FF' }
             }
             cell.value = ''
