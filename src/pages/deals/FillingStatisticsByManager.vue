@@ -198,7 +198,7 @@ export default {
       })
 
       worksheet.getColumn(1).eachCell((cell) => {
-        console.log(cell.value)
+        cell.alignment = { wrapText: true }
       })
 
       const uint8Array = await workbook.xlsx.writeBuffer()
