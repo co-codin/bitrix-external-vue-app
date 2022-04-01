@@ -1,7 +1,7 @@
 <template>
   <div>
     <page-header h1="Заполнение сделок по менеджеру" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
-    <v-card>
+    <v-card v-if="isAdmin">
       <v-card-title class="cursor-pointer" @click="selectUser">
         <document-search-icon width="30" height="30" class="mr-1" />
         {{ isUserSelected ? manager.name : 'Выберите ответственного менеджера' }}
@@ -108,15 +108,24 @@ export default {
     ],
     breadcrumbs: [
       { text: 'Заполнение сделок по менеджеру' }
-    ]
+    ],
+    isAdmin: false
   }),
   computed: {
     isUserSelected() {
       return !! this.manager?.name
     }
   },
-  mounted() {
+  async mounted() {
     this.calculateTableHeight()
+
+    this.isAdmin = await (new BX24Wrapper()).callMethod('user.admin')
+
+    // if (!isAdmin) {
+    this.manager = await (new BX24Wrapper()).callMethod('user.current')
+    console.log(this.manager)
+    console.log(this.manager.id)
+    // }
 
     window.addEventListener('resize', this.calculateTableHeight)
   },
