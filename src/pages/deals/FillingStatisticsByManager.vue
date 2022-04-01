@@ -120,14 +120,15 @@ export default {
     this.calculateTableHeight()
 
     // this.isAdmin = await (new BX24Wrapper()).callMethod('user.admin')
-    this.isAdmin = false
 
     if (!this.isAdmin) {
       const user = await (new BX24Wrapper()).callMethod('user.current')
 
       this.manager.id = user.ID
       this.manager.name = user.NAME
-      console.log(this.manager)
+      this.loading = true
+      await this.loadDeals()
+      this.loading = false
     }
 
     window.addEventListener('resize', this.calculateTableHeight)
