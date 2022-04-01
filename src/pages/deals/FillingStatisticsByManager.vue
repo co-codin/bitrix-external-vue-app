@@ -197,7 +197,7 @@ export default {
         })
       })
 
-      worksheet.getColumn(0).eachCell((cell) => {
+      worksheet.getColumn(1).eachCell((cell) => {
         console.log(cell.value)
       })
 
