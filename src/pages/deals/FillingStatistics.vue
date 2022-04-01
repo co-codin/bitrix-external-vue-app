@@ -30,6 +30,7 @@
 
 <script>
 import PageHeader from '@/components/PageHeader'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
@@ -40,6 +41,11 @@ export default {
       { icon: 'mdi-account', iconClass: 'blue white--text', title: 'Заполнение по менеджеру', subtitle: 'Выбираем менеджера и смотрим статистику по нему', route: { name: 'deals.filling-statistics.by-manager' } },
       { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице' }
     ]
-  })
+  }),
+  async mounted() {
+    const user = await (new BX24Wrapper()).callMethod('user.current')
+
+    console.log(user)
+  }
 }
 </script>
