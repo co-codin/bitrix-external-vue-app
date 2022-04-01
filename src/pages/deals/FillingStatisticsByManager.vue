@@ -197,7 +197,9 @@ export default {
         })
       })
 
-      worksheet.spliceRows()
+      worksheet.getColumn(0).eachCell((cell) => {
+        console.log(cell.value)
+      })
 
       const uint8Array = await workbook.xlsx.writeBuffer()
       const blob = new Blob([uint8Array], { type: 'application/octet-binary' })
