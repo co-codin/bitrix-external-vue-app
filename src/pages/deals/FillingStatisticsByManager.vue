@@ -159,6 +159,12 @@ export default {
           bold: true,
           size: 16
         }
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' }
+        }
       })
 
       this.deals.forEach((deal) => {
