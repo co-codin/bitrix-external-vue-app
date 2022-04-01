@@ -86,7 +86,7 @@ export default {
   },
   data: () => ({
     loading: true,
-    manager: null,
+    manager: {},
     deals: [],
     tableHeight: null,
     homeLink: {
