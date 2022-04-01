@@ -43,9 +43,9 @@ export default {
     ]
   }),
   async mounted() {
-    const user = await (new BX24Wrapper()).callMethod('user.current')
+    const isAdmin = await (new BX24Wrapper()).callMethod('user.admin')
 
-    console.log(user)
+    console.log(isAdmin)
   }
 }
 </script>
