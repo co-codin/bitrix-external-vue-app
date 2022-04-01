@@ -175,16 +175,16 @@ export default {
           if (cell.value === true) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
-              pattern: 'darkVertical',
-              bgColor: { argb: '88F94E' }
+              pattern: 'solid',
+              fgColor: { argb: '88F94E' }
             }
             cell.value = ''
           }
           if (cell.value === false) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
-              pattern: 'darkVertical',
-              bgColor: { argb: 'FE634D' }
+              pattern: 'solid',
+              fgColor: { argb: 'FE634D' }
             }
             cell.value = ''
           }
