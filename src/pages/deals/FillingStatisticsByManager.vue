@@ -122,21 +122,19 @@ export default {
   },
   async mounted() {
     this.calculateTableHeight()
-
-    this.isAdmin = await (new BX24Wrapper()).callMethod('user.admin')
+    window.addEventListener('resize', this.calculateTableHeight)
 
     const user = await (new BX24Wrapper()).callMethod('user.current')
 
-    if (this.isAdmin || this.additionalAdminUserIds.includes(user.ID)) {
+    this.isAdmin = (await (new BX24Wrapper()).callMethod('user.admin')) || this.additionalAdminUserIds.includes(user.ID)
+
+    if (!this.isAdmin) {
       this.manager.id = user.ID
       this.manager.name = user.NAME
+      this.loading = true
+      await this.loadDeals()
+      this.loading = false
     }
-
-    this.loading = true
-    await this.loadDeals()
-    this.loading = false
-
-    window.addEventListener('resize', this.calculateTableHeight)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.calculateTableHeight)
