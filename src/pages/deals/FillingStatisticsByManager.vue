@@ -86,7 +86,10 @@ export default {
   },
   data: () => ({
     loading: true,
-    manager: {},
+    manager: {
+      id: null,
+      name: null
+    },
     deals: [],
     tableHeight: null,
     homeLink: {
@@ -246,8 +249,6 @@ export default {
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
         select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS']
       })
-
-      console.log(deals.length)
 
       const companyIds = deals.map((deal) => deal.COMPANY_ID).filter(Boolean)
 
