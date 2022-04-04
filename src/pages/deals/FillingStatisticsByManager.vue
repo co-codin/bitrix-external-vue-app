@@ -123,9 +123,11 @@ export default {
   async mounted() {
     this.calculateTableHeight()
 
+    this.isAdmin = await (new BX24Wrapper()).callMethod('user.admin')
+
     const user = await (new BX24Wrapper()).callMethod('user.current')
 
-    if (BX24.isAdmin || this.additionalAdminUserIds.includes(user.ID)) {
+    if (this.isAdmin || this.additionalAdminUserIds.includes(user.ID)) {
       this.manager.id = user.ID
       this.manager.name = user.NAME
     }
