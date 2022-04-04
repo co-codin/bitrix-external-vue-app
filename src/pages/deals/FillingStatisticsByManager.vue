@@ -126,7 +126,7 @@ export default {
 
     const user = await (new BX24Wrapper()).callMethod('user.current')
 
-    this.isAdmin = (await (new BX24Wrapper()).callMethod('user.admin')) || this.additionalAdminUserIds.includes(user.ID)
+    this.isAdmin = (await (new BX24Wrapper()).callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
 
     if (!this.isAdmin) {
       this.manager.id = user.ID
