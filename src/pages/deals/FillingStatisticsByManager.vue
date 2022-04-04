@@ -109,6 +109,10 @@ export default {
     breadcrumbs: [
       { text: 'Заполнение сделок по менеджеру' }
     ],
+    additionalAdminUserIds: [
+      29, // Соловьев
+      654 // Пальчун
+    ],
     isAdmin: false
   }),
   computed: {
@@ -119,17 +123,16 @@ export default {
   async mounted() {
     this.calculateTableHeight()
 
-    this.isAdmin = await (new BX24Wrapper()).callMethod('user.admin')
+    const user = await (new BX24Wrapper()).callMethod('user.current')
 
-    if (!this.isAdmin) {
-      const user = await (new BX24Wrapper()).callMethod('user.current')
-
+    if (BX24.isAdmin || this.additionalAdminUserIds.includes(user.ID)) {
       this.manager.id = user.ID
       this.manager.name = user.NAME
-      this.loading = true
-      await this.loadDeals()
-      this.loading = false
     }
+
+    this.loading = true
+    await this.loadDeals()
+    this.loading = false
 
     window.addEventListener('resize', this.calculateTableHeight)
   },
