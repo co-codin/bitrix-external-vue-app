@@ -21,6 +21,7 @@ import './plugins/clipboard'
 import './plugins/moment'
 import './plugins/confirm'
 import './plugins/snackbar'
+import './plugins/dayjs'
 
 // FILTERS
 import './filters/capitalize'

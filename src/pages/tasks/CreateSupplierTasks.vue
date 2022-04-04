@@ -99,12 +99,14 @@
 <script>
 import PageHeader from '../../components/PageHeader'
 import config from '../../configs'
+import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
     PageHeader
   },
   data: () => ({
+    taskId: null,
     loading: false,
     taskTypes: [
       { header: 'Отгрузка' },
@@ -131,28 +133,31 @@ export default {
     files: [],
     tasks: []
   }),
-  mounted() {
-    this.getTaskFiles()
+  async mounted() {
+    await this.getTaskFiles()
   },
   methods: {
-    getTaskFiles() {
+    async getTaskFiles() {
       const { options } = BX24.placement.info()
 
-      const taskId = options?.ID ?? options?.TASK_ID
+      this.taskId = options?.ID ?? options?.TASK_ID
 
-      BX24.callMethod(
-        'task.item.getdata',
-        [taskId],
-        (result) => {
-          this.files = result.data().UF_TASK_WEBDAV_FILES
-          this.files = this.files.map((file) => {
-            return {
-              text: file.NAME,
-              value: file.FILE_ID
-            }
-          })
-        }
-      )
+      try {
+        const task = await (new BX24Wrapper()).callMethod(
+          'task.item.getdata',
+          [this.taskId]
+        )
+
+        this.files = task.UF_TASK_WEBDAV_FILES
+        this.files = this.files.map((file) => {
+          return {
+            text: file.NAME,
+            value: file.FILE_ID
+          }
+        })
+      } catch (e) {
+        console.log(e)
+      }
     },
     addTask() {
       this.tasks.push({
@@ -163,89 +168,91 @@ export default {
         company_contacts: null, // контакты компании
         logistics_contacts: null, // контакты логиста
         equipment: null, // оборудование / комплектация
-        serial_number: null // серийный номер
+        serial_number: null, // серийный номер
+        description: null,
+        name: null
       })
     },
     deleteTask(index) {
       this.tasks.splice(index, 1)
     },
-    createTasks() {
-      const { options } = BX24.placement.info()
-
-      const taskId = options?.ID ?? options?.TASK_ID
-
+    async createTasks() {
       this.loading = true
+      const batch = {}
 
       this.tasks.forEach((task, index) => {
-        const taskName = this.taskTypes.find(type => type.value === task.type.value).text
-        let description = ''
-
+        task.name =  this.taskTypes.find(type => type.value === task.type.value).text
         if (task.type) {
-          description += 'Тип задачи: ' + taskName + '\n'
+          task.description += 'Тип задачи: ' + task.name + '\n'
         }
 
         if (task.bill) {
-          description += 'Счет: в приложении' + '\n'
+          task.description += 'Счет: в приложении' + '\n'
         }
 
         if (task.transfer_document) {
-          description += 'УПД: в приложении' + '\n'
+          task.description += 'УПД: в приложении' + '\n'
         }
 
         if (task.manager_contacts) {
-          description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
+          task.description += 'Контактный менеджер: ' + task.manager_contacts + '\n'
         }
 
         if (task.company_contacts) {
-          description += 'Контактный компании: ' + task.company_contacts + '\n'
+          task.description += 'Контактный компании: ' + task.company_contacts + '\n'
         }
 
         if (task.logistics_contacts) {
-          description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
+          task.description += 'Контактный логиста: ' + task.logistics_contacts + '\n'
         }
 
         if (task.equipment) {
-          description += 'Оборудование / комплектация: ' + task.equipment + '\n'
+          task.description += 'Оборудование / комплектация: ' + task.equipment + '\n'
         }
 
         if (task.serial_number) {
-          description += 'Серийный номер: ' + task.serial_number + '\n'
+          task.description += 'Серийный номер: ' + task.serial_number + '\n'
         }
 
-        BX24.callMethod('task.item.add', [{
-          PARENT_ID: taskId,
-          TITLE: taskName,
-          RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
-          DESCRIPTION: description
-        }], (res) => {
-          if (res.data()) {
-            const currentTaskId = res.data()
-
-            if (task.bill) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: currentTaskId,
-                fileId: task.bill
-              }, () => {
-              })
-            }
-
-            if (task.transfer_document) {
-              BX24.callMethod('tasks.task.files.attach', {
-                taskId: currentTaskId,
-                fileId: task.transfer_document
-              }, () => {
-              })
-            }
-            this.tasks.splice(index, 1)
-          }
-
-          if (res.error()) {
-            this.$snackbar(res.error()?.ex?.error_description)
-          }
+        Object.assign(batch, {
+          [index]: ['task.item.add', [{
+            PARENT_ID: this.taskId,
+            TITLE: task.name,
+            RESPONSIBLE_ID: config.bitrix.responsible_ids.supplier,
+            DESCRIPTION: task.description
+          }]]
         })
+
+        if (task.bill) {
+          Object.assign(batch, {
+            [index + '-bill']: ['tasks.task.files.attach', {
+              taskId: `$result[${index}][0]`,
+              fileId: task.bill
+            }]
+          })
+        }
+
+        if (task.transfer_document) {
+          Object.assign(batch, {
+            [index + '-transfer']: ['tasks.task.files.attach', {
+              taskId: `$result[${index}][0]`,
+              fileId: task.transfer_document
+            }]
+          })
+        }
       })
 
-      this.loading = false
+      try {
+        await (new BX24Wrapper()).callBatch(batch)
+
+        this.tasks = []
+
+        this.loading = false
+        this.$snackbar('Успешно созданы под-задачи')
+      } catch (e) {
+        this.$snackbar(e.message)
+      }
+
     },
     isAvailableField(type, field) {
       return (type?.fields ?? []).includes(field)

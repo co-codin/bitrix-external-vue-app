@@ -12,26 +12,18 @@
               <v-form
                 v-if="form"
                 ref="form"
-                v-model="valid"
               >
-                <v-text-field
-                  v-model="form.last_name"
-                  label="Фамилия"
-                  dense
-                  :rules="lastnameRules"
-                  required
-                />
                 <v-text-field
                   v-model="form.first_name"
                   label="Имя"
                   dense
-                  :rules="firstnameRules"
                   required
                 />
                 <v-text-field
-                  v-model="form.middle_name"
-                  label="Отчество"
+                  v-model="form.last_name"
+                  label="Фамилия"
                   dense
+                  required
                 />
                 <v-text-field
                   v-model="form.position"
@@ -42,7 +34,6 @@
                   v-model="form.phone"
                   label="Телефон"
                   dense
-                  :rules="phoneRules"
                   required
                 />
                 <v-text-field
@@ -67,8 +58,8 @@
         <v-col cols="12" sm="6" class="pl-sm-2">
           <v-divider class="d-sm-none d-block mt-3 mb-3" />
           <v-card
-            v-if="valid"
             max-width="300"
+            class="pt-1"
           >
             <vue-qr
               :text="qrCode"
@@ -80,15 +71,15 @@
             />
             <v-divider/>
             <v-card-actions class="justify-center py-2">
-              <v-btn
-                icon
-                class="pa-3"
-                color="primary"
-                title="Скопировать QR код в буфер обмена"
-                @click="copyImageToClipboard"
-              >
-                <copy-icon width="38" height="38" />
-              </v-btn>
+              <!--              <v-btn-->
+              <!--                icon-->
+              <!--                class="pa-3"-->
+              <!--                color="primary"-->
+              <!--                title="Скопировать QR код в буфер обмена"-->
+              <!--                @click="copyImageToClipboard"-->
+              <!--              >-->
+              <!--                <copy-icon width="38" height="38" />-->
+              <!--              </v-btn>-->
               <v-btn
                 class="pa-3"
                 icon
@@ -108,14 +99,12 @@
 
 <script>
 import PageLoader from '@/components/PageLoader'
-import CopyIcon from '@/components/heroicons/CopyIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import VueQr from 'vue-qr'
 
 export default {
   components: {
     PageLoader,
-    CopyIcon,
     DownloadIcon,
     VueQr
   },
@@ -123,27 +112,15 @@ export default {
     user: null,
     error: null,
     loading: true,
-    valid: false,
     form: {
       last_name: '',
       first_name: '',
-      middle_name: '',
       position: '',
       company: 'MEDEQ',
       phone: '',
       email: '',
       website: 'https://medeq.ru'
     },
-    lastnameRules: [
-      (v) => !!v || 'Фамилия обязательно'
-    ],
-    firstnameRules: [
-      (v) => !!v || 'Имя обязательно'
-    ],
-    phoneRules: [
-      (v) => !!v || 'Телефон обязательно',
-      (v) => /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/.test(v) || 'Телефон неправильно'
-    ],
     dataUrl: null
   }),
   computed: {
@@ -151,22 +128,17 @@ export default {
       return 'BEGIN:VCARD\n' +
         `N:${this.form.last_name};${this.form.first_name};\n` +
         `TEL;TYPE=work,VOICE:${this.form.phone}\n` +
-        `EMAIL:${this.form.phone}\n` +
+        `EMAIL:${this.form.email}\n` +
         `ORG:${this.form.company}\n` +
         `TITLE:${this.form.position}\n` +
         `URL:${this.form.website}\n` +
         'VERSION:3.0\n' +
         'END:VCARD'
     }
-
   },
 
   async mounted() {
     this.loadUser()
-    // this.loading = false
-    this.$nextTick(() => {
-      this.$refs.form?.validate()
-    })
   },
   methods: {
     loadUser() {
@@ -180,12 +152,10 @@ export default {
         if (res.data()) {
           this.form.last_name = res.data()[0].LAST_NAME
           this.form.first_name = res.data()[0].NAME
-          this.form.middle_name = res.data()[0].SECOND_NAME
           this.form.position = res.data()[0].WORK_POSITION
           this.form.phone = res.data()[0].PERSONAL_MOBILE ?? '8 (800) 555-73-87'
           this.form.email = res.data()[0].EMAIL
         }
-        this.$refs.form.validate()
       })
 
       this.loading = false

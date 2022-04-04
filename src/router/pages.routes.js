@@ -6,14 +6,14 @@ export default [
     meta: {
       layout: 'simple'
     }
-  },{
+  }, {
     path: '/install-apps',
     name: 'install-apps',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/InstallApps.vue'),
     meta: {
       layout: 'simple'
     }
-  },{
+  }, {
     path: '/settings',
     name: 'settings',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/SettingsPage.vue'),
@@ -52,6 +52,20 @@ export default [
     path: '/users/profile-qr-code',
     name: 'users.profile-qr-code',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/users/UserProfileQRCode.vue'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/deals/filling-statistics',
+    name: 'deals.filling-statistics',
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatistics.vue'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/deals/filling-statistics/by-manager',
+    name: 'deals.filling-statistics.by-manager',
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatisticsByManager.vue'),
     meta: {
       layout: 'simple'
     }
