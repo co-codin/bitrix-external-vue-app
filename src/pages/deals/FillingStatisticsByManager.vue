@@ -47,14 +47,19 @@
                 </div>
               </td>
               <td v-for="(header, i) in headers.slice(2)" :key="i">
-                <div v-if="Boolean(item[header.value])" class="green--text text--darken-4">
+                <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
                   <div class="d-flex justify-center align-center">
                     <check-circle-solid-icon width="15" height="15" />
                   </div>
                 </div>
-                <div v-else class="red--text text--darken-4">
+                <div v-else-if="Boolean(item[header.value] === false)" class="red--text text--darken-4">
                   <div class="d-flex justify-center align-center">
                     <x-circle-solid-icon width="15" height="15" />
+                  </div>
+                </div>
+                <div v-else class="orange--text text--lighten-1">
+                  <div class="d-flex justify-center align-center">
+                    <exclamation-icon width="15" height="15" />
                   </div>
                 </div>
               </td>
@@ -72,6 +77,7 @@ import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
+import ExclamationIcon from '@/components/heroicons/ExclamationIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
@@ -82,7 +88,8 @@ export default {
     DocumentSearchIcon,
     CheckCircleSolidIcon,
     XCircleSolidIcon,
-    DownloadIcon
+    DownloadIcon,
+    ExclamationIcon
   },
   data: () => ({
     loading: true,
@@ -335,7 +342,7 @@ export default {
           has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
           has_sum: !!deal.UF_PROCEEDS,
           has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
-          has_planned_call: hasPlannedCall,
+          has_planned_call: hasPlannedCall || (hasNoOverdueCall ? false : null), // returns null if there's no planned call and overdued call
           has_planned_call_after_last_call: hasPlannedCallIn60DaysAfterLastCall,
           has_no_overdue_calls: hasNoOverdueCall,
           has_recent_calls: !! lastCall
