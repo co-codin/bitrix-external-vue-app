@@ -121,7 +121,9 @@ export default {
     ],
     additionalAdminUserIds: [
       29, // Соловьев
-      654 // Пальчун
+      654, // Пальчун
+      537, // Моисеева
+      366 // Балаян
     ],
     isAdmin: false
   }),
