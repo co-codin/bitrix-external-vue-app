@@ -420,7 +420,6 @@ export default {
         // https://bitrix.medeqstars.com/crm/deal/details/74222/?from=rest_placement&from_app=local.621014c222e996.73579131
         // https://bitrix.medeqstars.com/crm/deal/details/49250/?from=rest_placement&from_app=local.621014c222e996.73579131
 
-
         // дело (переименовываем в активность) - если есть запланированный звонок (даже если  просроченный), то зеленый. в иных случаях - красный
 
         // звонок позже 60 дней от момента последнего звонка
