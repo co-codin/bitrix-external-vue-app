@@ -37,6 +37,14 @@
           disable-pagination
           hide-default-footer
         >
+          <template #header.has_company_name="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              Указана комания покупателя
+            </v-tooltip>
+          </template>
           <template #item="{ item, headers }">
             <tr>
               <td>
