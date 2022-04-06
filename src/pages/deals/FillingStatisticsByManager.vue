@@ -19,7 +19,7 @@
       </div>
       <v-card v-else>
         <v-card-title>
-          Сделки
+          Сделки ({{ deals.length }})
           <v-spacer />
           <v-btn icon @click="refreshDeals">
             <refresh-icon width="30" height="30" />
@@ -62,9 +62,9 @@
                         <x-circle-solid-icon width="20" height="20" />
                       </div>
                     </div>
-                    <div v-else class="orange--text text--lighten-1" v-bind="attrs" v-on="on">
+                    <div v-else class="blue-grey--text text--lighten-1">
                       <div class="d-flex justify-center align-center">
-                        <exclamation-icon width="20" height="20" />
+                        &mdash;
                       </div>
                     </div>
                   </template>
@@ -104,7 +104,6 @@ import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
-import ExclamationIcon from '@/components/heroicons/ExclamationIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
@@ -117,8 +116,7 @@ export default {
     DocumentSearchIcon,
     CheckCircleSolidIcon,
     XCircleSolidIcon,
-    DownloadIcon,
-    ExclamationIcon
+    DownloadIcon
   },
   data: () => ({
     loading: true,
@@ -231,7 +229,7 @@ export default {
         { header: 'ИНН', key: 'has_inn', width: 15 },
         { header: 'Контакт', key: 'has_name', width: 15 },
         { header: 'E-mail', key: 'has_email', width: 15 },
-        { header: 'Дело', key: 'has_planned_call', width: 15 },
+        { header: 'Активность', key: 'has_planned_call', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
         { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
@@ -313,14 +311,14 @@ export default {
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS', 'ASSIGNED_BY_ID', 'DATE_CREATE']
       })
 
       const companyIds = deals.map((deal) => deal.COMPANY_ID).filter(Boolean)
 
       const companies = await bx24.callListMethod('crm.company.list', {
         filter: { 'ID': companyIds },
-        select: ['ID', 'TITLE', 'BANKING_DETAILS']
+        select: ['ID', 'TITLE', 'BANKING_DETAILS', 'HAS_EMAIL']
       })
 
       const companiesById = companies.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
@@ -344,7 +342,7 @@ export default {
           'TYPE_ID': 2,
           '>=DEADLINE': now.subtract(60, 'day').format('YYYY-MM-DD HH:mm:ss')
         },
-        select: ['COMPLETED', 'OWNER_ID', 'DEADLINE'],
+        select: ['COMPLETED', 'OWNER_ID', 'DEADLINE', 'ASSIGNED_BY_ID'],
         order: { 'DEADLINE': 'DESC' }
       })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
 
@@ -380,17 +378,15 @@ export default {
         const dealActivities = activities?.[deal.ID] || []
 
         // есть ли просроченные звонки
-        const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) < now)
+        const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && activity.ASSIGNED_BY_ID === deal.ASSIGNED_BY_ID && this.$dayjs(activity.DEADLINE) < now.subtract(1, 'day'))
 
         // последний звонок
-        const lastCall = dealActivities.find((activity) => activity.COMPLETED === 'Y' && this.$dayjs(activity.DEADLINE) <= now)
+        const lastCall = dealActivities.find((activity) => activity.COMPLETED === 'Y')
 
-        // есть ли запланированный звонок
-        const hasPlannedCall = !! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) >= now)
+        const nearestPlannedCall = dealActivities
+          .find((activity) => activity.COMPLETED === 'N' ?? activity.ASSIGNED_BY_ID === deal.ASSIGNED_BY_ID)
 
-        // есть ли запланированный звонок в течение 60 дней с момента последнего звонка
-        const hasPlannedCallIn60DaysAfterLastCall = !! lastCall &&
-          !! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) >= now && this.$dayjs(activity.DEADLINE) <= this.$dayjs(lastCall.DEADLINE).add(60, 'day'))
+        const hasPlannedCall = !! nearestPlannedCall
 
         const row = {
           index: index + 1,
@@ -400,12 +396,25 @@ export default {
           has_inn: !! companyRequisites?.[deal.COMPANY_ID],
           has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
           has_sum: !!deal.UF_PROCEEDS,
-          has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y'),
-          has_planned_call: hasPlannedCall || (hasNoOverdueCall ? false : null), // returns null if there's no planned call and overdued call
-          has_planned_call_after_last_call: hasPlannedCallIn60DaysAfterLastCall,
-          has_no_overdue_calls: hasNoOverdueCall,
+          has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y') || companiesById?.[deal.COMPANY_ID]?.HAS_EMAIL === 'Y',
+          has_planned_call: hasPlannedCall,
+          has_planned_call_after_last_call: hasPlannedCall
+            ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(60, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
+            : null,
+          has_no_overdue_calls: hasPlannedCall ? hasNoOverdueCall : null,
           has_recent_calls: !! lastCall
         }
+
+        // дело (переименовываем в активность) - если есть запланированный звонок (даже если  просроченный), то зеленый. в иных случаях - красный
+
+        // звонок позже 60 дней от момента последнего звонка
+
+        // если от текущего менеджера есть запланированная активность (даже если просроченная), то:
+        // // если есть звонки по сделке (от кого угодно), смотрим последний звонок и отсчитываем 60 дней от него
+        // // // если в течение 60 дней запланирован звонок, то зеленый
+        // // // если звонок запланирован больше чем на 60 дней, то красный
+        // // // если звонок не запланирован, то зеленый
+        // иначе - зеленый
 
         this.deals.push(row)
       })
