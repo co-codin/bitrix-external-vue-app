@@ -47,7 +47,8 @@
               <div>
                 <p class="mb-1">Указана комания покупателя</p>
                 <v-img
-                  max-width="300px"
+                  class="mb-1"
+                  max-width="400px"
                   src="/images/deals-filling-statistics-fields/has_company_name.png"
                 />
               </div>
