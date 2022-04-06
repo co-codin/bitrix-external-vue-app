@@ -34,45 +34,36 @@
           disable-pagination
           hide-default-footer
         >
-          <template #body="{ items, headers }">
-            <tbody>
-              <tr v-for="(item, index) in items" :key="index">
-                <td>
-                  <div v-if="item.index" class="font-weight-bold text-no-wrap">
-                    {{ item.index }}
+          <template #item="{ item, headers }">
+            <tr>
+              <td>
+                <div v-if="item.index" class="font-weight-bold text-no-wrap">
+                  {{ item.index }}
+                </div>
+              </td>
+              <td style="max-width: 450px">
+                <div v-if="item.name" class="font-weight-bold">
+                  <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+                </div>
+              </td>
+              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
+                <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
+                  <div class="d-flex justify-center align-center">
+                    <check-circle-solid-icon width="15" height="15" />
                   </div>
-                </td>
-                <td style="max-width: 450px">
-                  <div v-if="item.name" class="font-weight-bold">
-                    <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
+                </div>
+                <div v-else-if="Boolean(item[header.value] === false)" class="red--text text--darken-4">
+                  <div class="d-flex justify-center align-center">
+                    <x-circle-solid-icon width="15" height="15" />
                   </div>
-                </td>
-                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                  <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
-                    <div class="d-flex justify-center align-center">
-                      <check-circle-solid-icon width="15" height="15" />
-                    </div>
+                </div>
+                <div v-else class="orange--text text--lighten-1">
+                  <div class="d-flex justify-center align-center">
+                    <exclamation-icon width="15" height="15" />
                   </div>
-                  <div v-else-if="Boolean(item[header.value] === false)" class="red--text text--darken-4">
-                    <div class="d-flex justify-center align-center">
-                      <x-circle-solid-icon width="15" height="15" />
-                    </div>
-                  </div>
-                  <div v-else class="orange--text text--lighten-1">
-                    <div class="d-flex justify-center align-center">
-                      <exclamation-icon width="15" height="15" />
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                  {{ summary[header.value] }}
-                </td>
-              </tr>
-            </tbody>
+                </div>
+              </td>
+            </tr>
           </template>
         </v-data-table>
       </v-card>
