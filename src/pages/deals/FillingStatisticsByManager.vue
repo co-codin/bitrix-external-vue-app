@@ -21,6 +21,9 @@
         <v-card-title>
           Сделки
           <v-spacer />
+          <v-btn icon @click="refreshDeals">
+            <refresh-icon width="30" height="30" />
+          </v-btn>
           <v-btn icon @click="exportExcel">
             <download-icon width="30" height="30" />
           </v-btn>
@@ -105,9 +108,11 @@ import ExclamationIcon from '@/components/heroicons/ExclamationIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
+import RefreshIcon from '@/components/heroicons/RefreshIcon'
 
 export default {
   components: {
+    RefreshIcon,
     PageHeader,
     DocumentSearchIcon,
     CheckCircleSolidIcon,
@@ -415,6 +420,12 @@ export default {
       }
 
       return 'orange lighten-1'
+    },
+    async refreshDeals() {
+      this.loading = true
+      this.deals = []
+      await this.loadDeals()
+      this.loading = false
     }
   }
 }
