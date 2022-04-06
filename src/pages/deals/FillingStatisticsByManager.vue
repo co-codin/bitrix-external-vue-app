@@ -1,7 +1,8 @@
 <template>
   <div>
     <page-header h1="Заполнение сделок по менеджеру" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
-    <v-card v-if="isAdmin">
+
+    <v-card v-if="isAdmin" :disabled="loading">
       <v-card-title class="cursor-pointer" @click="selectUser">
         <document-search-icon width="30" height="30" class="mr-1" />
         {{ isUserSelected ? manager.name : 'Выберите ответственного менеджера' }}
