@@ -420,25 +420,10 @@ export default {
           has_planned_call: hasPlannedCall,
           has_planned_call_after_last_call: hasPlannedCall
             ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(61, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
-            : null,
-          has_no_overdue_calls: hasPlannedCall ? hasNoOverdueCall : null,
+            : 'not-available',
+          has_no_overdue_calls: hasPlannedCall ? hasNoOverdueCall : 'not-available',
           has_recent_calls: !! lastCall
         }
-
-        // https://bitrix.medeqstars.com/crm/deal/details/87722/?from=rest_placement&from_app=local.621014c222e996.73579131
-        // https://bitrix.medeqstars.com/crm/deal/details/74222/?from=rest_placement&from_app=local.621014c222e996.73579131
-        // https://bitrix.medeqstars.com/crm/deal/details/49250/?from=rest_placement&from_app=local.621014c222e996.73579131
-
-        // дело (переименовываем в активность) - если есть запланированный звонок (даже если  просроченный), то зеленый. в иных случаях - красный
-
-        // звонок позже 60 дней от момента последнего звонка
-
-        // если от текущего менеджера есть запланированная активность (даже если просроченная), то:
-        // // если есть звонки по сделке (от кого угодно), смотрим последний звонок и отсчитываем 60 дней от него
-        // // // если в течение 60 дней запланирован звонок, то зеленый
-        // // // если звонок запланирован больше чем на 60 дней, то красный
-        // // // если звонок не запланирован, то зеленый
-        // иначе - зеленый
 
         this.deals.push(row)
       })
