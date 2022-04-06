@@ -49,7 +49,7 @@
               <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
                 <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
                   <div class="d-flex justify-center align-center">
-                    <v-tooltip>
+                    <v-tooltip top>
                       <template v-slot:activator="{ on, attrs }">
                         <check-circle-solid-icon
                           v-bind="attrs"
@@ -64,7 +64,7 @@
                 </div>
                 <div v-else-if="Boolean(item[header.value] === false)" class="red--text text--darken-4">
                   <div class="d-flex justify-center align-center">
-                    <v-tooltip>
+                    <v-tooltip top>
                       <template v-slot:activator="{ on, attrs }">
                         <x-circle-solid-icon v-bind="attrs" width="20" height="20" v-on="on" />
                       </template>
@@ -74,7 +74,7 @@
                 </div>
                 <div v-else class="orange--text text--lighten-1">
                   <div class="d-flex justify-center align-center">
-                    <v-tooltip>
+                    <v-tooltip top>
                       <template v-slot:activator="{ on, attrs }">
                         <exclamation-icon v-bind="attrs" width="20" height="20" v-on="on" />
                       </template>
