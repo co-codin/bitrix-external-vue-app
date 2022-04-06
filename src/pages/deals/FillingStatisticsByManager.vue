@@ -138,12 +138,12 @@ export default {
       { text: 'Компания', align: 'center', value: 'has_company_name', sortable: true, positiveLabel: 'Компания указана', negativeLabel: 'Компания не указана' },
       { text: 'ИНН', align: 'center', value: 'has_inn', sortable: true, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан' },
       { text: 'Контакт', align: 'center', value: 'has_name', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
-      { text: 'E-mail', align: 'center', value: 'has_email', sortable: false, positiveLabel: 'E-mail в контакте или компании указан', negativeLabel: 'E-mail в контакте или компании не указан' },
-      { text: 'Сумма', align: 'center', value: 'has_sum', sortable: false, positiveLabel: 'Сумма в сделке указана', negativeLabel: 'Сумма в сделке не указана' },
-      { text: 'Дело', align: 'center', value: 'has_planned_call', sortable: false, positiveLabel: 'Есть дела в сделке', negativeLabel: 'Сделка без дел' },
-      { text: 'Звонок позже 60 дней', align: 'center', value: 'has_planned_call_after_last_call', sortable: false, positiveLabel: 'Звонок запланирован на ближайшие 60 дней', negativeLabel: 'Нет запланированного звонка на ближайшие 60 дней' },
-      { text: 'Нет просроченных звонков', align: 'center', value: 'has_no_overdue_calls', sortable: false, positiveLabel: 'Нет просроченных звонков', negativeLabel: 'Есть просроченные звонки' },
-      { text: 'За последние 60 дней был звонок', align: 'center', value: 'has_recent_calls', sortable: false, positiveLabel: 'За последние 60 дней был звонок', negativeLabel: 'За последние 60 дней не было звонка' }
+      { text: 'E-mail', align: 'center', value: 'has_email', sortable: true, positiveLabel: 'E-mail в контакте или компании указан', negativeLabel: 'E-mail в контакте или компании не указан' },
+      { text: 'Сумма', align: 'center', value: 'has_sum', sortable: true, positiveLabel: 'Сумма в сделке указана', negativeLabel: 'Сумма в сделке не указана' },
+      { text: 'Дело', align: 'center', value: 'has_planned_call', sortable: true, positiveLabel: 'Есть дела в сделке', negativeLabel: 'Сделка без дел' },
+      { text: 'Звонок позже 60 дней', align: 'center', value: 'has_planned_call_after_last_call', sortable: true, positiveLabel: 'Звонок запланирован на ближайшие 60 дней', negativeLabel: 'Нет запланированного звонка на ближайшие 60 дней' },
+      { text: 'Нет просроченных звонков', align: 'center', value: 'has_no_overdue_calls', sortable: true, positiveLabel: 'Нет просроченных звонков', negativeLabel: 'Есть просроченные звонки' },
+      { text: 'За последние 60 дней был звонок', align: 'center', value: 'has_recent_calls', sortable: true, positiveLabel: 'За последние 60 дней был звонок', negativeLabel: 'За последние 60 дней не было звонка' }
     ],
     breadcrumbs: [
       { text: 'Заполнение сделок по менеджеру' }
