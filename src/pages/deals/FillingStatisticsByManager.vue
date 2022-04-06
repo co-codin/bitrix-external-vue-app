@@ -49,28 +49,30 @@
               <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
                 <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
                   <div class="d-flex justify-center align-center">
-                    <check-circle-solid-icon width="15" height="15" />
+                    <check-circle-solid-icon width="20" height="20" />
                   </div>
                 </div>
                 <div v-else-if="Boolean(item[header.value] === false)" class="red--text text--darken-4">
                   <div class="d-flex justify-center align-center">
-                    <x-circle-solid-icon width="15" height="15" />
+                    <x-circle-solid-icon width="20" height="20" />
                   </div>
                 </div>
                 <div v-else class="orange--text text--lighten-1">
                   <div class="d-flex justify-center align-center">
-                    <exclamation-icon width="15" height="15" />
+                    <exclamation-icon width="20" height="20" />
                   </div>
                 </div>
               </td>
             </tr>
           </template>
-          <template #body.append="{ headers }">
+          <template #body.prepend="{ headers }">
             <tr>
               <th></th>
               <th></th>
               <th v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                {{ summary[header.value] }}
+                <div :class="{ 'red--text text--darken-4': !summary[header.value], 'green--text text--darken-4': !! summary[header.value] }">
+                  {{ summary[header.value] || '&mdash;' }}
+                </div>
               </th>
             </tr>
           </template>
