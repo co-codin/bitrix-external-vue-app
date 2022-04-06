@@ -70,7 +70,7 @@
               <th></th>
               <th></th>
               <th v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                <div :class="{ 'red--text text--darken-4': !summary[header.value], 'green--text text--darken-4': !! summary[header.value] }">
+                <div :class="{ 'red--text text--darken-4': summary[header.value], 'green--text text--darken-4': ! summary[header.value] }">
                   {{ summary[header.value] || '&mdash;' }}
                 </div>
               </th>
