@@ -133,8 +133,8 @@ export default {
       to: { name: 'deals.filling-statistics' }
     },
     headers: [
-      { text: '', align: 'left', value: 'index', sortable: false },
-      { text: '', align: 'left', value: 'name', sortable: true },
+      { text: '#', align: 'center', value: 'index', sortable: true },
+      { text: 'Сделка', align: 'left', value: 'name', sortable: true },
       { text: 'Компания', align: 'center', value: 'has_company_name', sortable: true, positiveLabel: 'Компания указана', negativeLabel: 'Компания не указана' },
       { text: 'ИНН', align: 'center', value: 'has_inn', sortable: true, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан' },
       { text: 'Контакт', align: 'center', value: 'has_name', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
