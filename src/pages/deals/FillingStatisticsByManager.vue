@@ -32,6 +32,7 @@
           :height="tableHeight"
           :items="deals"
           disable-pagination
+          hide-default-footer
         >
           <template #item="{ headers, item }">
             <tr>
