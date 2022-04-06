@@ -335,19 +335,6 @@ export default {
 
       const now = this.$dayjs()
 
-      const activities = (await bx24.callListMethod('crm.activity.list', {
-        filter: {
-          'OWNER_ID': dealIds,
-          'OWNER_TYPE_ID': 2,
-          'TYPE_ID': 2,
-          '>=DEADLINE': now.subtract(60, 'day').format('YYYY-MM-DD HH:mm:ss')
-        },
-        select: ['COMPLETED', 'OWNER_ID', 'DEADLINE', 'ASSIGNED_BY_ID'],
-        order: { 'DEADLINE': 'DESC' }
-      })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
-
-      console.log(activities)
-
       const dealContactBatch = deals.map((deal) => {
         return [
           'crm.deal.contact.items.get', { id: deal.ID }
@@ -369,13 +356,37 @@ export default {
         ]
       })
 
+      const activities = (await bx24.callListMethod('crm.activity.list', {
+        filter: {
+          'OWNER_ID': dealIds,
+          'OWNER_TYPE_ID': 2,
+          'TYPE_ID': 2,
+          '>=DEADLINE': now.subtract(61, 'day').format('YYYY-MM-DD HH:mm:ss')
+        },
+        select: ['COMPLETED', 'OWNER_ID', 'OWNER_TYPE_ID', 'DEADLINE', 'ASSIGNED_BY_ID'],
+        order: { 'DEADLINE': 'DESC' }
+      })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
+
+      const contactActivities = (await bx24.callListMethod('crm.activity.list', {
+        filter: {
+          'OWNER_ID': contactIds,
+          'OWNER_TYPE_ID': 3,
+          'TYPE_ID': 2,
+          '>=DEADLINE': now.subtract(61, 'day').format('YYYY-MM-DD HH:mm:ss')
+        },
+        select: ['COMPLETED', 'OWNER_ID', 'OWNER_TYPE_ID', 'DEADLINE', 'ASSIGNED_BY_ID'],
+        order: { 'DEADLINE': 'DESC' }
+      })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
+
       const contactsById = contacts.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
 
       deals.forEach((deal, index) => {
 
         const currentDealContacts = dealContacts[index].map((dealContact) => contactsById[dealContact.CONTACT_ID])
 
-        const dealActivities = activities?.[deal.ID] || []
+        const dealContactActivities = currentDealContacts.map((contact) => contactActivities?.[contact.ID] ?? []).flat()
+
+        const dealActivities = (activities?.[deal.ID] || []).concat(dealContactActivities)
 
         // есть ли просроченные звонки
         const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && activity.ASSIGNED_BY_ID === deal.ASSIGNED_BY_ID && this.$dayjs(activity.DEADLINE) < now.subtract(1, 'day'))
