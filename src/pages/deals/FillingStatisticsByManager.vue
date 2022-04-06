@@ -47,41 +47,35 @@
                 </div>
               </td>
               <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
-                  <div class="d-flex justify-center align-center">
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <check-circle-solid-icon
-                          v-bind="attrs"
-                          width="20"
-                          height="20"
-                          v-on="on"
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <div v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
+                      <div class="d-flex justify-center align-center">
+                        <check-circle-solid-icon width="20" height="20" />
                         />
-                      </template>
-                      <span>{{ header.positiveLabel }}</span>
-                    </v-tooltip>
+                      </div>
+                    </div>
+                    <div v-else-if="item[header.value] === false" class="red--text text--darken-4" v-bind="attrs" v-on="on">
+                      <div class="d-flex justify-center align-center">
+                        <x-circle-solid-icon width="20" height="20" />
+                      </div>
+                    </div>
+                    <div v-else class="orange--text text--lighten-1" v-bind="attrs" v-on="on">
+                      <div class="d-flex justify-center align-center">
+                        <exclamation-icon width="20" height="20" />
+                      </div>
+                    </div>
+                  </template>
+                  <div v-if="item[header.value] === true" class="green--text text--darken-4">
+                    {{ header.positiveLabel }}
                   </div>
-                </div>
-                <div v-else-if="Boolean(item[header.value] === false)" class="red--text text--darken-4">
-                  <div class="d-flex justify-center align-center">
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <x-circle-solid-icon v-bind="attrs" width="20" height="20" v-on="on" />
-                      </template>
-                      <span>{{ header.negativeLabel }}</span>
-                    </v-tooltip>
+                  <div v-else-if="item[header.value] === false" class="green--text text--darken-4">
+                    {{ header.negativeLabel }}
                   </div>
-                </div>
-                <div v-else class="orange--text text--lighten-1">
-                  <div class="d-flex justify-center align-center">
-                    <v-tooltip top>
-                      <template v-slot:activator="{ on, attrs }">
-                        <exclamation-icon v-bind="attrs" width="20" height="20" v-on="on" />
-                      </template>
-                      <span>{{ header.negativeLabel }}</span>
-                    </v-tooltip>
+                  <div v-else class="orange--text text--lighten-1">
+                    {{ header.negativeLabel }}
                   </div>
-                </div>
+                </v-tooltip>
               </td>
             </tr>
           </template>
