@@ -47,12 +47,11 @@
                 </div>
               </td>
               <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                <v-tooltip bottom>
+                <v-tooltip bottom color="green darken-4">
                   <template v-slot:activator="{ on, attrs }">
                     <div v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
                       <div class="d-flex justify-center align-center">
                         <check-circle-solid-icon width="20" height="20" />
-                        />
                       </div>
                     </div>
                     <div v-else-if="item[header.value] === false" class="red--text text--darken-4" v-bind="attrs" v-on="on">
@@ -66,13 +65,13 @@
                       </div>
                     </div>
                   </template>
-                  <div v-if="item[header.value] === true" class="green--text text--darken-4">
+                  <div v-if="item[header.value] === true">
                     {{ header.positiveLabel }}
                   </div>
-                  <div v-else-if="item[header.value] === false" class="green--text text--darken-4">
+                  <div v-else-if="item[header.value] === false">
                     {{ header.negativeLabel }}
                   </div>
-                  <div v-else class="orange--text text--lighten-1">
+                  <div v-else>
                     {{ header.negativeLabel }}
                   </div>
                 </v-tooltip>
