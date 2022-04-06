@@ -135,9 +135,9 @@ export default {
     headers: [
       { text: '', align: 'left', value: 'index', sortable: false },
       { text: '', align: 'left', value: 'name', sortable: false },
-      { text: 'Компания', align: 'center', value: 'has_company_name', sortable: false, positiveLabel: 'Компания указана', negativeLabel: 'Компания не указана' },
-      { text: 'ИНН', align: 'center', value: 'has_inn', sortable: false, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан' },
-      { text: 'Контакт', align: 'center', value: 'has_name', sortable: false, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
+      { text: 'Компания', align: 'center', value: 'has_company_name', sortable: true, positiveLabel: 'Компания указана', negativeLabel: 'Компания не указана' },
+      { text: 'ИНН', align: 'center', value: 'has_inn', sortable: true, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан' },
+      { text: 'Контакт', align: 'center', value: 'has_name', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
       { text: 'E-mail', align: 'center', value: 'has_email', sortable: false, positiveLabel: 'E-mail в контакте или компании указан', negativeLabel: 'E-mail в контакте или компании не указан' },
       { text: 'Сумма', align: 'center', value: 'has_sum', sortable: false, positiveLabel: 'Сумма в сделке указана', negativeLabel: 'Сумма в сделке не указана' },
       { text: 'Дело', align: 'center', value: 'has_planned_call', sortable: false, positiveLabel: 'Есть дела в сделке', negativeLabel: 'Сделка без дел' },
