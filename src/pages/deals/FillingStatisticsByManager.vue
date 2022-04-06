@@ -410,7 +410,7 @@ export default {
           has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y') || companiesById?.[deal.COMPANY_ID]?.HAS_EMAIL === 'Y',
           has_planned_call: hasPlannedCall,
           has_planned_call_after_last_call: hasPlannedCall
-            ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(60, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
+            ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(61, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
             : null,
           has_no_overdue_calls: hasPlannedCall ? hasNoOverdueCall : null,
           has_recent_calls: !! lastCall
