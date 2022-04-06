@@ -34,19 +34,19 @@
           disable-pagination
           hide-default-footer
         >
-          <template #item="{ headers, item }">
-            <tr>
+          <template #body="{ items, headers }">
+            <tr v-for="(item, index) in items" :key="index">
               <td>
-                <div class="font-weight-bold text-no-wrap">
+                <div v-if="item.index" class="font-weight-bold text-no-wrap">
                   {{ item.index }}
                 </div>
               </td>
               <td style="max-width: 450px">
-                <div class="font-weight-bold">
+                <div v-if="item.name" class="font-weight-bold">
                   <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
                 </div>
               </td>
-              <td v-for="(header, i) in headers.slice(2)" :key="i">
+              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
                 <div v-if="Boolean(item[header.value] === true)" class="green--text text--darken-4">
                   <div class="d-flex justify-center align-center">
                     <check-circle-solid-icon width="15" height="15" />
@@ -62,6 +62,13 @@
                     <exclamation-icon width="15" height="15" />
                   </div>
                 </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
+                {{ summary[header.value] }}
               </td>
             </tr>
           </template>
@@ -130,6 +137,34 @@ export default {
   computed: {
     isUserSelected() {
       return !! this.manager?.name
+    },
+    summary() {
+      const summary = {
+        name: 0,
+        has_company_name: 0,
+        has_inn: 0,
+        has_name: 0,
+        has_sum: 0,
+        has_email: 0,
+        has_planned_call: 0,
+        has_planned_call_after_last_call: 0,
+        has_no_overdue_calls: 0,
+        has_recent_calls: 0
+      }
+
+      this.deals.forEach((deal) => {
+        summary.has_company_name += !deal.has_company_name ? 1 : 0
+        summary.has_inn += deal.has_inn === false ? 1 : 0
+        summary.has_name += deal.has_name === false ? 1 : 0
+        summary.has_sum += deal.has_sum === false ? 1 : 0
+        summary.has_email += deal.has_email === false ? 1 : 0
+        summary.has_planned_call += deal.has_planned_call === false ? 1 : 0
+        summary.has_planned_call_after_last_call += deal.has_planned_call_after_last_call === false ? 1 : 0
+        summary.has_no_overdue_calls += deal.has_no_overdue_calls === false ? 1 : 0
+        summary.has_recent_calls += deal.has_recent_calls === false ? 1 : 0
+      })
+
+      return summary
     }
   },
   async mounted() {
@@ -335,7 +370,7 @@ export default {
         const hasPlannedCallIn60DaysAfterLastCall = !! lastCall &&
           !! dealActivities.find((activity) => activity.COMPLETED === 'N' && this.$dayjs(activity.DEADLINE) >= now && this.$dayjs(activity.DEADLINE) <= this.$dayjs(lastCall.DEADLINE).add(60, 'day'))
 
-        this.deals.push({
+        const row = {
           index: index + 1,
           id: deal.ID,
           name: deal.TITLE,
@@ -348,7 +383,9 @@ export default {
           has_planned_call_after_last_call: hasPlannedCallIn60DaysAfterLastCall,
           has_no_overdue_calls: hasNoOverdueCall,
           has_recent_calls: !! lastCall
-        })
+        }
+
+        this.deals.push(row)
       })
     }
   }
