@@ -30,6 +30,7 @@
           </v-btn>
         </v-card-title>
         <v-data-table
+          dense
           item-key="name"
           :headers="headers"
           fixed-header
