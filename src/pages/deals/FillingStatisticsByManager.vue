@@ -129,7 +129,7 @@ export default {
     DownloadIcon
   },
   data: () => ({
-    loading: true,
+    loading: false,
     manager: {
       id: null,
       name: null
