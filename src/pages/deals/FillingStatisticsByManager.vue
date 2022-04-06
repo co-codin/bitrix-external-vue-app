@@ -44,7 +44,10 @@
               <template v-slot:activator="{ on, attrs }">
                 <span v-bind="attrs" v-on="on">{{ header.text }}</span>
               </template>
-              Указана комания покупателя
+              <div>
+                Указана комания покупателя
+                <v-img src="/images/deals-filling-statistics-fields/has_company_name.png" />
+              </div>
             </v-tooltip>
           </template>
           <template #item="{ item, headers }">
