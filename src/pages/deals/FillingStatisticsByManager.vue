@@ -32,7 +32,6 @@
           :height="tableHeight"
           :items="deals"
           disable-pagination
-          hide-default-footer
         >
           <template #item="{ item, headers }">
             <tr>
@@ -64,6 +63,9 @@
                 </div>
               </td>
             </tr>
+          </template>
+          <template #footer>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus adipisci aliquid amet asperiores blanditiis dignissimos dolore eligendi facere, illum iusto modi necessitatibus nisi nostrum obcaecati odio odit omnis optio perferendis praesentium provident quam quas reiciendis repellendus totam voluptates? At autem delectus ducimus ea earum excepturi exercitationem ipsum laboriosam laborum neque nihil perferendis perspiciatis qui quod rem, similique soluta tempora totam, ullam vero. Asperiores culpa eveniet exercitationem facere mollitia nihil perferendis, possimus provident voluptatum. A aliquid architecto commodi, cum cupiditate delectus deleniti ea eum excepturi exercitationem facilis impedit incidunt laborum odit perspiciatis quaerat quas quos reiciendis repudiandae saepe velit veritatis vero.
           </template>
         </v-data-table>
       </v-card>
