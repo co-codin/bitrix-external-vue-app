@@ -45,8 +45,11 @@
                 <span v-bind="attrs" v-on="on">{{ header.text }}</span>
               </template>
               <div>
-                Указана комания покупателя
-                <v-img src="/images/deals-filling-statistics-fields/has_company_name.png" />
+                <p class="mb-1">Указана комания покупателя</p>
+                <v-img
+                  max-width="300px"
+                  src="/images/deals-filling-statistics-fields/has_company_name.png"
+                />
               </div>
             </v-tooltip>
           </template>
