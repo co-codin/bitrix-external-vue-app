@@ -192,7 +192,7 @@ export default {
   },
   methods: {
     calculateTableHeight() {
-      this.tableHeight = window.innerHeight - 340
+      this.tableHeight = window.innerHeight - 280
     },
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
