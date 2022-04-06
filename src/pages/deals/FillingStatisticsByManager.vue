@@ -27,12 +27,11 @@
         </v-card-title>
         <v-data-table
           item-key="name"
-          :items-per-page="10000"
           :headers="headers"
           fixed-header
           :height="tableHeight"
           :items="deals"
-          hide-default-footer
+          disable-pagination
         >
           <template #item="{ headers, item }">
             <tr>
