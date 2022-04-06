@@ -47,7 +47,7 @@
                 </div>
               </td>
               <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                <v-tooltip bottom color="green darken-4">
+                <v-tooltip bottom :color="getTooltipColor(item[header.value])">
                   <template v-slot:activator="{ on, attrs }">
                     <div v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
                       <div class="d-flex justify-center align-center">
@@ -404,6 +404,17 @@ export default {
 
         this.deals.push(row)
       })
+    },
+    getTooltipColor(value) {
+      if (value === true) {
+        return 'green darken-4'
+      }
+
+      if (value === false) {
+        return 'red darken-4'
+      }
+
+      return 'orange lighten-1'
     }
   }
 }
