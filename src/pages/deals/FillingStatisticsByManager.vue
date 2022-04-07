@@ -114,6 +114,46 @@
               </div>
             </v-tooltip>
           </template>
+          <template #header.has_planned_call="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Есть запланированный звонок</p>
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_planned_call_after_last_call="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Не был запланирован звонок позже 60 дней от последнего звонка по данной сделке</p>
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_no_overdue_calls="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Звонок в данной сделке просрочен более чем на 24 часа от указаного времени звонка</p>
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_recent_calls="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Есть звонок совершенный за последние 60 дней от крайней активности</p>
+              </div>
+            </v-tooltip>
+          </template>
           <template #item="{ item, headers }">
             <tr>
               <td>
