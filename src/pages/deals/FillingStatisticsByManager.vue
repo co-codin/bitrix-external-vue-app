@@ -372,13 +372,15 @@ export default {
             bottom: { style: 'thin' },
             right: { style: 'thin' }
           }
+
+          cell.value = ''
+
           if (cell.value === true) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
               fgColor: { argb: '88F94E' }
             }
-            cell.value = ''
           }
           if (cell.value === false) {
             row.getCell(colNumber).fill = {
@@ -386,7 +388,6 @@ export default {
               pattern: 'solid',
               fgColor: { argb: 'FE634D' }
             }
-            cell.value = ''
           }
         })
       })
