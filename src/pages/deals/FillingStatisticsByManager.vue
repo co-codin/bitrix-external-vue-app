@@ -66,8 +66,8 @@
                   <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
                 </div>
               </td>
-              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center d-flex justify-center align-center">
-                <v-tooltip bottom :color="getTooltipColor(item[header.value])" tag="span">
+              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
+                <v-tooltip bottom :color="getTooltipColor(item[header.value])">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
                       <check-circle-solid-icon width="20" height="20" />
