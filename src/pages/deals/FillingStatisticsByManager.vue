@@ -66,34 +66,28 @@
                   <a href="#" @click.prevent="openDeal(item.id)">{{ item.name }}</a>
                 </div>
               </td>
-              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
-                <v-tooltip bottom :color="getTooltipColor(item[header.value])">
+              <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center d-flex justify-center align-center">
+                <v-tooltip bottom :color="getTooltipColor(item[header.value])" tag="span">
                   <template v-slot:activator="{ on, attrs }">
-                    <div v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
-                      <div class="d-flex justify-center align-center">
-                        <check-circle-solid-icon width="20" height="20" />
-                      </div>
-                    </div>
-                    <div v-else-if="item[header.value] === false" class="red--text text--darken-4" v-bind="attrs" v-on="on">
-                      <div class="d-flex justify-center align-center">
-                        <x-circle-solid-icon width="20" height="20" />
-                      </div>
-                    </div>
-                    <div v-else class="blue-grey--text text--lighten-1">
-                      <div class="d-flex justify-center align-center">
-                        &mdash;
-                      </div>
-                    </div>
+                    <span v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
+                      <check-circle-solid-icon width="20" height="20" />
+                    </span>
+                    <span v-else-if="item[header.value] === false" class="red--text text--darken-4" v-bind="attrs" v-on="on">
+                      <x-circle-solid-icon width="20" height="20" />
+                    </span>
+                    <span v-else class="blue-grey--text text--lighten-1">
+                      &mdash;
+                    </span>
                   </template>
-                  <span v-if="item[header.value] === true">
+                  <div v-if="item[header.value] === true">
                     {{ header.positiveLabel }}
-                  </span>
-                  <span v-else-if="item[header.value] === false">
+                  </div>
+                  <div v-else-if="item[header.value] === false">
                     {{ header.negativeLabel }}
-                  </span>
-                  <span v-else>
+                  </div>
+                  <div v-else>
                     {{ header.negativeLabel }}
-                  </span>
+                  </div>
                 </v-tooltip>
               </td>
             </tr>
