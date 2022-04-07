@@ -45,11 +45,71 @@
                 <span v-bind="attrs" v-on="on">{{ header.text }}</span>
               </template>
               <div>
-                <p class="mb-1">Указана комания покупателя</p>
+                <p class="mb-1">Указана комания клиента</p>
                 <v-img
                   class="mb-1"
                   max-width="400px"
                   src="/images/deals-filling-statistics-fields/has_company_name.png"
+                />
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_inn="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указан ИНН компании</p>
+                <v-img
+                  class="mb-1"
+                  max-width="400px"
+                  src="/images/deals-filling-statistics-fields/has_inn.png"
+                />
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_name="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указано ФИО клиента</p>
+                <v-img
+                  class="mb-1"
+                  max-width="400px"
+                  src="/images/deals-filling-statistics-fields/has_name.png"
+                />
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_email="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указан E-mail клиента</p>
+                <v-img
+                  class="mb-1"
+                  max-width="400px"
+                  src="/images/deals-filling-statistics-fields/has_email.png"
+                />
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_sum="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указана сумма сделки</p>
+                <v-img
+                  class="mb-1"
+                  max-width="400px"
+                  src="/images/deals-filling-statistics-fields/has_sum.png"
                 />
               </div>
             </v-tooltip>
