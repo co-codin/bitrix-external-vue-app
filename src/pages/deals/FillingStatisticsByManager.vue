@@ -85,15 +85,15 @@
                       </div>
                     </div>
                   </template>
-                  <div v-if="item[header.value] === true">
+                  <span v-if="item[header.value] === true">
                     {{ header.positiveLabel }}
-                  </div>
-                  <div v-else-if="item[header.value] === false">
+                  </span>
+                  <span v-else-if="item[header.value] === false">
                     {{ header.negativeLabel }}
-                  </div>
-                  <div v-else>
+                  </span>
+                  <span v-else>
                     {{ header.negativeLabel }}
-                  </div>
+                  </span>
                 </v-tooltip>
               </td>
             </tr>
