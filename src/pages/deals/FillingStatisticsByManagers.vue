@@ -362,8 +362,8 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Менеджер', key: 'name', width: 100 },
-        { header: 'Количество сделок', key: 'dealsNumber', width: 100 },
+        { header: 'Менеджер', key: 'name', width: 60 },
+        { header: 'Количество сделок', key: 'dealsNumber', width: 30 },
         { header: 'Компания', key: 'has_company_name', width: 15 },
         { header: 'ИНН', key: 'has_inn', width: 15 },
         { header: 'Контакт', key: 'has_name', width: 15 },
@@ -371,7 +371,7 @@ export default {
         { header: 'Сумма', key: 'has_sum', width: 15 },
         { header: 'Активность', key: 'has_planned_call', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
-        { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
+        { header: 'Нет просроченных звонков', key: 'has_no_overdue_calls', width: 50 },
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
       ]
 
