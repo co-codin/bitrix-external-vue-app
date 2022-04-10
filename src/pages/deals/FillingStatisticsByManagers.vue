@@ -359,6 +359,7 @@ export default {
           has_category: this.countOccurrences(managerDeals, 'has_category'),
           has_region: this.countOccurrences(managerDeals, 'has_region'),
           has_planned_call: this.countOccurrences(managerDeals, 'has_planned_call'),
+          has_correct_call_description: this.countOccurrences(managerDeals, 'has_correct_call_description'),
           has_planned_call_after_last_call: this.countOccurrences(managerDeals, 'has_planned_call_after_last_call'),
           has_no_overdue_calls: this.countOccurrences(managerDeals, 'has_no_overdue_calls'),
           has_recent_calls: this.countOccurrences(managerDeals, 'has_recent_calls')
