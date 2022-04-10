@@ -166,11 +166,11 @@
                   </div>
                 </td>
                 <td>
-                  <div v-if="item.name" class="font-weight-bold text-center text-no-wrap d-flex align-center">
+                  <div v-if="item.name" class="font-weight-bold text-center text-no-wrap d-flex align-center justify-center">
                     <div>
                       {{ item.dealsNumber }}
                     </div>
-                    <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }" class="ml-1">
+                    <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }" class="ml-1 mt-1">
                       <collection-icon width="20" height="20" />
                     </router-link>
                   </div>
