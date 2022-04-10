@@ -564,7 +564,7 @@ export default {
       this.loading = false
     },
     declenseWord(number, forms) {
-      return declOfNumber(number, arguments)
+      return declOfNumber(number, forms)
     }
   }
 }
