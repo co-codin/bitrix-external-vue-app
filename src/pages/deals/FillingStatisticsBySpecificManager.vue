@@ -306,8 +306,8 @@ export default {
 
     this.isAdmin = (await (new BX24Wrapper()).callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
 
-    if (this.$route?.params?.id) {
-      this.manager.id = this.$route?.params.id
+    if (this.$route?.params?.manager) {
+      this.manager.id = this.$route?.params.manager
       this.manager.name = 'Петров'
     }
 

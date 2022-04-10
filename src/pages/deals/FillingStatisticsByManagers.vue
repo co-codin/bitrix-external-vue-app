@@ -198,7 +198,7 @@
               <tr>
                 <th></th>
                 <th></th>
-                <th>
+                <th class="text-center">
                   <span class="text--darken-4 subtitle-1">
                     {{ deals.length }}
                   </span>
