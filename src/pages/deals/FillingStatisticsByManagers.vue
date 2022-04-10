@@ -401,19 +401,21 @@ export default {
             bottom: { style: 'thin' },
             right: { style: 'thin' }
           }
-          if (cell.value > 0) {
+          if (cell.value?.negative > 0) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
               fgColor: { argb: 'FE634D' }
             }
+            cell.value = cell.value?.negative
           }
-          else if (cell.value === 0) {
+          else if (cell.value?.negative === 0) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
               fgColor: { argb: '88F94E' }
             }
+            cell.value = cell.value?.negative
           }
         })
       })
