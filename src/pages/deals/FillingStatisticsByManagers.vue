@@ -163,6 +163,9 @@
                 <td style="max-width: 350px">
                   <div v-if="item.name" class="font-weight-bold text-no-wrap subtitle-1">
                     <a href="#" @click.prevent="openUserProfile(item.id)">{{ item.name }}</a>
+                    <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }">
+                      <collection-icon width="20" height="20" />
+                    </router-link>
                   </div>
                 </td>
                 <td>
@@ -192,12 +195,13 @@
             <template #body.prepend="{ headers }">
               <tr>
                 <th></th>
-                <th></th>
-                <th></th>
+                <th>
+                  <span class="text--darken-4 subtitle-1">
+                    {{ deals.length }}
+                  </span>
+                </th>
                 <th v-for="(header, i) in headers.slice(3)" :key="i" class="text-center">
-                  <div>
-                    <span class="red--text text--darken-4 subtitle-1">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ deals.length - summary[header.value] }}</span>
-                  </div>
+                  <span class="red--text text--darken-4 subtitle-1">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ deals.length - summary[header.value] }}</span>
                 </th>
               </tr>
             </template>
@@ -212,6 +216,7 @@
 <script>
 import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
+import CollectionIcon from '@/components/heroicons/CollectionIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
@@ -223,7 +228,8 @@ export default {
     RefreshIcon,
     PageHeader,
     DocumentSearchIcon,
-    DownloadIcon
+    DownloadIcon,
+    CollectionIcon
   },
   data: () => ({
     loading: false,
@@ -271,7 +277,6 @@ export default {
     },
     summary() {
       const summary = {
-        name: 0,
         has_company_name: 0,
         has_inn: 0,
         has_name: 0,
