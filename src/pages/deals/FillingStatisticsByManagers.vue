@@ -483,10 +483,7 @@ export default {
           return
         }
         this.managers = data
-        this.loading = true
-        this.deals = []
-        await this.loadData()
-        this.loading = false
+        await this.refreshData()
       })
     },
     async loadData() {

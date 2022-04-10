@@ -343,9 +343,7 @@ export default {
     }
 
     if (this.isUserSelected) {
-      this.loading = true
-      await this.loadDeals()
-      this.loading = false
+      await this.refreshDeals()
     }
   },
   beforeDestroy() {
@@ -442,10 +440,7 @@ export default {
           return
         }
         this.manager = data
-        this.loading = true
-        this.deals = []
-        await this.loadDeals()
-        this.loading = false
+        await this.refreshDeals()
       })
 
     },
