@@ -165,6 +165,11 @@
                     <a href="#" @click.prevent="openUserProfile(item.id)">{{ item.name }}</a>
                   </div>
                 </td>
+                <td>
+                  <div v-if="item.name" class="font-weight-bold text-center text-no-wrap">
+                    {{ item.dealsNumber }}
+                  </div>
+                </td>
                 <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center text-body-1">
                   <v-tooltip bottom max-width="300">
                     <template v-slot:activator="{ on, attrs }">
@@ -186,6 +191,7 @@
             </template>
             <template #body.prepend="{ headers }">
               <tr>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
@@ -231,6 +237,7 @@ export default {
     headers: [
       { text: '#', align: 'center', value: 'index', sortable: true },
       { text: 'Менеджер', align: 'left', value: 'name', sortable: true },
+      { text: 'Количество сделок', align: 'center', value: 'dealsNumber', sortable: true },
       { text: 'Компания', align: 'center', value: 'has_company_name', sortable: true, positiveLabel: 'Компания указана', negativeLabel: 'Компания не указана', sort: (a, b) => a.negative - b.negative },
       { text: 'ИНН', align: 'center', value: 'has_inn', sortable: true, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан', sort: (a, b) => a.negative - b.negative },
       { text: 'Контакт', align: 'center', value: 'has_name', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан', sort: (a, b) => a.negative - b.negative },
