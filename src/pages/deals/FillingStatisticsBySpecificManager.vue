@@ -309,6 +309,14 @@ export default {
     if (!this.isAdmin) {
       this.manager.id = user.ID
       this.manager.name = user.NAME
+    }
+
+    if (this.$route?.params?.id) {
+      this.manager.id = this.$route?.params.id
+      this.manager.name = 'Петров'
+    }
+
+    if (this.isUserSelected) {
       this.loading = true
       await this.loadDeals()
       this.loading = false

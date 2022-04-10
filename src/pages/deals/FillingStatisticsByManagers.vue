@@ -197,6 +197,7 @@
             <template #body.prepend="{ headers }">
               <tr>
                 <th></th>
+                <th></th>
                 <th>
                   <span class="text--darken-4 subtitle-1">
                     {{ deals.length }}
