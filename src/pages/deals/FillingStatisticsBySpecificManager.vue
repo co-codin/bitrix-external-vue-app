@@ -205,10 +205,22 @@
                 <v-tooltip bottom :color="getTooltipColor(item[header.value])">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
-                      <svg-icon :key="`check-circle-${index}-${i}-icon`" name="check-circle" solid width="20" height="20" />
+                      <svg-icon
+                        :key="`check-circle-${index}-${i}-icon`"
+                        name="check-circle"
+                        solid
+                        width="20"
+                        height="20"
+                      />
                     </span>
                     <span v-else-if="item[header.value] === false" class="red--text text--darken-4" v-bind="attrs" v-on="on">
-                      <svg-icon :key="`x-circle-${index}-${i}-icon`" name="x-circle" solid width="20" height="20" />
+                      <svg-icon
+                        :key="`x-circle-${index}-${i}-icon`"
+                        name="x-circle"
+                        solid
+                        width="20"
+                        height="20"
+                      />
                     </span>
                     <span v-else class="blue-grey--text text--lighten-1">
                       &mdash;
