@@ -162,11 +162,11 @@
                   </div>
                 </td>
                 <td style="max-width: 350px">
-                  <div v-if="item.name" class="font-weight-bold">
+                  <div v-if="item.name" class="font-weight-bold text-no-wrap">
                     <a href="#" @click.prevent="openUserProfile(item.id)">{{ item.name }}</a>
                   </div>
                 </td>
-                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
+                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center subtitle-1">
                   {{ item[header.value].negative }}
                   <!--                  <v-tooltip bottom :color="getTooltipColor(item[header.value])">-->
                   <!--                    <template v-slot:activator="{ on, attrs }">-->
