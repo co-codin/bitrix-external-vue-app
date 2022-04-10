@@ -334,8 +334,8 @@ export default {
   methods: {
     countOccurrences(data, column) {
       return {
-        negative: data.filter((item) => item[column] === true).length,
-        positive: data.filter((item) => item[column] === false).length
+        positive: data.filter((item) => item[column] === true).length,
+        negative: data.filter((item) => item[column] === false).length
       }
     },
     calculateTableHeight() {
