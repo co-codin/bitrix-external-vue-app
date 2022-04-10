@@ -17,7 +17,19 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.title"></v-list-item-title>
+          <v-list-item-title>
+            {{ item.title }}
+            <v-chip
+              v-if="item.badge"
+              color="green lighten-1"
+              label
+              dark
+              x-small
+              class="ml-1"
+            >
+              {{ item.badge }}
+            </v-chip>
+          </v-list-item-title>
           <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
         </v-list-item-content>
 
@@ -38,7 +50,7 @@ export default {
   data: () => ({
     items: [
       { icon: 'mdi-account', iconClass: 'blue white--text', title: 'Заполнение по менеджеру', subtitle: 'Выбираем менеджера и смотрим статистику по нему', route: { name: 'deals.filling-statistics.by-manager' } },
-      { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице', route: { name: 'deals.filling-statistics.by-managers' } }
+      { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице', route: { name: 'deals.filling-statistics.by-managers' }, badge: 'Новое' }
     ]
   })
 }
