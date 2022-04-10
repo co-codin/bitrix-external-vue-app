@@ -9,21 +9,23 @@
           {{ isUserSelected ? selectedManagerNames.join(', ') : 'Выберите ответственного менеджера' }}
         </v-card-title>
       </v-card>
-      <v-card>
-        <v-card-title>
-          <filter-icon width="30" height="30" class="mr-1" />
-          Настройка отображения
-        </v-card-title>
-        <v-card-text>
-          <v-switch
-            v-model="asPercent"
-            label="В процентах"
-            dense
-            inset
-            hide-details
-          />
-        </v-card-text>
-      </v-card>
+      <v-expansion-panels>
+        <v-expansion-panel>
+          <v-expansion-panel-header class="title">
+            <filter-icon width="28" height="28" class="mr-1" />
+            Настройка отображения
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-switch
+              v-model="asPercent"
+              label="В процентах"
+              dense
+              inset
+              hide-details
+            />
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
       <div v-if="isUserSelected" class="mt-3">
         <div v-if="loading" class="text-center mt-5">
           <v-progress-circular
