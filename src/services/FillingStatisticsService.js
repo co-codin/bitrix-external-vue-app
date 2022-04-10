@@ -61,6 +61,7 @@ export default class FillingStatisticsService {
       return {
         index: index + 1,
         id: deal.ID,
+        assigned_by_id: deal.ASSIGNED_BY_ID,
         name: deal.TITLE,
         has_company_name: ['NEW', 'DETAILS'].includes(deal.STAGE_ID) || !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
         has_inn: ['NEW', 'DETAILS'].includes(deal.STAGE_ID) || !! companyRequisites?.[deal.COMPANY_ID],
