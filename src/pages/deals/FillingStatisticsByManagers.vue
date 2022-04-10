@@ -200,7 +200,7 @@
                   <v-tooltip bottom max-width="300">
                     <template v-slot:activator="{ on, attrs }">
                       <span :class="{'green--text text--darken-4': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
-                        {{ asPercent ? `100 %` : item[header.value].negative }}
+                        {{ asPercent ? `${item[header.value].negativePercent} %` : item[header.value].negative }}
                       </span>
                     </template>
                     <div>
