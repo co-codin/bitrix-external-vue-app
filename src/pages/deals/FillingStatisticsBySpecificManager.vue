@@ -114,6 +114,36 @@
               </div>
             </v-tooltip>
           </template>
+          <template #header.has_client_type="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указан тип клиента</p>
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_category="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указана хотя бы одна категория</p>
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_region="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Указан регион</p>
+              </div>
+            </v-tooltip>
+          </template>
           <template #header.has_planned_call="{ header }">
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
@@ -121,6 +151,16 @@
               </template>
               <div>
                 <p class="mb-1">Есть запланированный звонок</p>
+              </div>
+            </v-tooltip>
+          </template>
+          <template #header.has_correct_call_description="{ header }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+              </template>
+              <div>
+                <p class="mb-1">Тема звонка указана вручную</p>
               </div>
             </v-tooltip>
           </template>
@@ -249,7 +289,11 @@ export default {
       { text: 'Контакт', align: 'center', value: 'has_name', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
       { text: 'E-mail', align: 'center', value: 'has_email', sortable: true, positiveLabel: 'E-mail в контакте или компании указан', negativeLabel: 'E-mail в контакте или компании не указан' },
       { text: 'Сумма', align: 'center', value: 'has_sum', sortable: true, positiveLabel: 'Сумма в сделке указана', negativeLabel: 'Сумма в сделке не указана' },
+      { text: 'Тип клиента', align: 'center', value: 'has_client_type', sortable: true, positiveLabel: 'Тип клиента в сделке указан', negativeLabel: 'Тип клиента в сделке не указан' },
+      { text: 'Категория', align: 'center', value: 'has_category', sortable: true, positiveLabel: 'Категория в сделке указана', negativeLabel: 'Категория в сделке не указана' },
+      { text: 'Регион', align: 'center', value: 'has_region', sortable: true, positiveLabel: 'Регион в сделке указан', negativeLabel: 'Регион в сделке не указан' },
       { text: 'Активность', align: 'center', value: 'has_planned_call', sortable: true, positiveLabel: 'Есть дела в сделке', negativeLabel: 'Сделка без дел' },
+      { text: 'Тема звонка', align: 'center', value: 'has_correct_call_description', sortable: true, positiveLabel: 'Тема звонка введена вручную', negativeLabel: 'Тема звонка введена вручную' },
       { text: 'Звонок позже 60 дней', align: 'center', value: 'has_planned_call_after_last_call', sortable: true, positiveLabel: 'Звонок запланирован на ближайшие 60 дней', negativeLabel: 'Нет запланированного звонка на ближайшие 60 дней' },
       { text: 'Нет просроченных звонков', align: 'center', value: 'has_no_overdue_calls', sortable: true, positiveLabel: 'Нет просроченных звонков', negativeLabel: 'Есть просроченные звонки' },
       { text: 'За последние 60 дней был звонок', align: 'center', value: 'has_recent_calls', sortable: true, positiveLabel: 'За последние 60 дней был звонок', negativeLabel: 'За последние 60 дней не было звонка' }
@@ -276,8 +320,12 @@ export default {
         has_inn: 0,
         has_name: 0,
         has_sum: 0,
+        has_client_type: 0,
+        has_category: 0,
+        has_region: 0,
         has_email: 0,
         has_planned_call: 0,
+        has_correct_call_description: 0,
         has_planned_call_after_last_call: 0,
         has_no_overdue_calls: 0,
         has_recent_calls: 0
@@ -287,9 +335,13 @@ export default {
         summary.has_company_name += !deal.has_company_name ? 1 : 0
         summary.has_inn += deal.has_inn === false ? 1 : 0
         summary.has_name += deal.has_name === false ? 1 : 0
-        summary.has_sum += deal.has_sum === false ? 1 : 0
         summary.has_email += deal.has_email === false ? 1 : 0
+        summary.has_sum += deal.has_sum === false ? 1 : 0
+        summary.has_client_type += deal.has_client_type === false ? 1 : 0
+        summary.has_category += deal.has_category === false ? 1 : 0
+        summary.has_region += deal.has_region === false ? 1 : 0
         summary.has_planned_call += deal.has_planned_call === false ? 1 : 0
+        summary.has_correct_call_description += deal.has_correct_call_description === false ? 1 : 0
         summary.has_planned_call_after_last_call += deal.has_planned_call_after_last_call === false ? 1 : 0
         summary.has_no_overdue_calls += deal.has_no_overdue_calls === false ? 1 : 0
         summary.has_recent_calls += deal.has_recent_calls === false ? 1 : 0
@@ -355,7 +407,11 @@ export default {
         { header: 'Контакт', key: 'has_name', width: 15 },
         { header: 'E-mail', key: 'has_email', width: 15 },
         { header: 'Сумма', key: 'has_sum', width: 15 },
+        { header: 'Тип клиента', key: 'has_client_type', width: 15 },
+        { header: 'Категория', key: 'has_category', width: 15 },
+        { header: 'Регион', key: 'has_region', width: 15 },
         { header: 'Активность', key: 'has_planned_call', width: 15 },
+        { header: 'Тема звонка', key: 'has_correct_call_description', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
         { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
         { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
@@ -443,7 +499,7 @@ export default {
       const deals = await bx24.callListMethod('crm.deal.list', {
         order: { 'CLOSEDATE': 'DESC' },
         filter: { 'ASSIGNED_BY_ID': this.manager.id },
-        select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS', 'ASSIGNED_BY_ID', 'DATE_CREATE']
+        select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS', 'ASSIGNED_BY_ID', 'DATE_CREATE', 'STAGE_ID', 'UF_CRM_CATEGORY', 'UF_CRM_CLIENT_TYPE', 'UF_CRM_DISTRICT']
       })
 
       const companyIds = deals.map((deal) => deal.COMPANY_ID).filter(Boolean)
@@ -495,7 +551,7 @@ export default {
           'TYPE_ID': 2,
           '>=DEADLINE': now.subtract(61, 'day').format('YYYY-MM-DD HH:mm:ss')
         },
-        select: ['COMPLETED', 'OWNER_ID', 'OWNER_TYPE_ID', 'DEADLINE', 'ASSIGNED_BY_ID'],
+        select: ['COMPLETED', 'OWNER_ID', 'OWNER_TYPE_ID', 'DEADLINE', 'ASSIGNED_BY_ID', 'SUBJECT'],
         order: { 'DEADLINE': 'DESC' }
       })).reduce((hash, obj) => ({ ...hash, [obj['OWNER_ID']]:( hash[obj['OWNER_ID']] || [] ).concat(obj) }), {})
 
@@ -536,12 +592,18 @@ export default {
           index: index + 1,
           id: deal.ID,
           name: deal.TITLE,
-          has_company_name: !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
-          has_inn: !! companyRequisites?.[deal.COMPANY_ID],
+          has_company_name: ['NEW', 'DETAILS'].includes(deal.STAGE_ID) || !!(companiesById?.[deal.COMPANY_ID]?.TITLE?.length),
+          has_inn: ['NEW', 'DETAILS'].includes(deal.STAGE_ID) || !! companyRequisites?.[deal.COMPANY_ID],
           has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
-          has_sum: !!deal.UF_PROCEEDS,
           has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y') || companiesById?.[deal.COMPANY_ID]?.HAS_EMAIL === 'Y',
+          has_sum: !!deal.UF_PROCEEDS,
+          has_client_type: !! deal.UF_CRM_CLIENT_TYPE,
+          has_category: !! deal.UF_CRM_CATEGORY,
+          has_region: !! deal.UF_CRM_REGION,
           has_planned_call: hasPlannedCall,
+          has_correct_call_description: hasPlannedCall
+            ? nearestPlannedCall.SUBJECT?.startsWith('Исходящий звонок') || false
+            : 'not-available',
           has_planned_call_after_last_call: hasPlannedCall
             ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(61, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
             : 'not-available',
