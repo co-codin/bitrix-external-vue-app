@@ -174,7 +174,7 @@
                     </template>
                     <div>
                       <span v-if="item[header.value].negative > 0">
-                        {{ item[header.value].negative }} ошибок в {{ item.dealsNumber }} сделках (80 %)
+                        {{ item[header.value].negative }} {{ declenseWord(item[header.value].negative, ['ошибка', 'ошибки', 'ошибок']) }} в {{ item.dealsNumber }} {{ declenseWord(item.dealsNumber, ['сделке', 'сделках', 'сделках']) }} (80 %)
                       </span>
                       <span v-else>
                         Ошибок нет
@@ -210,6 +210,7 @@ import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import RefreshIcon from '@/components/heroicons/RefreshIcon'
+import { declOfNumber } from '@/utils/helpers'
 
 export default {
   components: {
@@ -561,6 +562,9 @@ export default {
       this.deals = []
       await this.loadData()
       this.loading = false
+    },
+    declenseWord(number, forms) {
+      return declOfNumber(number, arguments)
     }
   }
 }
