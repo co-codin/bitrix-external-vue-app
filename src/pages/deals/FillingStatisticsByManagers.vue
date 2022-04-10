@@ -156,7 +156,7 @@
             <template #item="{ item, headers, index }">
               <tr>
                 <td>
-                  <div v-if="item.name" class="font-weight-bold text-no-wrap">
+                  <div v-if="item.name" class="font-weight-bold text-center text-no-wrap">
                     {{ index + 1 }}
                   </div>
                 </td>
@@ -166,29 +166,16 @@
                   </div>
                 </td>
                 <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center text-body-1">
-                  {{ item[header.value].negative }}
-                  <!--                  <v-tooltip bottom :color="getTooltipColor(item[header.value])">-->
-                  <!--                    <template v-slot:activator="{ on, attrs }">-->
-                  <!--                      <span v-if="item[header.value] === true" class="green&#45;&#45;text text&#45;&#45;darken-4" v-bind="attrs" v-on="on">-->
-                  <!--                        <check-circle-solid-icon width="20" height="20" />-->
-                  <!--                      </span>-->
-                  <!--                      <span v-else-if="item[header.value] === false" class="red&#45;&#45;text text&#45;&#45;darken-4" v-bind="attrs" v-on="on">-->
-                  <!--                        <x-circle-solid-icon width="20" height="20" />-->
-                  <!--                      </span>-->
-                  <!--                      <span v-else class="blue-grey&#45;&#45;text text&#45;&#45;lighten-1">-->
-                  <!--                        &mdash;-->
-                  <!--                      </span>-->
-                  <!--                    </template>-->
-                  <!--                    <div v-if="item[header.value] === true">-->
-                  <!--                      {{ header.positiveLabel }}-->
-                  <!--                    </div>-->
-                  <!--                    <div v-else-if="item[header.value] === false">-->
-                  <!--                      {{ header.negativeLabel }}-->
-                  <!--                    </div>-->
-                  <!--                    <div v-else>-->
-                  <!--                      {{ header.negativeLabel }}-->
-                  <!--                    </div>-->
-                  <!--                  </v-tooltip>-->
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <span :class="{'green--text text--darken-4': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
+                        {{ item[header.value].negative }}
+                      </span>
+                    </template>
+                    <div>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto autem consectetur culpa deleniti dolor dolore ea eaque enim eos excepturi incidunt, nemo nobis odit omnis optio pariatur perferendis quam quo repellendus vel voluptate voluptatum. Alias, commodi deserunt distinctio dolores doloribus eligendi ipsam natus nisi nulla obcaecati placeat provident, quis!
+                    </div>
+                  </v-tooltip>
                 </td>
               </tr>
             </template>

@@ -157,7 +157,7 @@
           <template #item="{ item, headers }">
             <tr>
               <td>
-                <div v-if="item.index" class="font-weight-bold text-no-wrap">
+                <div v-if="item.index" class="font-weight-bold text-no-wrap text-center">
                   {{ item.index }}
                 </div>
               </td>
