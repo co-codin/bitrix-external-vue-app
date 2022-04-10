@@ -173,7 +173,12 @@
                       </span>
                     </template>
                     <div>
-                      {{ item[header.value].negative }} ошибок в {{ item.dealsNumber }} сделках (80 %)
+                      <span v-if="item[header.value].negative > 0">
+                        {{ item[header.value].negative }} ошибок в {{ item.dealsNumber }} сделках (80 %)
+                      </span>
+                      <span v-else>
+                        Ошибок нет
+                      </span>
                     </div>
                   </v-tooltip>
                 </td>
