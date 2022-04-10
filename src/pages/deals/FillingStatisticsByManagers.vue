@@ -226,7 +226,7 @@
                 </th>
                 <th v-for="(header, i) in headers.slice(3)" :key="i" class="text-center">
                   <template v-if="asPercent">
-                    <span class="red--text text--darken-4 subtitle-1">{{ Math.round(100 * summary[header.value] / deals.length) }}</span> / <span class="green--text text--darken-4">{{ Math.round( 100 * (deals.length - summary[header.value]) / deals.length) }}</span>
+                    <span class="red--text text--darken-4 subtitle-1">{{ Math.round(100 * summary[header.value] / deals.length) }} %</span> / <span class="green--text text--darken-4">{{ Math.round( 100 * (deals.length - summary[header.value]) / deals.length) }} %</span>
                   </template>
                   <template v-else>
                     <span class="red--text text--darken-4 subtitle-1">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ deals.length - summary[header.value] }}</span>
