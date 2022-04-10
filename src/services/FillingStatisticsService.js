@@ -25,7 +25,7 @@ export default class FillingStatisticsService {
       { header: 'Активность', key: 'has_planned_call', width: 15 },
       { header: 'Тема звонка', key: 'has_correct_call_description', width: 15 },
       { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
-      { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
+      { header: 'Нет просроченных звонков', key: 'has_no_overdue_calls', width: 50 },
       { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
     ]
   }
