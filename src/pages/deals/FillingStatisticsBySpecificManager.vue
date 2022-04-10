@@ -517,14 +517,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.headcol {
-  position:absolute;
-  width:30%;
-  left:0;
-  background:#eee;
-  text-align: center !important;
-  padding-top: 10px !important;
-}
-</style>

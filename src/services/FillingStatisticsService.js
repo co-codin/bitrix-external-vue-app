@@ -17,13 +17,13 @@ export default class FillingStatisticsService {
     const companyIds = deals.map((deal) => deal.COMPANY_ID).filter(Boolean)
     const companies = await this.getCompanies(companyIds)
     const companiesById = companies.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
-    const companyRequisites = this.getCompanyRequisites(companyIds)
+    const companyRequisites = await this.getCompanyRequisites(companyIds)
     const now = dayjs()
     const dealContacts = await this.getDealContacts(deals)
     const contactIds = dealContacts.flat().map((dealContact) => dealContact.CONTACT_ID)
     const contacts = await this.getContacts(contactIds)
-    const activities = this.getActivities(2, dealIds, now)
-    const contactActivities = this.getActivities(3, contactIds, now)
+    const activities = await this.getActivities(2, dealIds, now)
+    const contactActivities = await this.getActivities(3, contactIds, now)
     const contactsById = contacts.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
 
     return deals.map((deal, index) => {
