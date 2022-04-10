@@ -18,10 +18,10 @@
           Сделки ({{ deals.length }})
           <v-spacer />
           <v-btn icon @click="refreshDeals">
-            <refresh-icon width="30" height="30" />
+            <svg-icon name="refresh" width="30" height="30" />
           </v-btn>
           <v-btn icon @click="exportExcel">
-            <download-icon width="30" height="30" />
+            <svg-icon name="download" width="30" height="30" />
           </v-btn>
         </v-card-title>
         <v-data-table
@@ -205,10 +205,10 @@
                 <v-tooltip bottom :color="getTooltipColor(item[header.value])">
                   <template v-slot:activator="{ on, attrs }">
                     <span v-if="item[header.value] === true" class="green--text text--darken-4" v-bind="attrs" v-on="on">
-                      <check-circle-solid-icon width="20" height="20" />
+                      <svg-icon name="check-circle" solid width="20" height="20" />
                     </span>
                     <span v-else-if="item[header.value] === false" class="red--text text--darken-4" v-bind="attrs" v-on="on">
-                      <x-circle-solid-icon width="20" height="20" />
+                      <svg-icon name="x-circle" solid width="20" height="20" />
                     </span>
                     <span v-else class="blue-grey--text text--lighten-1">
                       &mdash;
@@ -246,23 +246,15 @@
 </template>
 
 <script>
-import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
-import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
-import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
-import RefreshIcon from '@/components/heroicons/RefreshIcon'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
 import UserSelectField from '@/components/UserSelectField'
 
 export default {
   components: {
-    RefreshIcon,
     PageHeader,
-    CheckCircleSolidIcon,
-    XCircleSolidIcon,
-    DownloadIcon,
     UserSelectField
   },
   data: () => ({

@@ -3,17 +3,12 @@
     <page-header h1="Сводка ведения сделок по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
     <template v-if="isAdmin">
-      <v-card :disabled="loading">
-        <v-card-title class="cursor-pointer" @click="selectUser">
-          <document-search-icon width="30" height="30" class="mr-1" />
-          {{ isUserSelected ? selectedManagerNames.join(', ') : 'Выберите ответственного менеджера' }}
-        </v-card-title>
-      </v-card>
+      <user-select-field :value="managers" :multiple="true" :disabled="loading" @input="changeManager" />
       <v-expansion-panels class="mt-3">
         <v-expansion-panel>
           <v-expansion-panel-header class="title">
             <div class="d-flex align-center">
-              <cog-icon width="28" height="28" class="mr-1" />
+              <svg-icon name="cog" width="28" height="28" class="mr-1" />
               <div>
                 Настройки
               </div>
@@ -44,10 +39,10 @@
             Менеджеры ({{ managers.length }})
             <v-spacer />
             <v-btn icon @click="refreshData">
-              <refresh-icon width="30" height="30" />
+              <svg-icon name="refresh" width="28" height="28" class="mr-1" />
             </v-btn>
             <v-btn icon @click="exportExcel">
-              <download-icon width="30" height="30" />
+              <svg-icon name="download" width="28" height="28" class="mr-1" />
             </v-btn>
           </v-card-title>
           <v-data-table
@@ -232,7 +227,7 @@
                       {{ item.dealsNumber }}
                     </div>
                     <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }" class="ml-1 mt-1">
-                      <collection-icon width="20" height="20" />
+                      <svg-icon name="collection" width="20" height="20" />
                     </router-link>
                   </div>
                 </td>
@@ -283,24 +278,16 @@
 </template>
 
 <script>
-import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
-import DownloadIcon from '@/components/heroicons/DownloadIcon'
-import CollectionIcon from '@/components/heroicons/CollectionIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
-import RefreshIcon from '@/components/heroicons/RefreshIcon'
-import CogIcon from '@/components/heroicons/CogIcon'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
+import UserSelectField from '@/components/UserSelectField'
 
 export default {
   components: {
-    CogIcon,
-    RefreshIcon,
     PageHeader,
-    DocumentSearchIcon,
-    DownloadIcon,
-    CollectionIcon
+    UserSelectField
   },
   data: () => ({
     loading: false,
@@ -494,6 +481,13 @@ export default {
       this.deals = []
       await this.loadData()
       this.loading = false
+    },
+    async changeManager(managers) {
+      if (!managers || !managers.length) {
+        return
+      }
+      this.managers = managers
+      await this.refreshDeals()
     }
   }
 }

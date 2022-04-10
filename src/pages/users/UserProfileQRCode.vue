@@ -87,7 +87,7 @@
                 title="Скачать QR код"
                 @click="downloadImage"
               >
-                <download-icon width="38" height="38" />
+                <svg-icon name="download" width="38" height="38" />
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -99,13 +99,11 @@
 
 <script>
 import PageLoader from '@/components/PageLoader'
-import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import VueQr from 'vue-qr'
 
 export default {
   components: {
     PageLoader,
-    DownloadIcon,
     VueQr
   },
   data: () => ({

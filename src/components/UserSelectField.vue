@@ -1,17 +1,14 @@
 <template>
   <v-card v-bind="$attrs">
     <v-card-title class="cursor-pointer" @click="selectUser">
-      <document-search-icon width="30" height="30" class="mr-1" />
+      <svg-icon name="document-search" width="30" height="30" class="mr-1" />
       {{ label }}
     </v-card-title>
   </v-card>
 </template>
 
 <script>
-import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
-
 export default {
-  components: { DocumentSearchIcon },
   props: {
     placeholder: {
       type: String,
