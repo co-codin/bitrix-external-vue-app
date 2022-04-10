@@ -354,6 +354,7 @@ export default {
         { header: 'ИНН', key: 'has_inn', width: 15 },
         { header: 'Контакт', key: 'has_name', width: 15 },
         { header: 'E-mail', key: 'has_email', width: 15 },
+        { header: 'Сумма', key: 'has_sum', width: 15 },
         { header: 'Активность', key: 'has_planned_call', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
         { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
@@ -418,7 +419,7 @@ export default {
       const a = document.createElement('a')
 
       a.href = url
-      a.download = 'statistics.xlsx'
+      a.download = `${this.manager.name} - ведение сделок.xlsx`
       a.click()
       a.remove()
 

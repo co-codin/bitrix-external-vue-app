@@ -362,11 +362,13 @@ export default {
       const worksheet = workbook.getWorksheet('sheet1')
 
       worksheet.columns = [
-        { header: 'Сделка', key: 'name', width: 100 },
+        { header: 'Менеджер', key: 'name', width: 100 },
+        { header: 'Количество сделок', key: 'dealsNumber', width: 100 },
         { header: 'Компания', key: 'has_company_name', width: 15 },
         { header: 'ИНН', key: 'has_inn', width: 15 },
         { header: 'Контакт', key: 'has_name', width: 15 },
         { header: 'E-mail', key: 'has_email', width: 15 },
+        { header: 'Сумма', key: 'has_sum', width: 15 },
         { header: 'Активность', key: 'has_planned_call', width: 15 },
         { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
         { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
@@ -388,7 +390,7 @@ export default {
         }
       })
 
-      this.deals.forEach((deal) => {
+      this.statistics.forEach((deal) => {
         const row = worksheet.addRow(deal)
 
         row.eachCell((cell, colNumber) => {
@@ -399,24 +401,19 @@ export default {
             bottom: { style: 'thin' },
             right: { style: 'thin' }
           }
-          if (cell.value === true) {
-            row.getCell(colNumber).fill = {
-              type: 'pattern',
-              pattern: 'solid',
-              fgColor: { argb: '88F94E' }
-            }
-            cell.value = ''
-          }
-          else if (cell.value === false) {
+          if (cell.value > 0) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
               fgColor: { argb: 'FE634D' }
             }
-            cell.value = ''
           }
           else {
-            cell.value = ''
+            row.getCell(colNumber).fill = {
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: { argb: '88F94E' }
+            }
           }
         })
       })
@@ -431,7 +428,7 @@ export default {
       const a = document.createElement('a')
 
       a.href = url
-      a.download = 'statistics.xlsx'
+      a.download = 'Ведение сделок.xlsx'
       a.click()
       a.remove()
 
