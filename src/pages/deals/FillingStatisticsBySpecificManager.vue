@@ -602,7 +602,7 @@ export default {
           has_region: !! deal.UF_CRM_REGION,
           has_planned_call: hasPlannedCall,
           has_correct_call_description: hasPlannedCall
-            ? nearestPlannedCall.SUBJECT?.startsWith('Исходящий звонок') || false
+            ? !nearestPlannedCall.SUBJECT?.startsWith('Исходящий звонок') || false
             : 'not-available',
           has_planned_call_after_last_call: hasPlannedCall
             ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(61, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
