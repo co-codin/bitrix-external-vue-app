@@ -30,7 +30,6 @@
             </v-btn>
           </v-card-title>
           <v-data-table
-            dense
             item-key="id"
             :headers="headers"
             fixed-header
@@ -162,11 +161,11 @@
                   </div>
                 </td>
                 <td style="max-width: 350px">
-                  <div v-if="item.name" class="font-weight-bold text-no-wrap">
+                  <div v-if="item.name" class="font-weight-bold text-no-wrap subtitle-1">
                     <a href="#" @click.prevent="openUserProfile(item.id)">{{ item.name }}</a>
                   </div>
                 </td>
-                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center subtitle-1">
+                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center text-body-1">
                   {{ item[header.value].negative }}
                   <!--                  <v-tooltip bottom :color="getTooltipColor(item[header.value])">-->
                   <!--                    <template v-slot:activator="{ on, attrs }">-->
