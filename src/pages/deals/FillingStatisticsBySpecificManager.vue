@@ -302,12 +302,19 @@ export default {
     this.calculateTableHeight()
     window.addEventListener('resize', this.calculateTableHeight)
 
-    const user = await (new BX24Wrapper()).callMethod('user.current')
+    const bx24 = new BX24Wrapper()
 
-    this.isAdmin = (await (new BX24Wrapper()).callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
+    const user = await bx24.callMethod('user.current')
+
+    this.isAdmin = (await bx24.callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
 
     if (this.$route?.params?.manager) {
+      const users = await bx24.callMethod('user.get', { ID: this.$route?.params.manager })
+
+      console.log(users)
+
       this.manager.id = this.$route?.params.manager
+
       this.manager.name = 'Петров'
     }
 
