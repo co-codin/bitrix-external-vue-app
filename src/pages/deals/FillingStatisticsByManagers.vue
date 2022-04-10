@@ -170,7 +170,7 @@
                     {{ item.dealsNumber }}
                   </div>
                 </td>
-                <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center text-body-1">
+                <td v-for="(header, i) in headers.slice(3)" :key="i" class="text-center text-body-1">
                   <v-tooltip bottom max-width="300">
                     <template v-slot:activator="{ on, attrs }">
                       <span :class="{'green--text text--darken-4': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
