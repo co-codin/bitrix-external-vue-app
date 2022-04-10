@@ -306,14 +306,14 @@ export default {
 
     this.isAdmin = (await (new BX24Wrapper()).callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
 
-    if (!this.isAdmin) {
-      this.manager.id = user.ID
-      this.manager.name = user.NAME
-    }
-
     if (this.$route?.params?.id) {
       this.manager.id = this.$route?.params.id
       this.manager.name = 'Петров'
+    }
+
+    if (!this.isAdmin) {
+      this.manager.id = user.ID
+      this.manager.name = user.NAME
     }
 
     if (this.isUserSelected) {
