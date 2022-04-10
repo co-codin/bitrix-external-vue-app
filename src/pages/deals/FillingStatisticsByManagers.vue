@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="Сводка ведения сделок по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
+    <page-header h1="Сводка по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
     <template v-if="isAdmin">
       <user-select-field :value="managers" :multiple="true" :disabled="loading" @input="changeManager" />
