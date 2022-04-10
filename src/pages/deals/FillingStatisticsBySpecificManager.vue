@@ -267,10 +267,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    manager: {
-      id: null,
-      name: null
-    },
+    manager: null,
     deals: [],
     tableHeight: null,
     homeLink: {
@@ -327,14 +324,18 @@ export default {
       const users = await bx24.callMethod('user.get', { ID: this.$route?.params.manager })
 
       if (users.length) {
-        this.manager.id = this.$route?.params.manager
-        this.manager.name = `${users[0]?.NAME} ${users[0]?.LAST_NAME}`
+        this.manager = {
+          id: this.$route?.params.manager,
+          name: `${users[0]?.NAME} ${users[0]?.LAST_NAME}`
+        }
       }
     }
 
     if (!this.isAdmin) {
-      this.manager.id = user.ID
-      this.manager.name = user.NAME
+      this.manager = {
+        id: user.ID,
+        name: user.NAME
+      }
     }
 
     if (this.isUserSelected) {
