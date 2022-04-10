@@ -227,7 +227,7 @@
                       {{ item.dealsNumber }}
                     </div>
                     <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }" class="ml-1 mt-1">
-                      <svg-icon name="collection" width="20" height="20" />
+                      <svg-icon name="collection" width="24" height="24" />
                     </router-link>
                   </div>
                 </td>
