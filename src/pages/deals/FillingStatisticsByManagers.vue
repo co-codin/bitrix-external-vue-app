@@ -154,11 +154,11 @@
                 </div>
               </v-tooltip>
             </template>
-            <template #item="{ item, headers }">
+            <template #item="{ item, headers, index }">
               <tr>
                 <td>
-                  <div v-if="item.index" class="font-weight-bold text-no-wrap">
-                    {{ item.index }}
+                  <div v-if="item.name" class="font-weight-bold text-no-wrap">
+                    {{ index + 1 }}
                   </div>
                 </td>
                 <td style="max-width: 350px">
@@ -193,13 +193,13 @@
                 </td>
               </tr>
             </template>
-            <template #body.prepend="{ headers, originalItemsLength }">
+            <template #body.prepend="{ headers }">
               <tr>
                 <th></th>
                 <th></th>
                 <th v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
                   <div>
-                    <span class="red--text text--darken-4">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ originalItemsLength - summary[header.value] }}</span>
+                    <span class="red--text text--darken-4 subtitle-1">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ deals.length - summary[header.value] }}</span>
                   </div>
                 </th>
               </tr>
