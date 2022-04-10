@@ -38,7 +38,7 @@ export default {
   data: () => ({
     items: [
       { icon: 'mdi-account', iconClass: 'blue white--text', title: 'Заполнение по менеджеру', subtitle: 'Выбираем менеджера и смотрим статистику по нему', route: { name: 'deals.filling-statistics.by-manager' } },
-      { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице' }
+      { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице', route: { name: 'deals.filling-statistics.by-managers' } }
     ]
   })
 }

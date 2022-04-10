@@ -65,7 +65,14 @@ export default [
   }, {
     path: '/deals/filling-statistics/by-manager',
     name: 'deals.filling-statistics.by-manager',
-    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatisticsByManager.vue'),
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatisticsBySpecificManager.vue'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/deals/filling-statistics/by-managers',
+    name: 'deals.filling-statistics.by-managers',
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/FillingStatisticsByManagers.vue'),
     meta: {
       layout: 'simple'
     }
