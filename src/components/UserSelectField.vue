@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-bind="$attrs">
     <v-card-title class="cursor-pointer" @click="selectUser">
       <document-search-icon width="30" height="30" class="mr-1" />
       {{ label }}
