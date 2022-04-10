@@ -200,7 +200,7 @@
                   <v-tooltip bottom max-width="300">
                     <template v-slot:activator="{ on, attrs }">
                       <span :class="{'green--text text--darken-4': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
-                        {{ item[header.value].negative }}
+                        {{ asPercent ? `100 %` : item[header.value].negative }}
                       </span>
                     </template>
                     <div>
@@ -364,9 +364,14 @@ export default {
   },
   methods: {
     countOccurrences(data, column) {
+      const negative = data.filter((item) => item[column] === false).length
+      const positive = data.filter((item) => item[column] === true).length
+      const negativePercent = Math.round(data.length / 100 * negative)
+
       return {
-        positive: data.filter((item) => item[column] === true).length,
-        negative: data.filter((item) => item[column] === false).length
+        positive,
+        negative,
+        negativePercent
       }
     },
     calculateTableHeight() {

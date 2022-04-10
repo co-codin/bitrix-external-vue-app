@@ -198,7 +198,7 @@
               <th></th>
               <th v-for="(header, i) in headers.slice(2)" :key="i" class="text-center">
                 <div>
-                  <span class="red--text text--darken-4">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ originalItemsLength - summary[header.value] }}</span>
+                  <span class="red--text text--darken-4 subtitle-1">{{ summary[header.value] }}</span> / <span class="green--text text--darken-4">{{ originalItemsLength - summary[header.value] }}</span>
                 </div>
               </th>
             </tr>
