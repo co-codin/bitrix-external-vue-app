@@ -605,7 +605,7 @@ export default {
             ? !nearestPlannedCall.SUBJECT?.startsWith('Исходящий звонок') || false
             : 'not-available',
           has_planned_call_after_last_call: hasPlannedCall
-            ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(61, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
+            ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(60, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
             : 'not-available',
           has_no_overdue_calls: hasPlannedCall ? hasNoOverdueCall : 'not-available',
           has_recent_calls: !! lastCall
