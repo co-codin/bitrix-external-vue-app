@@ -459,7 +459,7 @@ export default {
             }
             cell.value = ''
           }
-          else {
+          else if (cell.value === 'not-available') {
             cell.value = ''
           }
         })
