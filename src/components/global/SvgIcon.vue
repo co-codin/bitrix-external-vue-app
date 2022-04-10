@@ -1,5 +1,5 @@
 <template>
-  <component :is="icon.component"></component>
+  <component :is="icon"></component>
 </template>
 
 <script>
@@ -16,10 +16,11 @@ export default {
     }
   },
   computed: {
+    dir() {
+      return this.solid ? 'solid' : 'outline'
+    },
     icon() {
-      return {
-        component: () => import('@/assets/icons/' + this.name + '.svg')
-      }
+      return () => import('@/assets/icons/' + this.dir + '/' + this.name + '.svg')
     }
   }
 }
