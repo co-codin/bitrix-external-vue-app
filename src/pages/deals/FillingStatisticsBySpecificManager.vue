@@ -246,7 +246,6 @@
 </template>
 
 <script>
-import DocumentSearchIcon from '@/components/heroicons/DocumentSearchIcon'
 import CheckCircleSolidIcon from '@/components/heroicons/CheckCircleSolidIcon'
 import XCircleSolidIcon from '@/components/heroicons/XCircleSolidIcon'
 import DownloadIcon from '@/components/heroicons/DownloadIcon'
@@ -261,7 +260,6 @@ export default {
   components: {
     RefreshIcon,
     PageHeader,
-    DocumentSearchIcon,
     CheckCircleSolidIcon,
     XCircleSolidIcon,
     DownloadIcon,
