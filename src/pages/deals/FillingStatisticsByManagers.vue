@@ -166,14 +166,14 @@
                   </div>
                 </td>
                 <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center text-body-1">
-                  <v-tooltip bottom>
+                  <v-tooltip bottom max-width="300">
                     <template v-slot:activator="{ on, attrs }">
                       <span :class="{'green--text text--darken-4': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
                         {{ item[header.value].negative }}
                       </span>
                     </template>
                     <div>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab architecto autem consectetur culpa deleniti dolor dolore ea eaque enim eos excepturi incidunt, nemo nobis odit omnis optio pariatur perferendis quam quo repellendus vel voluptate voluptatum. Alias, commodi deserunt distinctio dolores doloribus eligendi ipsam natus nisi nulla obcaecati placeat provident, quis!
+                      {{ item[header.value].negative }} ошибок в {{ item.dealsNumber }} сделках (80 %)
                     </div>
                   </v-tooltip>
                 </td>
