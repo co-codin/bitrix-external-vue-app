@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     label() {
-      if (!this.value) {
+      if (!this.value || (Array.isArray(this.value) && !this.value.length)) {
         return this.placeholder
       }
 
