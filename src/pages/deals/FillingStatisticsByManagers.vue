@@ -363,7 +363,7 @@ export default {
       this.tableHeight = window.innerHeight - 280
     },
     openUserProfile(id) {
-      BX24.openPath(`/company/personal/user/58/${id}/`)
+      BX24.openPath(`/company/personal/user/${id}/`)
     },
     async exportExcel() {
       const workbook = new ExcelJS.Workbook()
