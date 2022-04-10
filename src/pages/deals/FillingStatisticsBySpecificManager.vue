@@ -311,11 +311,10 @@ export default {
     if (this.$route?.params?.manager) {
       const users = await bx24.callMethod('user.get', { ID: this.$route?.params.manager })
 
-      console.log(users)
-
-      this.manager.id = this.$route?.params.manager
-
-      this.manager.name = 'Петров'
+      if (users.length) {
+        this.manager.id = this.$route?.params.manager
+        this.manager.name = `${users[0]?.NAME} ${users[0]?.LAST_NAME}`
+      }
     }
 
     if (!this.isAdmin) {
