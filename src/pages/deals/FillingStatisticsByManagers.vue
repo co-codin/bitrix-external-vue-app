@@ -174,7 +174,7 @@
                     </template>
                     <div>
                       <span v-if="item[header.value].negative > 0">
-                        {{ item[header.value].negative }} {{ declenseWord(item[header.value].negative, ['ошибка', 'ошибки', 'ошибок']) }} в {{ item.dealsNumber }} {{ declenseWord(item.dealsNumber, ['сделке', 'сделках', 'сделках']) }} (80 %)
+                        {{ item[header.value].negative }} {{ declenseWord(item[header.value].negative, ['ошибка', 'ошибки', 'ошибок']) }} в {{ item.dealsNumber }} {{ declenseWord(item.dealsNumber, ['сделке', 'сделках', 'сделках']) }} ({{ Math.round(item.dealsNumber / 100 * item[header.value].negative) }} %)
                       </span>
                       <span v-else>
                         Ошибок нет
