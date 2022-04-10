@@ -599,7 +599,7 @@ export default {
           has_sum: !!deal.UF_PROCEEDS,
           has_client_type: !! deal.UF_CRM_CLIENT_TYPE,
           has_category: !! deal.UF_CRM_CATEGORY,
-          has_region: !! deal.UF_CRM_REGION,
+          has_region: !! deal.UF_CRM_DISTRICT,
           has_planned_call: hasPlannedCall,
           has_correct_call_description: hasPlannedCall
             ? !nearestPlannedCall.SUBJECT?.startsWith('Исходящий звонок') || false
