@@ -299,7 +299,7 @@ export default {
       return summary
     },
     statistics() {
-      const dealsManager = this.deals.reduce((hash, obj) => ({ ...hash, [obj['ASSIGNED_BY_ID']]:( hash[obj['ASSIGNED_BY_ID']] || [] ).concat(obj) }), {})
+      const dealsManager = this.deals.reduce((hash, obj) => ({ ...hash, [obj['assigned_by_id']]:( hash[obj['assigned_by_id']] || [] ).concat(obj) }), {})
 
       return this.managers.map((manager) => {
         const managerDeals = dealsManager?.[manager.id] || []
@@ -307,42 +307,15 @@ export default {
         return {
           ...manager,
           dealsNumber: managerDeals.length,
-          has_company_name: {
-            positive: managerDeals.filter((deal) => deal.has_company_name === true).length,
-            negative: managerDeals.filter((deal) => deal.has_company_name === false).length
-          },
-          has_inn: {
-            positive: 1,
-            negative: 1
-          },
-          has_name: {
-            positive: 1,
-            negative: 1
-          },
-          has_sum: {
-            positive: 1,
-            negative: 1
-          },
-          has_email: {
-            positive: 1,
-            negative: 1
-          },
-          has_planned_call: {
-            positive: 1,
-            negative: 1
-          },
-          has_planned_call_after_last_call: {
-            positive: 1,
-            negative: 1
-          },
-          has_no_overdue_calls: {
-            positive: 1,
-            negative: 1
-          },
-          has_recent_calls: {
-            positive: 1,
-            negative: 1
-          }
+          has_company_name: this.countOccurrences(managerDeals, 'has_company_name'),
+          has_inn: this.countOccurrences(managerDeals, 'has_inn'),
+          has_name: this.countOccurrences(managerDeals, 'has_name'),
+          has_sum: this.countOccurrences(managerDeals, 'has_sum'),
+          has_email: this.countOccurrences(managerDeals, 'has_email'),
+          has_planned_call: this.countOccurrences(managerDeals, 'has_planned_call'),
+          has_planned_call_after_last_call: this.countOccurrences(managerDeals, 'has_planned_call_after_last_call'),
+          has_no_overdue_calls: this.countOccurrences(managerDeals, 'has_no_overdue_calls'),
+          has_recent_calls: this.countOccurrences(managerDeals, 'has_recent_calls')
         }
       })
     }
@@ -359,6 +332,12 @@ export default {
     window.removeEventListener('resize', this.calculateTableHeight)
   },
   methods: {
+    countOccurrences(data, column) {
+      return {
+        negative: data.filter((item) => item[column] === true).length,
+        positive: data.filter((item) => item[column] === false).length
+      }
+    },
     calculateTableHeight() {
       this.tableHeight = window.innerHeight - 280
     },
