@@ -596,7 +596,7 @@ export default {
           has_inn: ['NEW', 'DETAILS'].includes(deal.STAGE_ID) || !! companyRequisites?.[deal.COMPANY_ID],
           has_name:  !! currentDealContacts.filter((contact) => !! contact.NAME?.length || !! contact.LAST_NAME?.length || contact.SECOND_NAME?.length).length,
           has_email: currentDealContacts?.map((contact) => contact?.HAS_EMAIL).includes('Y') || companiesById?.[deal.COMPANY_ID]?.HAS_EMAIL === 'Y',
-          has_sum: !!deal.UF_PROCEEDS,
+          has_sum: ['NEW', 'DETAILS'].includes(deal.STAGE_ID) ? !! deal.UF_PROCEEDS : !! deal.UF_PROCEEDS && deal.UF_PROCEEDS !== '100|RUB',
           has_client_type: !! deal.UF_CRM_CLIENT_TYPE,
           has_category: !! deal.UF_CRM_CATEGORY,
           has_region: !! deal.UF_CRM_DISTRICT,
