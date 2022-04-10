@@ -2,12 +2,7 @@
   <div>
     <page-header h1="Заполнение сделок по менеджеру" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
-    <v-card v-if="isAdmin" :disabled="loading">
-      <v-card-title class="cursor-pointer" @click="selectUser">
-        <document-search-icon width="30" height="30" class="mr-1" />
-        {{ isUserSelected ? manager.name : 'Выберите ответственного менеджера' }}
-      </v-card-title>
-    </v-card>
+    <user-select-field v-if="isAdmin" :value="manager" :disabled="loading" @input="changeManager" />
 
     <div v-if="isUserSelected" class="mt-3">
       <div v-if="loading" class="text-center mt-5">
@@ -260,6 +255,7 @@ import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import RefreshIcon from '@/components/heroicons/RefreshIcon'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
+import UserSelectField from '@/components/UserSelectField'
 
 export default {
   components: {
@@ -268,7 +264,8 @@ export default {
     DocumentSearchIcon,
     CheckCircleSolidIcon,
     XCircleSolidIcon,
-    DownloadIcon
+    DownloadIcon,
+    UserSelectField
   },
   data: () => ({
     loading: false,
@@ -434,16 +431,6 @@ export default {
       a.remove()
 
     },
-    async selectUser() {
-      BX24.selectUser(async (data) => {
-        if (!data || !data?.name) {
-          return
-        }
-        this.manager = data
-        await this.refreshDeals()
-      })
-
-    },
     async loadDeals() {
       this.deals = await new FillingStatisticsService(this.manager.id).getData()
     },
@@ -463,6 +450,10 @@ export default {
       this.deals = []
       await this.loadDeals()
       this.loading = false
+    },
+    async changeManager(manager) {
+      this.manager = manager
+      await this.refreshDeals()
     }
   }
 }
