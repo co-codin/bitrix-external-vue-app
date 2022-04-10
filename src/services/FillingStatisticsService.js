@@ -22,8 +22,8 @@ export default class FillingStatisticsService {
     const dealContacts = await this.getDealContacts(deals)
     const contactIds = dealContacts.flat().map((dealContact) => dealContact.CONTACT_ID)
     const contacts = await this.getContacts(contactIds)
-    const activities = this.getActivities(2, dealIds)
-    const contactActivities = this.getActivities(3, contactIds)
+    const activities = this.getActivities(2, dealIds, now)
+    const contactActivities = this.getActivities(3, contactIds, now)
     const contactsById = contacts.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
 
     return deals.map((deal, index) => {
@@ -103,7 +103,7 @@ export default class FillingStatisticsService {
     })
   }
 
-  async getActivities(ownerTypeId, ownerId) {
+  async getActivities(ownerTypeId, ownerId, now) {
     return (await this.bx24.callListMethod('crm.activity.list', {
       filter: {
         'OWNER_ID': ownerId,
