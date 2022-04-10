@@ -166,7 +166,7 @@
                   </div>
                 </td>
                 <td v-for="(header, i) in headers.slice(2)" :key="i" class="text-center text-body-1">
-                  {{ item[header.value].negative }}
+                  {{ item[header.value.split(".", 1)[0]] }}
                   <!--                  <v-tooltip bottom :color="getTooltipColor(item[header.value])">-->
                   <!--                    <template v-slot:activator="{ on, attrs }">-->
                   <!--                      <span v-if="item[header.value] === true" class="green&#45;&#45;text text&#45;&#45;darken-4" v-bind="attrs" v-on="on">-->
@@ -239,14 +239,14 @@ export default {
       { text: '#', align: 'center', value: 'index', sortable: true },
       { text: 'Менеджер', align: 'left', value: 'name', sortable: true },
       { text: 'Компания', align: 'center', value: 'has_company_name.negative', sortable: true, positiveLabel: 'Компания указана', negativeLabel: 'Компания не указана' },
-      { text: 'ИНН', align: 'center', value: 'has_inn', sortable: true, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан' },
-      { text: 'Контакт', align: 'center', value: 'has_name', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
-      { text: 'E-mail', align: 'center', value: 'has_email', sortable: true, positiveLabel: 'E-mail в контакте или компании указан', negativeLabel: 'E-mail в контакте или компании не указан' },
-      { text: 'Сумма', align: 'center', value: 'has_sum', sortable: true, positiveLabel: 'Сумма в сделке указана', negativeLabel: 'Сумма в сделке не указана' },
-      { text: 'Активность', align: 'center', value: 'has_planned_call', sortable: true, positiveLabel: 'Есть дела в сделке', negativeLabel: 'Сделка без дел' },
-      { text: 'Звонок позже 60 дней', align: 'center', value: 'has_planned_call_after_last_call', sortable: true, positiveLabel: 'Звонок запланирован на ближайшие 60 дней', negativeLabel: 'Нет запланированного звонка на ближайшие 60 дней' },
-      { text: 'Нет просроченных звонков', align: 'center', value: 'has_no_overdue_calls', sortable: true, positiveLabel: 'Нет просроченных звонков', negativeLabel: 'Есть просроченные звонки' },
-      { text: 'За последние 60 дней был звонок', align: 'center', value: 'has_recent_calls', sortable: true, positiveLabel: 'За последние 60 дней был звонок', negativeLabel: 'За последние 60 дней не было звонка' }
+      { text: 'ИНН', align: 'center', value: 'has_inn.negative', sortable: true, positiveLabel: 'ИНН в компании указан', negativeLabel: 'ИНН в компании не указан' },
+      { text: 'Контакт', align: 'center', value: 'has_name.negative', sortable: true, positiveLabel: 'Контакт указан', negativeLabel: 'Контакт не указан' },
+      { text: 'E-mail', align: 'center', value: 'has_email.negative', sortable: true, positiveLabel: 'E-mail в контакте или компании указан', negativeLabel: 'E-mail в контакте или компании не указан' },
+      { text: 'Сумма', align: 'center', value: 'has_sum.negative', sortable: true, positiveLabel: 'Сумма в сделке указана', negativeLabel: 'Сумма в сделке не указана' },
+      { text: 'Активность', align: 'center', value: 'has_planned_call.negative', sortable: true, positiveLabel: 'Есть дела в сделке', negativeLabel: 'Сделка без дел' },
+      { text: 'Звонок позже 60 дней', align: 'center', value: 'has_planned_call_after_last_call.negative', sortable: true, positiveLabel: 'Звонок запланирован на ближайшие 60 дней', negativeLabel: 'Нет запланированного звонка на ближайшие 60 дней' },
+      { text: 'Нет просроченных звонков', align: 'center', value: 'has_no_overdue_calls.negative', sortable: true, positiveLabel: 'Нет просроченных звонков', negativeLabel: 'Есть просроченные звонки' },
+      { text: 'За последние 60 дней был звонок', align: 'center', value: 'has_recent_calls.negative', sortable: true, positiveLabel: 'За последние 60 дней был звонок', negativeLabel: 'За последние 60 дней не было звонка' }
     ],
     breadcrumbs: [
       { text: 'Сводка по менеджерам' }
