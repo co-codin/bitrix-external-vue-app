@@ -9,6 +9,21 @@
           {{ isUserSelected ? selectedManagerNames.join(', ') : 'Выберите ответственного менеджера' }}
         </v-card-title>
       </v-card>
+      <v-card>
+        <v-card-title>
+          <filter-icon width="30" height="30" class="mr-1" />
+          Настройка отображения
+        </v-card-title>
+        <v-card-text>
+          <v-switch
+            v-model="asPercent"
+            label="В процентах"
+            dense
+            inset
+            hide-details
+          />
+        </v-card-text>
+      </v-card>
       <div v-if="isUserSelected" class="mt-3">
         <div v-if="loading" class="text-center mt-5">
           <v-progress-circular
@@ -225,9 +240,11 @@ import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import RefreshIcon from '@/components/heroicons/RefreshIcon'
 import { declOfNumber } from '@/utils/helpers'
+import FilterIcon from '@/components/heroicons/FilterIcon'
 
 export default {
   components: {
+    FilterIcon,
     RefreshIcon,
     PageHeader,
     DocumentSearchIcon,
@@ -266,7 +283,8 @@ export default {
       537, // Моисеева
       366 // Балаян
     ],
-    isAdmin: false
+    isAdmin: false,
+    asPercent: false
   }),
   computed: {
     selectedManagerNames() {
