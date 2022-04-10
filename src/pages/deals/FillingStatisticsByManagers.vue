@@ -479,7 +479,7 @@ export default {
         return
       }
       this.managers = managers
-      await this.refreshDeals()
+      await this.refreshData()
     }
   }
 }
