@@ -189,11 +189,11 @@
               </div>
             </v-tooltip>
           </template>
-          <template #item="{ item, headers }">
+          <template #item="{ item, headers, index }">
             <tr>
               <td>
-                <div v-if="item.index" class="font-weight-bold text-no-wrap text-center">
-                  {{ item.index }}
+                <div v-if="item.name" class="font-weight-bold text-no-wrap text-center">
+                  {{ index + 1 }}
                 </div>
               </td>
               <td style="max-width: 450px">

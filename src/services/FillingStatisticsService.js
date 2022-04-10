@@ -59,7 +59,6 @@ export default class FillingStatisticsService {
       const hasPlannedCall = !! nearestPlannedCall
 
       return {
-        index: index + 1,
         id: deal.ID,
         assigned_by_id: deal.ASSIGNED_BY_ID,
         name: deal.TITLE,
