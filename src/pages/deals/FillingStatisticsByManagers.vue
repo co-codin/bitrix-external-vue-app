@@ -471,6 +471,9 @@ export default {
     },
     async selectUser() {
       BX24.selectUsers(async (data) => {
+        if (!data || !data.length) {
+          return
+        }
         this.managers = data
         this.loading = true
         this.deals = []
