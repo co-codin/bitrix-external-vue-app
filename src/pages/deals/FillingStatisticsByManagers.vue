@@ -461,16 +461,6 @@ export default {
       a.download = 'Ведение сделок.xlsx'
       a.click()
       a.remove()
-
-    },
-    async selectUser() {
-      BX24.selectUsers(async (data) => {
-        if (!data || !data.length) {
-          return
-        }
-        this.managers = data
-        await this.refreshData()
-      })
     },
     async loadData() {
       this.deals = await new FillingStatisticsService(this.selectedManagerIds).getData()
