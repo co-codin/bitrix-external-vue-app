@@ -246,7 +246,6 @@
 </template>
 
 <script>
-import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
@@ -306,14 +305,12 @@ export default {
     this.calculateTableHeight()
     window.addEventListener('resize', this.calculateTableHeight)
 
-    const bx24 = new BX24Wrapper()
+    const user = await this.$bx24.callMethod('user.current')
 
-    const user = await bx24.callMethod('user.current')
-
-    this.isAdmin = (await bx24.callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
+    this.isAdmin = (await this.$bx24.callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
 
     if (this.$route?.params?.manager) {
-      const users = await bx24.callMethod('user.get', { ID: this.$route?.params.manager })
+      const users = await this.$bx24.callMethod('user.get', { ID: this.$route?.params.manager })
 
       if (users.length) {
         this.manager = {
