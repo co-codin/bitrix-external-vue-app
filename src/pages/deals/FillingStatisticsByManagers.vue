@@ -163,14 +163,16 @@
                 <td style="max-width: 350px">
                   <div v-if="item.name" class="font-weight-bold text-no-wrap subtitle-1">
                     <a href="#" @click.prevent="openUserProfile(item.id)">{{ item.name }}</a>
-                    <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }">
-                      <collection-icon width="20" height="20" />
-                    </router-link>
                   </div>
                 </td>
                 <td>
-                  <div v-if="item.name" class="font-weight-bold text-center text-no-wrap">
-                    {{ item.dealsNumber }}
+                  <div v-if="item.name" class="font-weight-bold text-center text-no-wrap d-flex align-center">
+                    <div>
+                      {{ item.dealsNumber }}
+                    </div>
+                    <router-link :to="{ 'name': 'deals.filling-statistics.by-manager', params: { manager: item.id } }" class="ml-1">
+                      <collection-icon width="20" height="20" />
+                    </router-link>
                   </div>
                 </td>
                 <td v-for="(header, i) in headers.slice(3)" :key="i" class="text-center text-body-1">
