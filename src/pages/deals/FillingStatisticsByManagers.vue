@@ -9,11 +9,13 @@
           {{ isUserSelected ? selectedManagerNames.join(', ') : 'Выберите ответственного менеджера' }}
         </v-card-title>
       </v-card>
-      <v-expansion-panels>
+      <v-expansion-panels class="mt-2">
         <v-expansion-panel>
           <v-expansion-panel-header class="title">
-            <filter-icon width="28" height="28" class="mr-1" />
-            Настройка отображения
+            <div>
+              <filter-icon width="28" height="28" class="mr-1" />
+              Настройки
+            </div>
           </v-expansion-panel-header>
           <v-expansion-panel-content>
             <v-switch
