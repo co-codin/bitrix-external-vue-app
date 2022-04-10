@@ -134,6 +134,36 @@
                 </div>
               </v-tooltip>
             </template>
+            <template #header.has_client_type="{ header }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+                </template>
+                <div>
+                  <p class="mb-1">Указан тип клиента</p>
+                </div>
+              </v-tooltip>
+            </template>
+            <template #header.has_category="{ header }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+                </template>
+                <div>
+                  <p class="mb-1">Указана хотя бы одна категория</p>
+                </div>
+              </v-tooltip>
+            </template>
+            <template #header.has_region="{ header }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+                </template>
+                <div>
+                  <p class="mb-1">Указан регион</p>
+                </div>
+              </v-tooltip>
+            </template>
             <template #header.has_planned_call="{ header }">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
@@ -141,6 +171,16 @@
                 </template>
                 <div>
                   <p class="mb-1">Есть запланированный звонок</p>
+                </div>
+              </v-tooltip>
+            </template>
+            <template #header.has_correct_call_description="{ header }">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <span v-bind="attrs" v-on="on">{{ header.text }}</span>
+                </template>
+                <div>
+                  <p class="mb-1">Тема звонка указана вручную</p>
                 </div>
               </v-tooltip>
             </template>

@@ -7,7 +7,7 @@ export default class FillingStatisticsService {
 
   manager = null
 
-  constructor(...manager) {
+  constructor(manager) {
     this.bx24 = new BX24Wrapper()
     this.manager = manager
   }
