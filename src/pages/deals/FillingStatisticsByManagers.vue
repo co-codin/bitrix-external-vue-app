@@ -199,7 +199,7 @@
                 <td v-for="(header, i) in headers.slice(3)" :key="i" class="text-center text-body-1">
                   <v-tooltip bottom max-width="300">
                     <template v-slot:activator="{ on, attrs }">
-                      <span :class="{'green--text text--darken-4': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
+                      <span :class="{'green--text text--darken-4 font-weight-medium': item[header.value].negative === 0, 'red--text text--darken-4': item[header.value].negative > 0}" v-bind="attrs" v-on="on">
                         {{ asPercent ? `${item[header.value].negativePercent} %` : item[header.value].negative }}
                       </span>
                     </template>
