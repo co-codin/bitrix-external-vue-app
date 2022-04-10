@@ -18,10 +18,10 @@
           Сделки ({{ deals.length }})
           <v-spacer />
           <v-btn icon @click="refreshDeals">
-            <svg-icon name="refresh" width="30" height="30" />
+            <svg-icon name="refresh" width="25" height="25" />
           </v-btn>
           <v-btn icon @click="exportExcel">
-            <svg-icon name="download" width="30" height="30" />
+            <svg-icon name="download" width="25" height="25" />
           </v-btn>
         </v-card-title>
         <v-data-table
