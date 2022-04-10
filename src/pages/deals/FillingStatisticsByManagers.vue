@@ -13,7 +13,7 @@
         <v-expansion-panel>
           <v-expansion-panel-header class="title">
             <div class="d-flex align-center">
-              <filter-icon width="28" height="28" class="mr-1" />
+              <cog-icon width="28" height="28" class="mr-1" />
               <div>
                 Настройки
               </div>
@@ -246,11 +246,11 @@ import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import RefreshIcon from '@/components/heroicons/RefreshIcon'
 import { declOfNumber } from '@/utils/helpers'
-import FilterIcon from '@/components/heroicons/FilterIcon'
+import CogIcon from '@/components/heroicons/CogIcon'
 
 export default {
   components: {
-    FilterIcon,
+    CogIcon,
     RefreshIcon,
     PageHeader,
     DocumentSearchIcon,
