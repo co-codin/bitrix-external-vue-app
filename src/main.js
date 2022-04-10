@@ -23,7 +23,6 @@ import './plugins/confirm'
 import './plugins/snackbar'
 import './plugins/dayjs'
 import './plugins/declension'
-import './plugins/services/bx24'
 
 // Global components
 import SvgIcon from '@/components/global/SvgIcon'
