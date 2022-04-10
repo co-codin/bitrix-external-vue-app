@@ -33,7 +33,7 @@ export default class FillingStatisticsService {
       const dealActivities = (activities?.[deal.ID] || []).concat(dealContactActivities)
         .sort((a,b) => new Date(b.DEADLINE) - new Date(a.DEADLINE))
       // есть ли просроченные звонки
-      const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && activity.ASSIGNED_BY_ID === deal.ASSIGNED_BY_ID && this.$dayjs(activity.DEADLINE) < now.subtract(1, 'day'))
+      const hasNoOverdueCall = ! dealActivities.find((activity) => activity.COMPLETED === 'N' && activity.ASSIGNED_BY_ID === deal.ASSIGNED_BY_ID && dayjs(activity.DEADLINE) < now.subtract(1, 'day'))
       // последний звонок
       const lastCall = dealActivities.find((activity) => activity.COMPLETED === 'Y')
       const nearestPlannedCall = dealActivities
@@ -57,7 +57,7 @@ export default class FillingStatisticsService {
           ? !nearestPlannedCall.SUBJECT?.startsWith('Исходящий звонок') || false
           : 'not-available',
         has_planned_call_after_last_call: hasPlannedCall
-          ? this.$dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(60, 'day') >= this.$dayjs(nearestPlannedCall.DEADLINE)
+          ? dayjs(lastCall ? lastCall.DEADLINE : deal.DATE_CREATE).add(60, 'day') >= dayjs(nearestPlannedCall.DEADLINE)
           : 'not-available',
         has_no_overdue_calls: hasPlannedCall ? hasNoOverdueCall : 'not-available',
         has_recent_calls: !! lastCall
