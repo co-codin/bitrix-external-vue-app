@@ -408,7 +408,7 @@ export default {
               fgColor: { argb: 'FE634D' }
             }
           }
-          else {
+          else if (cell.value === 0) {
             row.getCell(colNumber).fill = {
               type: 'pattern',
               pattern: 'solid',
