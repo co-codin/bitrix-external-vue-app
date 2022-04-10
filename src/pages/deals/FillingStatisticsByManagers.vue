@@ -205,7 +205,7 @@
                     </template>
                     <div>
                       <span v-if="item[header.value].negative > 0">
-                        {{ item[header.value].negative }} {{ declenseWord(item[header.value].negative, ['ошибка', 'ошибки', 'ошибок']) }} в {{ item.dealsNumber }} {{ declenseWord(item.dealsNumber, ['сделке', 'сделках', 'сделках']) }} ({{ Math.round(100 * item[header.value].negative / item.dealsNumber) }} %)
+                        {{ item[header.value].negative }} {{ $declension(item[header.value].negative, ['ошибка', 'ошибки', 'ошибок']) }} в {{ item.dealsNumber }} {{ $declension(item.dealsNumber, ['сделке', 'сделках', 'сделках']) }} ({{ Math.round(100 * item[header.value].negative / item.dealsNumber) }} %)
                       </span>
                       <span v-else>
                         Ошибок нет
@@ -250,7 +250,6 @@ import BX24Wrapper from '@/utils/bx24-wrapper'
 import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import RefreshIcon from '@/components/heroicons/RefreshIcon'
-import { declOfNumber } from '@/utils/helpers'
 import CogIcon from '@/components/heroicons/CogIcon'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
 
@@ -309,31 +308,7 @@ export default {
       return Boolean(this.managers.length)
     },
     summary() {
-      const summary = {
-        has_company_name: 0,
-        has_inn: 0,
-        has_name: 0,
-        has_sum: 0,
-        has_email: 0,
-        has_planned_call: 0,
-        has_planned_call_after_last_call: 0,
-        has_no_overdue_calls: 0,
-        has_recent_calls: 0
-      }
-
-      this.deals.forEach((deal) => {
-        summary.has_company_name += !deal.has_company_name ? 1 : 0
-        summary.has_inn += deal.has_inn === false ? 1 : 0
-        summary.has_name += deal.has_name === false ? 1 : 0
-        summary.has_sum += deal.has_sum === false ? 1 : 0
-        summary.has_email += deal.has_email === false ? 1 : 0
-        summary.has_planned_call += deal.has_planned_call === false ? 1 : 0
-        summary.has_planned_call_after_last_call += deal.has_planned_call_after_last_call === false ? 1 : 0
-        summary.has_no_overdue_calls += deal.has_no_overdue_calls === false ? 1 : 0
-        summary.has_recent_calls += deal.has_recent_calls === false ? 1 : 0
-      })
-
-      return summary
+      return FillingStatisticsService.calculateSummary(this.deals)
     },
     statistics() {
       const dealsManager = this.deals.reduce((hash, obj) => ({ ...hash, [obj['assigned_by_id']]:( hash[obj['assigned_by_id']] || [] ).concat(obj) }), {})
@@ -399,15 +374,7 @@ export default {
       worksheet.columns = [
         { header: 'Менеджер', key: 'name', width: 60 },
         { header: 'Количество сделок', key: 'dealsNumber', width: 30 },
-        { header: 'Компания', key: 'has_company_name', width: 15 },
-        { header: 'ИНН', key: 'has_inn', width: 15 },
-        { header: 'Контакт', key: 'has_name', width: 15 },
-        { header: 'E-mail', key: 'has_email', width: 15 },
-        { header: 'Сумма', key: 'has_sum', width: 15 },
-        { header: 'Активность', key: 'has_planned_call', width: 15 },
-        { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
-        { header: 'Нет просроченных звонков', key: 'has_no_overdue_calls', width: 50 },
-        { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
+        ...FillingStatisticsService.getExportColumns()
       ]
 
       worksheet.getRow(1).height = 50
@@ -485,25 +452,11 @@ export default {
     async loadData() {
       this.deals = await new FillingStatisticsService(this.selectedManagerIds).getData()
     },
-    getTooltipColor(value) {
-      if (value === true) {
-        return 'green darken-4'
-      }
-
-      if (value === false) {
-        return 'red darken-4'
-      }
-
-      return 'orange lighten-1'
-    },
     async refreshData() {
       this.loading = true
       this.deals = []
       await this.loadData()
       this.loading = false
-    },
-    declenseWord(number, forms) {
-      return declOfNumber(number, forms)
     }
   }
 }

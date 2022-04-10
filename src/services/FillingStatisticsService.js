@@ -12,6 +12,61 @@ export default class FillingStatisticsService {
     this.manager = manager
   }
 
+  static getExportColumns() {
+    return [
+      { header: 'Компания', key: 'has_company_name', width: 15 },
+      { header: 'ИНН', key: 'has_inn', width: 15 },
+      { header: 'Контакт', key: 'has_name', width: 15 },
+      { header: 'E-mail', key: 'has_email', width: 15 },
+      { header: 'Сумма', key: 'has_sum', width: 15 },
+      { header: 'Тип клиента', key: 'has_client_type', width: 15 },
+      { header: 'Категория', key: 'has_category', width: 15 },
+      { header: 'Регион', key: 'has_region', width: 15 },
+      { header: 'Активность', key: 'has_planned_call', width: 15 },
+      { header: 'Тема звонка', key: 'has_correct_call_description', width: 15 },
+      { header: 'Звонок позже 60 дней', key: 'has_planned_call_after_last_call', width: 30 },
+      { header: 'Нет просроченныйх звонков', key: 'has_no_overdue_calls', width: 50 },
+      { header: 'За последние 60 дней был звонок', key: 'has_recent_calls', width: 50 }
+    ]
+  }
+
+  static calculateSummary(deals) {
+    const summary = {
+      name: 0,
+      has_company_name: 0,
+      has_inn: 0,
+      has_name: 0,
+      has_sum: 0,
+      has_client_type: 0,
+      has_category: 0,
+      has_region: 0,
+      has_email: 0,
+      has_planned_call: 0,
+      has_correct_call_description: 0,
+      has_planned_call_after_last_call: 0,
+      has_no_overdue_calls: 0,
+      has_recent_calls: 0
+    }
+
+    deals.forEach((deal) => {
+      summary.has_company_name += !deal.has_company_name ? 1 : 0
+      summary.has_inn += deal.has_inn === false ? 1 : 0
+      summary.has_name += deal.has_name === false ? 1 : 0
+      summary.has_email += deal.has_email === false ? 1 : 0
+      summary.has_sum += deal.has_sum === false ? 1 : 0
+      summary.has_client_type += deal.has_client_type === false ? 1 : 0
+      summary.has_category += deal.has_category === false ? 1 : 0
+      summary.has_region += deal.has_region === false ? 1 : 0
+      summary.has_planned_call += deal.has_planned_call === false ? 1 : 0
+      summary.has_correct_call_description += deal.has_correct_call_description === false ? 1 : 0
+      summary.has_planned_call_after_last_call += deal.has_planned_call_after_last_call === false ? 1 : 0
+      summary.has_no_overdue_calls += deal.has_no_overdue_calls === false ? 1 : 0
+      summary.has_recent_calls += deal.has_recent_calls === false ? 1 : 0
+    })
+
+    return summary
+  }
+
   async getData() {
     const deals = await this.getDeals(),dealIds = deals.map((deal) => deal.ID).filter(Boolean)
     const companyIds = deals.map((deal) => deal.COMPANY_ID).filter(Boolean)
