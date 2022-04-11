@@ -263,6 +263,7 @@ import ExcelJS from 'exceljs'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
 import UserSelectField from '@/components/UserSelectField'
 import BX24Wrapper from '@/utils/bx24-wrapper'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -303,8 +304,7 @@ export default {
       654, // Пальчун
       537, // Моисеева
       366 // Балаян
-    ],
-    isAdmin: false
+    ]
   }),
   computed: {
     isUserSelected() {
@@ -312,19 +312,18 @@ export default {
     },
     summary() {
       return FillingStatisticsService.calculateSummary(this.deals)
-    }
+    },
+    ...mapGetters({
+      isAdmin: 'user/isAdmin',
+      user: 'user/user'
+    })
   },
   async mounted() {
     this.calculateTableHeight()
     window.addEventListener('resize', this.calculateTableHeight)
 
-    const bx24 = new BX24Wrapper()
-
-    const user = await bx24.callMethod('user.current')
-
-    this.isAdmin = (await bx24.callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
-
     if (this.$route?.params?.manager) {
+      const bx24 = new BX24Wrapper()
       const users = await bx24.callMethod('user.get', { ID: this.$route?.params.manager })
 
       if (users.length) {
@@ -337,8 +336,8 @@ export default {
 
     if (!this.isAdmin) {
       this.manager = {
-        id: user.ID,
-        name: user.NAME
+        id: this.user.ID,
+        name: this.user.NAME
       }
     }
 
