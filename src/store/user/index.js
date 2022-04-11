@@ -6,7 +6,7 @@ export default {
     user: {},
     isAdmin: false,
     admins: {
-      fillingStatistics: [
+      fillingStatistics: [ // filling statistics module
         29, // Соловьев
         654, // Пальчун
         537, // Моисеева

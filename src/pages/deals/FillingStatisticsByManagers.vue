@@ -390,7 +390,7 @@ export default {
       }
     },
     calculateTableHeight() {
-      this.tableHeight = window.innerHeight - 360
+      this.tableHeight = window.innerHeight - 350
     },
     openUserProfile(id) {
       BX24.openPath(`/company/personal/user/${id}/`)
