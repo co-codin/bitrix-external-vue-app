@@ -352,7 +352,7 @@ export default {
   },
   methods: {
     calculateTableHeight() {
-      this.tableHeight = window.innerHeight - (this.isAdmin ? 280 : 220)
+      this.tableHeight = window.innerHeight - (this.isAdmin ? 280 : 200)
     },
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
