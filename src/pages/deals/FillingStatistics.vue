@@ -42,16 +42,26 @@
 
 <script>
 import PageHeader from '@/components/PageHeader'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     PageHeader
   },
-  data: () => ({
-    items: [
-      { icon: 'mdi-account', iconClass: 'blue white--text', title: 'Заполнение по менеджеру', subtitle: 'Выбираем менеджера и смотрим статистику по нему', route: { name: 'deals.filling-statistics.by-manager' } },
-      { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице', route: { name: 'deals.filling-statistics.by-managers' }, badge: 'Новое' }
-    ]
-  })
+  data() {
+    return {
+      items: [
+        { icon: 'mdi-account', iconClass: 'blue white--text', title: 'Заполнение по менеджеру', subtitle: 'Выбираем менеджера и смотрим статистику по нему', route: { name: 'deals.filling-statistics.by-manager' } },
+        this.isAdmin('fillingStatistics')
+          ? { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице', route: { name: 'deals.filling-statistics.by-managers' }, badge: 'Новое' }
+          : null
+      ].filter(Boolean)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      isAdmin: 'user/isAdmin'
+    })
+  }
 }
 </script>

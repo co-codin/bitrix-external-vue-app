@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Сводка по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
-    <template v-if="isAdmin">
+    <template v-if="isAdmin('fillingStatistics')">
       <user-select-field :value="managers" :multiple="true" :disabled="loading" @input="changeManager" />
       <v-expansion-panels class="mt-3">
         <v-expansion-panel>
@@ -373,8 +373,6 @@ export default {
   async mounted() {
     this.calculateTableHeight()
     window.addEventListener('resize', this.calculateTableHeight)
-
-    this.isAdmin = (await bx24.callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.calculateTableHeight)
