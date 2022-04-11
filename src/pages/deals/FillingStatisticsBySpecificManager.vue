@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Заполнение сделок по менеджеру" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
-    <user-select-field v-if="isAdmin" :value="manager" :disabled="loading" @input="changeManager" />
+    <user-select-field v-if="isAdmin('fillingStatistics')" :value="manager" :disabled="loading" @input="changeManager" />
 
     <div v-if="isUserSelected" class="mt-3">
       <div v-if="loading" class="text-center mt-5">
