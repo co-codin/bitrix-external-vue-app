@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Сводка по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
-    <template v-if="isAdmin('fillingStatistics')">
+    <template v-if="isAdmin">
       <user-select-field :value="managers" :multiple="true" :disabled="loading" @input="changeManager" />
       <v-expansion-panels class="mt-3">
         <v-expansion-panel>
@@ -366,9 +366,9 @@ export default {
         }
       })
     },
-    ...mapGetters({
-      isAdmin: 'user/isAdmin'
-    })
+    isAdmin() {
+      return this.$store.getters['user/isAdmin']('fillingStatistics')
+    }
   },
   async mounted() {
     this.calculateTableHeight()

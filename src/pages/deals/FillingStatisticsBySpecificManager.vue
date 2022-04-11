@@ -2,7 +2,7 @@
   <div>
     <page-header h1="Заполнение сделок по менеджеру" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
-    <user-select-field v-if="isAdmin('fillingStatistics')" :value="manager" :disabled="loading" @input="changeManager" />
+    <user-select-field v-if="isAdmin" :value="manager" :disabled="loading" @input="changeManager" />
 
     <div v-if="isUserSelected" class="mt-3">
       <div v-if="loading" class="text-center mt-5">
@@ -298,12 +298,6 @@ export default {
     ],
     breadcrumbs: [
       { text: 'Заполнение сделок по менеджеру' }
-    ],
-    additionalAdminUserIds: [
-      29, // Соловьев
-      654, // Пальчун
-      537, // Моисеева
-      366 // Балаян
     ]
   }),
   computed: {
@@ -314,9 +308,11 @@ export default {
       return FillingStatisticsService.calculateSummary(this.deals)
     },
     ...mapGetters({
-      isAdmin: 'user/isAdmin',
       user: 'user/user'
-    })
+    }),
+    isAdmin() {
+      return this.$store.getters['user/isAdmin']('fillingStatistics')
+    }
   },
   async mounted() {
     this.calculateTableHeight()
@@ -334,7 +330,7 @@ export default {
       }
     }
 
-    if (!this.isAdmin('fillingStatistics')) {
+    if (!this.isAdmin) {
       this.manager = {
         id: this.user.ID,
         name: `${this.user.NAME} ${this.user.LAST_NAME}`
@@ -350,7 +346,7 @@ export default {
   },
   methods: {
     calculateTableHeight() {
-      this.tableHeight = window.innerHeight - 280
+      this.tableHeight = window.innerHeight - (this.isAdmin ? 280 : 240)
     },
     openDeal(dealId) {
       BX24.openPath(`/crm/deal/details/${dealId}/`)
