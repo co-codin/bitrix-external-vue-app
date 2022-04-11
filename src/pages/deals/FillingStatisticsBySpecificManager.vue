@@ -337,7 +337,7 @@ export default {
     if (!this.isAdmin('fillingStatistics')) {
       this.manager = {
         id: this.user.ID,
-        name: this.user.NAME
+        name: `${this.user.NAME} ${this.user.LAST_NAME}`
       }
     }
 
