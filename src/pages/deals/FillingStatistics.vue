@@ -4,39 +4,39 @@
     <v-list two-line subheader>
       <v-subheader inset>Выберите тип отчета</v-subheader>
 
-      <v-list-item
-        v-for="item in items"
-        :key="item.title"
-        :to="item.route"
-      >
+      <v-list-item :to="{ name: 'deals.filling-statistics.by-manager' }">
         <v-list-item-avatar>
-          <v-icon
-            :class="[item.iconClass]"
-            v-text="item.icon"
-          ></v-icon>
+          <v-icon class="blue white--text">mdi-account</v-icon>
         </v-list-item-avatar>
-
         <v-list-item-content>
           <v-list-item-title>
-            {{ item.title }}
+            Заполнение по менеджеру
+          </v-list-item-title>
+          <v-list-item-subtitle>Выбираем менеджера и смотрим статистику по нему</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item v-if="isAdmin('fillingStatistics')" :to="{ name: 'deals.filling-statistics.by-managers' }">
+        <v-list-item-avatar>
+          <v-icon class="amber white--text">folder</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>
+            Сводка по менеджерам
             <v-chip
-              v-if="item.badge"
               color="green lighten-1"
               label
               dark
               x-small
               class="ml-1"
             >
-              {{ item.badge }}
+              новое
             </v-chip>
           </v-list-item-title>
-          <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+          <v-list-item-subtitle>Смотрим сводку по всем менеджерам в одной таблице</v-list-item-subtitle>
         </v-list-item-content>
-
       </v-list-item>
-
     </v-list>
-
   </div>
 </template>
 
@@ -47,16 +47,6 @@ import { mapGetters } from 'vuex'
 export default {
   components: {
     PageHeader
-  },
-  data() {
-    return {
-      items: [
-        { icon: 'mdi-account', iconClass: 'blue white--text', title: 'Заполнение по менеджеру', subtitle: 'Выбираем менеджера и смотрим статистику по нему', route: { name: 'deals.filling-statistics.by-manager' } },
-        this.isAdmin('fillingStatistics')
-          ? { icon: 'folder', iconClass: 'amber white--text', title: 'Сводка по менеджерам', subtitle: 'Смотрим сводку по всем менеджерам в одной таблице', route: { name: 'deals.filling-statistics.by-managers' }, badge: 'Новое' }
-          : null
-      ].filter(Boolean)
-    }
   },
   computed: {
     ...mapGetters({
