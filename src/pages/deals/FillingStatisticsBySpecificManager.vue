@@ -2,9 +2,15 @@
   <div>
     <page-header h1="Заполнение сделок по менеджеру" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
-    <user-select-field v-if="isAdmin" :value="manager" :disabled="loading" @input="changeManager" />
+    <user-select-field
+      v-if="isAdmin"
+      :value="manager"
+      :disabled="loading"
+      class="mb-3"
+      @input="changeManager"
+    />
 
-    <div v-if="isUserSelected" class="mt-3">
+    <div v-if="isUserSelected">
       <div v-if="loading" class="text-center mt-5">
         <v-progress-circular
           :size="70"
