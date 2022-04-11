@@ -334,7 +334,7 @@ export default {
       }
     }
 
-    if (!this.isAdmin) {
+    if (!this.isAdmin('fillingStatistics')) {
       this.manager = {
         id: this.user.ID,
         name: this.user.NAME

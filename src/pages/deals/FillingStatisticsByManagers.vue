@@ -283,6 +283,7 @@ import ExcelJS from 'exceljs'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
 import UserSelectField from '@/components/UserSelectField'
 import BX24Wrapper from '@/utils/bx24-wrapper'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -325,7 +326,6 @@ export default {
       537, // Моисеева
       366 // Балаян
     ],
-    isAdmin: false,
     asPercent: false
   }),
   computed: {
@@ -365,15 +365,14 @@ export default {
           has_recent_calls: this.countOccurrences(managerDeals, 'has_recent_calls')
         }
       })
-    }
+    },
+    ...mapGetters({
+      isAdmin: 'user/isAdmin'
+    })
   },
   async mounted() {
     this.calculateTableHeight()
     window.addEventListener('resize', this.calculateTableHeight)
-
-    const bx24 = new BX24Wrapper()
-
-    const user = await bx24.callMethod('user.current')
 
     this.isAdmin = (await bx24.callMethod('user.admin')) || this.additionalAdminUserIds.includes(+user.ID)
   },

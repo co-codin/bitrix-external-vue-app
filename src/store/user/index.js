@@ -4,11 +4,19 @@ export default {
   namespaced: true,
   state: {
     user: {},
-    isAdmin: false
+    isAdmin: false,
+    admins: {
+      fillingStatistics: [
+        29, // Соловьев
+        654, // Пальчун
+        537, // Моисеева
+        366 // Балаян
+      ]
+    }
   },
   getters: {
     user: (state) => state.user,
-    isAdmin: (state) => state.isAdmin
+    isAdmin: (state) => (module = null) => state.isAdmin || (module && (state.admins[module]?.includes(state.user.ID) || false))
   },
   mutations: {
     SET_USER: (state, user) => state.user = { ...user },
