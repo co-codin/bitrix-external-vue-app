@@ -21,7 +21,7 @@ export default {
       commit('SET_USER', user)
     },
     async loadCurrentUserAdminStatus({ commit }) {
-      const isAdmin = await bx24.callMethod('user.admin')
+      const isAdmin = await new BX24Wrapper().callMethod('user.admin')
 
       commit('SET_IS_ADMIN', isAdmin)
     }
