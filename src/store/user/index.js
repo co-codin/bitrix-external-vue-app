@@ -16,7 +16,7 @@ export default {
   },
   getters: {
     user: (state) => state.user,
-    isAdmin: (state) => (module = null) => state.isAdmin || (module && (state.admins[module]?.includes(state.user.ID) || false))
+    isAdmin: (state) => (module = null) => state.isAdmin || (module && (state.admins[module]?.includes(+state.user.ID) || false))
   },
   mutations: {
     SET_USER: (state, user) => state.user = { ...user },
