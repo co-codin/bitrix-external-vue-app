@@ -180,7 +180,15 @@ export default class BX24Wrapper {
           return resolve(data)
         }
 
-        const calls = this.generateCalls(method, result.next(), result.total(), params)
+        const calls = []
+
+        for (let i = result.next(); i < result.total(); i += next) {
+          params.start = i
+          calls.push([
+            method, { ...params }
+          ])
+          if (params.limit && i + next >= params.limit) break
+        }
 
         console.log('calls', calls)
 
@@ -191,21 +199,6 @@ export default class BX24Wrapper {
 
       BX24.callMethod(method, params, callback)
     })
-  }
-
-  generateCalls(method, next, total, params = {}) {
-
-    const calls = []
-
-    for (let i = next; i < total; i += next) {
-      params.start = i
-      calls.push([
-        method, { ...params }
-      ])
-      if (params.limit && i + next >= params.limit) break
-    }
-
-    return calls
   }
 
   /**
