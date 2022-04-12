@@ -40,7 +40,7 @@
                       title="Рассчитать крайний срок"
                       v-on="on"
                     >
-                      <calculator-icon/>
+                      <svg-icon name="calculator" />
                     </v-btn>
                   </template>
                   <v-card>
@@ -269,13 +269,11 @@
 <script>
 import PageHeader from '../../components/PageHeader'
 import DatePickerField from '../../components/DatePickerField'
-import CalculatorIcon from '@/components/heroicons/CalculatorIcon'
 
 export default {
   components: {
     PageHeader,
-    DatePickerField,
-    CalculatorIcon
+    DatePickerField
   },
   data: () => ({
     documents: [

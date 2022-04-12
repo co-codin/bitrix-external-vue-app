@@ -29,7 +29,12 @@ export default {
 
     script.addEventListener('load', () => {
       try {
-        BX24.init(() => this.loaded = true)
+        BX24.init(async () => {
+          await this.$store.dispatch('user/loadCurrentUserData')
+          await this.$store.dispatch('user/loadCurrentUserAdminStatus')
+
+          this.loaded = true
+        })
       }
       catch (e) {
         this.error = e

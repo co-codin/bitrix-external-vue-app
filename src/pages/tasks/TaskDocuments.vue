@@ -25,13 +25,13 @@
         <template #item.action="{item}">
           <div class="table-actions">
             <v-btn icon @click.prevent="previewFile(item)">
-              <eye-icon />
+              <svg-icon name="eye" width="20" height="20" />
             </v-btn>
             <v-btn icon @click.prevent="downloadFile(item)">
-              <download-icon />
+              <svg-icon name="download" width="20" height="20" />
             </v-btn>
             <v-btn icon @click.prevent="deleteFile(item)">
-              <trash-icon />
+              <svg-icon name="trash" width="20" height="20" />
             </v-btn>
           </div>
         </template>
@@ -53,17 +53,11 @@
 </template>
 
 <script>
-import TrashIcon from '@/components/heroicons/TrashIcon'
-import EyeIcon from '@/components/heroicons/EyeIcon'
-import DownloadIcon from '@/components/heroicons/DownloadIcon'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 import CreateTaskDocument from '@/pages/tasks/components/CreateTaskDocument'
 
 export default {
   components: {
-    TrashIcon,
-    EyeIcon,
-    DownloadIcon,
     CreateTaskDocument
   },
   data: () => ({

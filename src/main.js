@@ -22,6 +22,10 @@ import './plugins/moment'
 import './plugins/confirm'
 import './plugins/snackbar'
 import './plugins/dayjs'
+import './plugins/declension'
+
+// Global components
+import SvgIcon from '@/components/global/SvgIcon'
 
 // FILTERS
 import './filters/capitalize'
@@ -42,6 +46,8 @@ import config from './configs'
 
 // Set this to false to prevent the production tip on Vue startup.
 Vue.config.productionTip = false
+
+Vue.component('svg-icon', SvgIcon)
 
 Vue.prototype.$config = config
 

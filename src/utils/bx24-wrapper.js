@@ -19,6 +19,7 @@
  * v1.4.2 (14.02.2021) Рефакторинг
  *
  */
+import log from 'echarts/src/scale/Log'
 
 export default class BX24Wrapper {
 
@@ -155,6 +156,54 @@ export default class BX24Wrapper {
 
       BX24.callMethod(method, params, callback)
     })
+  }
+
+  async callBatchListMethod(method, params = {}) {
+
+    return new Promise((resolve, reject) => {
+      let data = []
+
+      const callback = async (result) => {
+        this.lastResult = result
+
+        if (result.status !== 200 || result.error()) {
+          return reject(new Error(`${result.error()} (callBatchListMethod ${method}: ${JSON.stringify(params)})`))
+        }
+
+        data = data.concat(result.data())
+
+        if (params.limit && data.length >= params.limit) {
+          return resolve(data.slice(0, params.limit))
+        }
+
+        if (! result.more()) {
+          return resolve(data)
+        }
+
+        const calls = this.generateCalls(method, result.answer.next, result.total(), params)
+
+        const response = await this.callLongBatch(calls)
+
+        return resolve(data.concat(response.flat()).slice(0, params.limit))
+      }
+
+      BX24.callMethod(method, params, callback)
+    })
+  }
+
+  generateCalls(method, next, total, params = {}) {
+
+    const calls = []
+
+    for (let i = next; i < total; i += next) {
+      params.start = i
+      calls.push([
+        method, { ...params }
+      ])
+      if (params.limit && i + next >= params.limit) break
+    }
+
+    return calls
   }
 
   /**
