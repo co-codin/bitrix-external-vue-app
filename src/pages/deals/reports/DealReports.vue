@@ -4,19 +4,19 @@
     <v-list two-line subheader>
       <v-subheader inset>Выберите тип отчета</v-subheader>
 
-      <v-list-item :to="{ name: 'deals.filling-statistics.by-manager' }">
+      <v-list-item :to="{ name: 'deals.reports.filling-statistics-by-manager' }">
         <v-list-item-avatar>
           <v-icon class="blue white--text">mdi-account</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>
-            Заполнение по менеджеру
+            Заполнение сделок по менеджеру
           </v-list-item-title>
           <v-list-item-subtitle>Выбираем менеджера и смотрим статистику по нему</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item v-if="isAdmin('fillingStatistics')" :to="{ name: 'deals.filling-statistics.by-managers' }">
+      <v-list-item v-if="isAdmin('fillingStatistics')" :to="{ name: 'deals.reports.filling-statistics-by-managers' }">
         <v-list-item-avatar>
           <v-icon class="amber white--text">folder</v-icon>
         </v-list-item-avatar>
@@ -34,6 +34,27 @@
             </v-chip>
           </v-list-item-title>
           <v-list-item-subtitle>Смотрим сводку по всем менеджерам в одной таблице</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-list-item v-if="isAdmin()" :to="{ name: 'deals.reports.deal-count' }">
+        <v-list-item-avatar>
+          <v-icon class="amber white--text">folder</v-icon>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>
+            Количество сделок
+            <v-chip
+              color="green lighten-1"
+              label
+              dark
+              x-small
+              class="ml-1"
+            >
+              новое
+            </v-chip>
+          </v-list-item-title>
+          <v-list-item-subtitle>Количество сделок по менеджерам</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </v-list>

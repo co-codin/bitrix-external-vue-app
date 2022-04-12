@@ -40,5 +40,12 @@ export default [
     description: 'Статистика заполнения сделок',
     placement: 'CRM_DEAL_LIST_TOOLBAR',
     handler: '/deals/filling-statistics'
+  },
+  {
+    name: 'Отчеты по сделкам',
+    buttonLabel: 'Отчеты по сделкам',
+    description: 'Отчеты по сделкам',
+    placement: 'CRM_DEAL_LIST_TOOLBAR',
+    handler: '/deals/reports'
   }
 ]
