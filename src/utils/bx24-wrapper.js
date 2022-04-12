@@ -19,6 +19,7 @@
  * v1.4.2 (14.02.2021) Рефакторинг
  *
  */
+import log from 'echarts/src/scale/Log'
 
 export default class BX24Wrapper {
 
@@ -159,25 +160,37 @@ export default class BX24Wrapper {
 
   async callBatchListMethod(method, params = {}) {
 
-    const firstPageItems = await this.callMethod(method, params)
+    return new Promise((resolve, reject) => {
+      let data = []
 
-    const { total, data: result, limit, next } = firstPageItems
+      const callback = async (result) => {
+        this.lastResult = result
 
-    console.log(firstPageItems)
+        if (result.status !== 200 || result.error()) {
+          return reject(new Error(`${result.error()} (callBatchListMethod ${method}: ${JSON.stringify(params)})`))
+        }
 
-    if (limit && data.length >= limit) {
-      return data.slice(0, limit + 1)
-    }
+        data = data.concat(result.data())
 
-    if (!next) {
-      return result
-    }
+        if (params.limit && data.length >= params.limit) {
+          return resolve(data.slice(0, params.limit))
+        }
 
-    const calls = this.generateCalls(method, next, total, params)
+        if (! result.more()) {
+          return resolve(data)
+        }
 
-    const response = await this.callLongBatch(calls)
+        const total = result.total()
 
-    return result.concat(response.flat())
+        const calls = this.generateCalls(method, next, total, params)
+
+        const response = await this.callLongBatch(calls)
+
+        return resolve(data.concat(response.flat()).slice(0, limit))
+      }
+
+      BX24.callMethod(method, params, callback)
+    })
   }
 
   generateCalls(method, next, total, params = {}) {
