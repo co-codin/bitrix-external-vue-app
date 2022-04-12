@@ -180,23 +180,9 @@ export default class BX24Wrapper {
           return resolve(data)
         }
 
-        console.log('something')
+        console.log(result.answer, result.next, result.total())
 
         const calls = []
-
-        console.log('empty calls', calls)
-
-        console.log(result)
-
-        for (let i = 50; i < result.total(); i += 50) {
-          params.start = i
-          calls.push([
-            method, { ...params }
-          ])
-          if (params.limit && i + next >= params.limit) break
-        }
-
-        console.log('calls', calls)
 
         const response = await this.callLongBatch(calls)
 
@@ -205,6 +191,21 @@ export default class BX24Wrapper {
 
       BX24.callMethod(method, params, callback)
     })
+  }
+
+  generateCalls(method, next, total, params = {}) {
+
+    const calls = []
+
+    for (let i = next; i < total; i += next) {
+      params.start = i
+      calls.push([
+        method, { ...params }
+      ])
+      if (params.limit && i + next >= params.limit) break
+    }
+
+    return calls
   }
 
   /**
