@@ -35,13 +35,6 @@ export default [
     handler: '/users/profile-qr-code'
   },
   {
-    name: 'Статистика заполнения сделок',
-    buttonLabel: 'Заполнение сделок',
-    description: 'Статистика заполнения сделок',
-    placement: 'CRM_DEAL_LIST_TOOLBAR',
-    handler: '/deals/filling-statistics'
-  },
-  {
     name: 'Отчеты по сделкам',
     buttonLabel: 'Отчеты по сделкам',
     description: 'Отчеты по сделкам',

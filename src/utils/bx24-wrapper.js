@@ -157,6 +157,42 @@ export default class BX24Wrapper {
     })
   }
 
+  async callBatchListMethod(method, params = {}) {
+
+    const firstPageItems = await this.callMethod(method, params)
+
+    const { total, data: result, limit, next } = firstPageItems
+
+    if (limit && data.length >= limit) {
+      return data.slice(0, limit + 1)
+    }
+
+    if (!next) {
+      return result
+    }
+
+    const calls = this.generateCalls(method, next, total, params)
+
+    const response = await this.callLongBatch(calls)
+
+    return result.concat(response.flat())
+  }
+
+  generateCalls(method, next, total, params = {}) {
+
+    const calls = []
+
+    for (let i = next; i < total, i += next;) {
+      params.start = i
+      calls.push([
+        method, { ...params }
+      ])
+      if (params.limit && i + next >= params.limit) break
+    }
+
+    return calls
+  }
+
   /**
    * Вызывает BX24.callMethod() с заданным списочным методом и параметрами и возвращает объект генератор
    * Реализует быстрый алгоритм, описанный в https://dev.1c-bitrix.ru/rest_help/rest_sum/start.php
