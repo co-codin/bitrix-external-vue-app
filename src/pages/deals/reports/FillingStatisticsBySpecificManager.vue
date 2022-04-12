@@ -268,7 +268,6 @@ import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
 import UserSelectField from '@/components/UserSelectField'
-import BX24Wrapper from '@/utils/bx24-wrapper'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -325,8 +324,7 @@ export default {
     window.addEventListener('resize', this.calculateTableHeight)
 
     if (this.$route?.params?.manager) {
-      const bx24 = new BX24Wrapper()
-      const users = await bx24.callMethod('user.get', { ID: this.$route?.params.manager })
+      const users = this.$bx24.callMethod('user.get', { ID: this.$route?.params.manager })
 
       if (users.length) {
         this.manager = {
