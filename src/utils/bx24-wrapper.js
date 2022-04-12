@@ -180,7 +180,11 @@ export default class BX24Wrapper {
           return resolve(data)
         }
 
+        console.log('something')
+
         const calls = []
+
+        console.log('empty calls', calls)
 
         for (let i = result.next(); i < result.total(); i += next) {
           params.start = i
