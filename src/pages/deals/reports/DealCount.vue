@@ -40,7 +40,7 @@ export default {
     // get all managers (only managers)
     const bx24 = new BX24Wrapper()
 
-    console.log(await bx24.callBatchListMethod('crm.deal.list', { limit: 1000, select: ['ID', 'TITLE'] }))
+    console.log(await bx24.callBatchListMethod('crm.deal.list', { limit1: 1000, select: ['ID', 'TITLE'] }))
 
     // get all deals (only needed columns)
     // count deals by managers

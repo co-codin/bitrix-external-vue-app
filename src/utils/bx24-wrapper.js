@@ -172,8 +172,8 @@ export default class BX24Wrapper {
 
         data = data.concat(result.data())
 
-        if (params.limit && data.length >= params.limit) {
-          return resolve(data.slice(0, params.limit))
+        if (params.limit1 && data.length >= params.limit1) {
+          return resolve(data.slice(0, params.limit1))
         }
 
         if (! result.more()) {
@@ -191,14 +191,14 @@ export default class BX24Wrapper {
           calls.push([
             method, { ...params }
           ])
-          if (params.limit && i + next >= params.limit) break
+          if (params.limit1 && i + next >= params.limit1) break
         }
 
         console.log('calls', calls)
 
         const response = await this.callLongBatch(calls)
 
-        return resolve(data.concat(response.flat()).slice(0, params.limit))
+        return resolve(data.concat(response.flat()).slice(0, params.limit1))
       }
 
       BX24.callMethod(method, params, callback)
