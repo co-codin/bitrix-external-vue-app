@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="Отчеты по заполнению сделок" :show-home-link="false" />
+    <page-header h1="Отчеты по сделкам" :show-home-link="false" />
     <v-list two-line subheader>
       <v-subheader inset>Выберите тип отчета</v-subheader>
 
@@ -22,7 +22,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>
-            Сводка по менеджерам
+            Заполнение сделок по менеджерам
             <v-chip
               color="green lighten-1"
               label
@@ -39,7 +39,7 @@
 
       <v-list-item v-if="isAdmin()" :to="{ name: 'deals.reports.deal-count' }">
         <v-list-item-avatar>
-          <v-icon class="amber white--text">folder</v-icon>
+          <v-icon class="amber white--text">numeric-nine-plus-box</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>

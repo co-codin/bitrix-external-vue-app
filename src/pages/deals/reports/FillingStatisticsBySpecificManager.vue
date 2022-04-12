@@ -282,8 +282,8 @@ export default {
     deals: [],
     tableHeight: null,
     homeLink: {
-      text: 'Отчеты по заполнению сделок',
-      to: { name: 'deals.filling-statistics' }
+      text: 'Отчеты по сделкам',
+      to: { name: 'deals.reports' }
     },
     headers: [
       { text: '#', align: 'center', value: 'index', sortable: true },

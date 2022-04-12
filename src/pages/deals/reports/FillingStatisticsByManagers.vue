@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="Сводка по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
+    <page-header h1="Заполнение сделок по менеджерам" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
 
     <template v-if="isAdmin">
       <user-select-field :value="managers" :multiple="true" :disabled="loading" @input="changeManager" />
@@ -296,8 +296,8 @@ export default {
     deals: [],
     tableHeight: null,
     homeLink: {
-      text: 'Отчеты по ведению сделок',
-      to: { name: 'deals.filling-statistics' }
+      text: 'Отчеты по сделкам',
+      to: { name: 'deals.reports' }
     },
     headers: [
       { text: '#', align: 'center', value: 'index', sortable: true },
@@ -318,13 +318,7 @@ export default {
       { text: 'За последние 60 дней был звонок', align: 'center', value: 'has_recent_calls', sortable: true, positiveLabel: 'За последние 60 дней был звонок', negativeLabel: 'За последние 60 дней не было звонка', sort: (a, b) => a.negative - b.negative }
     ],
     breadcrumbs: [
-      { text: 'Сводка по менеджерам' }
-    ],
-    additionalAdminUserIds: [
-      29, // Соловьев
-      654, // Пальчун
-      537, // Моисеева
-      366 // Балаян
+      { text: 'Заполнение сделок по менеджерам' }
     ],
     asPercent: false
   }),
