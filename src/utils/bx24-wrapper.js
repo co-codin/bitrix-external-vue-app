@@ -197,7 +197,7 @@ export default class BX24Wrapper {
 
     const calls = []
 
-    for (let i = next; i < total, i += next;) {
+    for (let i = next; i < total; i += next) {
       params.start = i
       calls.push([
         method, { ...params }
