@@ -180,13 +180,11 @@ export default class BX24Wrapper {
           return resolve(data)
         }
 
-        const total = result.total()
-
-        const calls = this.generateCalls(method, next, total, params)
+        const calls = this.generateCalls(method, result.next(), result.total(), params)
 
         const response = await this.callLongBatch(calls)
 
-        return resolve(data.concat(response.flat()).slice(0, limit))
+        return resolve(data.concat(response.flat()).slice(0, params.limit))
       }
 
       BX24.callMethod(method, params, callback)
