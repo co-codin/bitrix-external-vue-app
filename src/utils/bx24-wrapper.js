@@ -163,6 +163,8 @@ export default class BX24Wrapper {
 
     const { total, data: result, limit, next } = firstPageItems
 
+    console.log(total, data, limit, next)
+
     if (limit && data.length >= limit) {
       return data.slice(0, limit + 1)
     }
