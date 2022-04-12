@@ -121,7 +121,7 @@ export default class FillingStatisticsService {
   }
 
   getDeals() {
-    return this.bx24.callListMethod('crm.deal.list', {
+    return this.bx24.callBatchListMethod('crm.deal.list', {
       order: { 'CLOSEDATE': 'DESC' },
       filter: { 'ASSIGNED_BY_ID': this.manager },
       select: ['ID', 'TITLE', 'COMPANY_ID', 'UF_PROCEEDS', 'ASSIGNED_BY_ID', 'DATE_CREATE', 'STAGE_ID', 'UF_CRM_CATEGORY', 'UF_CRM_CLIENT_TYPE', 'UF_CRM_DISTRICT']
@@ -129,7 +129,7 @@ export default class FillingStatisticsService {
   }
 
   getCompanies(companyIds) {
-    return this.bx24.callListMethod('crm.company.list', {
+    return this.bx24.callBatchListMethod('crm.company.list', {
       filter: { 'ID': companyIds },
       select: ['ID', 'TITLE', 'BANKING_DETAILS', 'HAS_EMAIL']
     })
@@ -146,7 +146,7 @@ export default class FillingStatisticsService {
   }
 
   getContacts(contactIds) {
-    return this.bx24.callListMethod('crm.contact.list', {
+    return this.bx24.callBatchListMethod('crm.contact.list', {
       filter: { 'ID': contactIds },
       select: [
         'ID',
@@ -159,7 +159,7 @@ export default class FillingStatisticsService {
   }
 
   async getActivities(ownerTypeId, ownerId, now) {
-    return (await this.bx24.callListMethod('crm.activity.list', {
+    return (await this.bx24.callBatchListMethod('crm.activity.list', {
       filter: {
         'OWNER_ID': ownerId,
         'OWNER_TYPE_ID': ownerTypeId,
@@ -172,7 +172,7 @@ export default class FillingStatisticsService {
   }
 
   async getCompanyRequisites(companyIds) {
-    return (await this.bx24.callListMethod('crm.requisite.list', {
+    return (await this.bx24.callBatchListMethod('crm.requisite.list', {
       filter: {
         'ENTITY_ID': companyIds,
         'ENTITY_TYPE_ID': 4
