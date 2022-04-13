@@ -1,0 +1,2771 @@
+export default [{
+  'ID': '1',
+  'ACTIVE': true,
+  'NAME': 'Никита',
+  'LAST_NAME': 'Корыстин',
+  'SECOND_NAME': 'Сергеевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '5',
+  'ACTIVE': true,
+  'NAME': 'Сергей',
+  'LAST_NAME': 'Корыстин',
+  'SECOND_NAME': 'Львович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '7',
+  'ACTIVE': false,
+  'NAME': '9',
+  'LAST_NAME': '9',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '9',
+  'ACTIVE': false,
+  'NAME': 'Наталья',
+  'LAST_NAME': 'Борисова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '11',
+  'ACTIVE': true,
+  'NAME': 'Артем',
+  'LAST_NAME': 'Тарасов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [877],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '13',
+  'ACTIVE': true,
+  'NAME': 'Марина',
+  'LAST_NAME': 'Евсютина',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [881],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '15',
+  'ACTIVE': false,
+  'NAME': 'Анна',
+  'LAST_NAME': 'Комлова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '17',
+  'ACTIVE': true,
+  'NAME': 'Станислав',
+  'LAST_NAME': 'Марков',
+  'SECOND_NAME': 'Андреевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [877],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '19',
+  'ACTIVE': false,
+  'NAME': 'Елена',
+  'LAST_NAME': 'Маркитанова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '23',
+  'ACTIVE': false,
+  'NAME': 'Руслан',
+  'LAST_NAME': 'Гуменюк',
+  'SECOND_NAME': 'Владимирович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '3600',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '25',
+  'ACTIVE': false,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Федоров',
+  'SECOND_NAME': 'Вячеславович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '27',
+  'ACTIVE': false,
+  'NAME': 'Евгений',
+  'LAST_NAME': 'Яковлев',
+  'SECOND_NAME': 'Викторович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '29',
+  'ACTIVE': true,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Соловьев',
+  'SECOND_NAME': 'Угович',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [858],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '31',
+  'ACTIVE': false,
+  'NAME': 'Вячеслав',
+  'LAST_NAME': 'Пай',
+  'SECOND_NAME': 'Николаевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '33',
+  'ACTIVE': false,
+  'NAME': 'Максим',
+  'LAST_NAME': 'Ножнин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '35',
+  'ACTIVE': true,
+  'NAME': 'Другие',
+  'LAST_NAME': 'Страны',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '37',
+  'ACTIVE': false,
+  'NAME': 'Филипп',
+  'LAST_NAME': 'Савин',
+  'SECOND_NAME': 'Владимирович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '38',
+  'ACTIVE': false,
+  'NAME': 'Константин',
+  'LAST_NAME': 'Воробьёв',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '40',
+  'ACTIVE': false,
+  'NAME': 'Вячеслав',
+  'LAST_NAME': 'Тимофеев',
+  'SECOND_NAME': 'Юрьевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '42',
+  'ACTIVE': false,
+  'NAME': 'Максим',
+  'LAST_NAME': 'Кучма',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '44',
+  'ACTIVE': false,
+  'NAME': 'Артем',
+  'LAST_NAME': 'Пряднев',
+  'SECOND_NAME': 'Сергеевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '46',
+  'ACTIVE': false,
+  'NAME': 'Лид',
+  'LAST_NAME': 'Менеджер',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '52',
+  'ACTIVE': false,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Бывалин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '54',
+  'ACTIVE': true,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Балаян',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [857],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '56',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Греет',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '58',
+  'ACTIVE': true,
+  'NAME': 'Роман',
+  'LAST_NAME': 'Гапонов',
+  'SECOND_NAME': 'Андреевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [862],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '60',
+  'ACTIVE': false,
+  'NAME': 'Роберт',
+  'LAST_NAME': 'Курмакаев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '62',
+  'ACTIVE': false,
+  'NAME': 'ГОСЗАКАЗ',
+  'LAST_NAME': 'ГОСЗАКАЗ',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '64',
+  'ACTIVE': false,
+  'NAME': 'Роман',
+  'LAST_NAME': 'Свириденко',
+  'SECOND_NAME': 'Сергеевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '72',
+  'ACTIVE': true,
+  'NAME': 'Артем',
+  'LAST_NAME': 'Карамышев',
+  'SECOND_NAME': 'Юрьевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [877],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '74',
+  'ACTIVE': false,
+  'NAME': 'Яна',
+  'LAST_NAME': 'Ульянычева',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '76',
+  'ACTIVE': true,
+  'NAME': 'Наталья',
+  'LAST_NAME': 'Антонова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [881],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '84',
+  'ACTIVE': true,
+  'NAME': 'Виктория',
+  'LAST_NAME': 'Андрющенко',
+  'SECOND_NAME': 'Эдуардовна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [864],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '86',
+  'ACTIVE': false,
+  'NAME': 'Алексей',
+  'LAST_NAME': 'Роткин',
+  'SECOND_NAME': 'Михайлович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '90',
+  'ACTIVE': true,
+  'NAME': 'Андрей',
+  'LAST_NAME': 'Цыганов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [228],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '92',
+  'ACTIVE': false,
+  'NAME': 'Ренат',
+  'LAST_NAME': 'Абузяров',
+  'SECOND_NAME': 'Геннадьевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '94',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Соловьев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '96',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Тимофеев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '98',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Карамышев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '100',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Антонова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '102',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Тарасов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '104',
+  'ACTIVE': false,
+  'NAME': 'Абузяров',
+  'LAST_NAME': 'ГОС',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '106',
+  'ACTIVE': true,
+  'NAME': 'Константин',
+  'LAST_NAME': 'Попов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [878],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '108',
+  'ACTIVE': false,
+  'NAME': 'Владимир',
+  'LAST_NAME': 'Николаев',
+  'SECOND_NAME': 'Германович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '110',
+  'ACTIVE': false,
+  'NAME': 'Иван',
+  'LAST_NAME': 'Романов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '114',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Попов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '116',
+  'ACTIVE': false,
+  'NAME': 'Маркетинг Николаев',
+  'LAST_NAME': '',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '118',
+  'ACTIVE': true,
+  'NAME': 'Соловьев',
+  'LAST_NAME': 'Госы',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '120',
+  'ACTIVE': false,
+  'NAME': 'Максим',
+  'LAST_NAME': 'Каторгин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '122',
+  'ACTIVE': false,
+  'NAME': 'Азат',
+  'LAST_NAME': 'Сейтбаталов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [874],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '124',
+  'ACTIVE': false,
+  'NAME': 'Иван',
+  'LAST_NAME': 'Малюгин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '126',
+  'ACTIVE': true,
+  'NAME': 'Ленар',
+  'LAST_NAME': 'Хусаинов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '128',
+  'ACTIVE': false,
+  'NAME': 'Фидель',
+  'LAST_NAME': 'Нуриахметов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '130',
+  'ACTIVE': false,
+  'NAME': 'Абузяров',
+  'LAST_NAME': 'МРТ-КТ',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '132',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Почта',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '134',
+  'ACTIVE': false,
+  'NAME': 'Евгений',
+  'LAST_NAME': 'Яковлев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '136',
+  'ACTIVE': true,
+  'NAME': 'Виктория',
+  'LAST_NAME': 'Прилежаева',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [863],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '138',
+  'ACTIVE': true,
+  'NAME': 'Михаил',
+  'LAST_NAME': 'Великий',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [863],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '140',
+  'ACTIVE': false,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Сазонов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '-10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '142',
+  'ACTIVE': true,
+  'NAME': 'Марина',
+  'LAST_NAME': 'Сазонова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [866],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '144',
+  'ACTIVE': true,
+  'NAME': 'Татьяна',
+  'LAST_NAME': 'Мищенкова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [866],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '218',
+  'ACTIVE': false,
+  'NAME': 'Соловьев',
+  'LAST_NAME': 'Казахстан',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '220',
+  'ACTIVE': true,
+  'NAME': 'Ринат',
+  'LAST_NAME': 'Ульмаскулов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [879],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '222',
+  'ACTIVE': true,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Мельников',
+  'SECOND_NAME': 'Александрович',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [881],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '224',
+  'ACTIVE': false,
+  'NAME': 'Абузяров',
+  'LAST_NAME': 'Дилеры',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '226',
+  'ACTIVE': false,
+  'NAME': 'Станислав',
+  'LAST_NAME': 'Нетецкий',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '228',
+  'ACTIVE': false,
+  'NAME': 'Максим',
+  'LAST_NAME': 'Плющев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '230',
+  'ACTIVE': true,
+  'NAME': 'Дилеры',
+  'LAST_NAME': 'Маркетинг',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '232',
+  'ACTIVE': false,
+  'NAME': 'Королев',
+  'LAST_NAME': 'Алексей',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '236',
+  'ACTIVE': false,
+  'NAME': 'Тарасов',
+  'LAST_NAME': 'Маркетинг',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '250',
+  'ACTIVE': true,
+  'NAME': 'Бот',
+  'LAST_NAME': 'Новые сделки',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '252',
+  'ACTIVE': true,
+  'NAME': 'Бот',
+  'LAST_NAME': 'Повторы',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '258',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Карамышев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '260',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Николаев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '264',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Попов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '266',
+  'ACTIVE': false,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Тарасов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '268',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Марков',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '270',
+  'ACTIVE': false,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Каторгин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '272',
+  'ACTIVE': false,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Романов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '274',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Антонова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '276',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Соловьев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '280',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Антонова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '282',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Карамышев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '284',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Николаев',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '286',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Попов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '294',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Марков',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '312',
+  'ACTIVE': false,
+  'NAME': 'Илья',
+  'LAST_NAME': 'Колодько',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '322',
+  'ACTIVE': false,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Мигефер',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '326',
+  'ACTIVE': false,
+  'NAME': 'Татьяна',
+  'LAST_NAME': 'Мищенкова',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '352',
+  'ACTIVE': true,
+  'NAME': 'Кирилл',
+  'LAST_NAME': 'Гевелюк',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '14400',
+  'UF_DEPARTMENT': [228],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '362',
+  'ACTIVE': true,
+  'NAME': 'Арина',
+  'LAST_NAME': 'Клишина',
+  'SECOND_NAME': 'Юрьевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [879],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '366',
+  'ACTIVE': true,
+  'NAME': 'Ольга',
+  'LAST_NAME': 'Балаян',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [861],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '368',
+  'ACTIVE': true,
+  'NAME': 'Дилер',
+  'LAST_NAME': 'Проигранные',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '374',
+  'ACTIVE': false,
+  'NAME': 'Дилеры',
+  'LAST_NAME': 'Standby',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '390',
+  'ACTIVE': false,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Морозов',
+  'SECOND_NAME': 'Валерьевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [878],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '394',
+  'ACTIVE': false,
+  'NAME': 'Артем',
+  'LAST_NAME': 'Бузыкин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '396',
+  'ACTIVE': true,
+  'NAME': 'Сергей',
+  'LAST_NAME': 'Кувшинов',
+  'SECOND_NAME': 'Андреевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [881],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '398',
+  'ACTIVE': true,
+  'NAME': 'Абузяров',
+  'LAST_NAME': 'Выигранные',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '400',
+  'ACTIVE': true,
+  'NAME': 'Наталия',
+  'LAST_NAME': 'Морозова',
+  'SECOND_NAME': 'Николаевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [861],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '402',
+  'ACTIVE': true,
+  'NAME': 'Анна',
+  'LAST_NAME': 'Егорова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [858],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '404',
+  'ACTIVE': true,
+  'NAME': 'Бот',
+  'LAST_NAME': 'Удаленные',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '406',
+  'ACTIVE': false,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Евсютина',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '408',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Евсютина',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '412',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Морозов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '414',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Морозов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '416',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Кувшинов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '418',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Кувшинов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '420',
+  'ACTIVE': false,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Бормисов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '424',
+  'ACTIVE': false,
+  'NAME': 'Инна',
+  'LAST_NAME': 'Чигарева',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '426',
+  'ACTIVE': true,
+  'NAME': 'Дилер',
+  'LAST_NAME': 'СНГ',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '428',
+  'ACTIVE': false,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Плющев',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '430',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Мигефер',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '432',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Клишина',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '434',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Тарасов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '436',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Абузяров',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '438',
+  'ACTIVE': true,
+  'NAME': 'Иван',
+  'LAST_NAME': 'Кочанов',
+  'SECOND_NAME': 'Дмитриевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [855],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '440',
+  'ACTIVE': false,
+  'NAME': 'Денис',
+  'LAST_NAME': 'Юн',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '442',
+  'ACTIVE': false,
+  'NAME': 'Сергей',
+  'LAST_NAME': 'Дубешко',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '444',
+  'ACTIVE': false,
+  'NAME': 'Николай',
+  'LAST_NAME': 'Татарченко',
+  'SECOND_NAME': 'Львович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '446',
+  'ACTIVE': false,
+  'NAME': 'Олег',
+  'LAST_NAME': 'Задорожный',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '448',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Задорожный',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '450',
+  'ACTIVE': false,
+  'NAME': 'Антон',
+  'LAST_NAME': 'Осипенко',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [865],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '452',
+  'ACTIVE': false,
+  'NAME': 'Данил',
+  'LAST_NAME': 'Закиров',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [870],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '454',
+  'ACTIVE': true,
+  'NAME': 'Денис',
+  'LAST_NAME': 'Кулешов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [868],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '458',
+  'ACTIVE': false,
+  'NAME': 'Майя',
+  'LAST_NAME': 'Литвина',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '460',
+  'ACTIVE': true,
+  'NAME': 'Ангелина',
+  'LAST_NAME': 'Куликова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [856],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '462',
+  'ACTIVE': false,
+  'NAME': 'Мария',
+  'LAST_NAME': 'Маркелова',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '464',
+  'ACTIVE': false,
+  'NAME': 'Илья',
+  'LAST_NAME': 'Николаев',
+  'SECOND_NAME': 'Александрович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '466',
+  'ACTIVE': false,
+  'NAME': 'Софья',
+  'LAST_NAME': 'Гавалова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [855],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '468',
+  'ACTIVE': false,
+  'NAME': 'Ройстат',
+  'LAST_NAME': 'Интегратор',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '470',
+  'ACTIVE': false,
+  'NAME': 'Анастасия',
+  'LAST_NAME': 'Лихачева',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '472',
+  'ACTIVE': true,
+  'NAME': 'Ольга',
+  'LAST_NAME': 'Виноградова',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [866],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '474',
+  'ACTIVE': true,
+  'NAME': 'Глеб',
+  'LAST_NAME': 'Степыгин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [870],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '476',
+  'ACTIVE': true,
+  'NAME': 'Владимир',
+  'LAST_NAME': 'Лещинский',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [868],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '478',
+  'ACTIVE': true,
+  'NAME': 'Анна',
+  'LAST_NAME': 'Климовская',
+  'SECOND_NAME': 'Юрьевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [859],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '480',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Тарасов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '482',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Клишина',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '484',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Мигефер',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '486',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Задорожный',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '488',
+  'ACTIVE': true,
+  'NAME': 'Виктория',
+  'LAST_NAME': 'Иванова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [875],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '490',
+  'ACTIVE': false,
+  'NAME': 'Игорь',
+  'LAST_NAME': 'Бальестерос',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '492',
+  'ACTIVE': false,
+  'NAME': 'Игорь',
+  'LAST_NAME': 'Бальестерос',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [854],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '494',
+  'ACTIVE': false,
+  'NAME': 'Надежда',
+  'LAST_NAME': 'Федотова',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '0',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '500',
+  'ACTIVE': true,
+  'NAME': 'Ирина',
+  'LAST_NAME': 'Аленкина',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [872],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '506',
+  'ACTIVE': false,
+  'NAME': 'Роман',
+  'LAST_NAME': 'Ведерников',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '508',
+  'ACTIVE': false,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Столяров',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '510',
+  'ACTIVE': false,
+  'NAME': 'Анастасия',
+  'LAST_NAME': 'Грибоедова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '512',
+  'ACTIVE': false,
+  'NAME': 'Филипп',
+  'LAST_NAME': 'Снигур',
+  'SECOND_NAME': 'Юрьевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '513',
+  'ACTIVE': false,
+  'NAME': 'Юлия',
+  'LAST_NAME': 'Богоявленская',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '514',
+  'ACTIVE': true,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Красавин',
+  'SECOND_NAME': 'Евгеньевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [880],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '515',
+  'ACTIVE': false,
+  'NAME': null,
+  'LAST_NAME': null,
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '516',
+  'ACTIVE': false,
+  'NAME': 'Дамир',
+  'LAST_NAME': 'Галиакбаров',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '517',
+  'ACTIVE': false,
+  'NAME': 'Анастасия',
+  'LAST_NAME': 'Матвеева',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '518',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Галиакбаров',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '519',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Галиакбаров',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '520',
+  'ACTIVE': false,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Грибоедова',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '521',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Грибоедова',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '522',
+  'ACTIVE': false,
+  'NAME': 'Алексей',
+  'LAST_NAME': 'Пронин',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '523',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Снигур',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '524',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Снигур',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '525',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Красавин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '526',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Красавин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '527',
+  'ACTIVE': false,
+  'NAME': 'Кристина',
+  'LAST_NAME': 'Герасимова',
+  'SECOND_NAME': 'Сергеевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '528',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Герасимова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '529',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Герасимова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '530',
+  'ACTIVE': false,
+  'NAME': 'Людмила',
+  'LAST_NAME': 'Лорушкина',
+  'SECOND_NAME': 'Валерьевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '531',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Богоявленская',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '532',
+  'ACTIVE': true,
+  'NAME': 'Выигранные ',
+  'LAST_NAME': 'Богоявленская',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '533',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Косметология',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [859],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '534',
+  'ACTIVE': false,
+  'NAME': 'Екатерина',
+  'LAST_NAME': 'Кирильченко',
+  'SECOND_NAME': 'Сергеевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [866],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '536',
+  'ACTIVE': false,
+  'NAME': 'Екатерина',
+  'LAST_NAME': 'Фоломкина',
+  'SECOND_NAME': 'Сергеевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '537',
+  'ACTIVE': true,
+  'NAME': 'Елена',
+  'LAST_NAME': 'Моисеева',
+  'SECOND_NAME': 'Дмитриевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [861],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '538',
+  'ACTIVE': true,
+  'NAME': 'Артем',
+  'LAST_NAME': 'Жеглов',
+  'SECOND_NAME': 'Дмитриевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [879],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '539',
+  'ACTIVE': false,
+  'NAME': 'Николай',
+  'LAST_NAME': 'Устинов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '540',
+  'ACTIVE': true,
+  'NAME': 'Людмила',
+  'LAST_NAME': 'Шаркова',
+  'SECOND_NAME': 'Алексеевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [880],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '541',
+  'ACTIVE': true,
+  'NAME': 'Надежда',
+  'LAST_NAME': 'Коломийцева',
+  'SECOND_NAME': 'Михайловна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [872, 871],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '542',
+  'ACTIVE': false,
+  'NAME': 'Владимир',
+  'LAST_NAME': 'Сараскин',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '543',
+  'ACTIVE': true,
+  'NAME': 'Андрей',
+  'LAST_NAME': 'Сюзев',
+  'SECOND_NAME': 'Сергеевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [869],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '544',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Сюзев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '545',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Сюзев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '546',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Моисеева',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '547',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Моисеева',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '548',
+  'ACTIVE': false,
+  'NAME': 'Юлия',
+  'LAST_NAME': 'Волкова',
+  'SECOND_NAME': 'Валериевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '549',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Климовская',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '550',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Климовская',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '551',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Шаркова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '552',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Шаркова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '553',
+  'ACTIVE': false,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Волкова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '554',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Волкова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '555',
+  'ACTIVE': true,
+  'NAME': 'Закупка',
+  'LAST_NAME': 'Климовская',
+  'SECOND_NAME': 'Юрьевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '556',
+  'ACTIVE': true,
+  'NAME': 'Standby',
+  'LAST_NAME': 'Жеглов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '557',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Жеглов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '558',
+  'ACTIVE': false,
+  'NAME': 'Галкина',
+  'LAST_NAME': 'Анастасия',
+  'SECOND_NAME': 'Андреевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '559',
+  'ACTIVE': true,
+  'NAME': 'Максим',
+  'LAST_NAME': 'Радаев',
+  'SECOND_NAME': 'Александрович',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [865],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '560',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'ЮФО',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '561',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'ПФО',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '562',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'ЦФО',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '566',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Москва',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '567',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'СЗФО + УФО',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '568',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'СФО + ДФО',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '569',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'СНГ',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '570',
+  'ACTIVE': false,
+  'NAME': 'Наталья',
+  'LAST_NAME': 'Трубникова',
+  'SECOND_NAME': 'Андреевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [854],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '571',
+  'ACTIVE': true,
+  'NAME': 'Светлана',
+  'LAST_NAME': 'Майонова',
+  'SECOND_NAME': 'Валериевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [855],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '572',
+  'ACTIVE': true,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Смирнов',
+  'SECOND_NAME': 'Сергеевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [878],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '573',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Смирнов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '574',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Смирнов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '575',
+  'ACTIVE': true,
+  'NAME': 'Ецин',
+  'LAST_NAME': 'Цуй',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '576',
+  'ACTIVE': false,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Бартков',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '577',
+  'ACTIVE': false,
+  'NAME': 'Айна',
+  'LAST_NAME': 'Багыбекова',
+  'SECOND_NAME': 'Мурадовна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [861],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '578',
+  'ACTIVE': false,
+  'NAME': 'Владислав',
+  'LAST_NAME': 'Храмогин',
+  'SECOND_NAME': 'Юрьевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '579',
+  'ACTIVE': false,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Шмарук',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '580',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Храмогин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '581',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Храмогин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '582',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Жеглов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '584',
+  'ACTIVE': false,
+  'NAME': 'Дмитрий',
+  'LAST_NAME': 'Коновалов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [857],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '585',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Мельников',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '586',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Мельников',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '587',
+  'ACTIVE': true,
+  'NAME': 'Выигранные',
+  'LAST_NAME': 'Ульмаскулов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '588',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Ульмаскулов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '589',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Коновалов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '590',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Коновалов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '591',
+  'ACTIVE': true,
+  'NAME': 'Маркетинг',
+  'LAST_NAME': 'Розница',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '592',
+  'ACTIVE': true,
+  'NAME': 'Николай',
+  'LAST_NAME': 'Якунин',
+  'SECOND_NAME': 'Николаевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [879],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '593',
+  'ACTIVE': true,
+  'NAME': 'Игорь',
+  'LAST_NAME': 'Викулин',
+  'SECOND_NAME': 'Олегович',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [877],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '594',
+  'ACTIVE': true,
+  'NAME': 'Елена',
+  'LAST_NAME': 'Коробкова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [865],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '595',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Викулин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '18000',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '596',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Викулин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '597',
+  'ACTIVE': true,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Якунин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '598',
+  'ACTIVE': true,
+  'NAME': 'Проданные',
+  'LAST_NAME': 'Якунин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '599',
+  'ACTIVE': true,
+  'NAME': 'Старз',
+  'LAST_NAME': 'Медэк',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '600',
+  'ACTIVE': true,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Никоноров',
+  'SECOND_NAME': 'Сергеевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [884],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '601',
+  'ACTIVE': false,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Барабашова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [855],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '602',
+  'ACTIVE': false,
+  'NAME': 'Феликс',
+  'LAST_NAME': 'Лычко',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '603',
+  'ACTIVE': false,
+  'NAME': 'Кристина',
+  'LAST_NAME': 'Смирнова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '604',
+  'ACTIVE': false,
+  'NAME': 'Юлия',
+  'LAST_NAME': 'Байкова',
+  'SECOND_NAME': 'Сергеевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [856],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '605',
+  'ACTIVE': true,
+  'NAME': 'Вероника',
+  'LAST_NAME': 'Хлус',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [870],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '606',
+  'ACTIVE': false,
+  'NAME': 'Виктория',
+  'LAST_NAME': 'Малыхина',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [856],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '607',
+  'ACTIVE': false,
+  'NAME': 'Андрей',
+  'LAST_NAME': 'Лукьянов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [857],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '608',
+  'ACTIVE': true,
+  'NAME': 'Валерия',
+  'LAST_NAME': 'Космачева',
+  'SECOND_NAME': 'Андреевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [877],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '609',
+  'ACTIVE': true,
+  'NAME': null,
+  'LAST_NAME': null,
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [251],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '610',
+  'ACTIVE': true,
+  'NAME': null,
+  'LAST_NAME': null,
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [251],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '611',
+  'ACTIVE': false,
+  'NAME': 'Кирилл',
+  'LAST_NAME': 'Филатов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '612',
+  'ACTIVE': true,
+  'NAME': 'Кристина',
+  'LAST_NAME': 'Брежнева',
+  'SECOND_NAME': 'Александровна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [878],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '613',
+  'ACTIVE': false,
+  'NAME': 'Проигранные',
+  'LAST_NAME': 'Мигефер',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '614',
+  'ACTIVE': false,
+  'NAME': 'Екатерина',
+  'LAST_NAME': 'Колмакова',
+  'SECOND_NAME': 'Юрьевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '615',
+  'ACTIVE': true,
+  'NAME': 'Диана',
+  'LAST_NAME': 'Бакштеева',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [866],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '616',
+  'ACTIVE': false,
+  'NAME': 'Константин',
+  'LAST_NAME': 'Вавшко',
+  'SECOND_NAME': 'Николаевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [880],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '618',
+  'ACTIVE': true,
+  'NAME': 'Рамазан',
+  'LAST_NAME': 'Амирсултанов',
+  'SECOND_NAME': 'Амирсултанович',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [877],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '619',
+  'ACTIVE': false,
+  'NAME': 'Ds',
+  'LAST_NAME': 'Support',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '620',
+  'ACTIVE': true,
+  'NAME': 'Роман',
+  'LAST_NAME': 'Арсеньев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [874],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '621',
+  'ACTIVE': false,
+  'NAME': 'Юлия',
+  'LAST_NAME': 'Сальникова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [873],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '622',
+  'ACTIVE': true,
+  'NAME': 'Бот',
+  'LAST_NAME': 'Проданные',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [882],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '623',
+  'ACTIVE': false,
+  'NAME': '(не задано)',
+  'LAST_NAME': 'Царегородцев',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '624',
+  'ACTIVE': false,
+  'NAME': 'Леонид',
+  'LAST_NAME': 'Линник',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '625',
+  'ACTIVE': false,
+  'NAME': 'Мария',
+  'LAST_NAME': 'Гурвиц',
+  'SECOND_NAME': 'Дмитриевна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [1],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '627',
+  'ACTIVE': true,
+  'NAME': 'Анна',
+  'LAST_NAME': 'Семенова',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [876],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '628',
+  'ACTIVE': false,
+  'NAME': 'Надежда',
+  'LAST_NAME': 'Грачева',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [880],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '629',
+  'ACTIVE': true,
+  'NAME': 'Татьяна',
+  'LAST_NAME': 'Богданова',
+  'SECOND_NAME': 'Борисовна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [861],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '630',
+  'ACTIVE': true,
+  'NAME': 'Алина',
+  'LAST_NAME': 'Фоменко',
+  'SECOND_NAME': 'Алексеевна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [859],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '631',
+  'ACTIVE': true,
+  'NAME': 'Марина',
+  'LAST_NAME': 'Меленчук',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [867],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '632',
+  'ACTIVE': true,
+  'NAME': 'Юлия',
+  'LAST_NAME': 'Лапина',
+  'SECOND_NAME': 'Александровна',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [879],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '633',
+  'ACTIVE': false,
+  'NAME': 'Михаил',
+  'LAST_NAME': 'Журов',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [872],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '634',
+  'ACTIVE': false,
+  'NAME': 'Артëм',
+  'LAST_NAME': 'Марков',
+  'SECOND_NAME': 'Игоревич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [880],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '635',
+  'ACTIVE': false,
+  'NAME': 'Николас',
+  'LAST_NAME': 'Какачия',
+  'SECOND_NAME': 'Кобаевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [881],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '637',
+  'ACTIVE': true,
+  'NAME': 'Владимир',
+  'LAST_NAME': 'Терёхин',
+  'SECOND_NAME': 'Андреевич',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [871],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '638',
+  'ACTIVE': false,
+  'NAME': 'Алина',
+  'LAST_NAME': 'Белякова',
+  'SECOND_NAME': 'Александровна',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [878],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '641',
+  'ACTIVE': true,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Линец',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [867],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '643',
+  'ACTIVE': true,
+  'NAME': 'Яна',
+  'LAST_NAME': 'Базулина',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [873],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '644',
+  'ACTIVE': true,
+  'NAME': 'Евгений',
+  'LAST_NAME': 'Ширикалов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [228],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '646',
+  'ACTIVE': true,
+  'NAME': 'Станислав',
+  'LAST_NAME': 'Маймин',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [885],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '647',
+  'ACTIVE': false,
+  'NAME': 'Марк',
+  'LAST_NAME': 'Оскар',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [879],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '648',
+  'ACTIVE': false,
+  'NAME': 'Тимур',
+  'LAST_NAME': 'Казакбаев',
+  'SECOND_NAME': null,
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '649',
+  'ACTIVE': true,
+  'NAME': 'Влад',
+  'LAST_NAME': 'Шикас',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '650',
+  'ACTIVE': true,
+  'NAME': 'Камиль',
+  'LAST_NAME': 'Бикметов',
+  'SECOND_NAME': 'Фанилевич',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '651',
+  'ACTIVE': false,
+  'NAME': 'Кирилл',
+  'LAST_NAME': 'Панишев',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'N',
+  'TIME_ZONE_OFFSET': null,
+  'UF_DEPARTMENT': [853],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '654',
+  'ACTIVE': true,
+  'NAME': 'Михаил',
+  'LAST_NAME': 'Пальчун',
+  'SECOND_NAME': 'Эдуардович',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [861],
+  'USER_TYPE': 'employee'
+}, {
+  'ID': '655',
+  'ACTIVE': true,
+  'NAME': 'Александр',
+  'LAST_NAME': 'Ардатов',
+  'SECOND_NAME': '',
+  'IS_ONLINE': 'Y',
+  'TIME_ZONE_OFFSET': '10800',
+  'UF_DEPARTMENT': [880],
+  'USER_TYPE': 'employee'
+}]

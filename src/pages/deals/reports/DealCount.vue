@@ -4,11 +4,10 @@
     <v-data-table
       :loading="loading"
       :headers="headers"
-      :items="counts"
+      :items="statistics"
       disable-pagination
       hide-default-footer
-    >
-    </v-data-table>
+    />
   </div>
 </template>
 
@@ -32,19 +31,43 @@ export default {
     headers: [
       { text: '#', align: 'center', value: 'index', sortable: true },
       { text: 'Менеджер', align: 'left', value: 'name', sortable: true },
-      { text: 'Количество сделок', align: 'center', value: 'dealsNumber', sortable: true }
+      { text: 'Количество сделок', align: 'center', value: 'dealsNumber', sortable: true },
+      { text: 'Новая', align: 'center', value: 'counts.NEW', sortable: true },
+      { text: 'Первичная консультация', align: 'center', value: 'counts.DETAILS', sortable: true },
+      { text: 'Отправлено КП', align: 'center', value: 'counts.5', sortable: true },
+      { text: 'Активные переговоры', align: 'center', value: 'counts.PROPOSAL', sortable: true },
+      { text: 'Проведена встреча', align: 'center', value: 'counts.6', sortable: true },
+      { text: 'Отправлен договор и счет', align: 'center', value: 'counts.NEGOTIATION', sortable: true }
     ],
-    counts: []
+    users: [],
+    deals: [],
+    stages: []
   }),
+  computed: {
+    dealsByUser() {
+      return this.deals.reduce((hash, obj) => ({ ...hash, [obj['ASSIGNED_BY_ID']]:( hash[obj['ASSIGNED_BY_ID']] || [] ).concat(obj) }), {})
+    },
+    statistics() {
+      return Object.entries(this.dealsByUser).map(([key, deals]) => ({
+        name: this.users[key],
+        counts: value.reduce((total, value) => {
+          total[value.STAGE_ID] = (total[value.STAGE_ID] || 0) + 1
+
+          return total
+        }, {})
+      }))
+    }
+  },
   async mounted() {
-    // get all managers (only managers)
-    const bx24 = new BX24Wrapper()
+    // load all users
+    // this.users = await
 
-    console.log(await bx24.callBatchListMethod('crm.deal.list', { limit: 1000, select: ['ID', 'TITLE'] }))
+    // load all stages
+    this.stages = await this.$bx24.callMethod('crm.status.list', { filter: { 'ENTITY_ID': 'DEAL_STAGE' } })
+    // load all deals
+    this.deals = this.$bx24.callBatchListMethod('crm.deal.list', { select: ['ASSIGNED_BY_ID', 'STAGE_ID'] })
 
-    // get all deals (only needed columns)
-    // count deals by managers
-    // show the table
+    this.loading = false
   }
 }
 </script>
