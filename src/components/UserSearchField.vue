@@ -73,7 +73,7 @@ export default {
     }
   },
   async mounted() {
-    this.users = await this.$bx24.callBatchListMethod('user.get')
+    this.users = await this.$bx24.callBatchListMethod('user.get', { filter: { ACTIVE: true } })
     this.departments = await this.$bx24.callBatchListMethod('department.get')
 
     // this.users = users.filter((user) => user.ACTIVE === true)
