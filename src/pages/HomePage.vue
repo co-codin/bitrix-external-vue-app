@@ -21,7 +21,7 @@
     </v-card>
 
     <div>
-      <user-search-field />
+      <user-search-field v-model="users" />
     </div>
 
   </div>
@@ -35,6 +35,9 @@ export default {
   components: {
     UserSearchField,
     PageHeader
-  }
+  },
+  data: () => ({
+    users: []
+  })
 }
 </script>
