@@ -3,7 +3,7 @@
     <v-row dense class="mt-3">
       <v-col cols="8">
         <v-text-field
-          v-model="searchQuery"
+          v-model="search"
           solo
           hide-details
           prepend-inner-icon="search"
@@ -15,10 +15,12 @@
             <v-treeview
               v-if="loaded"
               v-model="selected"
-              :open-all="!!searchQuery"
+              :search="search"
+              open-all
               :items="tree"
               multiple-active
               selectable
+              :filter="filterItems"
               on-icon="mdi-bookmark"
               off-icon="mdi-bookmark-outline"
               indeterminate-icon="mdi-bookmark-minus"
@@ -113,14 +115,11 @@ export default {
       },
       users: [],
       departments: [],
-      searchQuery: null,
+      search: null,
       loaded: false
     }
   },
   computed: {
-    searchQueryLowerCase() {
-      return this.searchQuery?.toLowerCase()
-    },
     tree() {
       return this.buildDepartmentsTree()
     },
@@ -161,16 +160,16 @@ export default {
         const departmentUsers = this.getDepartmentUsers(department.ID)
         const childDepartments = this.buildDepartmentsTree(department.ID)
 
-        if (this.searchQuery && (!department.NAME.toLowerCase().includes(this.searchQueryLowerCase) && !childDepartments.length && !departmentUsers.length)) {
-          return null
-        }
+        // if (this.searchQuery && (!department.NAME.toLowerCase().includes(this.searchQueryLowerCase) && !childDepartments.length && !departmentUsers.length)) {
+        //   return null
+        // }
 
         return {
           id: `department-${department.ID}`,
           name: department.NAME,
           children: departmentUsers.concat(childDepartments)
         }
-      }).filter(Boolean)
+      })
     },
     getDepartmentsByParentId(parentId = null) {
       return this.departments.filter((department) => (!parentId && !department?.PARENT) || department?.PARENT === parentId)
@@ -184,9 +183,9 @@ export default {
       return this.users.filter((user) => (user.UF_DEPARTMENT ?? []).includes(+departmentId)).map((user) => {
         const name = `${user.NAME} ${user.LAST_NAME}`
 
-        if (this.searchQuery && !name.toLowerCase().includes(this.searchQueryLowerCase)) {
-          return null
-        }
+        // if (this.searchQuery && !name.toLowerCase().includes(this.searchQueryLowerCase)) {
+        //   return null
+        // }
 
         return {
           id: user.ID,
@@ -201,6 +200,9 @@ export default {
     },
     save() {
       this.$emit('input', this.selected)
+    },
+    filterItems(item) {
+      return item.name.toLowerCase().includes(this.search.toLowerCase())
     }
   }
 }
