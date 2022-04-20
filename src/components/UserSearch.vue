@@ -29,7 +29,7 @@
             open-on-click
             selected-color="indigo"
             item-key="id"
-            @input="$emit('input', $event)"
+            @input="updateValue($event)"
           >
             <template v-slot:prepend="{ item, open }">
               <v-avatar v-if="!item.children" size="25">
@@ -160,9 +160,7 @@ export default {
     this.loaded = true
   },
   methods: {
-    removeUser(i) {
-
-      console.log(i, this.value)
+    removeUser(id) {
 
       const newValue = [...this.value]
 
@@ -204,6 +202,10 @@ export default {
     },
     filterItems(item) {
       return item.name.toLowerCase().includes(this.search.toLowerCase())
+    },
+    updateValue(value) {
+      this.$emit('input', value)
+      // this.$emit('input', value?.filter((item) => !item.startsWith('department-')))
     }
   }
 }
