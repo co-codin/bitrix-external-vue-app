@@ -58,8 +58,10 @@
                 <v-list-item-content>
                   <v-list-item-title v-text="user.name"></v-list-item-title>
                 </v-list-item-content>
-                <v-list-item-icon @click="removeUser(i)">
-                  <v-icon dense color="red darken-4">delete</v-icon>
+                <v-list-item-icon>
+                  <v-btn icon @click="removeUser(i)">
+                    <v-icon dense color="red darken-4">delete</v-icon>
+                  </v-btn>
                 </v-list-item-icon>
               </v-list-item>
             </v-list>
