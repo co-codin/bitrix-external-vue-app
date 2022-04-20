@@ -19,15 +19,25 @@
         </v-btn>
       </v-card-text>
     </v-card>
+
+    <div>
+      <user-search-field v-model="users" multiple />
+    </div>
+
   </div>
 </template>
 
 <script>
 import PageHeader from '../components/PageHeader'
+import UserSearchField from '@/components/UserSearchField'
 
 export default {
   components: {
+    UserSearchField,
     PageHeader
-  }
+  },
+  data: () => ({
+    users: ['1']
+  })
 }
 </script>

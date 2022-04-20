@@ -282,8 +282,6 @@ import PageHeader from '@/components/PageHeader'
 import ExcelJS from 'exceljs'
 import FillingStatisticsService from '@/services/FillingStatisticsService'
 import UserSelectField from '@/components/UserSelectField'
-import BX24Wrapper from '@/utils/bx24-wrapper'
-import { mapGetters } from 'vuex'
 
 export default {
   components: {

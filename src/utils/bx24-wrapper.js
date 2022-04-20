@@ -27,15 +27,6 @@ export default class BX24Wrapper {
    * Конструктор
    */
   constructor() {
-
-    /**
-     * Проверка загрузки стандартной библиотеки Битрикс24
-     * <script src="//api.bitrix24.com/api/v1/"></script>
-     */
-    if (! window.BX24) {
-      throw new Error('Can\'t find BX24 libary! See https://dev.1c-bitrix.ru/rest_help/js_library/index.php')
-    }
-
     /**
      * Максимальное число команд в одном пакетном запросе callBatch() (не более 50)
      * @type {number}
