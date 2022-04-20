@@ -80,8 +80,18 @@ export default {
       return `${this.$declension(this.value.length, ['Выбран', 'Выбрано', 'Выбрано'])} ${this.value.length} ${this.$declension(this.value.length, ['пользователь', 'пользователя', 'пользователей'])}`
     }
   },
+  watch: {
+    value() {
+      this.refreshValue()
+    }
+  },
   methods: {
-    save(value) {
+    refreshValue() {
+      this.selected = Array.isArray(this.value)
+        ? [...this.value]
+        : this.value
+    },
+    save() {
       this.$emit('input', this.selected)
       this.dialog = false
     },
