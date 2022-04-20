@@ -13,7 +13,9 @@
         <v-card>
           <v-card-text>
             <v-treeview
-              :value="value"
+              v-if="loaded"
+              v-model="selected"
+              :open-all="!!searchQuery"
               :items="tree"
               multiple-active
               selectable
@@ -23,25 +25,10 @@
               expand-icon="mdi-chevron-down"
               open-on-click
               selected-color="indigo"
-              item-key="name"
-              return-object
-              @input="!multiple && updateValue()"
+              item-key="id"
             >
               <template v-slot:prepend="{ item, open }">
-                <v-badge
-                  v-if="!item.children && item.head"
-                  bordered
-                  overlap
-                  color="white"
-                >
-                  <template v-slot:badge>
-                    <v-icon dense color="amber darken-3">mdi-crown</v-icon>
-                  </template>
-                  <v-avatar size="18">
-                    <v-img :src="item.avatar" />
-                  </v-avatar>
-                </v-badge>
-                <v-avatar v-else-if="!item.children && item.avatar" size="25">
+                <v-avatar v-if="!item.children" size="25">
                   <v-img :src="item.avatar" />
                 </v-avatar>
                 <v-icon v-else>
@@ -53,20 +40,20 @@
         </v-card>
       </v-col>
       <v-col cols="4">
-        <v-card v-if="value.length > 0">
+        <v-card v-if="selected.length > 0">
           <v-card-text>
             <v-list subheader dense>
               <v-subheader>Выбранные сотрудники</v-subheader>
               <v-list-item
-                v-for="(selection, i) in value"
+                v-for="(user, i) in selectedUsers"
                 :key="i"
                 dense
               >
                 <v-list-item-avatar>
-                  <v-img :src="selection.avatar"></v-img>
+                  <v-img :src="user.avatar"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title v-text="selection.name"></v-list-item-title>
+                  <v-list-item-title v-text="user.name"></v-list-item-title>
                 </v-list-item-content>
                 <v-list-item-icon @click="removeUser(i)">
                   <v-icon dense color="red darken-4">delete</v-icon>
@@ -77,10 +64,15 @@
         </v-card>
       </v-col>
     </v-row>
-    <div>
-      <v-btn v-if="changed" color="green" dark @click="updateValue">Применить</v-btn>
-      <span class="px-3"></span>
-      <v-btn outlined color="red" @click="cancel">Отмена</v-btn>
+    <div class="text-center mt-3">
+      <v-btn
+        v-if="hasChanges"
+        class="mx-1"
+        color="green"
+        dark
+        @click="save()"
+      >Применить</v-btn>
+      <v-btn outlined class="mx-1" color="red" @click="close()">Отмена</v-btn>
     </div>
   </div>
 </template>
@@ -98,84 +90,117 @@ export default {
     multiple: {
       type: Boolean,
       default: false
+    },
+    defaultOpenedTree: {
+      type: Array,
+      default: () => (['department-1'])
     }
   },
-  data: () => ({
-    files: {
-      html: 'mdi-language-html5',
-      js: 'mdi-nodejs',
-      json: 'mdi-code-json',
-      md: 'mdi-language-markdown',
-      pdf: 'mdi-file-pdf',
-      png: 'mdi-file-image',
-      txt: 'mdi-file-document-outline',
-      xls: 'mdi-file-excel'
-    },
-    departments: [],
-    searchQuery: null,
-    changed: false
-  }),
+  data() {
+    return {
+      selected: Array.isArray(this.value)
+        ? [...this.value]
+        : this.value,
+      files: {
+        html: 'mdi-language-html5',
+        js: 'mdi-nodejs',
+        json: 'mdi-code-json',
+        md: 'mdi-language-markdown',
+        pdf: 'mdi-file-pdf',
+        png: 'mdi-file-image',
+        txt: 'mdi-file-document-outline',
+        xls: 'mdi-file-excel'
+      },
+      users: [],
+      departments: [],
+      searchQuery: null,
+      loaded: false
+    }
+  },
   computed: {
+    searchQueryLowerCase() {
+      return this.searchQuery?.toLowerCase()
+    },
     tree() {
       return this.buildDepartmentsTree()
-    }
-  },
-  watch: {
-    value: {
-      handler() {
-        this.changed = true
-      },
-      deep: true
+    },
+    selectedUsers() {
+      if (!this.selected) {
+        return []
+      }
+
+      return this.users.filter((user) => this.selected === user.ID || this.selected.includes(user.ID)).map((user) => ({
+        id: user.ID,
+        name: `${user.NAME} ${user.LAST_NAME}`,
+        avatar: user?.PERSONAL_PHOTO || this.getDefaultAvatar(user?.PERSONAL_GENDER),
+        gender: user?.PERSONAL_GENDER
+      }))
+    },
+    hasChanges() {
+      return this.value?.length !== this.selected?.length || (!this.multiple ? this.value !== this.selected : !! this.value.find((value, index) => value !== this.selected[index]))
     }
   },
   async mounted() {
-    // this.users = await this.$bx24.callBatchListMethod('user.get', { filter: { ACTIVE: true } })
-    // this.departments = await this.$bx24.callBatchListMethod('department.get')
+    if (process.env.NODE_ENV === 'production') {
+      this.users = await this.$bx24.callBatchListMethod('user.get', { filter: { ACTIVE: true } })
+      this.departments = await this.$bx24.callBatchListMethod('department.get')
+    }
+    else {
+      this.users = users.filter((user) => user.ACTIVE === true)
+      this.departments = departments
+    }
 
-    this.users = users.filter((user) => user.ACTIVE === true)
-    this.departments = departments
+    this.loaded = true
   },
   methods: {
     removeUser(i) {
-      const newValue = [...this.value]
-
-      newValue.splice(i, 1)
-
-      this.updateValue(newValue)
+      this.selected.splice(i, 1)
     },
     buildDepartmentsTree(parentId = null) {
       return this.getDepartmentsByParentId(parentId).map((department) => {
         const departmentUsers = this.getDepartmentUsers(department.ID)
         const childDepartments = this.buildDepartmentsTree(department.ID)
 
+        if (this.searchQuery && (!department.NAME.toLowerCase().includes(this.searchQueryLowerCase) && !childDepartments.length && !departmentUsers.length)) {
+          return null
+        }
+
         return {
+          id: `department-${department.ID}`,
           name: department.NAME,
           children: departmentUsers.concat(childDepartments)
         }
-      })
+      }).filter(Boolean)
     },
     getDepartmentsByParentId(parentId = null) {
       return this.departments.filter((department) => (!parentId && !department?.PARENT) || department?.PARENT === parentId)
     },
+    getDefaultAvatar(gender = 'M') {
+      return gender === 'F'
+        ? '/images/avatars/avatar2.svg' // default avatar for female
+        : '/images/avatars/avatar1.svg' // default avatar for male
+    },
     getDepartmentUsers(departmentId) {
       return this.users.filter((user) => (user.UF_DEPARTMENT ?? []).includes(+departmentId)).map((user) => {
-        const defaultAvatar = user?.PERSONAL_GENDER === 'F'
-          ? '/images/avatars/avatar2.svg' // default avatar for female
-          : '/images/avatars/avatar1.svg' // default avatar for male
+        const name = `${user.NAME} ${user.LAST_NAME}`
+
+        if (this.searchQuery && !name.toLowerCase().includes(this.searchQueryLowerCase)) {
+          return null
+        }
 
         return {
           id: user.ID,
-          name: `${user.NAME} ${user.LAST_NAME}`,
-          avatar: user?.PERSONAL_PHOTO || defaultAvatar,
+          name,
+          avatar: user?.PERSONAL_PHOTO || this.getDefaultAvatar(user?.PERSONAL_GENDER),
           gender: user?.PERSONAL_GENDER
         }
-      })
-    },
-    updateValue(event) {
-      this.$emit('input', event)
+      }).filter(Boolean)
     },
     cancel() {
       this.$emit('close')
+    },
+    save() {
+      this.$emit('input', this.selected)
     }
   }
 }

@@ -21,7 +21,7 @@
     </v-card>
 
     <div>
-      <user-search-field v-model="users" />
+      <user-search-field v-model="users" multiple />
     </div>
 
   </div>
@@ -37,7 +37,7 @@ export default {
     PageHeader
   },
   data: () => ({
-    users: []
+    users: ['1']
   })
 }
 </script>
