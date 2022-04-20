@@ -20,8 +20,8 @@
       </v-card-text>
     </v-card>
 
-    <div>
-      <user-search-field v-model="users" multiple />
+    <div class="mt-2">
+      <user-search-field v-model="users" />
     </div>
 
   </div>
@@ -33,11 +33,12 @@ import UserSearchField from '@/components/UserSearchField'
 
 export default {
   components: {
-    UserSearchField,
-    PageHeader
+    PageHeader,
+    UserSearchField
   },
   data: () => ({
-    users: ['1']
+    users: ['1'],
+    userSearchDialog: false
   })
 }
 </script>
