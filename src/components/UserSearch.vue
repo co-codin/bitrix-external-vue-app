@@ -47,7 +47,14 @@
       <v-card v-if="value && value.length > 0">
         <v-card-text>
           <v-list subheader dense>
-            <v-subheader>Выбранные сотрудники</v-subheader>
+            <v-subheader>
+              Выбранные сотрудники
+              <v-spacer />
+              <v-btn small text @click="$emit('input', [])">
+                <span class="red--text text--darken-4 mr-1">удалить всех</span>
+                <v-icon dense color="red darken-4">delete</v-icon>
+              </v-btn>
+            </v-subheader>
             <v-list-item
               v-for="(user, i) in selectedUsers"
               :key="i"
@@ -68,6 +75,20 @@
           </v-list>
         </v-card-text>
       </v-card>
+      <v-alert
+        v-else
+        type="info"
+        close-icon="mdi-delete"
+        color="cyan"
+        border="left"
+        elevation="2"
+        colored-border
+      >
+        <h3>Выберите пользователей</h3>
+        <div>
+          в этом блоке появится список выбранных пользователей
+        </div>
+      </v-alert>
     </v-col>
   </v-row>
 </template>
@@ -140,7 +161,14 @@ export default {
   },
   methods: {
     removeUser(i) {
-      this.value.splice(i, 1)
+
+      console.log(i, this.value)
+
+      const newValue = [...this.value]
+
+      newValue.splice(i, 1)
+
+      this.$emit('input', newValue)
     },
     buildDepartmentsTree(parentId = null) {
       return this.getDepartmentsByParentId(parentId).map((department) => {

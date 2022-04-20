@@ -37,7 +37,7 @@ export default {
     UserSearchField
   },
   data: () => ({
-    users: ['1'],
+    users: [],
     userSearchDialog: false
   })
 }

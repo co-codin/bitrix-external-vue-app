@@ -2,7 +2,6 @@
   <v-dialog
     v-model="dialog"
     width="90%"
-    scrollable
     max-width="1200"
   >
     <template v-slot:activator="{ on, attrs }">
@@ -16,17 +15,12 @@
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">
         Выбор пользователя
-      </v-card-title>
-      <v-card-text>
-        <user-search v-model="selected" />
-      </v-card-text>
-      <v-divider></v-divider>
-      <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
           color="green"
           :dark="hasChanges"
           :disabled="!hasChanges"
+          class="mr-1"
           @click="save"
         >
           Применить
@@ -38,7 +32,11 @@
         >
           Отменить
         </v-btn>
-      </v-card-actions>
+      </v-card-title>
+      <v-card-text>
+        <user-search v-model="selected" />
+      </v-card-text>
+      <v-divider></v-divider>
     </v-card>
   </v-dialog>
 </template>
