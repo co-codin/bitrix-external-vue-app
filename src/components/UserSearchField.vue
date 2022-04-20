@@ -9,8 +9,9 @@
           prepend-inner-icon="search"
           placeholder="Поиск по пользователям / отделам"
           class="mb-1"
+          clearable
         />
-        <v-card>
+        <v-card :loading="!loaded">
           <v-card-text>
             <v-treeview
               v-if="loaded"
