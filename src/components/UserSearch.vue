@@ -65,6 +65,7 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title v-text="user.name"></v-list-item-title>
+                <v-list-item-subtitle class="text-caption" v-text="user.departments"></v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-icon>
                 <v-btn icon @click="removeUser(user.id)">
@@ -96,6 +97,7 @@
 <script>
 import users from './users'
 import departments from './departments'
+import { keyBy } from '@/utils/helpers'
 
 export default {
   props: {
@@ -134,6 +136,9 @@ export default {
     tree() {
       return this.buildDepartmentsTree()
     },
+    departmentsById() {
+      return keyBy(this.departments, 'ID')
+    },
     selectedUsers() {
       if (!this.value) {
         return []
@@ -142,6 +147,7 @@ export default {
       return this.users.filter((user) => this.value === user.ID || this.value.includes(user.ID)).map((user) => ({
         id: user.ID,
         name: `${user.NAME} ${user.LAST_NAME}`,
+        departments: user.UF_DEPARTMENT.map((departmentId) => this.departmentsById[departmentId].NAME).join(', '),
         avatar: user?.PERSONAL_PHOTO || this.getDefaultAvatar(user?.PERSONAL_GENDER),
         gender: user?.PERSONAL_GENDER
       }))
@@ -209,7 +215,6 @@ export default {
     },
     updateValue(value) {
       this.$emit('input', value)
-      // this.$emit('input', value?.filter((item) => !item.startsWith('department-')))
     }
   }
 }

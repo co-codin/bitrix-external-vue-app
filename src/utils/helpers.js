@@ -1,4 +1,4 @@
-function declOfNumber(number, words) {
+export function declOfNumber(number, words) {
   const numberDigit2 = Math.abs(number) % 100
   const numberDigit1 = numberDigit2 % 10
 
@@ -15,4 +15,10 @@ function declOfNumber(number, words) {
   return words[2]
 }
 
-export { declOfNumber }
+export function groupBy(items, key) {
+  return items.reduce((hash, obj) => ({ ...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj) }), {})
+}
+
+export function keyBy(items, key) {
+  return items.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
+}
