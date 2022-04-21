@@ -1,8 +1,9 @@
 <template>
-  <v-row dense class="mt-3">
+  <v-row dense>
     <v-col cols="8">
       <v-text-field
         v-model="search"
+        autofocus
         solo
         hide-details
         prepend-inner-icon="search"
