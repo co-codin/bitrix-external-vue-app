@@ -67,7 +67,7 @@
                 <v-list-item-title v-text="user.name"></v-list-item-title>
               </v-list-item-content>
               <v-list-item-icon>
-                <v-btn icon @click="removeUser(i)">
+                <v-btn icon @click="removeUser(user.id)">
                   <v-icon dense color="red darken-4">delete</v-icon>
                 </v-btn>
               </v-list-item-icon>
@@ -161,10 +161,10 @@ export default {
   },
   methods: {
     removeUser(id) {
-
       const newValue = [...this.value]
+      const index = newValue.findIndex((item) => item === id)
 
-      newValue.splice(i, 1)
+      newValue.splice(index, 1)
 
       this.$emit('input', newValue)
     },
@@ -173,12 +173,16 @@ export default {
         const departmentUsers = this.getDepartmentUsers(department.ID)
         const childDepartments = this.buildDepartmentsTree(department.ID)
 
+        if (!departmentUsers.length && !childDepartments.length) {
+          return null
+        }
+
         return {
           id: `department-${department.ID}`,
           name: department.NAME,
           children: departmentUsers.concat(childDepartments)
         }
-      })
+      }).filter(Boolean)
     },
     getDepartmentsByParentId(parentId = null) {
       return this.departments.filter((department) => (!parentId && !department?.PARENT) || department?.PARENT === parentId)
