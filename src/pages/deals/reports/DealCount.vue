@@ -59,11 +59,11 @@ export default {
       return keyBy(this.users, 'ID')
     },
     dealsByUser() {
-      return groupBy(this.deals, (item) => item.ASSIGNED_BY_ID)
+      return groupBy(this.deals, 'ASSIGNED_BY_ID')
     },
     statistics() {
       return Object.entries(this.dealsByUser).map(([key, deals]) => ({
-        name: this.usersById[key]?.NAME || '',
+        name: `${this.usersById[key]?.LAST_NAME} ${this.usersById[key]?.NAME}`,
         dealsNumber: deals.length,
         counts: deals.reduce((total, value) => {
           total[value.STAGE_ID] = (total[value.STAGE_ID] || 0) + 1
@@ -87,7 +87,6 @@ export default {
       this.loading = false
     },
     async loadDeals() {
-      // load all deals
       this.deals = await this.$bx24.callBatchListMethod('crm.deal.list', { select: ['ASSIGNED_BY_ID', 'STAGE_ID'], filter: { ASSIGNED_BY_ID: this.userIds } })
     }
   }
