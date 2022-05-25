@@ -48,7 +48,8 @@ export default {
       { text: 'Отправлено КП', align: 'center', value: 'counts.5', sortable: true },
       { text: 'Активные переговоры', align: 'center', value: 'counts.PROPOSAL', sortable: true },
       { text: 'Проведена встреча', align: 'center', value: 'counts.6', sortable: true },
-      { text: 'Отправлен договор и счет', align: 'center', value: 'counts.NEGOTIATION', sortable: true }
+      { text: 'Отправлен договор и счет', align: 'center', value: 'counts.NEGOTIATION', sortable: true },
+      { text: 'Клиент внес предоплату', align: 'center', value: 'counts.4', sortable: true }
     ],
     users: [],
     userIds: [],
