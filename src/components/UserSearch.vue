@@ -1,6 +1,6 @@
 <template>
   <v-row dense>
-    <v-col cols="8">
+    <v-col cols="7">
       <v-text-field
         v-model="search"
         autofocus
@@ -44,7 +44,7 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col cols="4">
+    <v-col cols="5">
       <v-card v-if="value && value.length > 0">
         <v-card-text>
           <v-list subheader dense>

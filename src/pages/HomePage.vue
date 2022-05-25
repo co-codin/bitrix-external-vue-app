@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="MEDEQ Bitrix24 Application" :show-home-link="false" />
+    <page-header h1="MEDEQ Bitrix24 Application" :show-home-link="false"/>
     <v-card class="mb-3" light>
       <v-card-title>Приложения</v-card-title>
       <v-card-subtitle>Перейдите в раздел для установки приложений</v-card-subtitle>
@@ -19,22 +19,15 @@
         </v-btn>
       </v-card-text>
     </v-card>
-
-    <div class="mt-2">
-      <user-search-field v-model="users" />
-    </div>
-
   </div>
 </template>
 
 <script>
 import PageHeader from '../components/PageHeader'
-import UserSearchField from '@/components/UserSearchField'
 
 export default {
   components: {
-    PageHeader,
-    UserSearchField
+    PageHeader
   },
   data: () => ({
     users: [],

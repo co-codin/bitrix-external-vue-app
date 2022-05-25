@@ -13,7 +13,6 @@
 
 <script>
 import PageHeader from '@/components/PageHeader'
-import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {
   components: {
@@ -60,12 +59,11 @@ export default {
   },
   async mounted() {
     // load all users
-    // this.users = await
-
+    this.users = await this.$bx24.callBatchListMethod('user.get', { filter: { ACTIVE: true } })
     // load all stages
     this.stages = await this.$bx24.callMethod('crm.status.list', { filter: { 'ENTITY_ID': 'DEAL_STAGE' } })
     // load all deals
-    this.deals = this.$bx24.callBatchListMethod('crm.deal.list', { select: ['ASSIGNED_BY_ID', 'STAGE_ID'] })
+    this.deals = await this.$bx24.callBatchListMethod('crm.deal.list', { select: ['ASSIGNED_BY_ID', 'STAGE_ID'] })
 
     this.loading = false
   }
