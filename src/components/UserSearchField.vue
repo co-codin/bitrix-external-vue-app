@@ -6,15 +6,17 @@
         bottom
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="gray"
-            v-bind="attrs"
-            class="flex align-center"
-            v-on="on"
-          >
-            <svg-icon name="document-search" width="30" height="30" class="mr-1"/>
-            <span>{{ !selected.length ? 'Выберите пользователя' : `Выбрано (${selected.length})` }}</span>
-          </v-btn>
+          <slot name="activator">
+            <v-btn
+              color="gray"
+              v-bind="attrs"
+              class="flex align-left"
+              v-on="on"
+            >
+              <svg-icon name="document-search" width="30" height="30" class="mr-1"/>
+              <span>{{ !selected || !selected.length ? 'Выберите пользователя' : `Выбрано (${selected.length})` }}</span>
+            </v-btn>
+          </slot>
         </template>
         <v-card width="800">
           <v-card-text class="pt-0 pb-0">
@@ -76,7 +78,7 @@ export default {
   props: {
     value: {
       type: Array || Number,
-      required: true
+      default: () => []
     },
     label: {
       type: String,
@@ -135,6 +137,7 @@ export default {
     align-items: start;
     flex-direction: column;
   }
+
   .v-label {
     margin-bottom: 12px;
   }
