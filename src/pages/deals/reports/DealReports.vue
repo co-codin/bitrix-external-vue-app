@@ -39,7 +39,7 @@
 
       <v-list-item v-if="isAdmin()" :to="{ name: 'deals.reports.deal-count' }">
         <v-list-item-avatar>
-          <v-icon class="amber white--text">numeric-nine-plus-box</v-icon>
+          <v-icon class="amber white--text">mdi-numeric-9-box</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>
