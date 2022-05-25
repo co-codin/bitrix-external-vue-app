@@ -68,7 +68,7 @@ export default {
     },
     statistics() {
       return Object.entries(this.dealsByUser).map(([key, deals]) => ({
-        name: this.usersById[key]?.name || '',
+        name: this.usersById[key]?.NAME || '',
         dealsNumber: deals.length,
         counts: deals.reduce((total, value) => {
           total[value.STAGE_ID] = (total[value.STAGE_ID] || 0) + 1
@@ -92,7 +92,7 @@ export default {
       this.loading = true
       this.deals = []
       this.loadDeals()
-      //this.loading = false
+      this.loading = false
     },
     async loadDeals() {
       // load all deals
