@@ -24,6 +24,7 @@ import PageHeader from '@/components/PageHeader'
 import UserSearchField from '@/components/UserSearchField'
 import groupBy from 'lodash/groupBy'
 import keyBy from 'lodash/keyBy'
+import sortBy from 'lodash/sortBy'
 
 export default {
   components: {
@@ -63,7 +64,7 @@ export default {
       return groupBy(this.deals, 'ASSIGNED_BY_ID')
     },
     statistics() {
-      return Object.entries(this.dealsByUser).map(([key, deals]) => ({
+      return sortBy(Object.entries(this.dealsByUser).map(([key, deals]) => ({
         name: `${this.usersById[key]?.LAST_NAME} ${this.usersById[key]?.NAME}`,
         dealsNumber: deals.length,
         counts: deals.reduce((total, value) => {
@@ -71,7 +72,7 @@ export default {
 
           return total
         }, {})
-      }))
+      })), 'name')
     }
   },
   async mounted() {
