@@ -1,25 +1,36 @@
 <template>
   <div>
     <page-header h1="Количество сделок" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
+    <user-search-field v-model="userIds" @input="refreshStatistics" />
     <v-data-table
+      v-if="userIds.length"
       :loading="loading"
       :headers="headers"
       :items="statistics"
       disable-pagination
       hide-default-footer
-    />
+      loading-text="Идет загрузка сделок"
+      no-data-text="Нет данных"
+    >
+      <template #item.index="{ item, index }">
+        <div class="font-weight-bold">{{ index + 1 }}</div>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader'
-import BX24Wrapper from '@/utils/bx24-wrapper'
+import UserSearchField from '@/components/UserSearchField'
+import groupBy from 'lodash/groupBy'
+import keyBy from 'lodash/keyBy'
 
 export default {
   components: {
-    PageHeader
+    PageHeader,
+    UserSearchField
   },
-  data:() => ({
+  data: () => ({
     homeLink: {
       text: 'Отчеты по сделкам',
       to: { name: 'deals.reports' }
@@ -29,7 +40,7 @@ export default {
     ],
     loading: true,
     headers: [
-      { text: '#', align: 'center', value: 'index', sortable: true },
+      { text: '#', align: 'left', value: 'index', sortable: true },
       { text: 'Менеджер', align: 'left', value: 'name', sortable: true },
       { text: 'Количество сделок', align: 'center', value: 'dealsNumber', sortable: true },
       { text: 'Новая', align: 'center', value: 'counts.NEW', sortable: true },
@@ -40,17 +51,21 @@ export default {
       { text: 'Отправлен договор и счет', align: 'center', value: 'counts.NEGOTIATION', sortable: true }
     ],
     users: [],
-    deals: [],
-    stages: []
+    userIds: [],
+    deals: []
   }),
   computed: {
+    usersById() {
+      return keyBy(this.users, 'ID')
+    },
     dealsByUser() {
-      return this.deals.reduce((hash, obj) => ({ ...hash, [obj['ASSIGNED_BY_ID']]:( hash[obj['ASSIGNED_BY_ID']] || [] ).concat(obj) }), {})
+      return groupBy(this.deals, 'ASSIGNED_BY_ID')
     },
     statistics() {
       return Object.entries(this.dealsByUser).map(([key, deals]) => ({
-        name: this.users[key],
-        counts: value.reduce((total, value) => {
+        name: `${this.usersById[key]?.LAST_NAME} ${this.usersById[key]?.NAME}`,
+        dealsNumber: deals.length,
+        counts: deals.reduce((total, value) => {
           total[value.STAGE_ID] = (total[value.STAGE_ID] || 0) + 1
 
           return total
@@ -60,14 +75,20 @@ export default {
   },
   async mounted() {
     // load all users
-    // this.users = await
-
-    // load all stages
-    this.stages = await this.$bx24.callMethod('crm.status.list', { filter: { 'ENTITY_ID': 'DEAL_STAGE' } })
-    // load all deals
-    this.deals = this.$bx24.callBatchListMethod('crm.deal.list', { select: ['ASSIGNED_BY_ID', 'STAGE_ID'] })
+    this.users = await this.$bx24.callBatchListMethod('user.get' )
 
     this.loading = false
+  },
+  methods: {
+    refreshStatistics() {
+      this.loading = true
+      this.deals = []
+      this.loadDeals()
+      this.loading = false
+    },
+    async loadDeals() {
+      this.deals = await this.$bx24.callBatchListMethod('crm.deal.list', { select: ['ASSIGNED_BY_ID', 'STAGE_ID'], filter: { ASSIGNED_BY_ID: this.userIds } })
+    }
   }
 }
 </script>
