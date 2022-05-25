@@ -22,6 +22,8 @@
 <script>
 import PageHeader from '@/components/PageHeader'
 import UserSearchField from '@/components/UserSearchField'
+import groupBy from 'lodash/groupBy'
+import keyBy from 'lodash/keyBy'
 
 export default {
   components: {
@@ -54,16 +56,10 @@ export default {
   }),
   computed: {
     usersById() {
-      return this.users.reduce((hash, obj) => ({
-        ...hash,
-        [obj['ID']]: (hash[obj['ID']] || []).concat(obj)
-      }), {})
+      return keyBy(this.users, 'ID')
     },
     dealsByUser() {
-      return this.deals.reduce((hash, obj) => ({
-        ...hash,
-        [obj['ASSIGNED_BY_ID']]: (hash[obj['ASSIGNED_BY_ID']] || []).concat(obj)
-      }), {})
+      return groupBy(this.deals, (item) => item.ASSIGNED_BY_ID)
     },
     statistics() {
       return Object.entries(this.dealsByUser).map(([key, deals]) => ({
@@ -79,8 +75,7 @@ export default {
   },
   async mounted() {
     // load all users
-    this.users = await this.$bx24.callBatchListMethod('user.get', { filter: { ACTIVE: true } })
-    console.log(this.users)
+    this.users = await this.$bx24.callBatchListMethod('user.get' )
 
     this.loading = false
   },
