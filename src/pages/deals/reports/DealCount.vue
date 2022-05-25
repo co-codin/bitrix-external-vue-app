@@ -81,10 +81,10 @@ export default {
     this.loading = false
   },
   methods: {
-    refreshStatistics() {
+    async refreshStatistics() {
       this.loading = true
       this.deals = []
-      this.loadDeals()
+      await this.loadDeals()
       this.loading = false
     },
     async loadDeals() {
