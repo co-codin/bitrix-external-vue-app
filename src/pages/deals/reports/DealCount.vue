@@ -68,7 +68,7 @@ export default {
     },
     statistics() {
       return Object.entries(this.dealsByUser).map(([key, deals]) => ({
-        name: this.users[key]?.name || '',
+        name: this.usersById[key]?.name || '',
         dealsNumber: deals.length,
         counts: deals.reduce((total, value) => {
           total[value.STAGE_ID] = (total[value.STAGE_ID] || 0) + 1
