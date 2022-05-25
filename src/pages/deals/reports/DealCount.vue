@@ -50,8 +50,7 @@ export default {
     ],
     users: [],
     userIds: [],
-    deals: [],
-    stages: []
+    deals: []
   }),
   computed: {
     usersById() {
@@ -81,9 +80,7 @@ export default {
   async mounted() {
     // load all users
     this.users = await this.$bx24.callBatchListMethod('user.get', { filter: { ACTIVE: true } })
-
-    // // load all stages
-    this.stages = await this.$bx24.callMethod('crm.status.list', { filter: { 'ENTITY_ID': 'DEAL_STAGE' } })
+    console.log(this.users)
 
     this.loading = false
   },
