@@ -48,8 +48,8 @@
                       <date-picker-field
                         v-model="endDateCalculator.start_date"
                         dense
-                        label="Крайний срок"
-                        placeholder="Выберите крайний срок"
+                        label="Начальная дата"
+                        placeholder="Выберите начальную дату"
                       />
                       <v-text-field
                         v-model.number="endDateCalculator.days"
@@ -98,6 +98,7 @@
           <v-expansion-panel-content>
             <v-textarea
               v-model="form.specification.changes"
+              rows="3"
               dense
               label="Изменения в спецификации"
               placeholder="Перечислите все изменения в спецификации"
@@ -118,6 +119,7 @@
             <v-textarea
               v-model="form.supply.term"
               dense
+              rows="3"
               label="Срок поставки"
               placeholder="Введите договоренности с клиентом по срокам поставки"
             />
@@ -131,11 +133,13 @@
               v-if="form.supply.has_agreement"
               v-model="form.supply.agreement"
               dense
+              rows="3"
               label="Договоренности с поставщиком и производителем"
             />
             <v-textarea
               v-model="form.supply.client_agreement"
               dense
+              rows="3"
               label="Договоренности по доставке и разгрузке"
             />
             <v-card>
@@ -222,7 +226,7 @@
               v-model="form.documents.comment"
               label="Комментарий"
               dense
-              rows="4"
+              rows="3"
             />
             <v-card>
               <v-card-title>Контактное лицо для отправки документов</v-card-title>
@@ -269,13 +273,14 @@
 <script>
 import PageHeader from '../../components/PageHeader'
 import DatePickerField from '../../components/DatePickerField'
+const customParseFormat = require('dayjs/plugin/customParseFormat')
 
 export default {
   components: {
     PageHeader,
     DatePickerField
   },
-  data: () => ({
+  data: (cxt) => ({
     documents: [
       { text: 'Договор поставки № 1202/23 от 10.02.2022', value: 1 },
       { text: 'Договор поставки № 3421/23 от 11.02.2022', value: 2 },
@@ -335,7 +340,7 @@ export default {
       }
     },
     endDateCalculator: {
-      start_date: null,
+      start_date: cxt.$dayjs().format('DD.MM.YYYY'),
       days: null,
       day_type: 'work'
     },
@@ -344,7 +349,8 @@ export default {
   }),
   methods: {
     calculateEndDate() {
-      alert('calculating...')
+      this.$dayjs.extend(customParseFormat)
+      this.form.end_date = this.$dayjs(this.endDateCalculator.start_date, 'DD.MM.YYYY').add(this.endDateCalculator.days, 'day').format('DD.MM.YYYY')
       this.showEndDateCalculator = false
     },
     toggleSpecification() {

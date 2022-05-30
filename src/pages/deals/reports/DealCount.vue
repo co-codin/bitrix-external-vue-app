@@ -76,7 +76,6 @@ export default {
     }
   },
   async mounted() {
-    // load all users
     this.users = await this.$bx24.callBatchListMethod('user.get' )
 
     this.loading = false
