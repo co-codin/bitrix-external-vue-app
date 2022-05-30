@@ -63,6 +63,8 @@ export default {
     return data
   },
   created() {
+    console.log(Object.keys(this.settings)
+      .map((key) => BX24.appOption.get(`settings.${key}`)))
     Object.keys(this.settings)
       .map((key) => BX24.appOption.get(`settings.${key}`))
       .forEach((value, key) => this.settings[key] = JSON.parse(value || '""'))
