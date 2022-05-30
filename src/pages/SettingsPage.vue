@@ -26,8 +26,13 @@
         </v-combobox>
         <v-btn text class="mt-1" color="primary" @click="addDefaultHolidays">Добавить все праздники по умолчанию</v-btn>
       </v-card-text>
-      <v-card-actions>
-        <v-btn type="submit" color="green" dark @click="saveSetting(holidays.settingKey)">Сохранить</v-btn>
+      <v-card-actions class="card-actions">
+        <v-btn
+          type="submit"
+          color="green"
+          dark
+          @click="saveSetting(holidays.settingKey)"
+        >Сохранить</v-btn>
       </v-card-actions>
     </v-card>
   </div>
@@ -78,3 +83,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.card-actions {
+  padding: 15px;
+  background: #f9fafb;
+  justify-content: right;
+  text-align: right;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+</style>
