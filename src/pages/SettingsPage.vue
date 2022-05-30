@@ -4,7 +4,6 @@
     <v-card>
       <v-card-title>Выходные и праздничные дни</v-card-title>
       <v-card-text>
-        <p>Введите праздничные дни через запятую</p>
         <v-combobox
           v-model="settings[holidays.settingKey]"
           :search-input.sync="holidays.searchText"
