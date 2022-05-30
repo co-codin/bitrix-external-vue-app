@@ -6,8 +6,8 @@
       <v-card-text>
         <p>Введите праздничные дни через запятую</p>
         <v-combobox
-          v-model="settings[`holidays-${$dayjs().format('YYYY')}`].value"
-          :search-input.sync="settings[`holidays-${$dayjs().format('YYYY')}`].searchText"
+          v-model="settings[`holidays-${$dayjs().format('YYYY')}`]"
+          :search-input.sync="holidays.searchText"
           filled
           chips
           deletable-chips
@@ -19,7 +19,7 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  По запросу "<strong>{{ settings[`holidays-${$dayjs().format('YYYY')}`].searchText }}</strong>" ничего не найдено. Нажмите <kbd>enter</kbd> для того, чтобы добавить день
+                  По запросу "<strong>{{ holidays.searchText }}</strong>" ничего не найдено. Нажмите <kbd>enter</kbd> для того, чтобы добавить день
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -44,37 +44,35 @@ export default {
   data() {
     const data = {
       breadcrumbs: [{ text: 'Настройки' }],
-      defaultHolidays: [
-        '01.01',
-        '07.01',
-        '23.02',
-        '08.03',
-        '01.05',
-        '09.05'
-      ],
-      settings: {}
+      settings: {},
+      holidays: {
+        searchText: null,
+        defaultHolidays: [
+          '01.01',
+          '07.01',
+          '23.02',
+          '08.03',
+          '01.05',
+          '09.05'
+        ]
+      }
     }
 
-    data.settings[`holidays-${this.$dayjs().format('YYYY')}`] = {
-      value: null,
-      searchText: null
-    }
+    data.settings[`holidays-${this.$dayjs().format('YYYY')}`] = null
 
     return data
   },
   created() {
     Object.keys(this.settings)
       .map((key) => BX24.appOption.get(`settings.${key}`))
-      .forEach((value, key) => this.settings[key].value = JSON.parse(value || '""'))
+      .forEach((value, key) => this.settings[key] = JSON.parse(value || '""'))
   },
   methods: {
     addDefaultHolidays() {
-      this.settings[`holidays-${this.$dayjs().format('YYYY')}`].value = this.defaultHolidays
+      this.settings[`holidays-${this.$dayjs().format('YYYY')}`] = this.holidays.defaultHolidays
     },
     saveSetting(key) {
-      const { value } = this.settings[key]
-
-      BX24.appOption.set(`settings.holidays-${this.$dayjs().format('YYYY')}`, JSON.stringify(value), () => {
+      BX24.appOption.set(`settings.holidays-${this.$dayjs().format('YYYY')}`, JSON.stringify(this.settings[key]), () => {
         this.$snackbar('Настройки успешно сохранены')
       })
     }
