@@ -34,8 +34,8 @@
               <div class="ml-1">
                 <v-menu
                   v-model="showEndDateCalculator"
-                  min-width="320"
-                  max-width="320"
+                  min-width="250"
+                  max-width="250"
                   offset-y
                   allow-overflow
                   :close-on-content-click="false"
@@ -381,7 +381,7 @@ export default {
 
       while (i < this.endDateCalculator.days) {
         date = date.add(1, 'day')
-        if (this.endDateCalculator.day_type === 'calendar' || !this.holidays.includes(date.format('DD.MM'))) {
+        if (this.endDateCalculator.day_type === 'calendar' || !this.isDayOff(date)) {
           i++
         }
       }
@@ -422,6 +422,11 @@ export default {
       if (index !== -1) {
         this.panels.splice(index, 1)
       }
+    },
+    isDayOff(date) {
+      const dayOfWeek = date.format('dddd')
+
+      return (dayOfWeek === 'Sunday' || dayOfWeek === 'Saturday') || this.holidays.includes(date.format('DD.MM'))
     }
   }
 }
