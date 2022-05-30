@@ -9,7 +9,6 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
-        filled
         :value="value"
         :label="label"
         prepend-icon="mdi-calendar"
