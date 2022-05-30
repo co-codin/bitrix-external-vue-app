@@ -6,7 +6,7 @@
       <v-card-text>
         <p>Введите праздничные дни через запятую</p>
         <v-combobox
-          v-model="settings[`holidays-${$dayjs().format('YYYY')}`]"
+          v-model="settings[holidays.settingKey]"
           :search-input.sync="holidays.searchText"
           filled
           chips
@@ -27,7 +27,7 @@
         </v-combobox>
         <v-btn text class="mt-1" color="primary" @click="addDefaultHolidays">Добавить все праздники по умолчанию</v-btn>
         <div class="text-right">
-          <v-btn type="submit" color="green" dark @click="saveSetting('holidays')">Сохранить</v-btn>
+          <v-btn type="submit" color="green" dark @click="saveSetting(holidays.settingKey)">Сохранить</v-btn>
         </div>
       </v-card-text>
     </v-card>
@@ -54,11 +54,12 @@ export default {
           '08.03',
           '01.05',
           '09.05'
-        ]
+        ],
+        settingKey: `holidays-${this.$dayjs().format('YYYY')}`
       }
     }
 
-    data.settings[`holidays-${this.$dayjs().format('YYYY')}`] = null
+    data.settings[holidays.settingKey] = null
 
     return data
   },
@@ -69,10 +70,10 @@ export default {
   },
   methods: {
     addDefaultHolidays() {
-      this.settings[`holidays-${this.$dayjs().format('YYYY')}`] = this.holidays.defaultHolidays
+      this.settings[holidays.settingKey] = this.holidays.defaultHolidays
     },
     saveSetting(key) {
-      BX24.appOption.set(`settings.holidays-${this.$dayjs().format('YYYY')}`, JSON.stringify(this.settings[key]), () => {
+      BX24.appOption.set(`settings.${key}`, JSON.stringify(this.settings[key]), () => {
         this.$snackbar('Настройки успешно сохранены')
       })
     }
