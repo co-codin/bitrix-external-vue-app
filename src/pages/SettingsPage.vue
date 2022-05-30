@@ -25,10 +25,10 @@
           </template>
         </v-combobox>
         <v-btn text class="mt-1" color="primary" @click="addDefaultHolidays">Добавить все праздники по умолчанию</v-btn>
-        <div class="text-right">
-          <v-btn type="submit" color="green" dark @click="saveSetting(holidays.settingKey)">Сохранить</v-btn>
-        </div>
       </v-card-text>
+      <v-card-actions>
+        <v-btn type="submit" color="green" dark @click="saveSetting(holidays.settingKey)">Сохранить</v-btn>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -63,11 +63,8 @@ export default {
     return data
   },
   created() {
-    console.log(Object.keys(this.settings)
-      .map((key) => BX24.appOption.get(`settings.${key}`)))
     Object.keys(this.settings)
-      .map((key) => BX24.appOption.get(`settings.${key}`))
-      .forEach((value, key) => this.settings[key] = JSON.parse(value || '""'))
+      .forEach((value, key) => this.settings[key] = JSON.parse(BX24.appOption.get(`settings.${key}`) || '""'))
   },
   methods: {
     addDefaultHolidays() {
