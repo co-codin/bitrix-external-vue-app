@@ -65,7 +65,7 @@ export default {
   created() {
     Object.keys(this.settings)
       .map((key) => BX24.appOption.get(`settings.${key}`))
-      .forEach((value, key) => this.settings[key].value = JSON.parse(value))
+      .forEach((value, key) => this.settings[key].value = JSON.parse(value || '""'))
   },
   methods: {
     addDefaultHolidays() {
