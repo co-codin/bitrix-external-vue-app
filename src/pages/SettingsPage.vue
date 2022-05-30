@@ -59,7 +59,7 @@ export default {
       }
     }
 
-    data.settings[holidays.settingKey] = null
+    data.settings[data.holidays.settingKey] = null
 
     return data
   },
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     addDefaultHolidays() {
-      this.settings[holidays.settingKey] = this.holidays.defaultHolidays
+      this.settings[this.holidays.settingKey] = this.holidays.defaultHolidays
     },
     saveSetting(key) {
       BX24.appOption.set(`settings.${key}`, JSON.stringify(this.settings[key]), () => {
