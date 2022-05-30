@@ -32,7 +32,14 @@
                 />
               </div>
               <div class="ml-1">
-                <v-menu v-model="showEndDateCalculator" offset-y allow-overflow :close-on-content-click="false">
+                <v-menu
+                  v-model="showEndDateCalculator"
+                  min-width="320"
+                  max-width="320"
+                  offset-y
+                  allow-overflow
+                  :close-on-content-click="false"
+                >
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       icon
