@@ -1,46 +1,71 @@
 <template>
   <v-menu
-    ref="menu"
     v-model="menu"
     :close-on-content-click="false"
     transition="scale-transition"
     offset-y
-    min-width="290px"
+    max-width="290px"
+    min-width="auto"
   >
     <template v-slot:activator="{ on, attrs }">
       <v-text-field
+        filled
         :value="value"
+        :label="label"
         prepend-icon="mdi-calendar"
-        v-bind="Object.assign({}, attrs, $attrs)"
-        @input="$emit('input', $event)"
+        v-bind="Object.assign(attrs, $attrs)"
+        @click:prepend="menu = !menu"
         v-on="on"
+        @change="$emit('input', $event)"
       />
     </template>
     <v-date-picker
-      :value="value"
-      no-title
+      :value="formattedDate"
       scrollable
       locale="ru-RU"
-      @input="$emit('input', $event); $refs.menu.save($event)"
-    >
-      <v-spacer></v-spacer>
-      <v-btn text color="primary" @click="menu = false">Отмена</v-btn>
-      <v-btn text color="primary" @click="$refs.menu.save(value)">OK</v-btn>
-    </v-date-picker>
+      no-title
+      @input="datePickerChanged"
+    />
   </v-menu>
 </template>
 
 <script>
 export default {
   props: {
-    value: {
+    label: {
       type: String,
+      default: null
+    },
+    value: {
       required: true
     }
   },
   data: () => ({
-    menu: false,
-    showMenu: false
-  })
+    menu: false
+  }),
+  computed: {
+    formattedDate() {
+      if (!this.value) {
+        return null
+      }
+
+      const [day, month, year] = this.value.split('.')
+
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    }
+  },
+  methods: {
+    datePickerChanged(value) {
+      this.menu = false
+      this.$emit('input', this.formatDate(value))
+    },
+    formatDate (date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+
+      return `${day}.${month}.${year}`
+    }
+  }
 }
 </script>
