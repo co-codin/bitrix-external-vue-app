@@ -11,7 +11,7 @@
           filled
           chips
           deletable-chips
-          :items="defaultHolidays"
+          :items="holidays.defaultHolidays"
           multiple
           hide-details="auto"
         >
