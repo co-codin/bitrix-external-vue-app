@@ -43,7 +43,7 @@
                       <svg-icon name="calculator" />
                     </v-btn>
                   </template>
-                  <v-card>
+                  <v-card :disabled="holidaysIsEmpty">
                     <v-card-text>
                       <date-picker-field
                         v-model="endDateCalculator.start_date"
@@ -347,10 +347,39 @@ export default {
     showEndDateCalculator: false,
     panels: [0]
   }),
+  computed: {
+    holidays() {
+      const settingValue = BX24.appOption.get(`settings.holidays-${this.$dayjs().format('YYYY')}`)
+
+      if (!settingValue) {
+        return []
+      }
+
+      const holidays = JSON.parse(BX24.appOption.get(`settings.holidays-${this.$dayjs().format('YYYY')}`) || '""')
+
+      if (!holidays || !Array.isArray(holidays) || !holidays.length) {
+        return []
+      }
+
+      return holidays
+    }
+  },
   methods: {
     calculateEndDate() {
       this.$dayjs.extend(customParseFormat)
-      this.form.end_date = this.$dayjs(this.endDateCalculator.start_date, 'DD.MM.YYYY').add(this.endDateCalculator.days, 'day').format('DD.MM.YYYY')
+
+      let date = this.$dayjs(this.endDateCalculator.start_date, 'DD.MM.YYYY')
+
+      let i = 0
+
+      while (i < this.endDateCalculator.days) {
+        date = date.add(1, 'day')
+        if (this.endDateCalculator.day_type === 'calendar' || !this.holidays.includes(date.format('DD.MM'))) {
+          i++
+        }
+      }
+
+      this.form.end_date = date.format('DD.MM.YYYY')
       this.showEndDateCalculator = false
     },
     toggleSpecification() {

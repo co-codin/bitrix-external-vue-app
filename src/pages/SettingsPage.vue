@@ -12,6 +12,7 @@
           deletable-chips
           :items="holidays.defaultHolidays"
           multiple
+          clearable
           hide-details="auto"
         >
           <template v-slot:no-data>
