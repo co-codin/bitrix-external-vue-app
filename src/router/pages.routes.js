@@ -49,6 +49,27 @@ export default [
       layout: 'simple'
     }
   }, {
+    path: '/wiki/materials',
+    name: 'wiki.materials',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialListPage'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/wiki/exam',
+    name: 'wiki.exam',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
+    path: '/wiki',
+    name: 'wiki.dashboard',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiDashboardPage'),
+    meta: {
+      layout: 'simple'
+    }
+  }, {
     path: '/users/profile-qr-code',
     name: 'users.profile-qr-code',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/users/UserProfileQRCode.vue'),
