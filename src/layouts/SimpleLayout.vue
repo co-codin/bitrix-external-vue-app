@@ -22,7 +22,7 @@ export default {
     error: null
   }),
   updated() {
-    BX24.fitWindow();
+    BX24.fitWindow()
   },
   async mounted() {
     const script = await document.createElement('script')
