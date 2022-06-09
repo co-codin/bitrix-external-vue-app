@@ -62,6 +62,13 @@ export default [
     meta: {
       layout: 'simple'
     }
+  },  {
+    path: '/wiki/materials',
+    name: 'wiki.materials',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialListPage'),
+    meta: {
+      layout: 'simple'
+    }
   }, {
     path: '/users/profile-qr-code',
     name: 'users.profile-qr-code',
