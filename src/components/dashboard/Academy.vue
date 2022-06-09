@@ -1,8 +1,8 @@
 <template>
   <v-card>
     <v-card-title class="pt-5">
-      <div style="position: absolute; left: 0; top: 10px; color: #fff; padding: 0 8px; height: 24px; line-height: 24px; font-size: 1rem;" class="orange darken-3">
-        academy
+      <div style="position: absolute; left: 0; top: 10px; color: #fff; padding: 0 8px; height: 24px; line-height: 24px; font-size: 1rem;" class="red darken-3">
+        академия
       </div>
       <div>{{ selectedTab.text }}</div>
       <v-spacer></v-spacer>
