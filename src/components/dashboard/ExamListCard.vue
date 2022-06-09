@@ -1,77 +1,74 @@
 <template>
-  <v-card>
-    <v-card-title>{{ label }}</v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="items"
-      hide-default-footer
-    >
-      <template v-slot:item.id="{ item }">
-        <div class="font-weight-bold"># <copy-label :text="item.id" /></div>
-      </template>
+  <v-data-table
+    :headers="headers"
+    :items="items"
+    hide-default-footer
+  >
+    <template v-slot:item.id="{ item }">
+      <div class="font-weight-bold"># <copy-label :text="item.id" /></div>
+    </template>
 
-      <template v-slot:item.created_at="{ item }">
-        <div>{{ item.created_at | formatDate }}</div>
-      </template>
+    <template v-slot:item.created_at="{ item }">
+      <div>{{ item.created_at | formatDate }}</div>
+    </template>
 
-      <template v-slot:item.action="{ item }">
-        <v-btn v-if="item.status.color === 'red'" href="/wiki/exam" small>
-          Пересдать
-        </v-btn>
-      </template>
+    <template v-slot:item.action="{ item }">
+      <v-btn v-if="item.status.color === 'red'" href="/wiki/exam" small>
+        Пересдать
+      </v-btn>
+    </template>
 
-      <template v-slot:item.status="{ item }">
-        <v-chip :color="item.status.color" dark>{{ item.status.text }}</v-chip>
+    <template v-slot:item.status="{ item }">
+      <v-chip :color="item.status.color" dark>{{ item.status.text }}</v-chip>
 
-        <v-menu
-          v-if="item.auditor"
-          :close-on-content-click="false"
-          :nudge-width="200"
-          offset-x
-        >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-bind="attrs"
-              icon
-              class="ml-1"
-              v-on="on"
-            >
-              <v-icon>mdi-information-outline</v-icon>
-            </v-btn>
-          </template>
+      <v-menu
+        v-if="item.auditor"
+        :close-on-content-click="false"
+        :nudge-width="200"
+        offset-x
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            icon
+            class="ml-1"
+            v-on="on"
+          >
+            <v-icon>mdi-information-outline</v-icon>
+          </v-btn>
+        </template>
 
-          <v-card>
-            <v-list>
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title>Проверяющий</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-avatar>
-                  <img :src="item.auditor.avatar" alt="">
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.auditor.name }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-content>
-                  Дата проверки: {{ item.checked_at | formatDate }}
-                </v-list-item-content>
-              </v-list-item>
-              <v-list-item v-if="item.comment">
-                <v-list-item-content>
-                  Комментарий: {{ item.comment }}
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-card>
-        </v-menu>
+        <v-card>
+          <v-list>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>Проверяющий</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-avatar>
+                <img :src="item.auditor.avatar" alt="">
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.auditor.name }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                Дата проверки: {{ item.checked_at | formatDate }}
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item v-if="item.comment">
+              <v-list-item-content>
+                Комментарий: {{ item.comment }}
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-menu>
 
-      </template>
-    </v-data-table>
-  </v-card>
+    </template>
+  </v-data-table>
 </template>
 
 <script>

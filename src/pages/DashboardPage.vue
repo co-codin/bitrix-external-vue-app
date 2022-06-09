@@ -1,13 +1,10 @@
 <template>
   <v-container>
-    <page-header h1="Medeq.Academy" :show-home-link="false" />
+    <page-header h1="Портал Медэк" :show-home-link="false" />
     <div class="d-flex flex-grow-1 flex-column">
       <v-row class="flex-grow-0" dense>
-        <v-col cols="12" md="6" xl="4">
-          <training-plan class="h-full" />
-        </v-col>
-        <v-col cols="12" xl="5">
-          <table-card class="h-full" label="Экзамены" />
+        <v-col cols="12" md="6" xl="5">
+          <academy class="h-full" />
         </v-col>
       </v-row>
     </div>
@@ -15,15 +12,13 @@
 </template>
 
 <script>
-import TableCard from '@/components/dashboard/TableCard'
-import TrainingPlan from '@/components/dashboard/TrainingPlan'
 import PageHeader from '@/components/PageHeader'
+import Academy from '@/components/dashboard/Academy'
 
 export default {
   components: {
     PageHeader,
-    TrainingPlan,
-    TableCard
+    Academy
   },
   data() {
     return {

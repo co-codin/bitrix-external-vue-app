@@ -49,9 +49,9 @@ export default [
       layout: 'simple'
     }
   }, {
-    path: '/wiki/materials',
-    name: 'wiki.materials',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialListPage'),
+    path: '/dashboard',
+    name: 'dashboard',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/DashboardPage'),
     meta: {
       layout: 'simple'
     }
@@ -59,13 +59,6 @@ export default [
     path: '/wiki/exam',
     name: 'wiki.exam',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
-    meta: {
-      layout: 'simple'
-    }
-  }, {
-    path: '/wiki',
-    name: 'wiki.dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiDashboardPage'),
     meta: {
       layout: 'simple'
     }

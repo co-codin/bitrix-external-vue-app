@@ -1,36 +1,25 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <div>План обучения</div>
-    </v-card-title>
-    <v-card-text>
-      <v-timeline class="pa-0" dense align-top>
-        <v-timeline-item v-for="(item, index) in activity" :key="index" :color="item.color" small>
-          <strong>{{ item.what }}</strong>
-          <div class="caption">
-            <div>{{ item.description }}</div>
-            <div class="grey--text d-flex">
-              <v-icon size="small" color="grey" class="mr-1">mdi-clock-outline</v-icon>
-              {{ item.when }}
-            </div>
-          </div>
-          <div v-if="item.button">
-            <v-btn :disabled="item.button.hasOwnProperty('disabled') || item.button.disabled" class="mt-1" href="#" x-small>{{ item.button.text }}</v-btn>
-          </div>
-        </v-timeline-item>
-      </v-timeline>
-    </v-card-text>
-  </v-card>
+  <v-timeline class="pa-0" dense align-top>
+    <v-timeline-item v-for="(item, index) in activity" :key="index" :color="item.color" small>
+      <strong>{{ item.what }}</strong>
+      <div class="caption">
+        <div>{{ item.description }}</div>
+        <div class="grey--text d-flex">
+          <v-icon size="small" color="grey" class="mr-1">mdi-clock-outline</v-icon>
+          {{ item.when }}
+        </div>
+      </div>
+      <div v-if="item.button">
+        <v-btn :disabled="item.button.hasOwnProperty('disabled') || item.button.disabled" class="mt-1" href="#" x-small>{{ item.button.text }}</v-btn>
+      </div>
+    </v-timeline-item>
+  </v-timeline>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      menu: [
-        { icon: 'mdi-refresh', text: 'Refresh' },
-        { icon: 'mdi-delete-outline', text: 'Clear' }
-      ],
       activity: [{
         what: 'Ознакомление с Уставом',
         description: 'Необходимо ознакомиться с Уставом',
