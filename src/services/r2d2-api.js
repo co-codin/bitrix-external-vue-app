@@ -1,6 +1,8 @@
 import axios from 'axios'
 import store from '../store'
 
+console.log(process.env)
+
 const api = axios.create({
   baseURL: process.env.VUE_APP_R2D2_API_URL,
   headers: {
