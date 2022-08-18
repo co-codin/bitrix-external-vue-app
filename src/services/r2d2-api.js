@@ -11,7 +11,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  config.headers['bitrix_access_token'] = window.BX24.getAuth().access_token
+  config.headers['BitrixAccessToken'] = window.BX24.getAuth().access_token
   config.headers['Authorization'] = `Bearer ${store.state.user.r2d2Token}`
 
   return config
