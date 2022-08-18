@@ -45,7 +45,11 @@ import 'animate.css/animate.min.css'
 // Configs
 import config from './configs'
 
-// Set this to false to prevent the production tip on Vue startup.
+import r2d2Api from '@/services/r2d2-api'
+
+Vue.prototype.$r2d2 = r2d2Api
+
+// Set this to the false to prevent the production tip on Vue startup.
 Vue.config.productionTip = false
 
 Vue.component('svg-icon', SvgIcon)

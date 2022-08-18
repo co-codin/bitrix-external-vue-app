@@ -63,11 +63,11 @@ export default [
       layout: 'simple'
     }
   },  {
-    path: '/wiki/materials',
-    name: 'wiki.materials',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialListPage'),
+    path: '/wiki',
+    name: 'wiki.index',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiIndex'),
     meta: {
-      layout: 'simple'
+      layout: 'academy'
     }
   }, {
     path: '/users/profile-qr-code',

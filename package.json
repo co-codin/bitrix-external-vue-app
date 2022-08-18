@@ -12,6 +12,7 @@
     "@indielayer/vue-live-demo": "^1.0.0",
     "animate.css": "^4.1.0",
     "apexcharts": "^3.19.2",
+    "axios": "^0.27.2",
     "dayjs": "^1.11.0",
     "echarts": "^4.8.0",
     "exceljs": "^4.3.0",

@@ -17,13 +17,15 @@ import { mapState } from 'vuex'
 import config from './configs'
 import simpleLayout from './layouts/SimpleLayout'
 import simpleDevLayout from './layouts/SimpleDevLayout'
+import academyLayout from './layouts/AcademyLayout'
 import errorLayout from './layouts/ErrorLayout'
 
 export default {
   components: {
     simpleLayout,
     simpleDevLayout,
-    errorLayout
+    errorLayout,
+    academyLayout
   },
   computed: {
     ...mapState('app', ['toast']),

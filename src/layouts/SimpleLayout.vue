@@ -12,6 +12,7 @@
 
 <script>
 import PageLoader from '../components/PageLoader'
+import axios from 'axios'
 
 export default {
   components: {
@@ -33,8 +34,12 @@ export default {
     script.addEventListener('load', () => {
       try {
         BX24.init(async () => {
-          await this.$store.dispatch('user/loadCurrentUserData')
-          await this.$store.dispatch('user/loadCurrentUserAdminStatus')
+
+          await axios.all([
+            this.$store.dispatch('user/loadCurrentUserData'),
+            this.$store.dispatch('user/loadCurrentUserAdminStatus'),
+            this.$store.dispatch('user/authInR2D2')
+          ])
 
           this.loaded = true
         })
