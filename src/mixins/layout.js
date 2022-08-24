@@ -16,11 +16,9 @@ export default {
     if (this.isDev) {
       try {
         await this.$store.dispatch('user/authInR2D2')
-      }
-      catch (e) {
+      } catch (e) {
         this.error = e
-      }
-      finally {
+      } finally {
         this.loaded = true
       }
 
@@ -35,17 +33,13 @@ export default {
     script.addEventListener('load', () => {
       try {
         BX24.init(async () => {
-          await Promise.all([
-            this.$store.dispatch('user/loadCurrentUserData'),
-            this.$store.dispatch('user/loadCurrentUserAdminStatus'),
-            this.$store.dispatch('user/authInR2D2')
-          ])
+          await this.$store.dispatch('user/loadCurrentUserData')
+          await this.$store.dispatch('user/loadCurrentUserAdminStatus')
+          await this.$store.dispatch('user/authInR2D2')
         })
-      }
-      catch (e) {
+      } catch (e) {
         this.error = e
-      }
-      finally {
+      } finally {
         this.loaded = true
       }
     })
