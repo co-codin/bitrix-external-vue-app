@@ -37,9 +37,10 @@ export default {
           await this.$store.dispatch('user/loadCurrentUserAdminStatus')
           await this.$store.dispatch('user/authInR2D2')
         })
+
+        this.loaded = true
       } catch (e) {
         this.error = e
-      } finally {
         this.loaded = true
       }
     })
