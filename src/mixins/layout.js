@@ -35,14 +35,11 @@ export default {
     script.addEventListener('load', () => {
       try {
         BX24.init(async () => {
-
           await Promise.all([
             this.$store.dispatch('user/loadCurrentUserData'),
             this.$store.dispatch('user/loadCurrentUserAdminStatus'),
             this.$store.dispatch('user/authInR2D2')
           ])
-
-          this.loaded = true
         })
       }
       catch (e) {
