@@ -71,7 +71,7 @@ export default {
     }
   },
   async created() {
-    await this.loadMaterial(1)
+    await this.loadMaterial(this.$route.params.id)
   },
   async beforeRouteUpdate(to, from, next) {
     if (to.name === 'wiki.materials.show') {
