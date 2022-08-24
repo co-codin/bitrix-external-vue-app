@@ -66,8 +66,7 @@ export default {
       return []
     },
     blockTree() {
-      return []
-      // return toTree(this.blocks)
+      return toTree(this.blocks)
     }
   },
   async created() {

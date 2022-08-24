@@ -11,7 +11,7 @@
       @update:active="openMaterial"
     >
       <template v-slot:prepend="{ item, open }">
-        <v-icon v-if="item.children.length">
+        <v-icon v-if="!item.isMaterial">
           {{ open ? 'mdi-folder-open' : 'mdi-folder' }}
         </v-icon>
         <v-icon v-else>
@@ -38,13 +38,16 @@ export default {
     transformedMaterials() {
       return this.materials.map((material) => ({
         ...material,
-        parent_id: `category-${material.material_category_id}`
+        parent_id: `category-${material.material_category_id}`,
+        isMaterial: true
       }))
     },
     transformedMaterialCategories() {
       return this.materialCategories.map((materialCategory) => ({
         ...materialCategory,
-        id: `category-${materialCategory.id}`
+        parent_id: materialCategory.parent_id ? `category-${materialCategory.parent_id}` : null,
+        id: `category-${materialCategory.id}`,
+        isMaterial: false
       }))
     },
     tree() {
