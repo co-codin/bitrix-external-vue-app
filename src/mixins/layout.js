@@ -10,6 +10,7 @@ export default {
   }),
   updated() {
     !this.isDev && BX24.fitWindow()
+    !this.isDev && BX24.scrollParentWindow(0)
   },
 
   async mounted() {

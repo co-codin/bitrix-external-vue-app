@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-2">
+  <div class="pa-2" ref="layout">
     <page-loader v-if="!loaded" />
     <v-alert v-else-if="error" type="error" text>
       Произошла ошибка при загрузке Битрикс 24
