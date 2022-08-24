@@ -2080,7 +2080,7 @@ aws4@^1.8.0:
   resolved "https://registry.npmjs.org/aws4/-/aws4-1.11.0.tgz"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axios@^0.27.2:
+"axios@>=0.15 <1.0", axios@^0.27.2:
   version "0.27.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
   integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
@@ -3486,6 +3486,11 @@ define-property@^2.0.2:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
 
+defu@^5.0.0:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/defu/-/defu-5.0.1.tgz#a034278f9b032bf0845d261aa75e9ad98da878ac"
+  integrity sha512-EPS1carKg+dkEVy3qNTqIdp2qV7mUP08nIsupfwQpz++slCVRw7qbQyWvSTig+kFPwz2XXp5/kIIkH+CwrJKkQ==
+
 del@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/del/-/del-4.1.1.tgz"
@@ -3659,6 +3664,16 @@ dotenv@^8.2.0:
   version "8.6.0"
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-8.6.0.tgz"
   integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
+
+dotprop@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/dotprop/-/dotprop-1.2.1.tgz#7df88dd1c50ae4e93773475f85c84f77c302953b"
+  integrity sha512-TcgsqnhHYytg+JKusKAwe4YLZWtD/vfOmblUEbSDZxQy1nlOQTChbyvj/f6kqKLUYbcJqie97rVhDc1JBs00LA==
+
+dset@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/dset/-/dset-3.1.2.tgz#89c436ca6450398396dc6538ea00abc0c54cd45a"
+  integrity sha512-g/M9sqy3oHe477Ar4voQxWtaPIFw1jTdKZuomOjhCcBx9nHUNn0pu6NopuFFrTh/TRZIKEj+76vLWFu9BNKk+Q==
 
 duplexer2@~0.1.4:
   version "0.1.4"
@@ -4407,6 +4422,13 @@ forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.npmjs.org/forever-agent/-/forever-agent-0.6.1.tgz"
   integrity sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
+
+form-backend-validation@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/form-backend-validation/-/form-backend-validation-2.4.0.tgz#9ef53d1dc5a25738adffb622ebdd22ea0f9edb66"
+  integrity sha512-/AUVPYEqgWarqmMx/oe3AipthX18VzA7APZwvyweXDMvdZvKv4ClGakwLLz0NqeWweyhyiPg6et92Fepv2KTNA==
+  optionalDependencies:
+    axios ">=0.15 <1.0"
 
 form-data@^4.0.0:
   version "4.0.0"
@@ -6529,6 +6551,11 @@ object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.npmjs.org/object-keys/-/object-keys-1.1.1.tgz"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
+object-to-formdata@^4.1.0:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/object-to-formdata/-/object-to-formdata-4.4.2.tgz#f89013f90493c58cb5f6ab9f50b7aeec30745ea6"
+  integrity sha512-fu6UDjsqIfFUu/B3GXJ2IFnNAL/YbsC1PPzqDIFXcfkhdYjTD3K4zqhyD/lZ6+KdP9O/64YIPckIOiS5ouXwLA==
+
 object-visit@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/object-visit/-/object-visit-1.0.1.tgz"
@@ -7544,6 +7571,13 @@ qs@6.9.7:
   version "6.9.7"
   resolved "https://registry.npmjs.org/qs/-/qs-6.9.7.tgz"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
+
+qs@^6.9.4:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
+  dependencies:
+    side-channel "^1.0.4"
 
 qs@~6.5.2:
   version "6.5.3"
@@ -9313,6 +9347,17 @@ vue-apexcharts@^1.5.3:
   version "1.6.2"
   resolved "https://registry.npmjs.org/vue-apexcharts/-/vue-apexcharts-1.6.2.tgz"
   integrity sha512-9HS3scJwWgKjmkcWIf+ndNDR0WytUJD8Ju0V2ZYcjYtlTLwJAf2SKUlBZaQTkDmwje/zMgulvZRi+MXmi+WkKw==
+
+vue-api-query@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/vue-api-query/-/vue-api-query-1.10.0.tgz#46ab79d1d55d47d7350d9c2efa673455d186254a"
+  integrity sha512-WXW5L6LdDB5LaTCfWz/nTj7/egXnkbmvn0M9ZLVlUpi8MljLAQF6KNvOdfwN3TePkRXuQRu9ZNQLAztx6T3qqQ==
+  dependencies:
+    defu "^5.0.0"
+    dotprop "^1.2.0"
+    dset "^3.1.2"
+    object-to-formdata "^4.1.0"
+    qs "^6.9.4"
 
 vue-cli-plugin-vuetify@^2.0.7:
   version "2.4.5"

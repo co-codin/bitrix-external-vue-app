@@ -16,9 +16,53 @@ export function declOfNumber(number, words) {
 }
 
 export function groupBy(items, key) {
-  return items.reduce((hash, obj) => ({ ...hash, [obj[key]]:( hash[obj[key]] || [] ).concat(obj) }), {})
+  return items.reduce((hash, obj) => ({ ...hash, [obj[key]]: (hash[obj[key]] || []).concat(obj) }), {})
 }
 
 export function keyBy(items, key) {
   return items.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
+}
+
+export function toTree(dataset, key = 'id', parentKey = 'parent_id') {
+  const hashTable = Object.create(null)
+
+  dataset.forEach((item) => (hashTable[item[key]] = { ...item, children: [] }))
+  let dataTree = []
+
+  dataset.forEach((item) => {
+    if (item[parentKey]) hashTable[item[parentKey]].children.push(hashTable[item[key]])
+    else dataTree.push(hashTable[item[key]])
+  })
+  dataTree = dataTree
+    .map((item, index) => {
+      return {
+        ...item,
+        children: dataTree[index].children.sort((a, b) => {
+          let ret = 0
+
+          if (a.name < b.name) {
+            ret = -1
+          }
+          if (a.name > b.name) {
+            ret = 1
+          }
+
+          return ret
+        })
+      }
+    })
+    .sort((a, b) => {
+      let ret = 0
+
+      if (a.name < b.name) {
+        ret = -1
+      }
+      if (a.name > b.name) {
+        ret = 1
+      }
+
+      return ret
+    })
+
+  return dataTree
 }

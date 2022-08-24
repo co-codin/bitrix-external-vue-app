@@ -1,93 +1,105 @@
 <template>
-  <div>
+  <v-form v-if="!loading" @submit.prevent="passExam">
     <v-container>
-      <h1>Экзамен - Регламент "Отдел продаж"</h1>
-      <div class="mt-1">
-        <v-btn
-          href="/wiki/materials"
-          text
-          depressed
-          class="pl-1"
-          color="primary"
-        >
+      <h1>{{ exam.name }}</h1>
+      <div v-if="exam.material_id" class="mt-1">
+        <v-btn :to="{ name: 'wiki.materials.show', params: { id: exam.material_id } }" text class="pl-1" color="primary">
           <v-icon>mdi-chevron-left</v-icon>
           Вернуться к материалу
         </v-btn>
       </div>
-      <v-alert text color="info" class="mt-2">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium eaque facilis fugiat ipsam laudantium ratione sed sunt ullam velit voluptates. Ad architecto atque consequuntur culpa debitis distinctio ea excepturi fugiat illo laborum, libero necessitatibus nulla numquam omnis placeat possimus quidem quis quo rerum saepe sapiente sint soluta tempora temporibus ullam ut veniam. Autem dignissimos dolor excepturi explicabo harum iste iusto, maiores minus nam odit quisquam similique suscipit tenetur. Alias culpa ea explicabo nemo non repellendus reprehenderit, temporibus ullam vel voluptas. Cupiditate esse expedita fugiat ipsam laboriosam magni mollitia natus, quis sapiente similique? Aperiam atque blanditiis consectetur cumque dicta eligendi quam.
+      <v-alert v-if="exam.description" text color="info" class="mt-2">
+        {{ exam.description }}
       </v-alert>
-      <v-card class="mt-3">
-        <v-card-title>Как вы думаете, какой ответ правильный?</v-card-title>
-        <v-card-subtitle>Выберите только один вариант ответа</v-card-subtitle>
-        <v-card-text>
-          <v-radio-group v-model="question1" hide-details class="mt-0">
-            <v-radio color="primary" label="Да" value="yes" />
-            <v-radio color="primary" label="Нет" value="no" />
-          </v-radio-group>
-        </v-card-text>
-      </v-card>
-      <v-card class="mt-3">
-        <v-card-title>Как вы думаете, какой ответ правильный?</v-card-title>
-        <v-card-subtitle>Выберите только один вариант ответа</v-card-subtitle>
-        <v-card-text>
-          <v-radio-group v-model="question1" hide-details class="mt-0">
-            <v-radio color="primary" label="Да" value="yes" />
-            <v-radio color="primary" label="Нет" value="no" />
-          </v-radio-group>
-        </v-card-text>
-      </v-card>
-      <v-card class="mt-3">
-        <v-card-title>Опишите кейс отправки запроса на рассрочку</v-card-title>
-        <v-card-subtitle>Опишите максимально подробно кейс на отправку рассрочки</v-card-subtitle>
-        <v-card-text>
-          <v-textarea
-            rows="3"
-            auto-grow
-            class="mt-0"
-            outlined
-            hide-details
-          />
-        </v-card-text>
-      </v-card>
-      <v-card class="mt-3">
-        <v-card-title>Как вы думаете, какой ответ правильный?</v-card-title>
-        <v-card-subtitle>Выберите все правильные ответы</v-card-subtitle>
-        <v-card-text>
-          <v-checkbox class="mt-0" label="Вариант 1" />
-          <v-checkbox class="mt-0" label="Вариант 2" />
-          <v-checkbox class="mt-0" label="Вариант 3" />
-          <v-checkbox class="mt-0" label="Вариант 4" />
-        </v-card-text>
-      </v-card>
-      <v-card class="mt-3">
-        <v-card-title>Как вы думаете, какой ответ правильный?</v-card-title>
-        <v-card-subtitle>Выберите только один вариант ответа</v-card-subtitle>
-        <v-card-text>
-          <v-radio-group v-model="question1" hide-details class="mt-0">
-            <v-radio color="primary" label="Да" value="yes" />
-            <v-radio color="primary" label="Нет" value="no" />
-          </v-radio-group>
-        </v-card-text>
-      </v-card>
+      <exam-question
+        v-for="(question, index) in questions"
+        :key="index"
+        :question="question"
+        :errors="getError(index)"
+        @input="updateAnswer(index, $event)"
+      />
       <div class="text-center mt-3">
         <v-btn type="submit" color="primary">Отправить на проверку</v-btn>
       </div>
     </v-container>
-  </div>
+  </v-form>
 </template>
 
 <script>
+import HasLoading from '@/mixins/has-loading'
+import Exam from '@/models/Exam'
+import ExamQuestion from '@/components/wiki/ExamQuestion'
+import shuffle from 'lodash/shuffle'
+import Form from 'form-backend-validation'
+
 export default {
+  components: {
+    ExamQuestion
+  },
+  mixins: [HasLoading],
   data: () => ({
-    question1: 'no'
-  })
+    exam: null,
+    form: null,
+    questions: []
+  }),
+  async created() {
+    await this.loadExam()
+    await this.loadExamQuestions()
+    this.initializeForm()
+    this.hideLoading()
+  },
+  methods: {
+    async loadExam() {
+      this.exam = await Exam.$find(this.$route.params.id)
+    },
+    async loadExamQuestions() {
+      this.questions = await this.exam.questions().orderBy('position').$all()
+
+      if (this.exam.questions_in_random_order) {
+        this.questions = shuffle(this.questions)
+      }
+    },
+    initializeForm() {
+      const answers = this.questions.map((question) => ({
+        question_id: question.id,
+        answer: null
+      }))
+
+      this.form = Form.create({ answers })
+        .withOptions({ http: this.$r2d2, resetOnSuccess: true })
+    },
+    updateAnswer(questionIndex, answer) {
+      this.form.answers[questionIndex].answer = answer
+    },
+    async passExam() {
+      try {
+        await this.form.post(`/exams/${this.exam.id}/pass`)
+        this.$snackbar('Экзамен отправлен на проверку')
+        await this.$router.push({ name: 'wiki.index' })
+      }
+      catch (e) {
+        console.log(e)
+      }
+    },
+    getError(questionIndex) {
+      const fields = [
+        `answers.${questionIndex}.answer`,
+        `answers.${questionIndex}.question_id`
+      ]
+
+      const errors = []
+
+      fields.forEach((field) => {
+        errors.push(...this.form.errors.get(field))
+      })
+
+      return errors
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-.exam-questions {
-}
 .wiki-exam-question {
   & + .wiki-exam-question {
     margin-top: 30px;

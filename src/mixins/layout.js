@@ -1,18 +1,4 @@
-<template>
-  <div class="pa-2">
-    <page-loader
-      v-if="!loaded"
-    />
-    <v-alert v-else-if="error" type="error" text>
-      Произошла ошибка при загрузке Битрикс 24
-    </v-alert>
-    <slot v-else></slot>
-  </div>
-</template>
-
-<script>
 import PageLoader from '../components/PageLoader'
-import axios from 'axios'
 
 export default {
   components: {
@@ -23,9 +9,24 @@ export default {
     error: null
   }),
   updated() {
-    BX24.fitWindow()
+    !this.isDev && BX24.fitWindow()
   },
+
   async mounted() {
+    if (this.isDev) {
+      try {
+        await this.$store.dispatch('user/authInR2D2')
+      }
+      catch (e) {
+        this.error = e
+      }
+      finally {
+        this.loaded = true
+      }
+
+      return
+    }
+
     const script = await document.createElement('script')
 
     await script.setAttribute('src', 'https://api.bitrix24.com/api/v1/')
@@ -35,7 +36,7 @@ export default {
       try {
         BX24.init(async () => {
 
-          await axios.all([
+          await Promise.all([
             this.$store.dispatch('user/loadCurrentUserData'),
             this.$store.dispatch('user/loadCurrentUserAdminStatus'),
             this.$store.dispatch('user/authInR2D2')
@@ -46,9 +47,15 @@ export default {
       }
       catch (e) {
         this.error = e
+      }
+      finally {
         this.loaded = true
       }
     })
+  },
+  computed: {
+    isDev() {
+      return process.env.NODE_ENV !== 'production'
+    }
   }
 }
-</script>

@@ -47,6 +47,10 @@ import config from './configs'
 
 import r2d2Api from '@/services/r2d2-api'
 
+import { Model } from 'vue-api-query'
+
+Model.$http = r2d2Api
+
 Vue.prototype.$r2d2 = r2d2Api
 
 // Set this to the false to prevent the production tip on Vue startup.
