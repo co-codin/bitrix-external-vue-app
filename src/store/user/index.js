@@ -37,6 +37,13 @@ export default {
 
       commit('SET_USER', user)
     },
+    async loadCurrentUserDataAction({ commit }) {
+      const response = await BX.ajax.runAction('medeq:main.controller.actions.getUser')
+
+      console.log(response)
+
+      // commit('SET_USER', user)
+    },
     async authInR2D2({ commit }) {
 
       const { data } = await r2d2Api.get('/login-by-bitrix-token')
