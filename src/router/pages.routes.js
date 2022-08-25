@@ -8,7 +8,7 @@ export default [
     }
   },
   {
-    path: '/',
+    path: '/home-page-test',
     name: 'home.page.test',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/HomePageTest.vue'),
     meta: {
