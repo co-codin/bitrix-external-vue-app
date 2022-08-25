@@ -6,6 +6,14 @@ export default [
     meta: {
       layout: 'simple'
     }
+  },
+  {
+    path: '/',
+    name: 'home.page.test',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/HomePageTest.vue'),
+    meta: {
+      layout: 'simple'
+    }
   }, {
     path: '/external',
     name: 'external-app.home',
