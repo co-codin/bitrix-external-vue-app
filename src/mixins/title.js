@@ -12,9 +12,15 @@ export default {
   created() {
     const title = getTitle(this)
 
-    if (title) {
-      document.title = title
+    if (!title) {
+      return
+    }
+
+    document.title = title
+
+    if (document.getElementById('pagetitle')) {
       document.getElementById('pagetitle').innerText = title
     }
+
   }
 }
