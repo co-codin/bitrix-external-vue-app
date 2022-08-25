@@ -14,6 +14,7 @@ export default {
 
     if (title) {
       document.title = title
+      document.getElementById('pagetitle').innerText = title
     }
   }
 }
