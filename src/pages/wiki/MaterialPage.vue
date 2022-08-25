@@ -142,9 +142,9 @@ export default {
       }
 
       this.$nextTick(() => {
-        this.$vuetify.goTo(window.location.hash, {
-          duration: 0
-        })
+        const id = window.location.hash.replace('#', '')
+
+        document.getElementById(id).scrollIntoView()
       })
     }
   }
