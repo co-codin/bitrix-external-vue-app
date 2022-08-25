@@ -9,7 +9,7 @@ export default {
   components: {
   },
   async mounted() {
-    await this.$store.dispatch('user/loadCurrentUserData')
+    await this.$store.dispatch('user/loadCurrentUserDataAction')
   },
   methods: {
 
