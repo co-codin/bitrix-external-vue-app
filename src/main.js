@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
+import TitleMixin from '@/mixins/title'
 
 // VUEX - https://vuex.vuejs.org/
 import store from './store'
@@ -59,6 +60,8 @@ Vue.config.productionTip = false
 Vue.component('svg-icon', SvgIcon)
 
 Vue.prototype.$config = config
+
+Vue.mixin(TitleMixin)
 
 /*
 |---------------------------------------------------------------------

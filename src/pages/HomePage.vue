@@ -6,6 +6,8 @@
 
 <script>
 export default {
-
+  title() {
+    return 'home page 1'
+  }
 }
 </script>

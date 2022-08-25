@@ -7,6 +7,8 @@
 
 <script>
 export default {
-
+  title() {
+    return 'home page next one'
+  }
 }
 </script>
