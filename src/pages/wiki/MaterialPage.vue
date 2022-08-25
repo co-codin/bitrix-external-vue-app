@@ -1,43 +1,67 @@
 <template>
-  <div v-if="!loading" class="material-page">
-    <h1 class="text-h3">{{ material.name }}</h1>
-    <div class="table-of-contents mt-3">
-      <div v-if="showTableOfContents">
-        <transition v-if="showTableOfContents" type="slide-x-transition">
-          <table-of-contents :items="blockTree" class="mb-3"/>
-        </transition>
-      </div>
-      <div>
-        <v-btn color="blue lighten-5" shaped :rounded="false" @click="showTableOfContents = !showTableOfContents">
-          {{ showTableOfContents ? 'Свернуть' : 'Оглавление' }}
-          <v-icon class="ml-1">
-            {{ showTableOfContents ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-          </v-icon>
-        </v-btn>
-      </div>
-    </div>
-
-    <material-blocks :blocks="blockTree"/>
-
-    <template v-if="exams.length">
-      <v-divider class="my-4"/>
-      <div class="mb-3">
-        <h3 class="text-h4 mt-0">
-          Экзамены
-        </h3>
-        <v-row dense class="mt-2">
-          <v-col v-for="(exam, index) in exams" :key="index" cols="4">
-            <v-card color="#1F7087" dark>
-              <v-card-title class="title">{{ exam.name }}</v-card-title>
-              <v-card-subtitle>{{ exam.description }}</v-card-subtitle>
-              <v-card-actions>
-                <v-btn :to="{ name: 'wiki.exams.show', params: { id: exam.id } }" text>Сдать экзамен</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </div>
+  <div>
+    <template v-if="loading">
+      <v-row
+        class="fill-height mt-3 mb-10"
+        align-content="center"
+        justify="center"
+      >
+        <v-col
+          class="text-subtitle-1 text-center"
+          cols="12"
+        >
+          Идет загрузка материала...
+        </v-col>
+        <v-col cols="6">
+          <v-progress-linear
+            color="primary"
+            indeterminate
+            rounded
+            height="6"
+          ></v-progress-linear>
+        </v-col>
+      </v-row>
     </template>
+    <div v-else class="material-page">
+      <h1 class="text-h3">{{ material.name }}</h1>
+      <div class="table-of-contents mt-3">
+        <div v-if="showTableOfContents">
+          <transition v-if="showTableOfContents" type="slide-x-transition">
+            <table-of-contents :items="blockTreeWithExams" class="mb-3"/>
+          </transition>
+        </div>
+        <div>
+          <v-btn color="blue lighten-5" shaped :rounded="false" @click="showTableOfContents = !showTableOfContents">
+            {{ showTableOfContents ? 'Свернуть' : 'Оглавление' }}
+            <v-icon class="ml-1">
+              {{ showTableOfContents ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+            </v-icon>
+          </v-btn>
+        </div>
+      </div>
+
+      <material-blocks :blocks="blockTree"/>
+
+      <template v-if="exams.length">
+        <v-divider class="my-4"/>
+        <div id="block-exams" class="mb-3">
+          <h3 class="text-h4 mt-0">
+            Экзамены
+          </h3>
+          <v-row dense class="mt-2">
+            <v-col v-for="(exam, index) in exams" :key="index" cols="4">
+              <v-card color="#1F7087" dark>
+                <v-card-title class="title">{{ exam.name }}</v-card-title>
+                <v-card-subtitle>{{ exam.description }}</v-card-subtitle>
+                <v-card-actions>
+                  <v-btn :to="{ name: 'wiki.exams.show', params: { id: exam.id } }">Пройти экзамен</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -67,14 +91,23 @@ export default {
     },
     blockTree() {
       return toTree(this.blocks)
+    },
+    blockTreeWithExams() {
+      if (!this.exams.length) {
+        return this.blockTree
+      }
+
+      return this.blockTree.concat([
+        { name: 'Экзамены', id: 'exams' }
+      ])
     }
   },
   async created() {
     await this.loadMaterial(this.$route.params.id)
   },
-  async beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate(to, from, next) {
     if (to.name === 'wiki.materials.show') {
-      await this.loadMaterial(to.params.id)
+      this.loadMaterial(to.params.id)
     }
 
     next()
@@ -97,6 +130,19 @@ export default {
         .$all()
 
       this.hideLoading()
+
+      this.scrollToTheBlock()
+    },
+    scrollToTheBlock() {
+      if (!window.location.hash) {
+        return
+      }
+
+      this.$nextTick(() => {
+        this.$vuetify.goTo(window.location.hash, {
+          duration: 0
+        })
+      })
     }
   }
 }

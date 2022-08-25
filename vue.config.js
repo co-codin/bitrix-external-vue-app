@@ -38,5 +38,9 @@ module.exports = {
     'vue-echarts',
     'resize-detector',
     'vuetify'
-  ]
+  ],
+
+  publicPath: '',
+  outputDir: '../../../vue-app',
+  indexPath: 'index.php'
 }

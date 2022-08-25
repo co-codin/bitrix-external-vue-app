@@ -1,6 +1,6 @@
 <template>
-  <div class="pa-2" ref="layout">
-    <page-loader v-if="!loaded" />
+  <div ref="layout" class="pa-2">
+    <page-loader v-if="!loaded"/>
     <v-alert v-else-if="error" type="error" text>
       Произошла ошибка при загрузке Битрикс 24
     </v-alert>
@@ -12,13 +12,23 @@
         prepend-inner-icon="search"
         hide-details
         class="mb-1"
+        readonly
+        @click="openCommandPalette"
       />
-      <v-row dense class="mt-1">
-        <v-col cols="2" md="3" lg="3" xl="2">
-          <material-tree />
+      <v-row class="academy-content mt-1" dense>
+        <v-col
+          class="academy-content__sidebar"
+          cols="2"
+          md="3"
+          lg="3"
+          xl="2"
+        >
+          <material-tree/>
         </v-col>
-        <v-col cols="9" lg="7" xl="6" class="mt-2">
-          <slot></slot>
+        <v-col cols="9" lg="7" xl="6" class="academy-content__main">
+          <div class="mt-4 px-9">
+            <slot></slot>
+          </div>
         </v-col>
       </v-row>
       <v-btn
@@ -35,6 +45,11 @@
         <v-icon>keyboard_arrow_up</v-icon>
       </v-btn>
     </template>
+    <v-dialog v-model="showCommandPalette" max-width="1000px" >
+      <v-card>
+        <v-autocomplete solo placeholder="Поиск по материалам" hide-details prepend-inner-icon="search" />
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -50,7 +65,8 @@ export default {
     LayoutMixin
   ],
   data: () => ({
-    fab: false
+    fab: false,
+    showCommandPalette: false
   }),
   methods: {
     onScroll(e) {
@@ -58,7 +74,21 @@ export default {
       const top = window.pageYOffset || e.target.scrollTop || 0
 
       this.fab = top > 40
+    },
+    openCommandPalette() {
+      this.showCommandPalette = true
     }
   }
 }
 </script>
+
+<style lang="scss">
+.academy-content {
+  background: white;
+  &__sidebar {
+    background: #f2f5f8;
+  }
+  &__main > div {
+  }
+}
+</style>

@@ -2,11 +2,12 @@
   <div v-if="!loading">
     <v-treeview
       dense
+      open-all
       :items="tree"
       activatable
       item-key="id"
       open-on-click
-      :open="open"
+      :active="active"
       class="mt-1"
       @update:active="openMaterial"
     >
@@ -30,7 +31,7 @@ import Material from '@/models/Material'
 export default {
   data: () => ({
     loading: true,
-    open: ['category-2', 'category-1'],
+    open: [],
     materialCategories: [],
     materials: []
   }),
@@ -54,6 +55,16 @@ export default {
       const data = [...this.transformedMaterialCategories.concat(this.transformedMaterials)]
 
       return toTree(data)
+    },
+    isMaterialPage() {
+      return this.$route.name === 'wiki.materials.show'
+    },
+    active() {
+      if (!this.isMaterialPage) {
+        return []
+      }
+
+      return [+this.$route.params.id]
     }
   },
   async created() {
@@ -63,6 +74,7 @@ export default {
         material_categories: ['id', 'name', 'parent_id']
       })
       .enabled()
+      .hasMaterials()
       .orderBy('name')
       .$all()
 

@@ -1,7 +1,7 @@
 <template>
   <ul class="toc-list">
     <li v-for="(item, index) in items" :key="index">
-      <a href="#">{{ item.name }}</a>
+      <a @click="goTo(`block-${item.id}`)">{{ item.name }}</a>
       <table-of-contents v-if="item.children && item.children.length" :items="item.children"/>
     </li>
   </ul>

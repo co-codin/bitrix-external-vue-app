@@ -1,7 +1,7 @@
 <template>
-  <div class="wiki-section mt-4">
+  <div :id="`block-${block.id}`" class="wiki-section mt-5">
     <h2 class="wiki-section__title" :class="hClass">
-      <a href="#terms">
+      <a :href="`#block-${block.id}`" @click.prevent="copyLink(block.id)">
         <slot name="name" :title="block.name">
           {{ block.name }}
         </slot>
@@ -25,7 +25,6 @@ export default {
   },
   data() {
     return {
-
     }
   },
   computed: {
@@ -33,6 +32,11 @@ export default {
       const h = this.depth + 3
 
       return `text-h${h}`
+    }
+  },
+  methods: {
+    copyLink(id) {
+      this.$clipboard(`${window.location.origin}${window.location.pathname}#block-${id}`, 'Ссылка скопирована')
     }
   }
 }
@@ -44,16 +48,30 @@ export default {
   margin: 30px 0;
 
   &__title {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     a {
       text-decoration: none;
       border: none;
+      position: relative;
+      color: inherit;
+
+      &:before {
+        content: "#";
+        font-weight: 400;
+        opacity: .8;
+        position: absolute;
+        font-size: 28px;
+        margin-left: -30px;
+        color: var(--v-primary-base);
+      }
 
       &:hover {
-        color: #572fcf;
+        color: inherit;
       }
     }
+  }
+  & + .wiki-section {
   }
 }
 </style>

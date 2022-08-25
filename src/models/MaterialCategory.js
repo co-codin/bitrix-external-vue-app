@@ -9,4 +9,8 @@ export default class MaterialCategory extends Model
   enabled() {
     return this.where('is_enabled', 1)
   }
+
+  hasMaterials() {
+    return this.where('has_materials', 1)
+  }
 }
