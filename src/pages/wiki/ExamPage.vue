@@ -36,6 +36,9 @@ export default {
   components: {
     ExamQuestion
   },
+  title() {
+    return `Экзамен: ${this.exam?.name}`
+  },
   mixins: [HasLoading],
   data: () => ({
     exam: null,

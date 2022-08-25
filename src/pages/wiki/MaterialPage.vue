@@ -85,6 +85,9 @@ export default {
     blocks: [],
     exams: []
   }),
+  title() {
+    return `Материал: ${this.material?.name}`
+  },
   computed: {
     tableOfContents() {
       return []
