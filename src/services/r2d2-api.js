@@ -18,7 +18,9 @@ api.interceptors.request.use((config) => {
 
   config.headers['BitrixAccessToken'] = process.env.VUE_APP_BITRIX_USER_TOKEN
 
-  config.headers['Authorization'] = `Bearer ${store.state.user.r2d2Token}`
+  // config.headers['Authorization'] = `Bearer ${store.state.user.r2d2Token}`
+
+  config.headers['Authorization'] = `Bearer ${process.env.VUE_APP_BITRIX_USER_TOKEN}`
 
   return config
 })
