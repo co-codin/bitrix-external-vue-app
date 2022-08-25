@@ -23,7 +23,7 @@ export const routes = [
 
 const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL || '/',
+  base: '/vue-app',
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
 
