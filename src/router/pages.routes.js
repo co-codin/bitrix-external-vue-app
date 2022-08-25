@@ -1,20 +1,5 @@
 export default [
   {
-    path: '/',
-    name: 'home',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/HomePage.vue'),
-    meta: {
-      layout: 'simple'
-    }
-  },
-  {
-    path: '/home-page-test',
-    name: 'home.page.test',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/HomePageTest.vue'),
-    meta: {
-      layout: 'simple'
-    }
-  }, {
     path: '/external',
     name: 'external-app.home',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/ExternalHomePage.vue')
@@ -51,7 +36,7 @@ export default [
     name: 'wiki.exam',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
   }, {
-    path: '/wiki',
+    path: '/',
     name: 'wiki.index',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiIndex'),
     meta: {
@@ -67,7 +52,10 @@ export default [
   },  {
     path: '/wiki/exams/:id',
     name: 'wiki.exams.show',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
+    meta: {
+      layout: 'simple'
+    }
   }, {
     path: '/users/profile-qr-code',
     name: 'users.profile-qr-code',

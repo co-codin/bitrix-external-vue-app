@@ -54,20 +54,30 @@
 </template>
 
 <script>
-import LayoutMixin from '@/mixins/layout'
+// import LayoutMixin from '@/mixins/layout'
 import MaterialTree from '@/components/wiki/MaterialTree'
+import PageLoader from '@/components/PageLoader'
 
 export default {
   components: {
-    MaterialTree
+    MaterialTree,
+    PageLoader
   },
   mixins: [
-    LayoutMixin
+    // LayoutMixin
   ],
+  title() {
+    return 'База знаний'
+  },
   data: () => ({
     fab: false,
-    showCommandPalette: false
+    showCommandPalette: false,
+    loaded: false,
+    error: null
   }),
+  created() {
+    this.loaded = true
+  },
   methods: {
     onScroll(e) {
       if (typeof window === 'undefined') return
