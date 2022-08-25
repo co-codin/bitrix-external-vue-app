@@ -11,7 +11,7 @@
 @task('deploy-app')
   cd /home/extwww/ext_www/test-bitrix.medeqstars.com/local/js/vue-app2
   git reset --hard && git clean -df
-  git pull origin master
+  git pull origin dev
   npm install
   npm run build
 @endtask

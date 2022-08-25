@@ -40,7 +40,7 @@ module.exports = {
     'vuetify'
   ],
 
-  publicPath: '/vue',
+  publicPath: '/vue-app',
   outputDir: '../../../vue-app',
   indexPath: 'index.php'
 }
