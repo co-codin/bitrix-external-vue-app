@@ -1,4 +1,57 @@
 export default [
+  // Error pages
+  {
+    path: '/error/not-found',
+    name: 'error-not-found',
+    component: () => import(/* webpackChunkName: "error-not-found" */ '@/pages/error/NotFoundPage.vue'),
+    meta: {
+      layout: 'error'
+    }
+  }, {
+    path: '/error/unexpected',
+    name: 'error-unexpected',
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/error/UnexpectedPage.vue'),
+    meta: {
+      layout: 'error'
+    }
+  },
+
+  // Main pages
+  {
+    path: '/',
+    name: 'dashboard',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/DashboardPage')
+  },
+
+  // Wiki
+  {
+    path: '/wiki/exam',
+    name: 'wiki.exam',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
+  }, {
+    path: '/wiki',
+    name: 'wiki.index',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiIndex'),
+    meta: {
+      layout: 'academy'
+    }
+  }, {
+    path: '/wiki/materials/:id',
+    name: 'wiki.materials.show',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialPage'),
+    meta: {
+      layout: 'academy'
+    }
+  }, {
+    path: '/wiki/exams/:id',
+    name: 'wiki.exams.show',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
+    meta: {
+      layout: 'simple'
+    }
+  },
+
+  // External app routes
   {
     path: '/external',
     name: 'external-app.home',
@@ -28,35 +81,6 @@ export default [
     name: 'tasks.change-task-status',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/tasks/ChangeTaskStatus.vue')
   }, {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/DashboardPage')
-  }, {
-    path: '/wiki/exam',
-    name: 'wiki.exam',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
-  }, {
-    path: '/',
-    name: 'wiki.index',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiIndex'),
-    meta: {
-      layout: 'academy'
-    }
-  },  {
-    path: '/wiki/materials/:id',
-    name: 'wiki.materials.show',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialPage'),
-    meta: {
-      layout: 'academy'
-    }
-  },  {
-    path: '/wiki/exams/:id',
-    name: 'wiki.exams.show',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
-    meta: {
-      layout: 'simple'
-    }
-  }, {
     path: '/users/profile-qr-code',
     name: 'users.profile-qr-code',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/users/UserProfileQRCode.vue')
@@ -76,19 +100,5 @@ export default [
     path: '/deals/reports/filling-statistics/by-managers',
     name: 'deals.reports.filling-statistics-by-managers',
     component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/deals/reports/FillingStatisticsByManagers.vue')
-  },
-  {
-    path: '/error/not-found',
-    name: 'error-not-found',
-    component: () => import(/* webpackChunkName: "error-not-found" */ '@/pages/error/NotFoundPage.vue'),
-    meta: {
-      layout: 'error'
-    }
-  }, {
-    path: '/error/unexpected',
-    name: 'error-unexpected',
-    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/error/UnexpectedPage.vue'),
-    meta: {
-      layout: 'error'
-    }
-  }]
+  }
+]
