@@ -37,6 +37,7 @@ export default {
     draggable,
     Academy
   },
+  title: 'Рабочий стол',
   data() {
     return {
     }
