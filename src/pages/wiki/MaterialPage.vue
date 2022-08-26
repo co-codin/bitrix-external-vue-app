@@ -11,7 +11,7 @@
         type="button"
       />
       <v-skeleton-loader
-        class="mb-2"
+        class="mb-2 mt-4"
         type="heading"
       />
       <v-skeleton-loader
