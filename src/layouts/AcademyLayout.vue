@@ -1,10 +1,12 @@
 <template>
-  <div ref="layout" class="pa-2">
+  <v-container fluid ref="layout" class="py-2">
     <v-text-field
       solo
       placeholder="Поиск по базе знаний..."
       prepend-inner-icon="search"
       hide-details
+      :rounded="false"
+      flat
       class="mb-1"
       readonly
       @click="openCommandPalette"
@@ -12,17 +14,12 @@
     <v-row class="academy-content mt-1" dense>
       <v-col
         class="academy-content__sidebar"
-        cols="2"
-        md="3"
-        lg="3"
-        xl="2"
+        cols="3"
       >
         <material-tree/>
       </v-col>
-      <v-col cols="9" lg="7" xl="6" class="academy-content__main">
-        <div class="mt-4 px-9">
-          <slot></slot>
-        </div>
+      <v-col cols="9" class="academy-content__main">
+        <slot></slot>
       </v-col>
     </v-row>
     <v-btn
@@ -43,7 +40,7 @@
         <v-autocomplete solo placeholder="Поиск по материалам" hide-details prepend-inner-icon="search" />
       </v-card>
     </v-dialog>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -76,11 +73,11 @@ export default {
 
 <style lang="scss">
 .academy-content {
-  background: white;
   &__sidebar {
-    background: #f2f5f8;
   }
   &__main > div {
+    background: white;
+    height: 100%;
   }
 }
 </style>

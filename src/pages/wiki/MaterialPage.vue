@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="px-10 py-6">
     <template v-if="loading">
       <v-row
         class="fill-height mt-3 mb-10"
