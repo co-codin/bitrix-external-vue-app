@@ -1,6 +1,18 @@
-import PageLoader from '../components/PageLoader'
+<template>
+  <div ref="layout" class="pa-2">
+    <page-loader v-if="!loaded" />
+    <v-alert v-else-if="error" type="error" text>
+      Произошла ошибка при загрузке Битрикс 24
+    </v-alert>
+    <slot v-else></slot>
+  </div>
+</template>
+
+<script>
+import PageLoader from '@/components/PageLoader'
 
 export default {
+
   components: {
     PageLoader
   },
@@ -52,3 +64,4 @@ export default {
     }
   }
 }
+</script>

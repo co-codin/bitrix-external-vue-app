@@ -45,60 +45,93 @@ export default [
   }, {
     path: '/wiki/exams/:id',
     name: 'wiki.exams.show',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
-    meta: {
-      layout: 'simple'
-    }
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
   },
 
   // External app routes
   {
     path: '/external',
     name: 'external-app.home',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/AppHomePage.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/AppHomePage.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/install-apps',
     name: 'install-apps',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/InstallApps.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/InstallApps.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/settings',
     name: 'settings',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/SettingsPage.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/SettingsPage.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/tasks/create-supplier-tasks',
     name: 'tasks.create-supplier-tasks',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/CreateSupplierTasks.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/CreateSupplierTasks.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/tasks/documents',
     name: 'tasks.documents',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/TaskDocuments.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/TaskDocuments.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/tasks/create-base-supplier-task',
     name: 'tasks.create-base-supplier-task',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/CreateBaseSupplierTask.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/CreateBaseSupplierTask.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/tasks/change-task-status',
     name: 'tasks.change-task-status',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/ChangeTaskStatus.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/tasks/ChangeTaskStatus.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/users/profile-qr-code',
     name: 'users.profile-qr-code',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/users/UserProfileQRCode.vue')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/external/users/UserProfileQRCode.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/deals/reports',
     name: 'deals.reports',
-    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/DealReports.vue')
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/DealReports.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/deals/reports/deal-count',
     name: 'deals.reports.deal-count',
-    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/DealCount.vue')
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/DealCount.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/deals/reports/filling-statistics/by-manager',
     name: 'deals.reports.filling-statistics-by-manager',
-    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/FillingStatisticsBySpecificManager.vue')
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/FillingStatisticsBySpecificManager.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }, {
     path: '/deals/reports/filling-statistics/by-managers',
     name: 'deals.reports.filling-statistics-by-managers',
-    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/FillingStatisticsByManagers.vue')
+    component: () => import(/* webpackChunkName: "error-unexpected" */ '@/pages/external/deals/reports/FillingStatisticsByManagers.vue'),
+    meta: {
+      layout: 'externalApp'
+    }
   }
 ]
