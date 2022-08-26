@@ -30,7 +30,11 @@
           @change="search = ''"
         >
           <template #item="{ item }">
-            <v-list-item link :to="{ name: 'wiki.materials.show', params: { id: item.material_id || item.id }, hash: item.material && `#block-${item.id}` }" @click="showCommandPalette = false">
+            <v-list-item
+              link
+              :to="{ name: 'wiki.materials.show', params: { id: item.material_id || item.id }, hash: item.material && `#block-${item.id}` }"
+              @click="showCommandPalette = false"
+            >
               <v-list-item-content>
                 <v-list-item-title>
                   {{ item.material ? item.material.name : item.name }}
