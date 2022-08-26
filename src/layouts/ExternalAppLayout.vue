@@ -48,7 +48,7 @@ export default {
         BX24.init(async () => {
           await this.$store.dispatch('user/loadCurrentUserData')
           await this.$store.dispatch('user/loadCurrentUserAdminStatus')
-          await this.$store.dispatch('user/authInR2D2')
+          // await this.$store.dispatch('user/authInR2D2')
 
           this.loaded = true
         })
