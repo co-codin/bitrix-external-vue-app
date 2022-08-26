@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" />
+    <page-header h1="Установка приложений" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
     <page-loader v-if="loading" message="Идет загрузка приложений" />
     <v-expansion-panels v-else>
       <v-expansion-panel v-for="(app, index) in apps" :key="index">
@@ -48,7 +48,11 @@ export default {
   data: () => ({
     breadcrumbs: [{ text: 'Установка приложений' }],
     loading: true,
-    installedApps: []
+    installedApps: [],
+    homeLink: {
+      text: 'MEDEQ Application',
+      to: { name: 'external-app.home' }
+    }
   }),
   computed: {
     apps() {

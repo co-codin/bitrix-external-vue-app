@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header h1="Настройки" :breadcrumbs="breadcrumbs" />
+    <page-header h1="Настройки" :breadcrumbs="breadcrumbs" :home-link="homeLink" />
     <v-card>
       <v-card-title>Выходные и праздничные дни</v-card-title>
       <v-card-text>
@@ -61,6 +61,10 @@ export default {
           '09.05'
         ],
         settingKey: `holidays-${this.$dayjs().format('YYYY')}`
+      },
+      homeLink: {
+        text: 'MEDEQ Application',
+        to: { name: 'external-app.home' }
       }
     }
 

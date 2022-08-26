@@ -19,15 +19,6 @@
         </v-btn>
       </v-card-text>
     </v-card>
-    <v-card class="mt-3" light>
-      <v-card-title>База знаний</v-card-title>
-      <v-card-subtitle>Материалы из базы знаний</v-card-subtitle>
-      <v-card-text>
-        <v-btn dark :to="{name: 'wiki.index'}">
-          База знаний
-        </v-btn>
-      </v-card-text>
-    </v-card>
   </div>
 </template>
 
