@@ -2,7 +2,6 @@
   <div ref="layout" class="pa-2">
     <v-text-field
       solo
-      rounded
       placeholder="Поиск по базе знаний..."
       prepend-inner-icon="search"
       hide-details

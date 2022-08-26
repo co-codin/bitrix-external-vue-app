@@ -5,9 +5,10 @@
 </template>
 
 <script>
+import HasTitle from '@/mixins/hasTitle'
+
 export default {
-  async created() {
-    
-  }
+  mixins: [HasTitle],
+  title: 'База знаний'
 }
 </script>

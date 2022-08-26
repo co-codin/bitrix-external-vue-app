@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import HasLoading from '@/mixins/has-loading'
+import HasLoadingBar from '@/mixins/hasLoadingBar'
+import HasTitle from '@/mixins/hasTitle'
 import Exam from '@/models/Exam'
 import ExamQuestion from '@/components/wiki/ExamQuestion'
 import shuffle from 'lodash/shuffle'
@@ -37,9 +38,9 @@ export default {
     ExamQuestion
   },
   title() {
-    return `Экзамен: ${this.exam?.name}`
+    return this.exam?.name || 'База знаний'
   },
-  mixins: [HasLoading],
+  mixins: [HasLoadingBar, HasTitle],
   data: () => ({
     exam: null,
     form: null,

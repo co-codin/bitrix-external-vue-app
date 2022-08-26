@@ -67,7 +67,8 @@
 
 <script>
 import Material from '@/models/Material'
-import hasLoading from '@/mixins/has-loading'
+import HasLoadingBar from '@/mixins/hasLoadingBar'
+import HasTitle from '@/mixins/hasTitle'
 import TableOfContents from '@/components/wiki/TableOfContents'
 import { toTree } from '@/utils/helpers'
 import MaterialBlocks from '@/components/wiki/MaterialBlocks'
@@ -78,7 +79,7 @@ export default {
     TableOfContents,
     MaterialBlocks
   },
-  mixins: [hasLoading],
+  mixins: [HasLoadingBar, HasTitle],
   data: () => ({
     showTableOfContents: false,
     material: null,
@@ -86,7 +87,7 @@ export default {
     exams: []
   }),
   title() {
-    return `Материал: ${this.material?.name}`
+    return this.material?.name || 'База знаний'
   },
   computed: {
     tableOfContents() {
