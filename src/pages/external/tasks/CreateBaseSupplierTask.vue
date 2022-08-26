@@ -278,8 +278,8 @@
 </template>
 
 <script>
-import PageHeader from '../../components/PageHeader'
-import DatePickerField from '../../components/DatePickerField'
+import PageHeader from '@/components/PageHeader'
+import DatePickerField from '@/components/DatePickerField'
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 
 export default {

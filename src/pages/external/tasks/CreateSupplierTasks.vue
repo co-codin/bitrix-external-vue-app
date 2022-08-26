@@ -97,8 +97,8 @@
 </template>
 
 <script>
-import PageHeader from '../../components/PageHeader'
-import config from '../../configs'
+import PageHeader from '@/components/PageHeader'
+import config from '@/configs'
 import BX24Wrapper from '@/utils/bx24-wrapper'
 
 export default {

@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import PageHeader from '../components/PageHeader'
-import PageLoader from '../components/PageLoader'
+import PageHeader from '@/components/PageHeader'
+import PageLoader from '@/components/PageLoader'
 
 export default {
   components: {

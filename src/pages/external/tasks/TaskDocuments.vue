@@ -54,7 +54,7 @@
 
 <script>
 import BX24Wrapper from '@/utils/bx24-wrapper'
-import CreateTaskDocument from '@/pages/tasks/components/CreateTaskDocument'
+import CreateTaskDocument from '@/pages/external/tasks/components/CreateTaskDocument'
 
 export default {
   components: {
