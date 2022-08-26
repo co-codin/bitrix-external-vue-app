@@ -1,16 +1,18 @@
 <template>
-  <v-container fluid ref="layout" class="py-2">
-    <v-text-field
-      solo
-      placeholder="Поиск по базе знаний..."
-      prepend-inner-icon="search"
-      hide-details
-      :rounded="false"
-      flat
-      class="mb-1"
-      readonly
-      @click="openCommandPalette"
-    />
+  <v-container ref="layout" fluid class="py-2">
+    <div @click="openCommandPalette">
+      <v-text-field
+        solo
+        placeholder="Поиск по базе знаний..."
+        prepend-inner-icon="search"
+        hide-details
+        :rounded="false"
+        flat
+        class="mb-1"
+        disabled
+        readonly
+      />
+    </div>
     <v-row class="academy-content mt-1" dense>
       <v-col
         class="academy-content__sidebar"
@@ -35,9 +37,9 @@
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
-    <v-dialog v-model="showCommandPalette" max-width="1000px" >
+    <v-dialog v-model="showCommandPalette" max-width="1000px" content-class="search-dialog">
       <v-card>
-        <v-autocomplete solo placeholder="Поиск по материалам" hide-details prepend-inner-icon="search" />
+        <v-autocomplete solo placeholder="Поиск по материалам" hide-details prepend-inner-icon="search"/>
       </v-card>
     </v-dialog>
   </v-container>
@@ -75,9 +77,17 @@ export default {
 .academy-content {
   &__sidebar {
   }
+
   &__main > div {
     background: white;
     height: 100%;
   }
+}
+
+.search-dialog {
+  position: absolute;
+  top: 10%;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 </style>
