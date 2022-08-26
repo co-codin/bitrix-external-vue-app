@@ -8,11 +8,6 @@ Vue.use(Router)
 export const routes = [
   ...PagesRoutes,
   {
-    path: '/blank',
-    name: 'blank',
-    component: () => import(/* webpackChunkName: "blank" */ '@/pages/BlankPage.vue')
-  },
-  {
     path: '*',
     name: 'error',
     component: () => import(/* webpackChunkName: "error" */ '@/pages/error/NotFoundPage.vue'),
