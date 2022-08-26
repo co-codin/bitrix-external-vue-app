@@ -59,7 +59,7 @@ export default {
   },
   data: () => ({
     fab: false,
-    showCommandPalette: false,
+    showCommandPalette: false
   }),
   methods: {
     onScroll(e) {
