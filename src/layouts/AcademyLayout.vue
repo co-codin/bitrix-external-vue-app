@@ -138,11 +138,4 @@ export default {
     height: 100%;
   }
 }
-
-.search-dialog {
-  position: absolute;
-  top: 10%;
-  padding-left: 12px;
-  padding-right: 12px;
-}
 </style>
