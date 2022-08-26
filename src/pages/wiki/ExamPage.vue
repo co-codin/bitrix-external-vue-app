@@ -1,28 +1,36 @@
 <template>
-  <v-form v-if="!loading" @submit.prevent="passExam">
-    <v-container>
-      <h1>{{ exam.name }}</h1>
-      <div v-if="exam.material_id" class="mt-1">
-        <v-btn :to="{ name: 'wiki.materials.show', params: { id: exam.material_id } }" text class="pl-1" color="primary">
-          <v-icon>mdi-chevron-left</v-icon>
-          Вернуться к материалу
-        </v-btn>
-      </div>
-      <v-alert v-if="exam.description" text color="info" class="mt-2">
-        {{ exam.description }}
-      </v-alert>
-      <exam-question
-        v-for="(question, index) in questions"
-        :key="index"
-        :question="question"
-        :errors="getError(index)"
-        @input="updateAnswer(index, $event)"
+  <div>
+    <template v-if="loading">
+      <v-skeleton-loader
+        class="mb-2"
+        type="heading, button, heading, sentences@4, heading, sentences@4, heading, sentences@4"
       />
-      <div class="text-center mt-3">
-        <v-btn type="submit" color="primary">Отправить на проверку</v-btn>
-      </div>
-    </v-container>
-  </v-form>
+    </template>
+    <v-form v-else @submit.prevent="passExam">
+      <v-container>
+        <h1>{{ exam.name }}</h1>
+        <div v-if="exam.material_id" class="mt-1">
+          <v-btn :to="{ name: 'wiki.materials.show', params: { id: exam.material_id } }" text class="pl-1" color="primary">
+            <v-icon>mdi-chevron-left</v-icon>
+            Вернуться к материалу
+          </v-btn>
+        </div>
+        <v-alert v-if="exam.description" text color="info" class="mt-2">
+          {{ exam.description }}
+        </v-alert>
+        <exam-question
+          v-for="(question, index) in questions"
+          :key="index"
+          :question="question"
+          :errors="getError(index)"
+          @input="updateAnswer(index, $event)"
+        />
+        <div class="text-center mt-3">
+          <v-btn type="submit" color="primary">Отправить на проверку</v-btn>
+        </div>
+      </v-container>
+    </v-form>
+  </div>
 </template>
 
 <script>

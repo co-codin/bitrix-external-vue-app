@@ -1,41 +1,12 @@
 <template>
-  <div class="px-10 py-6">
+  <div class="material-page px-10 py-6">
     <template v-if="loading">
       <v-skeleton-loader
-        min-width="300"
-        class="mb-2 mt-3"
-        type="heading"
-      />
-      <v-skeleton-loader
         class="mb-2"
-        type="button"
-      />
-      <v-skeleton-loader
-        class="mb-2 mt-4"
-        type="heading"
-      />
-      <v-skeleton-loader
-        class="mb-2"
-        type="sentences@4"
-      />
-      <v-skeleton-loader
-        class="mb-2"
-        type="heading"
-      />
-      <v-skeleton-loader
-        class="mb-2"
-        type="sentences@4"
-      />
-      <v-skeleton-loader
-        class="mb-2"
-        type="heading"
-      />
-      <v-skeleton-loader
-        class="mb-2"
-        type="sentences@4"
+        type="heading, button, heading, sentences@4, heading, sentences@4, heading, sentences@4"
       />
     </template>
-    <div v-else class="material-page">
+    <div v-else>
       <h1 class="text-h3">{{ material.name }}</h1>
       <div class="table-of-contents mt-3">
         <div v-if="showTableOfContents">
@@ -169,6 +140,9 @@ export default {
 .material-page {
   h1 {
     color: rgba(0, 0, 0, .87) !important;
+  }
+  .v-skeleton-loader__heading {
+    margin: 25px 0;
   }
 }
 </style>

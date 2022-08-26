@@ -27,6 +27,7 @@ import BookingListCard from '@/components/dashboard/BookingListCard'
 import IncomingPaymentListCard from '@/components/dashboard/IncomingPaymentListCard'
 import OutgoingPaymentListCard from '@/components/dashboard/OutgoingPaymentListCard'
 import draggable from 'vuedraggable'
+import HasTitle from '@/mixins/hasTitle'
 
 export default {
   components: {
@@ -37,6 +38,7 @@ export default {
     draggable,
     Academy
   },
+  mixins: [HasTitle],
   title: 'Рабочий стол',
   data() {
     return {
