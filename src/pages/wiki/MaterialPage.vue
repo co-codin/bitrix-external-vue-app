@@ -1,26 +1,39 @@
 <template>
   <div class="px-10 py-6">
     <template v-if="loading">
-      <v-row
-        class="fill-height mt-3 mb-10"
-        align-content="center"
-        justify="center"
-      >
-        <v-col
-          class="text-subtitle-1 text-center"
-          cols="12"
-        >
-          Идет загрузка материала...
-        </v-col>
-        <v-col cols="6">
-          <v-progress-linear
-            color="primary"
-            indeterminate
-            rounded
-            height="6"
-          ></v-progress-linear>
-        </v-col>
-      </v-row>
+      <v-skeleton-loader
+        min-width="300"
+        class="mb-2 mt-3"
+        type="heading"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="button"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="heading"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="sentences@4"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="heading"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="sentences@4"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="heading"
+      />
+      <v-skeleton-loader
+        class="mb-2"
+        type="sentences@4"
+      />
     </template>
     <div v-else class="material-page">
       <h1 class="text-h3">{{ material.name }}</h1>
