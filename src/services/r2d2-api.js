@@ -12,15 +12,9 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
 
-  // config.headers['BitrixAccessToken'] = process.env.NODE_ENV === 'production'
-  //   ? window.BX24.getAuth().access_token
-  //   : process.env.VUE_APP_BITRIX_USER_TOKEN
+  config.headers['BitrixAccessToken'] = window.BX24?.getAuth()?.access_token || process.env.VUE_APP_BITRIX_USER_TOKEN
 
-  config.headers['BitrixAccessToken'] = process.env.VUE_APP_BITRIX_USER_TOKEN
-
-  // config.headers['Authorization'] = `Bearer ${store.state.user.r2d2Token}`
-
-  config.headers['Authorization'] = `Bearer ${process.env.VUE_APP_BITRIX_USER_TOKEN}`
+  config.headers['Authorization'] = `Bearer ${store.state.user.r2d2Token || process.env.VUE_APP_R2D2_USER_TOKEN}`
 
   return config
 })

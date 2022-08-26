@@ -1,3 +1,7 @@
+function isProduction() {
+  return process.env.NODE_ENV === 'production'
+}
+
 module.exports = {
   // https://cli.vuejs.org/config/#productionsourcemap
   productionSourceMap: false,
@@ -40,7 +44,7 @@ module.exports = {
     'vuetify'
   ],
 
-  publicPath: '/vue-app',
-  outputDir: '../../../vue-app',
-  indexPath: 'index.php'
+  publicPath: isProduction() ? process.env.BASE_URL : '/',
+  outputDir: process.env.OUTPUT_DIR || 'dist',
+  indexPath: process.env.INDEX_PATH || 'index.html'
 }
