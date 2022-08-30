@@ -74,7 +74,7 @@ export default {
         material_categories: ['id', 'name', 'parent_id']
       })
       .enabled()
-      .hasMaterials()
+      // .hasMaterials()
       .orderBy('name')
       .$all()
 
