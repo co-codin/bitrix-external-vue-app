@@ -8,7 +8,6 @@
     </template>
     <v-form v-else @submit.prevent="passExam">
       <v-container>
-        <h1>{{ exam.name }}</h1>
         <div v-if="exam.material_id" class="mt-1">
           <v-btn :to="{ name: 'wiki.materials.show', params: { id: exam.material_id } }" text class="pl-1" color="primary">
             <v-icon>mdi-chevron-left</v-icon>
