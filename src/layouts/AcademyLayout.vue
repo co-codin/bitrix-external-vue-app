@@ -1,6 +1,6 @@
 <template>
   <v-container ref="layout" fluid class="py-2">
-    <wiki-search />
+    <wiki-search/>
     <v-row class="academy-content mt-1" dense>
       <v-col
         class="academy-content__sidebar"
@@ -13,15 +13,14 @@
       </v-col>
     </v-row>
     <v-btn
-      v-show="fab"
-      v-scroll="onScroll"
+      v-show="scY > 500"
       fab
       dark
       fixed
       bottom
       right
       color="primary"
-      @click="$vuetify.goTo(0)"
+      @click="toTop"
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
@@ -41,14 +40,29 @@ export default {
     return 'База знаний'
   },
   data: () => ({
-    fab: false
+    scTimer: 0,
+    scY: 0
   }),
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
-    onScroll(e) {
-      if (typeof window === 'undefined') return
-      const top = window.pageYOffset || e.target.scrollTop || 0
-
-      this.fab = top > 40
+    handleScroll() {
+      if (this.scTimer) return
+      this.scTimer = setTimeout(() => {
+        this.scY = window.scrollY
+        clearTimeout(this.scTimer)
+        this.scTimer = 0
+      }, 100)
+    },
+    toTop: function () {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
   }
 }
