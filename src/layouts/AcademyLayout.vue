@@ -50,7 +50,7 @@ export default {
 
       const top = window.pageYOffset || e.target.scrollTop || 0
 
-      this.fab = top > 500
+      this.fab = top > 1000
     },
     scrollToTop() {
       this.$vuetify.goTo(0, { duration: 0 })
