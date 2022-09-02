@@ -20,6 +20,7 @@
       fixed
       bottom
       right
+      class="mr-5"
       color="primary"
       @click="$vuetify.goTo(0)"
     >
