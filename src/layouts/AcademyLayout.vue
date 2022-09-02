@@ -1,6 +1,6 @@
 <template>
   <v-container ref="layout" fluid class="py-2">
-    <wiki-search />
+    <wiki-search/>
     <v-row class="academy-content mt-1" dense>
       <v-col
         class="academy-content__sidebar"
@@ -22,7 +22,7 @@
       right
       class="mr-5"
       color="primary"
-      @click="$vuetify.goTo(0)"
+      @click="scrollToTop"
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
@@ -47,9 +47,13 @@ export default {
   methods: {
     onScroll(e) {
       if (typeof window === 'undefined') return
+
       const top = window.pageYOffset || e.target.scrollTop || 0
 
-      this.fab = top > 40
+      this.fab = top > 500
+    },
+    scrollToTop() {
+      this.$vuetify.goTo(0, { duration: 0 })
     }
   }
 }
