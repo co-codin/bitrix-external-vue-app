@@ -42,6 +42,10 @@ export default [
     path: '/wiki/exams/:id',
     name: 'wiki.exams.show',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
+  },  {
+    path: '/wiki/exams/:id/results',
+    name: 'wiki.exams.results',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamResultsPage')
   }, {
     path: '/wiki/tags/:id',
     name: 'wiki.tags.show',
