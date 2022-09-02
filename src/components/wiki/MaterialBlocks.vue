@@ -1,11 +1,7 @@
 <template>
   <div>
     <div v-for="(block, index) in transformedBlocks" :key="index">
-      <material-block :block="block" :depth="depth">
-<!--        <template #name="{ title }">-->
-<!--          {{ block.number }}. {{ title }}-->
-<!--        </template>-->
-      </material-block>
+      <material-block :block="block" :depth="depth" />
       <material-blocks
         v-if="block.children && block.children.length"
         :depth="depth + 1"

@@ -1,13 +1,16 @@
 <template>
   <div :id="`block-${block.id}`" class="wiki-section mt-5">
-    <h2 class="wiki-section__title" :class="hClass">
-      <a :href="`#block-${block.id}`" @click.prevent="copyLink(block.id)">
-        <slot name="name" :title="block.name">
+    <slot name="title" :block="block" :copy-link="copyLink">
+      <h2 class="wiki-section__title" :class="hClass">
+        <a :href="`#block-${block.id}`" @click.prevent="copyLink(block.id)">
           {{ block.name }}
-        </slot>
-      </a>
-    </h2>
-    <div class="wiki-section__content topic" v-html="block.body"></div>
+        </a>
+      </h2>
+    </slot>
+    <slot name="subtitle" :block="block"></slot>
+    <slot>
+      <div class="wiki-section__content topic" v-html="block.body"></div>
+    </slot>
   </div>
 </template>
 
@@ -20,7 +23,7 @@ export default {
     },
     depth: {
       type: Number,
-      required: true
+      default: 1
     }
   },
   data() {

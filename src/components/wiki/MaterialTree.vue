@@ -94,7 +94,7 @@ export default {
       const materialId = e?.[0]
 
       if (!materialId) {
-        await this.$router.push({ name: 'wiki.index' })
+        // await this.$router.push({ name: 'wiki.index' })
 
         return
       }

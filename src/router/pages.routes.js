@@ -25,10 +25,6 @@ export default [
 
   // Wiki
   {
-    path: '/wiki/exam',
-    name: 'wiki.exam',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
-  }, {
     path: '/wiki',
     name: 'wiki.index',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiIndex'),
@@ -46,6 +42,13 @@ export default [
     path: '/wiki/exams/:id',
     name: 'wiki.exams.show',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
+  }, {
+    path: '/wiki/tags/:id',
+    name: 'wiki.tags.show',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/TagPage'),
+    meta: {
+      layout: 'academy'
+    }
   },
 
   // External app routes
