@@ -70,7 +70,7 @@ export default {
       return !!this.question.properties?.has_multiple_answers
     },
     isFreeAnswer() {
-      return this.question.answer_type === 'free'
+      return this.question.answer_type === 'FREE'
     },
     defaultDescription() {
       if (this.isFreeAnswer) {
