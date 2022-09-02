@@ -3,26 +3,44 @@
     <h1 class="text-h3">База знаний</h1>
     <div class="mt-3 topic">
       <p>
-        Добро пожаловать в Базу знаний!
+        Дорогие коллеги, добро пожаловать в Базу знаний!
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab adipisci aliquam cum debitis eligendi eveniet illum incidunt magni, modi molestiae mollitia nostrum numquam quae quas repellat sit vero. Atque debitis, ipsa laudantium natus odit quibusdam quisquam tempore! A ab aliquid amet architecto consectetur cum dicta distinctio eaque esse est fugiat harum illum inventore ipsum iusto labore laboriosam maxime minus nihil nostrum nulla, perspiciatis, praesentium quis ratione similique vitae voluptate voluptatum? Cum cupiditate esse explicabo minus nihil obcaecati quos tempora voluptatem. Alias corporis optio ut. Commodi ea ipsum neque nesciunt voluptatum. Consectetur corporis est eveniet labore necessitatibus officiis, quas reiciendis veritatis?
+        В скором времени База знаний станет местом, где вы сможете найти ответ на абсолютно любой рабочий вопрос.
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci autem cumque debitis deserunt eaque earum et ex facere, illo inventore ipsa maiores perferendis voluptas! Adipisci alias beatae consequatur cupiditate distinctio esse excepturi hic ipsa iste minus natus odio officia officiis omnis, possimus praesentium quidem quisquam quo recusandae sapiente sequi similique vel voluptas voluptatibus voluptatum. Blanditiis esse minima obcaecati provident veniam? A accusamus accusantium ad adipisci animi, assumenda consectetur consequuntur cupiditate dicta ducimus eaque eius error eveniet expedita fuga impedit ipsam laboriosam, optio perferendis quis quod, sapiente velit. Assumenda at dolores ea explicabo optio perspiciatis quibusdam quos. Animi ea eligendi velit!
+        В настоящее время реализован функционал блока **Академия.MEDEQ**.
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias atque consequatur cumque, doloremque eligendi explicabo fugit nostrum numquam placeat quae, quia quibusdam quisquam quod totam vel. Aliquam aut enim officiis placeat quisquam repellat repudiandae voluptatem! Accusamus aperiam architecto doloremque eaque mollitia odio quo ullam voluptates voluptatibus. Accusantium delectus eius ex nobis quam rem suscipit. Ab alias amet asperiores aut consectetur culpa, enim, ex ipsa ipsam ipsum iure labore minima minus molestiae natus nobis officiis provident quibusdam quidem repudiandae similique tenetur ullam voluptatibus? Accusamus accusantium ea eligendi modi molestiae neque nisi pariatur quo quod sapiente. Animi blanditiis deleniti eos optio veniam?
+        В первую очередь это образовательная платформа, на которой будет проходить обучение новых сотрудников посредством текстовых, аудио- и видеоматериалов. Проверить полученные знания можно будет при помощи экзаменов, которые будут включать в себя разноплановые задания. Вы будете видеть свой план обучения, который приведет вас к максимальной продуктивности в кратчайшие сроки, сможете сами контролировать свой прогресс, результаты экзаменов. Все будет абсолютно прозрачно!
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure quae quaerat quis sequi vero! Aliquam atque deleniti deserunt distinctio inventore nesciunt numquam optio, perferendis recusandae voluptas. Accusamus asperiores autem, beatae debitis id ipsam ipsum laboriosam minima molestiae natus nesciunt nisi odit optio perspiciatis placeat reiciendis rerum saepe ullam vel voluptate. Accusantium aliquid blanditiis delectus deleniti laboriosam nam necessitatibus nostrum quibusdam reprehenderit voluptatum? Alias amet animi assumenda debitis dicta dolorum eligendi esse eum facilis fuga harum, id itaque libero molestias neque nesciunt odio porro quo ratione recusandae repudiandae, temporibus, voluptatem? Consectetur distinctio ea harum illum ipsum magni officia officiis possimus, quis?
+        Но и для “старичков” данный портал будет полезен – здесь можно будет найти алгоритм процесса, описание чего-либо, что забылось из-за редкого использования или же шагов так много, что можно легко запутаться. Например, вбив в строку поиска естественный вопрос: “Как оформить договор рассрочки?” – система выдаст вам ответ в виде алгоритма действий.
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias atque consequatur cumque, doloremque eligendi explicabo fugit nostrum numquam placeat quae, quia quibusdam quisquam quod totam vel. Aliquam aut enim officiis placeat quisquam repellat repudiandae voluptatem! Accusamus aperiam architecto doloremque eaque mollitia odio quo ullam voluptates voluptatibus. Accusantium delectus eius ex nobis quam rem suscipit. Ab alias amet asperiores aut consectetur culpa, enim, ex ipsa ipsam ipsum iure labore minima minus molestiae natus nobis officiis provident quibusdam quidem repudiandae similique tenetur ullam voluptatibus? Accusamus accusantium ea eligendi modi molestiae neque nisi pariatur quo quod sapiente. Animi blanditiis deleniti eos optio veniam?
+        Но, как говорится, одним функционал сыт не будешь, поэтому нам понадобится еще некоторое время, чтобы заполнить данный блок корректной и, главное, актуальной информацией! Но уже сейчас вы сможете найти для себя что-то интересное.
       </p>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure quae quaerat quis sequi vero! Aliquam atque deleniti deserunt distinctio inventore nesciunt numquam optio, perferendis recusandae voluptas. Accusamus asperiores autem, beatae debitis id ipsam ipsum laboriosam minima molestiae natus nesciunt nisi odit optio perspiciatis placeat reiciendis rerum saepe ullam vel voluptate. Accusantium aliquid blanditiis delectus deleniti laboriosam nam necessitatibus nostrum quibusdam reprehenderit voluptatum? Alias amet animi assumenda debitis dicta dolorum eligendi esse eum facilis fuga harum, id itaque libero molestias neque nesciunt odio porro quo ratione recusandae repudiandae, temporibus, voluptatem? Consectetur distinctio ea harum illum ipsum magni officia officiis possimus, quis?
+        В конечном счете, в блоке Академия.MEDEQ будут собраны алгоритмы/инструкции всех процессов в компании, все обучающие материалы по направлениям, вся сопутствующая документация.
       </p>
+      <p>
+        <b>to be continued…</b>
+      </p>
+      <p>P.S. Любые предложения и пожелания по улучшению, изменению, внесению новой информации, найденные ошибки, неточности просьба без стеснения сообщать по следующим каналам связи Кочанову Ивану в любое удобное для вас время:</p>
+      <ol>
+        <li>
+          Telegram @EvilMedicman
+        </li>
+        <li>
+          WhatsApp 89164466715
+        </li>
+        <li>
+          E-mail i.kochanov@medeq.ru
+        </li>
+        <li>
+          Лично при встрече
+        </li>
+      </ol>
     </div>
   </div>
 </template>
