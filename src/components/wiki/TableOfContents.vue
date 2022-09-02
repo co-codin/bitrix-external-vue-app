@@ -25,8 +25,7 @@ export default {
   }),
   methods: {
     goTo(section) {
-      document.getElementById(section).scrollIntoView()
-      // this.$vuetify.goTo(`#${section}`, this.scrollOptions)
+      this.$vuetify.goTo(`#${section}`, this.scrollOptions)
     }
   }
 }
