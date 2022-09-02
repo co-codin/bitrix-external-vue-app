@@ -30,22 +30,47 @@
           @change="search = ''"
         >
           <template #item="{ item }">
-            <v-list-item
-              link
-              :to="{ name: 'wiki.materials.show', params: { id: item.material_id || item.id }, hash: item.material && `#block-${item.id}` }"
-              @click="showCommandPalette = false"
-            >
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ item.material ? item.material.name : item.name }}
-                </v-list-item-title>
-                <template v-if="item.material && item.type === 'block'">
+
+            <template v-if="item.type === 'tag'">
+              <v-list-item link :to="{ name: 'wiki.tags.show', params: { id: item.id } }" @click="showCommandPalette = false">
+                <v-list-item-content>
+                  <v-list-item-title>
+                    # {{ item.name }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <template v-else-if="item.type === 'material'">
+              <v-list-item
+                link
+                :to="{ name: 'wiki.materials.show', params: { id: item.id } }"
+                @click="showCommandPalette = false"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.name }}
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <template v-else-if="item.type === 'block'">
+              <v-list-item
+                link
+                :to="{ name: 'wiki.materials.show', params: { id: item.material_id }, hash: `#block-${item.id}` }"
+                @click="showCommandPalette = false"
+              >
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ item.material.name }}
+                  </v-list-item-title>
                   <v-list-item-subtitle>
                     {{ item.name }}
                   </v-list-item-subtitle>
-                </template>
-              </v-list-item-content>
-            </v-list-item>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
           </template>
           <template #no-data>
             <v-list-item v-if="!search || search.length < 2">
