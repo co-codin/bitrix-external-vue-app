@@ -78,7 +78,7 @@ export default {
       return []
     },
     blockTree() {
-      return toTree(this.blocks)
+      return toTree(this.blocks, 'id', 'parent_id', 'position')
     },
     blockTreeWithExams() {
       if (!this.exams.length) {

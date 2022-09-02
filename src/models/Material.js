@@ -9,7 +9,7 @@ export default class Material extends Model
   }
 
   enabled() {
-    return this.where('is_enabled', 1)
+    return this.where('status', 'ACTIVE')
   }
 
   blocks() {

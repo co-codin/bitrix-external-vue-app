@@ -23,7 +23,7 @@ export function keyBy(items, key) {
   return items.reduce((o, key) => ({ ...o, [key.ID]: { ...key } }), {})
 }
 
-export function toTree(dataset, key = 'id', parentKey = 'parent_id') {
+export function toTree(dataset, key = 'id', parentKey = 'parent_id', sortKey = 'name') {
   const hashTable = Object.create(null)
 
   dataset.forEach((item) => (hashTable[item[key]] = { ...item, children: [] }))
@@ -40,10 +40,10 @@ export function toTree(dataset, key = 'id', parentKey = 'parent_id') {
         children: dataTree[index].children.sort((a, b) => {
           let ret = 0
 
-          if (a.name < b.name) {
+          if (a[sortKey] < b[sortKey]) {
             ret = -1
           }
-          if (a.name > b.name) {
+          if (a[sortKey] > b[sortKey]) {
             ret = 1
           }
 
@@ -54,10 +54,10 @@ export function toTree(dataset, key = 'id', parentKey = 'parent_id') {
     .sort((a, b) => {
       let ret = 0
 
-      if (a.name < b.name) {
+      if (a[sortKey] < b[sortKey]) {
         ret = -1
       }
-      if (a.name > b.name) {
+      if (a[sortKey] > b[sortKey]) {
         ret = 1
       }
 
