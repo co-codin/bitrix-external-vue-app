@@ -9,7 +9,7 @@
     </slot>
     <slot name="subtitle" :block="block"></slot>
     <slot>
-      <div class="wiki-section__content topic" v-html="block.body"></div>
+      <div class="wiki-section__content topic" v-html="formattedBody"></div>
     </slot>
   </div>
 </template>
@@ -35,6 +35,10 @@ export default {
       const h = this.depth + 3
 
       return `text-h${h}`
+    },
+    formattedBody() {
+      return (this.block.body ?? '')
+        .replace(/<p>&nbsp;<\/p>/g, '')
     }
   },
   methods: {

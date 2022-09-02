@@ -35,6 +35,7 @@ $blue-light: #572fcf;
   a {
     color: $blue;
     border-bottom: 1px solid $blue;
+    text-decoration: none;
     &:hover {
       color: $blue-light;
     }
@@ -59,7 +60,6 @@ $blue-light: #572fcf;
       &::before {
         content: "";
         position: absolute;
-        display: inline-block;
         width: 6px;
         height: 6px;
         border-radius: 50%;
@@ -78,7 +78,7 @@ $blue-light: #572fcf;
     padding-left: 10px;
     margin-top: 4px;
     > li {
-      padding: 0;
+      padding: 0 0 0 27px;
       margin: 0;
       color: $black;
       position: relative;
@@ -91,7 +91,7 @@ $blue-light: #572fcf;
         color: #262626;
         top: 0;
         left: 0;
-        position: static;
+        position: absolute;
         background: none;
         width: auto;
         height: auto;
@@ -103,7 +103,19 @@ $blue-light: #572fcf;
         margin: 4px 0 0;
       }
       ul {
-        padding-left: 32px;
+        padding-left: 10px;
+      }
+      p {
+        margin-top: 0;
+      }
+      p + p {
+        margin-top: 1rem;
+      }
+      ol > li {
+        padding-left: 43px;
+        ol > li {
+          padding-left: 57px;
+        }
       }
     }
   }
@@ -151,6 +163,8 @@ $blue-light: #572fcf;
   }
   table {
     width: 100%;
+    height: auto;
+    max-width: 100%;
     display: table;
     border-collapse: collapse;
     border-spacing: 2px;
@@ -159,18 +173,16 @@ $blue-light: #572fcf;
   table thead td {
     border-bottom-width: 2px;
   }
-  table thead th, table tr:first-child td {
+  table th {
     vertical-align: bottom;
     background: #eef2f8;
     color: #6e7fa2;
     font-weight: 400;
   }
-  table tbody td,
-  table tbody th {
+  table tr, table td, table th {
+    height: auto !important;
   }
-  table td,
-  table th,
-  table tr:first-child td
+  table td, table th
   {
     border-top: 1px solid #dee2e6;
     vertical-align: top;
@@ -183,6 +195,12 @@ $blue-light: #572fcf;
   table tr:last-child td {
     border-bottom: 1px solid #dee2e6;
   }
+  table td p, table th p {
+    margin-top: 0;
+  }
+  table td p + p, table th p + p {
+    margin-top: 1rem;
+  }
   .table-responsive {
     display: block;
     width: 100%;
@@ -193,7 +211,11 @@ $blue-light: #572fcf;
   img {
     display: block;
     width: 100%;
-    max-width: 750px;
+    height: auto;
+    max-width: 600px;
     margin: 0 auto;
+  }
+  p + img, br + img {
+    margin-top: 1rem;
   }
 }
