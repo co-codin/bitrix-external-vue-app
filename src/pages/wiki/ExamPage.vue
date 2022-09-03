@@ -6,6 +6,11 @@
         type="heading, button, heading, sentences@4, heading, sentences@4, heading, sentences@4"
       />
     </template>
+    <template v-else-if="error">
+      <v-alert type="error">
+        {{ error }}
+      </v-alert>
+    </template>
     <v-form v-else @submit.prevent="passExam">
       <v-container fluid class="pt-0 pb-4">
         <div v-if="exam.material_id" class="mt-1">
@@ -36,6 +41,7 @@
 import HasLoadingBar from '@/mixins/hasLoadingBar'
 import HasTitle from '@/mixins/hasTitle'
 import Exam from '@/models/Exam'
+import ExamStat from '@/models/ExamStat'
 import ExamQuestion from '@/components/wiki/ExamQuestion'
 import shuffle from 'lodash/shuffle'
 import Form from 'form-backend-validation'
@@ -51,12 +57,16 @@ export default {
   data: () => ({
     exam: null,
     form: null,
-    questions: []
+    questions: [],
+    error: null
   }),
   async created() {
     await this.loadExam()
     await this.loadExamQuestions()
     this.initializeForm()
+
+    await this.checkExamOnModeration()
+
     this.hideLoading()
   },
   methods: {
@@ -105,6 +115,13 @@ export default {
       })
 
       return errors
+    },
+    async checkExamOnModeration() {
+      const examStat = await ExamStat.where('exam_id', this.exam.id).where('status', 'ON_MODERATION').$first()
+
+      if (examStat && examStat.id) {
+        this.error = 'Вы уже отправили этот экзамен на проверку'
+      }
     }
   }
 }
