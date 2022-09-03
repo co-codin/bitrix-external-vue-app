@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import PagesRoutes from './pages.routes'
 
+import store from '../store'
+
 Vue.use(Router)
 
 export const routes = [
@@ -30,8 +32,24 @@ const router = new Router({
 /**
  * Before each route update
  */
-router.beforeEach((to, from, next) => {
-  return next()
+router.beforeEach(async (to, from, next) => {
+
+  if (!to.meta?.middleware) {
+    return next()
+  }
+
+  const { middleware } = to.meta
+
+  const context = {
+    to,
+    from,
+    next,
+    store
+  }
+
+  return await middleware({
+    ...context
+  })
 })
 
 /**

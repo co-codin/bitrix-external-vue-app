@@ -1,5 +1,4 @@
 import BX24Wrapper from '@/utils/bx24-wrapper'
-import r2d2Api from '@/services/r2d2-api'
 
 export default {
   namespaced: true,
@@ -24,6 +23,7 @@ export default {
   },
   getters: {
     user: (state) => state.user,
+    r2d2Token: (state) => state.r2d2Token,
     isAdmin: (state) => (module = null) => state.isAdmin || (module && (state.admins[module]?.includes(+state.user.ID) || false))
   },
   mutations: {
@@ -45,12 +45,20 @@ export default {
       // commit('SET_USER', user)
     },
     async authInR2D2({ commit }) {
+      if (process.env.NODE_ENV !== 'production') {
+        commit('SET_R2D2_TOKEN', process.env.VUE_APP_R2D2_USER_TOKEN)
 
-      const { data } = await r2d2Api.get('/login-by-bitrix-token')
+        return
+      }
 
-      console.log(data)
+      try {
+        const response = await BX.ajax.runAction('medeq:main.controller.Auth.getToken')
 
-      commit('SET_R2D2_TOKEN', data.token)
+        console.log(response)
+      }
+      catch (e) {
+        console.log(e)
+      }
     },
     async loadCurrentUserAdminStatus({ commit }) {
       const isAdmin = await new BX24Wrapper().callMethod('user.admin')

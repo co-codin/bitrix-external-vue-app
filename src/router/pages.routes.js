@@ -1,3 +1,5 @@
+import r2d2Auth from '../middleware/r2d2-auth'
+
 export default [
   // Error pages
   {
@@ -20,7 +22,10 @@ export default [
   {
     path: '/',
     name: 'dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/DashboardPage')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/DashboardPage'),
+    meta: {
+      middleware: r2d2Auth
+    }
   },
 
   // Wiki
@@ -29,29 +34,38 @@ export default [
     name: 'wiki.index',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/WikiIndex'),
     meta: {
-      layout: 'academy'
+      layout: 'academy',
+      middleware: r2d2Auth
     }
   }, {
     path: '/wiki/materials/:id',
     name: 'wiki.materials.show',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/MaterialPage'),
     meta: {
-      layout: 'academy'
+      layout: 'academy',
+      middleware: r2d2Auth
     }
   }, {
     path: '/wiki/exams/:id',
     name: 'wiki.exams.show',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamPage'),
+    meta: {
+      middleware: r2d2Auth
+    }
   },  {
     path: '/wiki/exams/:id/results',
     name: 'wiki.exams.results',
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamResultsPage')
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamResultsPage'),
+    meta: {
+      middleware: r2d2Auth
+    }
   }, {
     path: '/wiki/tags/:id',
     name: 'wiki.tags.show',
     component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/TagPage'),
     meta: {
-      layout: 'academy'
+      layout: 'academy',
+      middleware: r2d2Auth
     }
   },
 
