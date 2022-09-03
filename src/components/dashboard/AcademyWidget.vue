@@ -9,7 +9,7 @@
       </div>
       <div>План обучения</div>
     </v-card-title>
-    <v-timeline class="pa-0" dense align-top>
+    <v-timeline v-if="steps.length" class="pa-0" dense align-top>
       <div v-if="false" class="ml-4 mb-2">
         <v-btn small>
           Показать другие завершенные этапы
@@ -41,6 +41,16 @@
         </v-btn>
       </div>
     </v-timeline>
+    <v-alert
+      v-else
+      text
+      type="info"
+      :shaped="false"
+      :rounded="false"
+      tile
+    >
+      В плане обучения пока ничего нет
+    </v-alert>
   </v-card>
 </template>
 
