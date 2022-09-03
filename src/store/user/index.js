@@ -54,7 +54,9 @@ export default {
       try {
         const response = await BX.ajax.runAction('medeq:main.controller.Auth.getToken')
 
-        console.log(response)
+        if (response.status === 'success' && response.data.success && response.data.data.token) {
+          commit('SET_R2D2_TOKEN', response.data.data.token)
+        }
       }
       catch (e) {
         console.log(e)
