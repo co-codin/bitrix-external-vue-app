@@ -44,12 +44,26 @@ export default {
       }))
     },
     transformedMaterialCategories() {
-      return this.materialCategories.map((materialCategory) => ({
-        ...materialCategory,
-        parent_id: materialCategory.parent_id ? `category-${materialCategory.parent_id}` : null,
-        id: `category-${materialCategory.id}`,
-        isMaterial: false
-      }))
+      const categories = []
+
+      this.materialCategories.forEach((materialCategory) => {
+        categories.push({
+          ...materialCategory,
+          parent_id: materialCategory.parent_id ? `category-${materialCategory.parent_id}` : null,
+          id: `category-${materialCategory.id}`,
+          isMaterial: false
+        })
+        materialCategory.ancestors.forEach((materialCategory) => {
+          categories.push({
+            ...materialCategory,
+            parent_id: materialCategory.parent_id ? `category-${materialCategory.parent_id}` : null,
+            id: `category-${materialCategory.id}`,
+            isMaterial: false
+          })
+        })
+      })
+
+      return categories
     },
     tree() {
       const data = [...this.transformedMaterialCategories.concat(this.transformedMaterials)]
@@ -69,12 +83,14 @@ export default {
   },
   async created() {
     this.materialCategories = await MaterialCategory
+      .with('ancestors')
       .custom('material-categories/all')
       .select({
-        material_categories: ['id', 'name', 'parent_id']
+        material_categories: ['id', 'name', 'parent_id', '_lft', '_rgt'],
+        ancestors: ['id', 'name', '_lft', '_rgt', 'parent_id']
       })
       .enabled()
-      // .hasMaterials()
+      .hasMaterials()
       .orderBy('name')
       .$all()
 
