@@ -72,6 +72,9 @@ $blue-light: #572fcf;
       }
     }
   }
+  > ul {
+    padding-left: 25px;
+  }
   ol {
     list-style: none;
     counter-reset: li;
