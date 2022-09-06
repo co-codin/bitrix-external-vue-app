@@ -3,7 +3,7 @@ import Model from './Model'
 export default class LearningStep extends Model
 {
   resource() {
-    return 'auth/learning-steps'
+    return 'learning-steps'
   }
 
   static statusColors = {

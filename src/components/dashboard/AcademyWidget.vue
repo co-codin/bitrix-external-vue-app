@@ -82,7 +82,7 @@ export default {
       try {
         this.loading = true
         this.disabled = true
-        await this.$r2d2.post(`/auth/learning-steps/${id}/complete`)
+        await this.$r2d2.post(`/learning-steps/${id}/complete`)
         this.$snackbar('Этап завершен, вы можете перейти к следующему этапу')
         await this.loadSteps()
         this.loading = false
