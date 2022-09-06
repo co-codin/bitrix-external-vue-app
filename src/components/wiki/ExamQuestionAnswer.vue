@@ -15,7 +15,7 @@
         <v-row dense>
           <v-col cols="8">
             <template v-if="isFreeAnswer">
-              {{ answer.answer }}
+              <div v-html="formattedAnswer"></div>
             </template>
             <template v-else>
               <div v-for="(answerOption, index) in answerOptions" :key="index">
@@ -60,6 +60,13 @@ export default {
   computed: {
     question() {
       return this.answer.exam_question
+    },
+    formattedAnswer() {
+      if (!this.isFreeAnswer) {
+        return this.answer.answer
+      }
+
+      return this.answer.answer.replace(/\n/g, '<br>')
     },
     isFreeAnswer() {
       return this.question.answer_type === 'FREE'
