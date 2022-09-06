@@ -12,7 +12,7 @@ export default class ExamStat extends Model {
     }
 
     if (this.status === 'FAILED') {
-      return 'Провален'
+      return 'Не сдан'
     }
 
     return 'На проверке'
