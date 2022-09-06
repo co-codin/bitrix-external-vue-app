@@ -63,6 +63,7 @@ export default {
   async created() {
     await this.loadExam()
     await this.loadExamQuestions()
+
     this.initializeForm()
 
     await this.checkExamOnModeration()
@@ -76,9 +77,8 @@ export default {
     async loadExamQuestions() {
       this.questions = await this.exam.questions().orderBy('position').$all()
 
-      if (this.exam.questions_in_random_order) {
-        this.questions = shuffle(this.questions)
-      }
+      this.shuffleQuestions()
+      this.limitQuestions()
     },
     initializeForm() {
       const answers = this.questions.map((question) => ({
@@ -122,6 +122,47 @@ export default {
       if (examStat && examStat.id) {
         this.error = 'Вы уже отправили этот экзамен на проверку'
       }
+    },
+    shuffleQuestions() {
+      if (this.exam.questions_in_random_order) {
+        this.questions = shuffle(this.questions)
+      }
+    },
+    limitQuestions() {
+      if (!this.exam.max_questions || this.exam.max_questions >= this.questions.length) {
+        return
+      }
+
+      const types = { free: 0, choice: 0, choice_multiple: 0 }
+      const typeLimit = Math.floor(this.exam.max_questions / Object.keys(types).length)
+      const questions = []
+
+      this.questions.forEach((question) => {
+        let type = `${question.answer_type.toLowerCase()}`
+
+        if (question.answer_type === 'CHOICE' && question.properties?.has_multiple_answers) {
+          type += '_multiple'
+        }
+
+        if (types[type] === typeLimit) {
+          return
+        }
+
+        types[type]++
+
+        questions.push(question)
+      })
+
+      if (questions.length < this.exam.max_questions) {
+        const selectedQuestionIds = questions.map((question) => question.id)
+        const remainedQuestion = this.questions
+          .filter((question) => !selectedQuestionIds.includes(question.id))
+          .splice(0, this.exam.max_question - questions.length)
+
+        questions.push(...remainedQuestion)
+      }
+
+      this.questions = questions
     }
   }
 }
