@@ -178,7 +178,7 @@ export default {
     enableMaterialBlockLinks() {
       this.$nextTick(() => {
         document.querySelectorAll('a[data-block-link="1"]').forEach((el) => {
-          if (!el.dataset.loadInPopup) {
+          if (el.dataset.loadInPopup !== '1') {
             return
           }
           el.addEventListener('click', (e) => this.openMaterialBlock(e, el.dataset.blockId))
@@ -215,7 +215,12 @@ export default {
 
     },
     disableMaterialBlockLinks() {
-
+      document.querySelectorAll('a[data-block-link="1"]').forEach((el) => {
+        if (el.dataset.loadInPopup !== '1') {
+          return
+        }
+        el.removeEventListener('click', (e) => this.openMaterialBlock(e, el.dataset.blockId))
+      })
     }
   }
 }
