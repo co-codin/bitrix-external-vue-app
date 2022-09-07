@@ -65,8 +65,8 @@
           <v-spacer />
           <v-btn icon @click="showBlockDialog = false; block = null"><v-icon>close</v-icon></v-btn>
         </v-card-title>
-        <v-card-subtitle class="mt-1">
-          <v-btn v-if="block.material && block.material.status === 'ACTIVE'" target="_blank" :to="{ name: 'wiki.materials.show', params: { id: block.material_id } }">
+        <v-card-subtitle v-if="block.material && block.material.status === 'ACTIVE'" class="mt-1">
+          <v-btn target="_blank" :to="{ name: 'wiki.materials.show', params: { id: block.material_id } }">
             <v-icon class="mr-1">
               mdi-file-document-outline
             </v-icon>
