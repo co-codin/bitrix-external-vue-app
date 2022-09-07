@@ -46,7 +46,7 @@
         </div>
       </template>
     </div>
-    <v-dialog v-model="showBlockDialog" width="1000" content-class="material-block-popup">
+    <v-dialog v-model="showBlockDialog" max-width="1500" width="90%" content-class="material-block-popup">
       <v-card v-if="blockLoading">
         <v-card-text>
           <v-skeleton-loader
@@ -66,7 +66,7 @@
           <v-btn icon @click="showBlockDialog = false; block = null"><v-icon>close</v-icon></v-btn>
         </v-card-title>
         <v-card-subtitle class="mt-1">
-          <v-btn target="_blank" :to="{ name: 'wiki.materials.show', params: { id: block.material_id } }">
+          <v-btn v-if="block.material && block.material.status === 'ACTIVE'" target="_blank" :to="{ name: 'wiki.materials.show', params: { id: block.material_id } }">
             <v-icon class="mr-1">
               mdi-file-document-outline
             </v-icon>
