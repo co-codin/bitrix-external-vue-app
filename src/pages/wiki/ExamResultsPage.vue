@@ -14,7 +14,10 @@
         </v-card-title>
         <v-card-text>
           <div>
-            <b>Дата сдачи: </b> <div>{{ examStat.created_at }}</div>
+            <b>Дата сдачи: </b> <div>{{ $dayjs.tz(examStat.created_at, 'UTC').fromNow() }}</div>
+          </div>
+          <div class="mt-2">
+            <b>Дата проверки: </b> <div>{{ $dayjs.tz(examStat.checked_at, 'UTC').fromNow() }}</div>
           </div>
           <div class="mt-2">
             <b>Экзаменатор: </b> {{ examStat.examiner.first_name }} {{ examStat.examiner.last_name }}
