@@ -9,6 +9,9 @@ $blue-light: #572fcf;
   color: $black;
   * {
   }
+  .v-alert {
+    margin-top: 15px;
+  }
   .mb-1 {
     margin-top: calc(#{$topic-offset} / 3) !important;
   }

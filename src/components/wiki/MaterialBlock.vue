@@ -9,12 +9,16 @@
     </slot>
     <slot name="subtitle" :block="block"></slot>
     <slot>
-      <div class="wiki-section__content topic" v-html="formattedBody"></div>
+      <div ref="body" class="wiki-section__content topic" v-html="block.body"></div>
     </slot>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
+import AlertBlock from '@/components/wiki/AlertBlock'
+
 export default {
   props: {
     block: {
@@ -35,15 +39,37 @@ export default {
       const h = this.depth + 3
 
       return `text-h${h}`
-    },
-    formattedBody() {
-      return (this.block.body ?? '')
-        .replace(/<p>&nbsp;<\/p>/g, '')
     }
+  },
+  mounted() {
+    this.$refs.body.querySelectorAll('p[data-alert="1"]').forEach((element) => {
+      const type = element.dataset.alertType
+      const message = element.innerText
+
+      element.replaceWith(this.createAlertComponent(type, message))
+    })
   },
   methods: {
     copyLink(id) {
       this.$clipboard(`${window.location.origin}${window.location.pathname}#block-${id}`, 'Ссылка скопирована')
+    },
+    createAlertComponent(type, message) {
+      const componentCreator = Vue.extend({
+        vuetify: new Vuetify,
+        ...AlertBlock
+      })
+
+      const color = type === 'warning' ? 'orange darken-1' : null
+
+      const cmp = new componentCreator({
+        propsData: {
+          message,
+          type,
+          color
+        }
+      })
+
+      return cmp.$mount().$el
     }
   }
 }
