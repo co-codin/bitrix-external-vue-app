@@ -44,8 +44,10 @@ export default {
   },
   mounted() {
     this.replaceAlertBlocks()
-    // this.replaceMaterialBlockLinks()
     this.enableMaterialBlockLinks()
+  },
+  destroyed() {
+    this.disableMaterialBLockLinks()
   },
   methods: {
     copyLink(id) {
@@ -77,9 +79,16 @@ export default {
           return
         }
 
-        const { blockId } = element.dataset
-
         element.addEventListener('click', this.openPopup)
+      })
+    },
+    disableMaterialBlockLinks() {
+      this.$refs.body.querySelectorAll('a[data-block-link="1"]').forEach((element) => {
+        if (element.dataset.loadInPopup !== '1') {
+          return
+        }
+
+        element.removeEventListener('click', this.openPopup)
       })
     },
     createComponent(component, propsData) {
