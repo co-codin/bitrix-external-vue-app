@@ -7,7 +7,7 @@
           <material-block :block="block">
             <template #subtitle>
               <div>
-                <v-btn class="px-1 ml-n1" text :to="{ name: 'wiki.materials.show', params: { id: block.material.id } }">
+                <v-btn class="px-1 ml-n1 mb-2" text :to="{ name: 'wiki.materials.show', params: { id: block.material.id } }">
                   <v-icon class="mr-1">
                     mdi-file-document-outline
                   </v-icon>

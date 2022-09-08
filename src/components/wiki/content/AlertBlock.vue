@@ -1,5 +1,5 @@
 <template>
-  <v-alert :type="type" :color="color">
+  <v-alert :type="type">
     {{ message }}
   </v-alert>
 </template>
@@ -14,10 +14,6 @@ export default {
     type: {
       type: String,
       required: true
-    },
-    color: {
-      type: String || null,
-      default: null
     }
   }
 }

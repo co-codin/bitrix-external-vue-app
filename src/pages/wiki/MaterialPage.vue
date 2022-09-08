@@ -46,38 +46,6 @@
         </div>
       </template>
     </div>
-    <v-dialog v-model="showBlockDialog" max-width="1500" width="90%" content-class="material-block-popup">
-      <v-card v-if="blockLoading">
-        <v-card-text>
-          <v-skeleton-loader
-            type="heading, button, heading, sentences@6"
-          />
-        </v-card-text>
-      </v-card>
-      <v-alert v-else-if="blockError">
-        <v-alert>
-          {{ blockError }}
-        </v-alert>
-      </v-alert>
-      <v-card v-else-if="block">
-        <v-card-title class="title">
-          {{ block.name }}
-          <v-spacer />
-          <v-btn icon @click="showBlockDialog = false; block = null"><v-icon>close</v-icon></v-btn>
-        </v-card-title>
-        <v-card-subtitle v-if="block.material && block.material.status === 'ACTIVE'" class="mt-1">
-          <v-btn target="_blank" :to="{ name: 'wiki.materials.show', params: { id: block.material_id } }">
-            <v-icon class="mr-1">
-              mdi-file-document-outline
-            </v-icon>
-            Открыть материал
-          </v-btn>
-        </v-card-subtitle>
-        <v-card-text>
-          <div class="topic" v-html="block.body"></div>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
@@ -89,7 +57,6 @@ import TableOfContents from '@/components/wiki/TableOfContents'
 import { toTree } from '@/utils/helpers'
 import MaterialBlocks from '@/components/wiki/MaterialBlocks'
 import Exam from '@/models/Exam'
-import MaterialBlock from '@/models/MaterialBlock'
 
 export default {
   components: {
@@ -101,11 +68,7 @@ export default {
     showTableOfContents: false,
     material: null,
     blocks: [],
-    exams: [],
-    showBlockDialog: false,
-    block: null,
-    blockLoading: false,
-    blockError: null
+    exams: []
   }),
   title() {
     return this.material?.name || 'База знаний'
@@ -137,9 +100,6 @@ export default {
 
     next()
   },
-  destroyed() {
-    this.disableMaterialBlockLinks()
-  },
   methods: {
     async loadMaterial(id) {
       this.showLoading()
@@ -159,9 +119,6 @@ export default {
         .$all()
 
       this.hideLoading()
-
-      this.enableMaterialBlockLinks()
-
       this.scrollToTheBlock()
     },
     scrollToTheBlock() {
@@ -174,60 +131,13 @@ export default {
 
         document.getElementById(id).scrollIntoView()
       })
-    },
-    enableMaterialBlockLinks() {
-      this.$nextTick(() => {
-        document.querySelectorAll('a[data-block-link="1"]').forEach((el) => {
-          if (el.dataset.loadInPopup !== '1') {
-            return
-          }
-          el.addEventListener('click', (e) => this.openMaterialBlock(e, el.dataset.blockId))
-        })
-      })
-    },
-    async openMaterialBlock(event, blockId) {
-      event.preventDefault()
-
-      this.blockError = null
-
-      this.blockLoading = true
-
-      this.showBlockDialog = true
-
-      try {
-
-        this.block = await MaterialBlock
-          .custom('material-blocks')
-          .select({
-            material_blocks: ['id', 'name', 'body', 'material_id'],
-            material: ['id', 'name']
-          })
-          .with('material')
-          .$find(blockId)
-
-        this.blockLoading = false
-
-      }
-      catch (e) {
-        this.blockLoading = false
-        this.blockError = 'Произошла ошибка при загрузке раздела'
-      }
-
-    },
-    disableMaterialBlockLinks() {
-      document.querySelectorAll('a[data-block-link="1"]').forEach((el) => {
-        if (el.dataset.loadInPopup !== '1') {
-          return
-        }
-        el.removeEventListener('click', (e) => this.openMaterialBlock(e, el.dataset.blockId))
-      })
     }
   }
 }
 </script>
 
 <style lang="scss">
-.material-page, .material-block-popup {
+.material-page {
   h1 {
     color: rgba(0, 0, 0, .87) !important;
   }

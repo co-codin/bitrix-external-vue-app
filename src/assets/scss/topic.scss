@@ -9,6 +9,9 @@ $blue-light: #572fcf;
   color: $black;
   * {
   }
+  *:first-child {
+    margin-top: 0 !important;
+  }
   .v-alert {
     margin-top: 15px;
   }

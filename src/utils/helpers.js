@@ -1,3 +1,6 @@
+import Vue from 'vue'
+import AlertBlock from '@/components/wiki/content/AlertBlock'
+
 export function declOfNumber(number, words) {
   const numberDigit2 = Math.abs(number) % 100
   const numberDigit1 = numberDigit2 % 10
