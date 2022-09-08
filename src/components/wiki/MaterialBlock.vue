@@ -21,6 +21,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import AlertBlock from '@/components/wiki/content/AlertBlock'
 import MaterialBlockLink from '@/components/wiki/content/MaterialBlockLink'
+import MaterialBlockPopup from '@/components/wiki/content/MaterialBlockPopup'
 
 export default {
   name: 'MaterialBlock',
@@ -43,7 +44,8 @@ export default {
   },
   mounted() {
     this.replaceAlertBlocks()
-    this.replaceMaterialBlockLinks()
+    // this.replaceMaterialBlockLinks()
+    this.enableMaterialBlockLinks()
   },
   methods: {
     copyLink(id) {
@@ -69,6 +71,17 @@ export default {
         element.replaceWith(this.createComponent(MaterialBlockLink, { blockId: +blockId, text }))
       })
     },
+    enableMaterialBlockLinks() {
+      this.$refs.body.querySelectorAll('a[data-block-link="1"]').forEach((element) => {
+        if (element.dataset.loadInPopup !== '1') {
+          return
+        }
+
+        const { blockId } = element.dataset
+
+        element.addEventListener('click', this.openPopup)
+      })
+    },
     createComponent(component, propsData) {
       const componentCreator = Vue.extend({
         vuetify: new Vuetify,
@@ -77,6 +90,12 @@ export default {
       })
 
       return new componentCreator({ propsData }).$mount().$el
+    },
+    openPopup(event) {
+      event.preventDefault()
+      const container = document.querySelector('[data-app=true]') || document.body
+
+      container.appendChild(this.createComponent(MaterialBlockPopup, { blockId: +event.target.dataset.blockId }))
     }
   }
 }
