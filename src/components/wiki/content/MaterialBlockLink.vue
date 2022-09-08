@@ -129,6 +129,7 @@ export default {
   }
   &--image {
     width: auto !important;
+    min-width: 300px;
     .v-card__text {
       padding: 0;
     }
