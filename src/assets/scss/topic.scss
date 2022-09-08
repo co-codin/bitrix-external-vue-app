@@ -9,7 +9,7 @@ $blue-light: #572fcf;
   color: $black;
   * {
   }
-  *:first-child {
+  > p:first-child {
     margin-top: 0 !important;
   }
   .v-alert {
