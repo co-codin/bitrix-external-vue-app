@@ -1,6 +1,7 @@
 <template>
   <v-dialog
-    :value="true"
+    v-if="show"
+    v-model="show"
     max-width="1400"
     :content-class="`material-block-popup ${popupBlockIsImage ? 'material-block-popup--image' : ''}`"
   >
@@ -68,7 +69,7 @@ export default {
   },
   data: () => ({
     loading: false,
-    show: false,
+    show: true,
     error: null,
     block: null
   }),
