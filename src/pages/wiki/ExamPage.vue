@@ -34,6 +34,29 @@
         </div>
       </v-container>
     </v-form>
+    <v-dialog
+      v-model="lostDataDialog"
+      persistent
+      max-width="290"
+    >
+      <v-card>
+        <v-card-title class="text-h5">
+          Предупреждение
+        </v-card-title>
+        <v-card-text>
+          При обновлении страницы, весь прогресс будет потерян
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="success"
+            @click="lostDataDialog = false"
+          >
+            Хорошо
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -58,7 +81,8 @@ export default {
     exam: null,
     form: null,
     questions: [],
-    error: null
+    error: null,
+    lostDataDialog: true
   }),
   async created() {
     await this.loadExam()
