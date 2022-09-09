@@ -111,6 +111,7 @@ export default {
         .select({
           material_blocks: ['id', 'name', 'parent_id', 'body']
         })
+        .with('files')
         .orderBy('position')
         .$get()
 

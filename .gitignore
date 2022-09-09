@@ -4,7 +4,8 @@ node_modules
 
 # local env files
 .env
-.env.local
+.env*
+.env.loca
 .env.*.local
 
 # Log files

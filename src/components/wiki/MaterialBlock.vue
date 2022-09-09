@@ -13,6 +13,35 @@
         <div class="wiki-section__content topic" v-html="block.body"></div>
       </slot>
     </div>
+    <v-list
+      v-if="hasFiles"
+      max-width="400"
+      width="50%"
+      dense
+      class="pa-0 mt-1"
+    >
+      <download-button
+        v-for="file in block.files"
+        :key="file.id"
+        v-slot="{ download }"
+        :url="`material-blocks/${block.id}/files/${file.id}`"
+        :file-name="file.name"
+      >
+        <v-list-item dense @click="download">
+          <v-list-item-avatar>
+            <v-icon class="blue white--text">mdi-file</v-icon>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title>{{ file.json_data.comment }}</v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-btn icon>
+              <v-icon color="grey lighten-1">mdi-download</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+      </download-button>
+    </v-list>
   </div>
 </template>
 
@@ -21,9 +50,13 @@ import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import AlertBlock from '@/components/wiki/content/AlertBlock'
 import MaterialBlockLink from '@/components/wiki/content/MaterialBlockLink'
+import DownloadButton from '@/components/DownloadButton'
 
 export default {
   name: 'MaterialBlock',
+  components: {
+    DownloadButton
+  },
   props: {
     block: {
       type: Object,
@@ -39,6 +72,9 @@ export default {
       const h = this.depth + 3
 
       return `text-h${h}`
+    },
+    hasFiles() {
+      return this.block.files && this.block.files.length
     }
   },
   mounted() {

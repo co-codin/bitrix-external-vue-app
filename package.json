@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "npm run serve"
+    "dev": "npm run serve",
+    "dev:production": "npm run serve --mode=production"
   },
   "dependencies": {
     "@indielayer/vue-live-demo": "^1.0.0",
