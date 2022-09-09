@@ -47,6 +47,13 @@
           {{ examStat.examiner_comment || '(отсутствуют)' }}
         </v-card-text>
       </v-card>
+      <v-card>
+        <v-card-text class="text-center">
+          <v-btn :to="{ name: 'dashboard' }" large color="primary">Рабочий стол</v-btn>
+          <div class="px-1"></div>
+          <v-btn :to="{ name: 'wiki.index' }" large>База знаний</v-btn>
+        </v-card-text>
+      </v-card>
     </template>
   </div>
 </template>
