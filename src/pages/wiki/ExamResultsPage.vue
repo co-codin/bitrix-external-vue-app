@@ -47,10 +47,10 @@
           {{ examStat.examiner_comment || '(отсутствуют)' }}
         </v-card-text>
       </v-card>
-      <v-card>
+      <v-card class="mt-2" elevation="1">
         <v-card-text class="text-center">
           <v-btn :to="{ name: 'dashboard' }" large color="primary">Рабочий стол</v-btn>
-          <div class="px-1"></div>
+          <span class="px-1"></span>
           <v-btn :to="{ name: 'wiki.index' }" large>База знаний</v-btn>
         </v-card-text>
       </v-card>
@@ -79,7 +79,7 @@ export default {
   async created() {
     this.examStat = await ExamStat
       .where('exam_id', this.$route.params.id)
-      .include('examStatAnswers.examQuestion.examQuestionAnswerOptions', 'exam', 'examiner')
+      .include('examStatAnswers.examQuestion.examQuestionAnswerOptions,examStatAnswers.examQuestion.materialBlocks.material', 'exam', 'examiner')
       .limit(1)
       .orderBy('-created_at')
       .$first()

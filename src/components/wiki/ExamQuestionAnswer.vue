@@ -40,6 +40,24 @@
               <strong>Комментарий экзаменатора:</strong>
               <div>{{ answer.examiner_comment }}</div>
             </div>
+            <div v-if="question.material_blocks && question.material_blocks.length">
+              <h3 class="ml-2 text-caption">Полезные материалы</h3>
+              <v-list>
+                <v-list-item v-for="(materialBlock, index) in question.material_blocks" :key="index" :to="{ name: 'wiki.materials.show', params: { id: materialBlock.material_id }, hash: `#block-${materialBlock.id}` }">
+                  <v-list-item-avatar>
+                    <v-icon class="blue white--text">mdi-file</v-icon>
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      {{ materialBlock.name }}
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      {{ materialBlock.material.name }}
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </div>
           </v-col>
         </v-row>
       </v-card-text>
