@@ -14,6 +14,9 @@ $blue-light: #572fcf;
   }
   .v-alert {
     margin-top: 15px;
+    &.warning {
+      background: #FB8C00 !important;
+    }
   }
   .mb-1 {
     margin-top: calc(#{$topic-offset} / 3) !important;
