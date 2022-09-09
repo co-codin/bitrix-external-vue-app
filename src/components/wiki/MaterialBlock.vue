@@ -49,7 +49,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import AlertBlock from '@/components/wiki/content/AlertBlock'
-import MaterialBlockLink from '@/components/wiki/content/MaterialBlockLink'
+import MaterialBlockPopup from '@/components/wiki/content/MaterialBlockPopup'
 import DownloadButton from '@/components/DownloadButton'
 
 export default {
@@ -79,7 +79,10 @@ export default {
   },
   mounted() {
     this.replaceAlertBlocks()
-    this.replaceMaterialBlockLinks()
+    this.enableMaterialBlockLinks()
+  },
+  destroyed() {
+    this.disableMaterialBlockLinks()
   },
   methods: {
     copyLink(id) {
@@ -93,16 +96,22 @@ export default {
         element.replaceWith(this.createComponent(AlertBlock, { type, message }))
       })
     },
-    replaceMaterialBlockLinks() {
+    enableMaterialBlockLinks() {
       this.$refs.body.querySelectorAll('a[data-block-link="1"]').forEach((element) => {
         if (element.dataset.loadInPopup !== '1') {
           return
         }
 
-        const { blockId } = element.dataset
-        const text = element.innerText
+        element.addEventListener('click', this.openPopup)
+      })
+    },
+    disableMaterialBlockLinks() {
+      this.$refs.body.querySelectorAll('a[data-block-link="1"]').forEach((element) => {
+        if (element.dataset.loadInPopup !== '1') {
+          return
+        }
 
-        element.replaceWith(this.createComponent(MaterialBlockLink, { blockId: +blockId, text }))
+        element.removeEventListener('click', this.openPopup)
       })
     },
     createComponent(component, propsData) {
@@ -113,6 +122,12 @@ export default {
       })
 
       return new componentCreator({ propsData }).$mount().$el
+    },
+    openPopup(event) {
+      event.preventDefault()
+      const container = document.querySelector('[data-app=true]') || document.body
+
+      container.appendChild(this.createComponent(MaterialBlockPopup, { blockId: +event.target.dataset.blockId }))
     }
   }
 }
