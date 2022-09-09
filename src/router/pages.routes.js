@@ -67,6 +67,10 @@ export default [
       layout: 'academy',
       middleware: r2d2Auth
     }
+  }, {
+    path: '/wiki/exam-sent',
+    name: 'wiki.exam-sent',
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/pages/wiki/ExamSentPage')
   },
 
   // External app routes

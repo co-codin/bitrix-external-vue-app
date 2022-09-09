@@ -119,8 +119,7 @@ export default {
     async passExam() {
       try {
         await this.form.post(`/exams/${this.exam.id}/pass`)
-        this.$snackbar('Экзамен отправлен на проверку')
-        await this.$router.push({ name: 'wiki.index' })
+        await this.$router.push({ name: 'wiki.exam-sent' })
       }
       catch (e) {
         console.log(e)
