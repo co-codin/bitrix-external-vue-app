@@ -29,13 +29,13 @@
       <p>P.S. Любые предложения и пожелания по улучшению, изменению, внесению новой информации, найденные ошибки, неточности просьба без стеснения сообщать по следующим каналам связи Кочанову Ивану в любое удобное для вас время:</p>
       <ol>
         <li>
-          Telegram @EvilMedicman
+          Telegram: <a href="https://t.me/EvilMedicman" target="_blank">@EvilMedicman</a>
         </li>
         <li>
-          WhatsApp 89164466715
+          WhatsApp: <a href="https://api.whatsapp.com/send/?phone=79164466715&text&app_absent=0" target="_blank">79164466715</a>
         </li>
         <li>
-          E-mail i.kochanov@medeq.ru
+          E-mail: <a href="mailto:academy@medeq.ru" target="_blank">academy@medeq.ru</a>
         </li>
         <li>
           Лично при встрече
