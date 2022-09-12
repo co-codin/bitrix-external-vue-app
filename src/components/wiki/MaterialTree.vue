@@ -90,7 +90,6 @@ export default {
         ancestors: ['id', 'name', '_lft', '_rgt', 'parent_id']
       })
       .enabled()
-      .where('has_active_category', 1)
       .hasMaterials()
       .orderBy('name')
       .$all()
@@ -101,6 +100,7 @@ export default {
         materials: ['id', 'name', 'material_category_id']
       })
       .enabled()
+      .where('has_active_category', 1)
       .orderBy('name')
       .$all()
 
