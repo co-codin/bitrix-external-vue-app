@@ -37,7 +37,7 @@
           </v-btn>
         </template>
         <template v-if="block.material && block.material.status === 'ACTIVE'" #subtitle>
-          <v-card-subtitle class="py-0">
+          <v-card-subtitle class="py-0 pb-2">
             <v-btn :to="{name: 'wiki.materials.show', params: { id: block.material.id } }" target="_blank" @click="show = false">
               <v-icon class="mr-1">
                 mdi-file-document-outline
@@ -46,7 +46,7 @@
             </v-btn>
           </v-card-subtitle>
         </template>
-        <v-card-text>
+        <v-card-text class="pt-0">
           <div class="topic" v-html="block.body"></div>
         </v-card-text>
       </material-block>
