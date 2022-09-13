@@ -69,3 +69,27 @@ export function toTree(dataset, key = 'id', parentKey = 'parent_id', sortKey = '
 
   return dataTree
 }
+
+export function renderAlertBlock(type, message) {
+  const typeLookupTable = {
+    info: {
+      icon: 'mdi-information'
+    },
+    success: {
+      icon: 'mdi-check-circle'
+    },
+    error: {
+      icon: 'mdi-alert'
+    },
+    warning: {
+      icon: 'mdi-exclamation'
+    }
+  }
+
+  return `<div role="alert" class="v-alert v-sheet theme--dark ${type}">
+      <div class="v-alert__wrapper">
+        <i aria-hidden="true" class="v-icon notranslate v-alert__icon mdi ${typeLookupTable[type].icon} theme--dark"></i>
+        <div class="v-alert__content"> ${message} </div>
+      </div>
+    </div>`
+}

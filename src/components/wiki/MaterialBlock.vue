@@ -46,11 +46,11 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
-import AlertBlock from '@/components/wiki/content/AlertBlock'
 import MaterialBlockPopup from '@/components/wiki/content/MaterialBlockPopup'
 import DownloadButton from '@/components/DownloadButton'
+import { renderAlertBlock } from '@/utils/helpers'
+import Vuetify from 'vuetify/lib'
+import Vue from 'vue'
 
 export default {
   name: 'MaterialBlock',
@@ -78,7 +78,7 @@ export default {
     }
   },
   mounted() {
-    // this.replaceAlertBlocks()
+    this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
   },
   destroyed() {
@@ -90,10 +90,7 @@ export default {
     },
     replaceAlertBlocks() {
       this.$refs.body.querySelectorAll('p[data-alert="1"]').forEach((element) => {
-        const type = element.dataset.alertType
-        const message = element.innerText
-
-        element.replaceWith(this.createComponent(AlertBlock, { type, message }))
+        element.outerHTML = renderAlertBlock(element.dataset.alertType, element.innerText)
       })
     },
     enableMaterialBlockLinks() {
@@ -162,9 +159,11 @@ export default {
       }
     }
   }
+
   & + .wiki-section {
   }
 }
+
 .material-block-popup {
   .v-skeleton-loader__heading {
     margin: 25px 0;
