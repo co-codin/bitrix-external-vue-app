@@ -78,7 +78,7 @@ export default {
     }
   },
   mounted() {
-    this.replaceAlertBlocks()
+    // this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
   },
   destroyed() {
