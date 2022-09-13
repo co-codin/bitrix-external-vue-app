@@ -19,9 +19,13 @@
             Вернуться к материалу
           </v-btn>
         </div>
-        <v-alert v-if="exam.description" text color="info" class="mt-2">
-          {{ description }}
-        </v-alert>
+        <v-alert
+          v-if="description"
+          text
+          color="info"
+          class="mt-2"
+          v-html="description"
+        ></v-alert>
         <exam-question
           v-for="(question, index) in questions"
           :key="index"
