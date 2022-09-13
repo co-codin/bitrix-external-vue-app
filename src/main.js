@@ -34,6 +34,7 @@ import './filters/lowercase'
 import './filters/uppercase'
 import './filters/formatCurrency'
 import './filters/formatDate'
+import './filters/truncate'
 
 // STYLES
 // Main Theme SCSS

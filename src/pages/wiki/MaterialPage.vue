@@ -36,7 +36,7 @@
             <v-col v-for="(exam, index) in exams" :key="index" cols="4">
               <v-card color="#1F7087" dark>
                 <v-card-title class="title">{{ exam.name }}</v-card-title>
-                <v-card-subtitle>{{ exam.description }}</v-card-subtitle>
+                <v-card-subtitle>{{ exam.description | truncate(150) }}</v-card-subtitle>
                 <v-card-actions>
                   <v-btn :to="{ name: 'wiki.exams.show', params: { id: exam.id } }">Пройти экзамен</v-btn>
                 </v-card-actions>
