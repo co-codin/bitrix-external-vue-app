@@ -81,7 +81,7 @@ export default {
     this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
   },
-  destroyed() {
+  beforeDestroy() {
     this.disableMaterialBlockLinks()
   },
   methods: {
