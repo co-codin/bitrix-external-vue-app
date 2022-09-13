@@ -80,6 +80,7 @@ export default {
   mounted() {
     this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
+    this.openAllLinksInNewTab()
   },
   beforeDestroy() {
     this.disableMaterialBlockLinks()
@@ -125,6 +126,11 @@ export default {
       const container = document.querySelector('[data-app=true]') || document.body
 
       container.appendChild(this.createComponent(MaterialBlockPopup, { blockId: +event.target.dataset.blockId }))
+    },
+    openAllLinksInNewTab() {
+      this.$refs.body.querySelectorAll('a[href]').forEach((element) => {
+        element.target = '_blank'
+      })
     }
   }
 }
