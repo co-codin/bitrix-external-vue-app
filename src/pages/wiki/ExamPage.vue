@@ -20,7 +20,7 @@
           </v-btn>
         </div>
         <v-alert v-if="exam.description" text color="info" class="mt-2">
-          {{ exam.description }}
+          {{ description }}
         </v-alert>
         <exam-question
           v-for="(question, index) in questions"
@@ -84,6 +84,15 @@ export default {
     error: null,
     lostDataDialog: true
   }),
+  computed: {
+    description() {
+      if (!this.exam || !this.exam.description) {
+        return null
+      }
+
+      return this.exam.description.replace(/\n/g, '<br>')
+    }
+  },
   async created() {
     await this.loadExam()
     await this.loadExamQuestions()
