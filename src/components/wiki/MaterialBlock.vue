@@ -91,7 +91,7 @@ export default {
     },
     replaceAlertBlocks() {
       this.$refs.body.querySelectorAll('p[data-alert="1"]').forEach((element) => {
-        element.outerHTML = renderAlertBlock(element.dataset.alertType, element.innerText)
+        element.outerHTML = renderAlertBlock(element.dataset.alertType, element.innerHTML)
       })
     },
     enableMaterialBlockLinks() {
