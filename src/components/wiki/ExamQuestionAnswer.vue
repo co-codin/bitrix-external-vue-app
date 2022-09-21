@@ -43,19 +43,21 @@
             <div v-if="question.material_blocks && question.material_blocks.length">
               <h3 class="ml-2 text-caption">Полезные материалы</h3>
               <v-list>
-                <v-list-item v-for="(materialBlock, index) in question.material_blocks" :key="index" :to="{ name: 'wiki.materials.show', params: { id: materialBlock.material_id }, hash: `#block-${materialBlock.id}` }">
-                  <v-list-item-avatar>
-                    <v-icon class="blue white--text">mdi-file</v-icon>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{ materialBlock.name }}
-                    </v-list-item-title>
-                    <v-list-item-subtitle>
-                      {{ materialBlock.material.name }}
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
+                <material-block-link v-for="materialBlock in question.material_blocks" :key="materialBlock.id" v-slot="{ openPopup }" :block-id="materialBlock.id">
+                  <v-list-item @click="openPopup">
+                    <v-list-item-avatar>
+                      <v-icon class="blue white--text">mdi-file</v-icon>
+                    </v-list-item-avatar>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ materialBlock.name }}
+                      </v-list-item-title>
+                      <v-list-item-subtitle>
+                        {{ materialBlock.material.name }}
+                      </v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </material-block-link>
               </v-list>
             </div>
           </v-col>
@@ -67,8 +69,12 @@
 
 <script>
 import castArray from 'lodash/castArray'
+import MaterialBlockLink from '@/components/wiki/content/MaterialBlockLink'
 
 export default {
+  components: {
+    MaterialBlockLink
+  },
   props: {
     answer: {
       type: Object,
