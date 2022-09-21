@@ -106,6 +106,10 @@ export default {
 
       this.material = await Material.$find(id)
 
+      if (!this.material.isAvailable()) {
+        throw new Error('Material is not available')
+      }
+
       this.blocks = await this.material.blocks()
         .custom(`materials/${this.material.id}/blocks`)
         .select({
