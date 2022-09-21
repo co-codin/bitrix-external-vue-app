@@ -50,6 +50,7 @@
 
 <script>
 import ExamQuestion from '@/models/ExamQuestion'
+import shuffle from 'lodash/shuffle'
 
 export default {
   props: {
@@ -60,6 +61,10 @@ export default {
     errors: {
       type: Array,
       default: () => ([])
+    },
+    inRandomOrder: {
+      type: Boolean,
+      default: true
     }
   },
   data: () => ({
@@ -87,7 +92,13 @@ export default {
       return this.question.description || this.defaultDescription
     },
     answerOptions() {
-      return this.question?.exam_question_answer_options || []
+      let answerOptions = this.question?.exam_question_answer_options || []
+
+      if (this.inRandomOrder) {
+        answerOptions = shuffle(answerOptions)
+      }
+
+      return answerOptions
     },
     hasError() {
       return !! this.errors.length

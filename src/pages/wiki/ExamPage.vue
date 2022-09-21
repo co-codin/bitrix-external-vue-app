@@ -25,12 +25,13 @@
           color="info"
           class="mt-2"
           v-html="description"
-        ></v-alert>
+        />
         <exam-question
           v-for="(question, index) in questions"
           :key="index"
           :question="question"
           :errors="getError(index)"
+          :in-random-order="inRandomOrder"
           @input="updateAnswer(index, $event)"
         />
         <div class="text-center mt-3">
@@ -95,6 +96,9 @@ export default {
       }
 
       return this.exam.description.replace(/\n/g, '<br>')
+    },
+    inRandomOrder() {
+      return !! this.exam?.questions_in_random_order
     }
   },
   async created() {
@@ -160,7 +164,7 @@ export default {
       }
     },
     shuffleQuestions() {
-      if (this.exam.questions_in_random_order) {
+      if (this.inRandomOrder) {
         this.questions = shuffle(this.questions)
       }
     },
