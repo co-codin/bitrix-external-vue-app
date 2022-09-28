@@ -29,7 +29,9 @@
       >
         <v-list-item dense @click="download">
           <v-list-item-avatar>
-            <v-icon class="blue white--text">mdi-file</v-icon>
+            <v-icon v-if="!audioTypes.includes(file.extension)" class="blue white--text">mdi-file</v-icon>
+            <v-btn v-else-if="!playing[file.id]" icon @click="playSound(file.id)"><svg-icon name="sound" /></v-btn>
+            <v-btn v-else @click="pauseSound(file.id)"><svg-icon name="sound-pause" /></v-btn>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ file.json_data.comment }}</v-list-item-title>
@@ -67,6 +69,14 @@ export default {
       default: 1
     }
   },
+  data() {
+    return {
+      playing: [],
+      soundSource: null,
+      audioCtx: null,
+      audioTypes: ['ogg', 'mp4', 'mp3', 'wav', 'au']
+    }
+  },
   computed: {
     hClass() {
       const h = this.depth + 3
@@ -81,11 +91,40 @@ export default {
     this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
     this.openAllLinksInNewTab()
+    if (this.block.files.length) {
+      this.block.files.forEach((file) => {
+        this.playing[file.id] = false
+      })
+    }
   },
   beforeDestroy() {
     this.disableMaterialBlockLinks()
   },
   methods: {
+    async playSound(fileId) {
+      this.playing[fileId] = true
+      this.audioCtx = null
+
+      this.audioCtx = new AudioContext()
+      let buffer = null
+
+      if (this.soundSource) {
+        await this.soundSource.stop()
+      }
+
+      const response = await this.$r2d2.get(`material-blocks/${this.block.id}/files/${fileId}`, { responseType: 'arraybuffer' })
+
+      await this.audioCtx.decodeAudioData(response, (data) => buffer = data)
+
+      this.soundSource = await this.audioCtx.createBufferSource()
+      this.soundSource.buffer = buffer
+      await this.soundSource.connect(this.audioCtx.destination)
+      await this.soundSource.start()
+    },
+    async pauseSound(fileId) {
+      await this.soundSource.stop()
+      this.playing[fileId] = false
+    },
     copyLink(id) {
       this.$clipboard(`${window.location.origin}${window.location.pathname}#block-${id}`, 'Ссылка скопирована')
     },
