@@ -27,11 +27,13 @@
         :url="`material-blocks/${block.id}/files/${file.id}`"
         :file-name="file.name"
       >
-        <v-list-item dense @click="download">
-          <v-list-item-avatar>
-            <v-icon v-if="!audioTypes.includes(file.extension)" class="blue white--text">mdi-file</v-icon>
-            <v-btn v-else-if="!playing[file.id]" icon @click="playSound(file.id)"><svg-icon name="sound" /></v-btn>
+        <v-list-item dense>
+          <v-list-item-avatar v-if="audioTypes.includes(file.extension)">
+            <v-btn v-if="!playing[file.id]" icon @click="playSound(file.id)"><svg-icon name="sound" /></v-btn>
             <v-btn v-else @click="pauseSound(file.id)"><svg-icon name="sound-pause" /></v-btn>
+          </v-list-item-avatar>
+          <v-list-item-avatar class="mr-2" @click="download">
+            <v-icon class="blue white--text">mdi-file</v-icon>
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title>{{ file.json_data.comment }}</v-list-item-title>
@@ -117,6 +119,11 @@ export default {
       await this.audioCtx.decodeAudioData(response, (data) => buffer = data)
 
       this.soundSource = await this.audioCtx.createBufferSource()
+
+      await this.soundSource.addEventListener('ended',  () => {
+        this.$set(this.playing, fileId, !this.playing[fileId])
+      })
+
       this.soundSource.buffer = buffer
       await this.soundSource.connect(this.audioCtx.destination)
       await this.soundSource.start()
