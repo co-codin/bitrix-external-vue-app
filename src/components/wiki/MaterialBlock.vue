@@ -121,7 +121,7 @@ export default {
       this.soundSource = await this.audioCtx.createBufferSource()
 
       await this.soundSource.addEventListener('ended',  () => {
-        this.$set(this.playing, fileId, !this.playing[fileId])
+        this.$set(this.playing, fileId, false)
       })
 
       this.soundSource.buffer = buffer
