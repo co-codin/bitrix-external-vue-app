@@ -102,7 +102,7 @@ export default {
   },
   methods: {
     async playSound(fileId) {
-      this.playing[fileId] = true
+      this.$set(this.playing, fileId, !this.playing[fileId])
       this.audioCtx = null
 
       this.audioCtx = new AudioContext()
@@ -123,7 +123,7 @@ export default {
     },
     async pauseSound(fileId) {
       await this.soundSource.stop()
-      this.playing[fileId] = false
+      this.$set(this.playing, fileId, !this.playing[fileId])
     },
     copyLink(id) {
       this.$clipboard(`${window.location.origin}${window.location.pathname}#block-${id}`, 'Ссылка скопирована')
