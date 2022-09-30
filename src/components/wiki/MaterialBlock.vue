@@ -29,8 +29,8 @@
       >
         <v-list-item dense>
           <v-list-item-avatar v-if="audioTypes.includes(file.extension)">
-            <v-btn v-if="!playing[file.id]" icon @click="playSound(file.id)"><svg-icon name="sound" /></v-btn>
-            <v-btn v-else @click="pauseSound(file.id)"><svg-icon name="sound-pause" /></v-btn>
+            <v-btn v-if="!playing[file.id]" icon @click="playSound(file.id)"><svg-icon name="play" /></v-btn>
+            <v-btn v-else @click="pauseSound(file.id)"><svg-icon name="pause" /></v-btn>
           </v-list-item-avatar>
           <v-list-item-avatar class="mr-2" @click="download">
             <v-icon class="blue white--text">mdi-file</v-icon>
