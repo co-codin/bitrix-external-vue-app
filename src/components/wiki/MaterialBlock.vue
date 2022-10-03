@@ -47,6 +47,7 @@
 
 <script>
 import MaterialBlockPopup from '@/components/wiki/content/MaterialBlockPopup'
+import MaterialBlockImagePopup from '@/components/wiki/content/MaterialBlockImagePopup'
 import DownloadButton from '@/components/DownloadButton'
 import { renderAlertBlock } from '@/utils/helpers'
 import Vuetify from 'vuetify/lib'
@@ -97,7 +98,7 @@ export default {
     },
     enableMaterialBlockImage() {
       this.$refs.body.querySelectorAll('img').forEach((element) => {
-        console.log(element)
+        element.addEventListener('click', this.openPopupAsImage)
       })
     },
     enableMaterialBlockLinks() {
@@ -132,6 +133,13 @@ export default {
       const container = document.querySelector('[data-app=true]') || document.body
 
       container.appendChild(this.createComponent(MaterialBlockPopup, { blockId: +event.target.dataset.blockId }))
+    },
+
+    openPopupAsImage(event) {
+      event.preventDefault()
+      const container = document.querySelector('[data-app=true]') || document.body
+
+      container.appendChild(this.createComponent(MaterialBlockImagePopup, { src: event.target.getAttribute('src') }))
     },
     openAllLinksInNewTab() {
       this.$refs.body.querySelectorAll('a[href]').forEach((element) => {
