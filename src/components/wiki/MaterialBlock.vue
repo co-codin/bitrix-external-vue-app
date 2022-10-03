@@ -51,6 +51,7 @@
 
 <script>
 import MaterialBlockPopup from '@/components/wiki/content/MaterialBlockPopup'
+import MaterialBlockImagePopup from '@/components/wiki/content/MaterialBlockImagePopup'
 import DownloadButton from '@/components/DownloadButton'
 import { renderAlertBlock } from '@/utils/helpers'
 import Vuetify from 'vuetify/lib'
@@ -92,6 +93,7 @@ export default {
   mounted() {
     this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
+    this.enableMaterialBlockImage()
     this.openAllLinksInNewTab()
     if (this.block.files.length) {
       this.block.files.forEach((file) => {
@@ -140,6 +142,11 @@ export default {
         element.outerHTML = renderAlertBlock(element.dataset.alertType, element.innerHTML)
       })
     },
+    enableMaterialBlockImage() {
+      this.$refs.body.querySelectorAll('img').forEach((element) => {
+        element.addEventListener('click', this.openPopupAsImage)
+      })
+    },
     enableMaterialBlockLinks() {
       this.$refs.body.querySelectorAll('a[data-block-link="1"]').forEach((element) => {
         if (element.dataset.loadInPopup !== '1') {
@@ -172,6 +179,13 @@ export default {
       const container = document.querySelector('[data-app=true]') || document.body
 
       container.appendChild(this.createComponent(MaterialBlockPopup, { blockId: +event.target.dataset.blockId }))
+    },
+
+    openPopupAsImage(event) {
+      event.preventDefault()
+      const container = document.querySelector('[data-app=true]') || document.body
+
+      container.appendChild(this.createComponent(MaterialBlockImagePopup, { src: event.target.getAttribute('src') }))
     },
     openAllLinksInNewTab() {
       this.$refs.body.querySelectorAll('a[href]').forEach((element) => {
