@@ -80,6 +80,7 @@ export default {
   mounted() {
     this.replaceAlertBlocks()
     this.enableMaterialBlockLinks()
+    this.enableMaterialBlockImage()
     this.openAllLinksInNewTab()
   },
   beforeDestroy() {
@@ -92,6 +93,11 @@ export default {
     replaceAlertBlocks() {
       this.$refs.body.querySelectorAll('p[data-alert="1"]').forEach((element) => {
         element.outerHTML = renderAlertBlock(element.dataset.alertType, element.innerHTML)
+      })
+    },
+    enableMaterialBlockImage() {
+      this.$refs.body.querySelectorAll('img').forEach((element) => {
+        console.log(element)
       })
     },
     enableMaterialBlockLinks() {
